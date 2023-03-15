@@ -1,7 +1,5 @@
 # Git & Git Flow
 
-## Git Flow
-
 1. 브랜치 생성하기
 ```
 git branch <브랜치 이름>
