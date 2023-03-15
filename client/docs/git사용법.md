@@ -3,7 +3,9 @@
 ## Git Flow
 
 1. 브랜치 생성하기
+
   git branch <브랜치 이름>
+  
 ```
 init      Initialize a new git repo with support for the branching model.
 feature   Manage your feature branches.
@@ -15,15 +17,23 @@ version   Shows version information.
 config    Manage your git-flow configuration.
 log       Show log deviating from base branch.
 ```
+
   ex) 헤더 기능을 구현하는 브랜치일 경우 feature/Header
   
+  
 2. 브랜치로 이동
+
   git checkout <브랜치 이름>
   
+  
 3. 로컬 브랜치를 GitHub로 push
+
   git push origin <브랜치 이름>
+  
 - push 하기 전에 반드시 develop 브랜치를 pull 하고 conflict 해결 후 push하기
+
   git pull origin develop
+  
   
 4. GitHub에서 Pull Request
 - Reviewer 적용
