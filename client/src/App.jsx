@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
+import './globalStyle.scss';
 import Home from './Home';
-import SignIn from './SignIn';
+import SignIn from './Auth/SignIn';
 
 const App = () => {
   return (
-    <div>
+    <>
       <RecoilRoot>
         <BrowserRouter>
           <Routes>
@@ -15,7 +16,7 @@ const App = () => {
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
-    </div>
+    </>
   );
 };
 
