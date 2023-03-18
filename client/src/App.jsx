@@ -4,6 +4,7 @@ import { RecoilRoot } from 'recoil';
 import './globalStyle.scss';
 import Home from './Home';
 import SignIn from './Auth/SignIn';
+import SignUp from './SignUp';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
           <Routes>
             <Route path='/' element={<Home />} />
             <Route path='/signin' element={<SignIn />} />
+            <Route path='/signup' element={<SignUp />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
