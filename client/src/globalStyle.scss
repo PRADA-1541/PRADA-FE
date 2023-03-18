@@ -1,5 +1,16 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
+$border-radius-small: 0.25rem;
+
+%flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 * {
-  font: normal normal normal 18px/22px Spoqa Han Sans Neo;
+  font: normal normal normal 18px Spoqa Han Sans Neo;
   opacity: 1;
 }
 
@@ -9,4 +20,38 @@ div#root {
   left: 0px;
   width: 100%;
   background: #fcfcfc 0% 0% no-repeat padding-box;
+}
+
+form {
+  @extend %flex-column;
+}
+
+input {
+  margin-bottom: 1rem;
+  padding: 0.3rem 1.5rem;
+  width: 15rem;
+  font-size: medium;
+  background: white 0% 0% no-repeat padding-box;
+  border: 1px solid #bababa;
+  border-radius: $border-radius-small;
+  opacity: 0.7;
+  &:focus {
+    outline: none;
+  }
+}
+
+button {
+  margin: 1rem 0;
+  padding: 0.2rem 1.2rem;
+  background: #c72323 0% 0% no-repeat padding-box;
+  border: 1px solid #d34949;
+  border-radius: $border-radius-small;
+  color: white;
+  cursor: pointer;
+}
+
+a {
+  font-size: small;
+  text-decoration: none;
+  color: #777777;
 }
