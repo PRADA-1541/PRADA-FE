@@ -1,0 +1,17 @@
+@use '../globalStyle';
+
+.bg {
+  @extend %flex-column;
+  width: 100%;
+  height: 100vh;
+  background: #fcfcfc 0% 0% no-repeat padding-box;
+}
+
+.authBox {
+  @extend %flex-column;
+  padding: 2rem 8rem;
+  background: white 0% 0% no-repeat padding-box;
+  box-shadow: 2px 3px 10px #0000001d;
+  border: 1px solid #9393936f;
+  border-radius: 25px;
+}
