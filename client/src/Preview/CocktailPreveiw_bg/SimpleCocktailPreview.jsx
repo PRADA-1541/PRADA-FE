@@ -1,6 +1,7 @@
 import React from 'react';
 import './SimpleCocktailPreview.scss';
 import { AiFillStar } from 'react-icons/ai';
+import KeyWord from '../../Material/Keyword/KeyWord';
 
 const SimpleCocktailPreview = () => {
   return (
@@ -14,16 +15,24 @@ const SimpleCocktailPreview = () => {
         />
         <div className='cocktailInfo'>
           <h2>칵테일 이름</h2>
-          <p>
+          <p className='cocktailContent'>
             칵테일 설명, 시기다른 래퍼들의 반대편을 바라보는 래퍼들의 배포 그건 백프로 개뻥 뭐든 개빨어 마치 텐프로 됐어
             보인 각본짜인 대본 텐션을 업을 해 해야지 제대로 난 이 게임에서 아크로뱃 내 랩들은 전부 다 감으로 해 돈
             벌어먹지 못해 나를 바라보는 래퍼들은 말하더군 진짜 개빨라 뭐든 개빨어 마치 텐프로 됐어 보인 각본짜인 대본
             텐션을 업을 해 해야지 제대로 난 이 게임에서 아크로뱃 내 랩들은 전부 다 감으로 해 돈 벌어먹지 못해 나를
             바라보는 래퍼들은 말하더군 진짜 개빨라 뭐든 개빨어 마치 텐프로 됐어 보인 각본짜인 대본 텐션을 업을 해 해야지
             제대로 난 이 게임에서 아크로뱃 내 랩들은 전부 다 감으로 해 돈 벌어먹지 못해 나를 바라보는 래퍼들은 말하더군
-            진짜 개빨라 뭐든 개빨어 마치 텐프로 됐어 보인 각본짜인 대본 텐션을 업을 해 해야지 제대로 난 이 게임에서
           </p>
-          <div className='keywords'></div>
+          <div className='keywords'>
+            <KeyWord keyword='조광일' />
+            <KeyWord keyword='곡예사' />
+            <KeyWord keyword='개빨라' />
+            <KeyWord keyword='랩' />
+            <KeyWord keyword='가사가' />
+            <KeyWord keyword='다들림' />
+            <KeyWord keyword='ㅋㅋ' />
+            <KeyWord keyword='회상록' />
+          </div>
           <div className='eval'>
             <AiFillStar />
             <AiFillStar />

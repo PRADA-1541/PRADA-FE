@@ -24,10 +24,6 @@
       font-size: 36px;
       font-weight: 500;
     }
-    p {
-      font-size: 20px;
-      line-height: 1.5rem;
-    }
     .eval {
       position: absolute;
       @extend %flex-row;
@@ -39,4 +35,15 @@
       }
     }
   }
+}
+
+.keywords {
+  @extend %flex-row;
+  // height: 100%;
+  flex-wrap: wrap;
+}
+
+.cocktailContent {
+  font-size: 20px;
+  line-height: 1.5rem;
 }
