@@ -1,17 +1,18 @@
-import React, { ReactPropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import './KeyWord.scss';
 
 const KeyWord = ({ keyword }) => {
   return (
-    <div className='keyword'>
+    <span className='keyword'>
       <p className='hashtag'>#</p>
       <p>{keyword}</p>
-    </div>
+    </span>
   );
 };
 
 KeyWord.propTypes = {
-  keyword: ReactPropTypes.string.isRequired,
+  keyword: PropTypes.string.isRequired,
 };
 
 export default KeyWord;

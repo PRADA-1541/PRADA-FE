@@ -1,18 +1,24 @@
-@import '../../styles/variables.scss';
+@use '../../styles/globalStyle.scss';
+@import '../../styles/colors.scss';
 
 .keyword {
-  height: 1.8rem;
-  padding: 0.2rem 0.5rem;
-  margin: 0.2rem;
+  padding: 0.2rem 0.6rem;
+  padding-top: 0.1rem;
+  margin-right: 0.8rem;
+  margin-bottom: 0.4rem;
+  border: solid;
+  border-width: 0.1rem;
   border-radius: 0.25rem;
   border-color: $border-gray;
+  cursor: pointer;
 
   p {
+    display: inline;
+    margin: 0 0.2rem;
     font-size: 0.8rem;
     color: $text-gray;
+    &.hashtag {
+      color: $primary;
+    }
   }
-}
-
-.hashtag {
-  color: $primary;
 }
