@@ -1,0 +1,32 @@
+@use '../../styles/globalStyle.scss';
+@import '../../styles/colors.scss';
+
+%arrow {
+  position: absolute;
+  top: 9.6rem;
+  font-size: 1.7rem;
+  color: $gray;
+  cursor: pointer;
+}
+
+.listContainer {
+  position: relative;
+}
+
+.cocktailContainer {
+  @extend %flex-row;
+  align-items: center;
+  justify-content: space-between;
+  width: 66rem;
+  height: 17rem;
+}
+
+.arrowLeft {
+  @extend %arrow;
+  left: -3rem;
+}
+
+.arrowRight {
+  @extend %arrow;
+  right: -3rem;
+}
