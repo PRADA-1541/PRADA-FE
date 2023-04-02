@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     node: true,
+    es6: true,
   },
   parserOptions: {
     ecmaFeatures: {
@@ -13,6 +14,6 @@ module.exports = {
   extends: ['airbnb', 'plugin:prettier/recommended'],
   plugins: ['react'],
   rules: {
-    'arrow-body-style': 'on',
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
   },
 };
