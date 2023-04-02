@@ -1,12 +1,8 @@
 @use '../../styles/globalStyle.scss';
 
-.previewContainer {
+.simplePreviewContainer {
   @extend %flex-column;
   margin: 1rem 0;
-  h1 {
-    font-size: 26px;
-    font-weight: 500;
-  }
 }
 
 .recipePreviewContainer {

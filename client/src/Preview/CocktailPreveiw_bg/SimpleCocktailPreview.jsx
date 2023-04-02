@@ -4,7 +4,7 @@ import { AiFillStar } from 'react-icons/ai';
 
 const SimpleCocktailPreview = () => {
   return (
-    <div className='previewContainer'>
+    <div className='simplePreviewContainer'>
       <h1>오늘의 추천 칵테일</h1>
       <div className='recipePreviewContainer'>
         <img
