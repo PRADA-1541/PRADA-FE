@@ -1,0 +1,45 @@
+@use '../globalStyle.scss';
+
+.previewContainer {
+  @extend %flex-column;
+  h1 {
+    font-size: 26px;
+    font-weight: 500;
+  }
+}
+
+.recipePreviewContainer {
+  @extend %flex-row;
+  align-items: center;
+  justify-content: space-between;
+  width: 60rem;
+  height: 30rem;
+  padding: 2rem 5rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 23px;
+
+  .cocktailInfo {
+    position: relative;
+    height: 27rem;
+    width: 30rem;
+    h2 {
+      top: 0;
+      font-size: 36px;
+      font-weight: 500;
+    }
+    p {
+      font-size: 20px;
+      line-height: 1.5rem;
+    }
+    .eval {
+      position: absolute;
+      @extend %flex-row;
+      align-items: center;
+      right: 0;
+      bottom: -1.5rem;
+      p {
+        padding-left: 0.5rem;
+      }
+    }
+  }
+}

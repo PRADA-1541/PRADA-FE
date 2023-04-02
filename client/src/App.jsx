@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import './globalStyle.scss';
-import Home from './Home';
+import Home from './Main/Main';
 import SignIn from './Auth/SignIn';
 import SignUp from './Auth/SignUp';
 

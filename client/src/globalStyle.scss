@@ -5,8 +5,11 @@ $border-radius-small: 0.25rem;
 %flex-column {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+}
+
+%flex-row {
+  display: flex;
+  flex-direction: row;
 }
 
 * {
