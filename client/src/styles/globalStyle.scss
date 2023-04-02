@@ -1,4 +1,5 @@
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+@import './colors.scss';
 
 $border-radius-small: 0.25rem;
 
@@ -46,8 +47,8 @@ input {
 button {
   margin: 1rem 0;
   padding: 0.2rem 1.2rem;
-  background: #c72323 0% 0% no-repeat padding-box;
-  border: 1px solid #d34949;
+  background: $primary 0% 0% no-repeat padding-box;
+  border: 1px solid $primary-border;
   border-radius: $border-radius-small;
   color: white;
   cursor: pointer;

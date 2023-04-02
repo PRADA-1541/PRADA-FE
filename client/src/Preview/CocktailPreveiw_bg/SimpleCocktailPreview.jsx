@@ -23,11 +23,12 @@ const SimpleCocktailPreview = () => {
             제대로 난 이 게임에서 아크로뱃 내 랩들은 전부 다 감으로 해 돈 벌어먹지 못해 나를 바라보는 래퍼들은 말하더군
             진짜 개빨라 뭐든 개빨어 마치 텐프로 됐어 보인 각본짜인 대본 텐션을 업을 해 해야지 제대로 난 이 게임에서
           </p>
+          <div className='keywords'></div>
           <div className='eval'>
             <AiFillStar />
             <AiFillStar />
             <AiFillStar />
-            <p>평점</p>
+            <p>3.8</p>
           </div>
         </div>
       </div>
