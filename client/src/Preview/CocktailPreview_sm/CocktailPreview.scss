@@ -7,8 +7,8 @@
 
 .previewImgContainer {
   @extend %flex-column;
-  width: 14rem;
   height: 14rem;
+  width: 14rem;
   overflow: hidden;
   background-color: white;
   border: 1px solid #d0d0d0;
@@ -16,9 +16,15 @@
 }
 
 .previewImg {
-  width: 100%;
   height: 100%;
+  width: 100%;
   object-fit: scale-down;
+}
+
+.altImg {
+  height: 100%;
+  width: 100%;
+  object-fit: scale-up;
 }
 
 .cocktailName {

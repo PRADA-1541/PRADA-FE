@@ -1,24 +1,28 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './CocktailPreview.scss';
+import defaultImage from '../../assets/images/defaultImage.png';
 import { AiFillStar } from 'react-icons/ai';
 
-const CocktailPreview = () => {
+const CocktailPreview = ({ imageURL, name, evaluation }) => {
   return (
     <div className='previewContainer'>
       <div className='previewImgContainer'>
-        <img
-          src='https://cdn.pixabay.com/photo/2017/09/25/13/12/drink-2785074_1280.jpg'
-          alt='cocktail'
-          className='previewImg'
-        />
+        <img src={imageURL ?? defaultImage} alt='cocktail' className={imageURL ? 'previewImg' : 'altImg'} />
       </div>
-      <p className='cocktailName'>칵테일 이름</p>
+      <p className='cocktailName'>{name}</p>
       <p className='cocktailEval'>
         <AiFillStar />
-        4.5
+        {evaluation}
       </p>
     </div>
   );
+};
+
+CocktailPreview.propTypes = {
+  imageURL: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  evaluation: PropTypes.number.isRequired,
 };
 
 export default CocktailPreview;
