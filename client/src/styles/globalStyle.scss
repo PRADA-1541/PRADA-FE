@@ -16,14 +16,16 @@ $border-radius-small: 0.25rem;
 * {
   font: normal normal normal 18px Spoqa Han Sans Neo;
   opacity: 1;
+  box-sizing: border-box;
 }
 
 div#root {
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 100%;
-  background: #fcfcfc 0% 0% no-repeat padding-box;
+  width: 100vw;
+  padding: 0 5rem;
+  background: #fcfcfc;
 }
 
 form {
@@ -35,7 +37,7 @@ input {
   padding: 0.3rem 1.5rem;
   width: 15rem;
   font-size: medium;
-  background: white 0% 0% no-repeat padding-box;
+  background: white;
   border: 1px solid #bababa;
   border-radius: $border-radius-small;
   opacity: 0.7;
@@ -47,7 +49,7 @@ input {
 button {
   margin: 1rem 0;
   padding: 0.2rem 1.2rem;
-  background: $primary 0% 0% no-repeat padding-box;
+  background: $primary;
   border: 1px solid $primary-border;
   border-radius: $border-radius-small;
   color: white;
