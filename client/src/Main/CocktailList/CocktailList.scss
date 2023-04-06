@@ -12,13 +12,13 @@
 .listContainer {
   position: relative;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
 .cocktailContainer {
   @extend %flex-row;
   align-items: center;
   justify-content: space-between;
-  width: 61.1rem;
   height: 17rem;
 }
 

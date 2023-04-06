@@ -3,13 +3,13 @@
 .simplePreviewContainer {
   @extend %flex-column;
   margin: 1rem 0;
+  width: 100%;
 }
 
 .recipePreviewContainer {
   @extend %flex-row;
   align-items: center;
   justify-content: space-between;
-  width: 55rem;
   height: 30rem;
   padding: 1rem 3rem;
   border: 1px solid #d0d0d0;
