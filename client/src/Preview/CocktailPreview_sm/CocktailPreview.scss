@@ -1,0 +1,38 @@
+@use '../../styles/globalStyle.scss';
+
+.previewContainer {
+  @extend %flex-column;
+  align-items: center;
+}
+
+.previewImgContainer {
+  @extend %flex-column;
+  height: 14rem;
+  width: 14rem;
+  overflow: hidden;
+  background-color: white;
+  border: 1px solid #d0d0d0;
+  border-radius: 1.5rem;
+}
+
+.previewImg {
+  height: 100%;
+  width: 100%;
+  object-fit: scale-down;
+}
+
+.altImg {
+  height: 100%;
+  width: 100%;
+  object-fit: scale-up;
+}
+
+.cocktailName {
+  margin-bottom: 0;
+}
+
+.cocktailEval {
+  @extend %flex-row;
+  align-items: center;
+  margin: 0;
+}

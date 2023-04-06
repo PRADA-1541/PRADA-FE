@@ -1,0 +1,7 @@
+@use '../styles/globalStyle.scss';
+
+.homeContainer {
+  @extend %flex-column;
+  align-items: center;
+  width: 100%;
+}
