@@ -65,6 +65,11 @@ h1 {
   font-weight: 500;
 }
 
-svg {
+.evalStar {
   color: $primary;
+}
+.halfStar {
+  @extend %flex-column;
+  width: 0.5rem;
+  overflow-x: hidden;
 }

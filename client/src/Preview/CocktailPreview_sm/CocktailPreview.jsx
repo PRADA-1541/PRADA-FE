@@ -12,7 +12,7 @@ const CocktailPreview = ({ imageURL, name, evaluation }) => {
       </div>
       <p className='cocktailName'>{name}</p>
       <p className='cocktailEval'>
-        <AiFillStar />
+        <AiFillStar className='evalStar' />
         {evaluation}
       </p>
     </div>
