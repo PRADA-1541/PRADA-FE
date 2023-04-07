@@ -16,7 +16,7 @@ const App = () => {
             <Route path='/' element={<Home />} />
             <Route path='/signin' element={<SignIn />} />
             <Route path='/signup' element={<SignUp />} />
-            <Route path='/cocktails' element={<CocktailList />} />
+            <Route path='/cocktails/:category' element={<CocktailList />} />
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
