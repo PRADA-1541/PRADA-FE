@@ -17,6 +17,7 @@ import SignUp from './Auth/SignUp';
 import CocktailList from './CocktailList/CocktailList';
 
 Sentry.init({
+  dsn: process.env.REACT_APP_SENTRY_DSN,
   integrations: [
     new Sentry.BrowserTracing({
       routingInstrumentation: Sentry.reactRouterV6Instrumentation(
@@ -27,8 +28,12 @@ Sentry.init({
         matchRoutes
       ),
     }),
+    new Sentry.BrowserTracing(),
+    new Sentry.Replay(),
   ],
   tracesSampleRate: 1.0,
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1.0,
 });
 
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
@@ -39,12 +44,10 @@ const App = () => {
       <RecoilRoot>
         <BrowserRouter>
           <SentryRoutes>
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/signin' element={<SignIn />} />
-              <Route path='/signup' element={<SignUp />} />
-              <Route path='/cocktails/:category' element={<CocktailList />} />
-            </Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/signin' element={<SignIn />} />
+            <Route path='/signup' element={<SignUp />} />
+            <Route path='/cocktails/:category' element={<CocktailList />} />
           </SentryRoutes>
         </BrowserRouter>
       </RecoilRoot>
