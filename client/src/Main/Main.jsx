@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react';
 import './Main.scss';
 import SimpleCocktailPreview from '../Preview/CocktailPreveiw_bg/SimpleCocktailPreview';
@@ -9,6 +10,7 @@ const Home = () => {
 
   return (
     <div className='homeContainer'>
+      <button onClick={() => methodDoesNotExist()}>Break the world</button>
       <SimpleCocktailPreview
         name={cocktailName}
         content={cocktailDescription}
