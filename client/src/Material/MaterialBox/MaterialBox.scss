@@ -1,7 +1,7 @@
 @use '../../styles/globalStyle.scss';
 @import '../../styles/colors.scss';
 
-.keywordBox {
+.materialContainer {
   margin: 1rem 0;
   h1 {
     font-size: 18px;
@@ -9,9 +9,29 @@
   }
 }
 
-.keywords {
+@mixin materialBox {
   @extend %flex-row;
   flex-wrap: wrap;
-  margin: 0.8rem 0;
   margin-left: 3.8rem;
+}
+
+.ingredients {
+  @include materialBox;
+  position: relative;
+  width: 29rem;
+  svg {
+    top: 1.6rem;
+    font-size: x-large;
+  }
+  .arrowLeft {
+    left: -2rem;
+  }
+  .arrowRight {
+    right: -2rem;
+  }
+}
+
+.keywords {
+  margin: 0.8rem 0;
+  @include materialBox;
 }

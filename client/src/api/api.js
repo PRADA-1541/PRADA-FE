@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  //   baseURL: process.env.REACT_APP_API_ULR,
-  baseURL: process.env.REACT_APP_API_URL_LOCAL,
+  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.REACT_APP_API_URL_LOCAL,
 });
 
 export const SignApi = {
