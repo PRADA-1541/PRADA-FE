@@ -4,9 +4,9 @@ import './KeyWord.scss';
 
 const KeyWord = ({ keyword }) => {
   return (
-    <span className='keyword'>
+    <span className='keywordContainer'>
       <p className='hashtag'>#</p>
-      <p>{keyword}</p>
+      <p className='keyword'>{keyword}</p>
     </span>
   );
 };
