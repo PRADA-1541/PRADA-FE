@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './SimpleCocktailPreview.scss';
 import { AiFillStar } from 'react-icons/ai';
 import defaultImage from '../../assets/images/defaultImage.png';
-import KeyWord from '../../Material/KeywordBox/Keyword/KeyWord';
+import KeyWord from '../../Material/Keyword/KeyWord';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 
@@ -42,7 +42,7 @@ const SimpleCocktailPreview = ({ name, imageURL, content, keywords, evaluation }
           <h2>{name}</h2>
           <p className='cocktailContent'>{content}</p>
           {keywords && (
-            <div className='keywords'>
+            <div className='simpleKeywords'>
               <Keywords />
             </div>
           )}
