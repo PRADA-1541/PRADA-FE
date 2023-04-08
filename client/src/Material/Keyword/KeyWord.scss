@@ -1,24 +1,25 @@
 @use '../../styles/globalStyle.scss';
 @import '../../styles/colors.scss';
 
-.keyword {
+.keywordContainer {
   padding: 0.2rem 0.6rem;
   padding-top: 0.1rem;
-  margin-right: 0.8rem;
-  margin-bottom: 0.4rem;
+  margin: 0.3rem 0.4rem;
   border: solid;
   border-width: 0.1rem;
-  border-radius: 0.25rem;
+  border-radius: 1rem;
   border-color: $border-gray;
   cursor: pointer;
 
-  p {
+  .hashtag {
+    display: inline;
+    color: $primary;
+  }
+
+  .keyword {
     display: inline;
     margin: 0 0.2rem;
-    font-size: 0.8rem;
+    font-size: 16px;
     color: $text-gray;
-    &.hashtag {
-      color: $primary;
-    }
   }
 }

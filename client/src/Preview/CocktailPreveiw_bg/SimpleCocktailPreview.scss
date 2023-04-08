@@ -3,43 +3,60 @@
 .simplePreviewContainer {
   @extend %flex-column;
   margin: 1rem 0;
+  width: 100%;
 }
 
 .recipePreviewContainer {
   @extend %flex-row;
   align-items: center;
   justify-content: space-between;
-  width: 55rem;
   height: 30rem;
-  padding: 1rem 3rem;
+  padding: 2rem 3rem;
   border: 1px solid #d0d0d0;
   border-radius: 23px;
+}
 
-  .cocktailInfo {
-    position: relative;
-    height: 27rem;
-    width: 30rem;
-    h2 {
-      top: 0;
-      font-size: 36px;
-      font-weight: 500;
-    }
-    .eval {
-      position: absolute;
-      @extend %flex-row;
-      align-items: center;
-      right: 0;
-      bottom: -1.5rem;
-      p {
-        padding-left: 0.5rem;
-      }
+.cocktailImg {
+  @extend %flex-column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  max: {
+    height: 25rem;
+  }
+  overflow: hidden;
+  border-radius: 1.5rem;
+  img {
+    width: 20rem;
+  }
+}
+
+.cocktailInfo {
+  position: relative;
+  height: 27rem;
+  width: 30rem;
+  h2 {
+    top: 0;
+    font: {
+      size: 36px;
+      weight: 500;
     }
   }
 }
 
-.keywords {
+.eval {
+  position: absolute;
   @extend %flex-row;
-  // height: 100%;
+  align-items: center;
+  right: 0;
+  bottom: -1.5rem;
+  p {
+    padding-left: 0.5rem;
+  }
+}
+
+.simppleKeywords {
+  @extend %flex-row;
   flex-wrap: wrap;
 }
 

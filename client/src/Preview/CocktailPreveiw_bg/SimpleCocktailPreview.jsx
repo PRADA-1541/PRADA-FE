@@ -35,12 +35,14 @@ const SimpleCocktailPreview = ({ name, imageURL, content, keywords, evaluation }
     <div className='simplePreviewContainer'>
       <h1>오늘의 추천 칵테일</h1>
       <div className='recipePreviewContainer'>
-        <img width='400px' src={imageURL ?? defaultImage} alt='cocktail image' />
+        <div className='cocktailImgContainer'>
+          <img src={imageURL ?? defaultImage} alt='cocktail image' />
+        </div>
         <div className='cocktailInfo'>
           <h2>{name}</h2>
           <p className='cocktailContent'>{content}</p>
           {keywords && (
-            <div className='keywords'>
+            <div className='simpleKeywords'>
               <Keywords />
             </div>
           )}
