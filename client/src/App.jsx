@@ -9,7 +9,7 @@ import CocktailList from './CocktailList/CocktailList';
 
 const App = () => {
   return (
-    <>
+    <div className='AppContainer'>
       <RecoilRoot>
         <BrowserRouter>
           <Routes>
@@ -20,7 +20,7 @@ const App = () => {
           </Routes>
         </BrowserRouter>
       </RecoilRoot>
-    </>
+    </div>
   );
 };
 

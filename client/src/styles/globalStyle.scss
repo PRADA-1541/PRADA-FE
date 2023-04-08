@@ -21,11 +21,16 @@ $border-radius-small: 0.25rem;
 
 div#root {
   position: absolute;
+  @extend %flex-column;
+  align-items: center;
   top: 0px;
   left: 0px;
   width: 100%;
-  padding: 0 10rem;
   background: #fcfcfc;
+}
+
+.AppContainer {
+  width: 65rem;
 }
 
 form {
