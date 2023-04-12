@@ -1,7 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import data from '../assets/data/cocktails.json';
-import './CocktailList.scss';
 import CocktailDetailPreview from '../Preview/CocktailDetailPreview/CocktailDetailPreview';
 
 const CocktailList = () => {
