@@ -1,5 +1,8 @@
+@import '../../styles/colors.scss';
+
 .ingredient {
   height: 4.7rem;
   width: 4.7rem;
   margin: 0 0.5rem;
+  box-shadow: 0px 3px 6px $shadow;
 }
