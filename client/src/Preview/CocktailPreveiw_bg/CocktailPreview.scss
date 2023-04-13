@@ -12,10 +12,7 @@
 
 .recipePreviewContainer {
   @extend %flex-row;
-  align-items: center;
-  justify-content: space-between;
-  height: 30rem;
-  padding: 2rem 3rem;
+  height: 32rem;
   box-shadow: 0 0 30px $shadow;
   &:hover {
     box-shadow: 0 0 30px $shadow-hover;
@@ -23,11 +20,18 @@
   }
 }
 
+.cocktailInfoContainer {
+  @extend %flex-row;
+  width: 100%;
+  justify-content: space-between;
+  padding: 2rem 3rem;
+}
+
 .cocktailImg {
   @extend %flex-column;
   justify-content: center;
   max: {
-    height: 25rem;
+    height: 28rem;
   }
   overflow: hidden;
   img {
@@ -37,7 +41,6 @@
 
 .cocktailInfo {
   position: relative;
-  height: 27rem;
   width: 32rem;
   h2 {
     top: 0;

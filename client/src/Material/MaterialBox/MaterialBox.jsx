@@ -18,6 +18,7 @@ const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
 
   const Ingredients = () => {
     if (!ingredients) return null;
+    if (isDetailRecipe) return ingredients.map((ingredient, idx) => <Ingredient key={idx} ingredient={ingredient} />);
     return ingredients
       .filter((item, idx) => {
         if (currentSlide === 0) {
