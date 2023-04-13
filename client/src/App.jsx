@@ -11,7 +11,7 @@ import {
 import * as Sentry from '@sentry/react';
 import { RecoilRoot } from 'recoil';
 import './styles/globalStyle.scss';
-import Home from './Main/Main';
+import Main from './Main/Main';
 import SignIn from './Auth/SignIn';
 import SignUp from './Auth/SignUp';
 import CocktailList from './CocktailList/CocktailList';
@@ -44,7 +44,7 @@ const App = () => {
       <RecoilRoot>
         <BrowserRouter>
           <SentryRoutes>
-            <Route path='/' element={<Home />} />
+            <Route path='/' element={<Main />} />
             <Route path='/signin' element={<SignIn />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/cocktails/:category' element={<CocktailList />} />

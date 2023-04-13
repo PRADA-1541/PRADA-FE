@@ -3,7 +3,10 @@
 
 .simplePreviewContainer {
   @extend %flex-column;
-  margin: 1rem 0;
+  margin: {
+    top: 1rem;
+    bottom: 4rem;
+  }
   width: 100%;
 }
 
@@ -18,9 +21,7 @@
 
 .cocktailImg {
   @extend %flex-column;
-  align-items: center;
   justify-content: center;
-  margin: auto;
   max: {
     height: 25rem;
   }
@@ -33,13 +34,19 @@
 .cocktailInfo {
   position: relative;
   height: 27rem;
-  width: 30rem;
+  width: 32rem;
   h2 {
     top: 0;
     font: {
       size: 36px;
       weight: 500;
     }
+    margin-bottom: 0;
+  }
+  hr {
+    background-color: black;
+    height: 0.1rem;
+    border: none;
   }
 }
 
@@ -47,15 +54,21 @@
   position: absolute;
   @extend %flex-row;
   align-items: center;
-  right: 0;
-  bottom: -1.5rem;
+  border: solid;
+  border-width: 1px;
+  padding: 0.2rem 0.6rem;
+  right: 0.4rem;
+  // bottom: 7rem;
   p {
     padding-left: 0.5rem;
+    margin: 0;
   }
 }
 
-.simppleKeywords {
+.simpleKeywords {
   @extend %flex-row;
+  justify-content: right;
+  margin-top: 4.3rem;
   flex-wrap: wrap;
 }
 

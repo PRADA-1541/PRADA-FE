@@ -2,7 +2,7 @@
 @import '../../styles/colors.scss';
 
 .materialContainer {
-  margin: 1rem 0;
+  margin: 2rem 0;
   h1 {
     font-size: 18px;
     color: $text-gray-light;
@@ -12,22 +12,22 @@
 @mixin materialBox {
   @extend %flex-row;
   flex-wrap: wrap;
-  margin-left: 3.8rem;
+  margin-left: 2.5rem;
 }
 
 .ingredients {
   @include materialBox;
   position: relative;
-  width: 29rem;
+  width: 25rem;
   svg {
-    top: 1.6rem;
+    top: 1.3rem;
     font-size: x-large;
   }
   .arrowLeft {
-    left: -2rem;
+    left: -1.5rem;
   }
   .arrowRight {
-    right: -2rem;
+    right: -1.5rem;
   }
 }
 

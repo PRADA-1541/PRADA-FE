@@ -6,14 +6,11 @@
   padding-top: 0.1rem;
   margin: 0.3rem 0.4rem;
   border: solid;
-  border-width: 0.1rem;
-  border-radius: 1rem;
-  border-color: $border-gray;
+  border-width: 1px;
   cursor: pointer;
 
   .hashtag {
     display: inline;
-    color: $primary;
   }
 
   .keyword {

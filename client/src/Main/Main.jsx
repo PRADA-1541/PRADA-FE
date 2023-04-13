@@ -1,15 +1,15 @@
 import React from 'react';
 import './Main.scss';
-import SimpleCocktailPreview from '../Preview/CocktailPreveiw_bg/SimpleCocktailPreview';
+import CocktailPreview from '../Preview/CocktailPreveiw_bg/CocktailPreview';
 import CocktailList from './CocktailList/CocktailList';
 import data from '../assets/data/cocktails.json';
 
-const Home = () => {
+const Main = () => {
   const { cocktailName, cocktailDescription, cocktailImage, cocktailKeyword } = data[0];
 
   return (
     <div className='homeContainer'>
-      <SimpleCocktailPreview
+      <CocktailPreview
         name={cocktailName}
         content={cocktailDescription}
         imageURL={cocktailImage}
@@ -24,4 +24,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Main;

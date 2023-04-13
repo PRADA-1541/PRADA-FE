@@ -36,7 +36,6 @@ const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
 
   return (
     <div className='materialContainer'>
-      <h1>{type}</h1>
       {type === '재료' ? (
         <div className='ingredients'>
           {!isDetailRecipe && currentSlide !== 0 && (
