@@ -18,9 +18,9 @@
 .ingredients {
   @include materialBox;
   position: relative;
-  width: 25rem;
+  width: 27rem;
   svg {
-    top: 1.3rem;
+    top: 1.5rem;
     font-size: x-large;
   }
   .arrowLeft {
