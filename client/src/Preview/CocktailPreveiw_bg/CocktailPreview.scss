@@ -17,6 +17,10 @@
   height: 30rem;
   padding: 2rem 3rem;
   box-shadow: 0 0 30px $shadow;
+  &:hover {
+    box-shadow: 0 0 30px $shadow-hover;
+    cursor: pointer;
+  }
 }
 
 .cocktailImg {

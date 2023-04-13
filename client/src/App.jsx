@@ -48,6 +48,9 @@ const App = () => {
             <Route path='/signin' element={<SignIn />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/cocktails/:category' element={<CocktailList />} />
+            <Route path='/cocktail'>
+              <Route path=':cocktailIdx' />
+            </Route>
           </SentryRoutes>
         </BrowserRouter>
       </RecoilRoot>

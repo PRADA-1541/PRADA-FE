@@ -5,13 +5,14 @@ import defaultImage from '../../assets/images/defaultImage.png';
 import KeyWord from '../../Material/Keyword/KeyWord';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import MaterialBox from '../../Material/MaterialBox/MaterialBox';
 
-const CocktailPreview = ({ name, imageURL, content, keywords, evaluation, ingredients }) => {
+const CocktailPreview = ({ cocktailIdx, name, imageURL, content, keywords, evaluation, ingredients }) => {
   const [evalStars, setEvalStars] = useState(0);
   const [halfStar, setHalfStar] = useState(false);
   const { category } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (evaluation % 1 < 0.75) {
@@ -34,10 +35,14 @@ const CocktailPreview = ({ name, imageURL, content, keywords, evaluation, ingred
     });
   };
 
+  const moveToRecipe = () => {
+    navigate(`/cocktail/${cocktailIdx}`);
+  };
+
   return (
     <div className='simplePreviewContainer'>
       {!category && <h1>오늘의 추천 칵테일</h1>}
-      <div className='recipePreviewContainer'>
+      <div className='recipePreviewContainer' onClick={moveToRecipe}>
         <div className='cocktailImg'>
           <img src={imageURL ?? defaultImage} alt='cocktail image' />
         </div>
@@ -67,6 +72,7 @@ const CocktailPreview = ({ name, imageURL, content, keywords, evaluation, ingred
 };
 
 CocktailPreview.propTypes = {
+  cocktailIdx: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   imageURL: PropTypes.string,
   content: PropTypes.string.isRequired,

@@ -5,11 +5,12 @@ import CocktailList from './CocktailList/CocktailList';
 import data from '../assets/data/cocktails.json';
 
 const Main = () => {
-  const { cocktailName, cocktailDescription, cocktailImage, cocktailKeyword } = data[0];
+  const { cocktailIdx, cocktailName, cocktailDescription, cocktailImage, cocktailKeyword } = data[0];
 
   return (
     <div className='homeContainer'>
       <CocktailPreview
+        cocktailIdx={cocktailIdx}
         name={cocktailName}
         content={cocktailDescription}
         imageURL={cocktailImage}

@@ -11,6 +11,7 @@ const CocktailList = () => {
     return data.map((cocktail) => (
       <CocktailPreview
         key={cocktail.cocktailIdx}
+        cocktailIdx={cocktail.cocktailIdx}
         name={cocktail.cocktailName}
         imageURL={cocktail.cocktailImage}
         content={cocktail.cocktailDescription}
