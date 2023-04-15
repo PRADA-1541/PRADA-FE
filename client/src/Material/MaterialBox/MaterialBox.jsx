@@ -8,7 +8,8 @@ import Ingredient from '../Ingredient/Ingredient';
 const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slideHandler = (direction) => {
+  const slideHandler = (e, direction) => {
+    e.preventDefault();
     if (direction === 'prev') {
       setCurrentSlide(currentSlide - 1);
     } else {
@@ -40,10 +41,10 @@ const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
       {type === '재료' ? (
         <div className='ingredients'>
           {!isDetailRecipe && currentSlide !== 0 && (
-            <SlArrowLeft className='arrowLeft' onClick={() => slideHandler('prev')} />
+            <SlArrowLeft className='arrowLeft' onClick={(e) => slideHandler(e, 'prev')} />
           )}
           {!isDetailRecipe && currentSlide !== parseInt((ingredients.length - 1) / 5) && (
-            <SlArrowRight className='arrowRight' onClick={() => slideHandler('next')} />
+            <SlArrowRight className='arrowRight' onClick={(e) => slideHandler(e, 'next')} />
           )}
           <Ingredients />
         </div>
