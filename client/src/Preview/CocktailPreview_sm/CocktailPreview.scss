@@ -1,18 +1,17 @@
 @use '../../styles/globalStyle.scss';
+@import '../../styles/colors.scss';
 
 .previewContainer {
   @extend %flex-column;
   align-items: center;
+  box-shadow: 0px 4px 10px $shadow;
 }
 
 .previewImgContainer {
   @extend %flex-column;
-  height: 14rem;
-  width: 14rem;
+  height: 13rem;
+  width: 13rem;
   overflow: hidden;
-  background-color: white;
-  border: 1px solid #d0d0d0;
-  border-radius: 1.5rem;
 }
 
 .previewImg {
@@ -35,4 +34,5 @@
   @extend %flex-row;
   align-items: center;
   margin: 0;
+  margin-bottom: 0.5rem;
 }

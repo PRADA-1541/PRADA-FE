@@ -13,6 +13,22 @@ $border-radius-small: 0.25rem;
   flex-direction: row;
 }
 
+%center {
+  justify-content: center;
+  align-items: center;
+}
+
+%contents-box {
+  margin: auto;
+  width: 80%;
+  padding: 1rem 1.5rem;
+  border: {
+    style: solid;
+    width: 1px;
+    color: $border-gray;
+  }
+}
+
 * {
   font: normal normal normal 18px Spoqa Han Sans Neo;
   opacity: 1;
@@ -30,7 +46,7 @@ div#root {
 }
 
 .AppContainer {
-  width: 65rem;
+  width: 60rem;
 }
 
 form {
@@ -72,9 +88,13 @@ h1 {
   font-weight: 500;
 }
 
-.evalStar {
-  color: $primary;
+ol {
+  padding: {
+    left: 2rem;
+    right: 1rem;
+  }
 }
+
 .halfStar {
   @extend %flex-column;
   width: 0.5rem;

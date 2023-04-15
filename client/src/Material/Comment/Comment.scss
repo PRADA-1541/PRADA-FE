@@ -1,0 +1,66 @@
+@use '../../styles/globalStyle.scss';
+@import '../../styles/colors.scss';
+
+.comment {
+  &Container {
+    @extend %flex-row;
+    @extend %contents-box;
+    justify-content: space-between;
+    padding: 0.7rem 1rem;
+    margin: {
+      top: 1rem;
+    }
+  }
+
+  &Header {
+    flex: none;
+    @extend %flex-row;
+    align-items: flex-start;
+    width: 20%;
+    .nameAndDate {
+      @extend %flex-column;
+    }
+  }
+
+  &Profile {
+    display: inline;
+    width: 2rem;
+    border-radius: 100%;
+  }
+
+  &Name {
+    font-size: 0.8rem;
+    margin: 0;
+  }
+  &Date {
+    font-size: 0.7rem;
+    margin: 0;
+  }
+
+  &Content {
+    margin: 0;
+    width: 70%;
+    font-size: 0.9rem;
+    line-height: 1.3rem;
+  }
+
+  &Eval {
+    p {
+      @extend %flex-row;
+      align-items: center;
+      justify-content: right;
+      margin: 0;
+      font-size: 0.7rem;
+      color: $text-light-gray;
+      svg {
+        font-size: 0.8rem;
+        margin: 0.2rem;
+      }
+    }
+  }
+}
+
+.nameAndDate {
+  margin-left: 0.7rem;
+  color: $text-light-gray;
+}

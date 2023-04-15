@@ -8,7 +8,8 @@ import Ingredient from '../Ingredient/Ingredient';
 const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const slideHandler = (direction) => {
+  const slideHandler = (e, direction) => {
+    e.preventDefault();
     if (direction === 'prev') {
       setCurrentSlide(currentSlide - 1);
     } else {
@@ -18,6 +19,7 @@ const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
 
   const Ingredients = () => {
     if (!ingredients) return null;
+    if (isDetailRecipe) return ingredients.map((ingredient, idx) => <Ingredient key={idx} ingredient={ingredient} />);
     return ingredients
       .filter((item, idx) => {
         if (currentSlide === 0) {
@@ -36,14 +38,13 @@ const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
 
   return (
     <div className='materialContainer'>
-      <h1>{type}</h1>
       {type === '재료' ? (
         <div className='ingredients'>
           {!isDetailRecipe && currentSlide !== 0 && (
-            <SlArrowLeft className='arrowLeft' onClick={() => slideHandler('prev')} />
+            <SlArrowLeft className='arrowLeft' onClick={(e) => slideHandler(e, 'prev')} />
           )}
           {!isDetailRecipe && currentSlide !== parseInt((ingredients.length - 1) / 5) && (
-            <SlArrowRight className='arrowRight' onClick={() => slideHandler('next')} />
+            <SlArrowRight className='arrowRight' onClick={(e) => slideHandler(e, 'next')} />
           )}
           <Ingredients />
         </div>
@@ -63,4 +64,4 @@ MaterialBox.propTypes = {
   isDetailRecipe: PropTypes.bool,
 };
 
-export default MaterialBox;
+export default React.memo(MaterialBox, (prevProps, nextProps) => prevProps.ingredients === nextProps.ingredients);

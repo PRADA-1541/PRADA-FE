@@ -1,16 +1,17 @@
 import React from 'react';
+import './CocktailList.scss';
 import { useParams } from 'react-router-dom';
 import data from '../assets/data/cocktails.json';
-import './CocktailList.scss';
-import CocktailDetailPreview from '../Preview/CocktailDetailPreview/CocktailDetailPreview';
+import CocktailPreview from '../Preview/CocktailPreveiw_bg/CocktailPreview';
 
 const CocktailList = () => {
   const { category } = useParams();
 
   const RecipeList = () => {
     return data.map((cocktail) => (
-      <CocktailDetailPreview
+      <CocktailPreview
         key={cocktail.cocktailIdx}
+        cocktailIdx={cocktail.cocktailIdx}
         name={cocktail.cocktailName}
         imageURL={cocktail.cocktailImage}
         content={cocktail.cocktailDescription}
@@ -23,7 +24,7 @@ const CocktailList = () => {
 
   return (
     <>
-      <h1>{category}</h1>
+      <h1 className='category'>{category}</h1>
       <RecipeList />
     </>
   );
