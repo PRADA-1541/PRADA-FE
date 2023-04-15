@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import './CocktailPreview.scss';
-import { AiFillStar } from 'react-icons/ai';
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import defaultImage from '../../assets/images/defaultImage.png';
-import KeyWord from '../../Material/Keyword/KeyWord';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import MaterialBox from '../../Material/MaterialBox/MaterialBox';
 
-export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, ingredients }) => {
+export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, ingredients, isFavorite }) => {
   const [evalStars, setEvalStars] = useState(0);
   const [halfStar, setHalfStar] = useState(false);
   const { category, cocktailIdx } = useParams();
@@ -35,10 +34,6 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
         });
   };
 
-  const Keywords = () => {
-    return keywords.map((keyword) => <KeyWord key={keyword} keyword={keyword} />);
-  };
-
   const EvalStars = () => {
     const starArr = new Array(evalStars).fill(0);
     return starArr.map((item, idx) => {
@@ -52,7 +47,11 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
         <img src={imageURL ?? defaultImage} alt='cocktail image' />
       </div>
       <div className='cocktailInfo'>
-        <h2>{name}</h2>
+        <h2>
+          {name}
+          {cocktailIdx &&
+            (isFavorite ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
+        </h2>
         <hr />
         <p className='cocktailContent'>
           <Content />
@@ -69,11 +68,7 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
           )}
           <p>{evaluation}</p>
         </div>
-        {keywords && (
-          <div className='simpleKeywords'>
-            <Keywords />
-          </div>
-        )}
+        {keywords && <MaterialBox type='키워드' keywords={keywords} />}
       </div>
     </div>
   );
@@ -86,20 +81,16 @@ CocktailInfo.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
   evaluation: PropTypes.number.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.string),
+  isFavorite: PropTypes.bool,
 };
 
-const CocktailPreview = ({ cocktailIdx, name, imageURL, content, keywords, evaluation, ingredients }) => {
+const CocktailPreview = ({ cocktailIdx, name, imageURL, content, keywords, evaluation, ingredients, isFavorite }) => {
   const { category } = useParams();
-  const navigate = useNavigate();
-
-  const moveToRecipe = () => {
-    navigate(`/cocktail/${cocktailIdx}`);
-  };
 
   return (
     <div className='simplePreviewContainer'>
       {!category && <h1>오늘의 추천 칵테일</h1>}
-      <div className='recipePreviewContainer' onClick={moveToRecipe}>
+      <Link className='recipePreviewContainer' to={'/cocktail/' + cocktailIdx}>
         <CocktailInfo
           cocktailIdx={cocktailIdx}
           name={name}
@@ -108,8 +99,9 @@ const CocktailPreview = ({ cocktailIdx, name, imageURL, content, keywords, evalu
           keywords={keywords}
           evaluation={evaluation}
           ingredients={ingredients}
+          isFavorite={isFavorite}
         />
-      </div>
+      </Link>
     </div>
   );
 };
@@ -122,6 +114,7 @@ CocktailPreview.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
   evaluation: PropTypes.number.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.string),
+  isFavorite: PropTypes.bool,
 };
 
 export default CocktailPreview;

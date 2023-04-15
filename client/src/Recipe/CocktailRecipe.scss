@@ -1,0 +1,90 @@
+@use '../styles/globalStyle.scss';
+@import '../styles/colors.scss';
+
+.cocktailRecipeContainer {
+  @extend %flex-column;
+  align-items: center;
+  margin: 5rem 0;
+  box-shadow: 0 0 30px $shadow;
+  padding: 2rem 3rem;
+}
+
+.dateAndProfile {
+  @extend %flex-row;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 1rem;
+  span {
+    color: $text-light-gray;
+    font-size: 0.8rem;
+  }
+}
+
+.recipe {
+  @extend %flex-column;
+  width: 100%;
+
+  &Title {
+    margin-left: 1.5rem;
+    font: {
+      size: 1.1rem;
+      weight: 400;
+    }
+  }
+
+  &Content {
+    @extend %contents-box;
+  }
+
+  &Text {
+    color: $text-gray;
+    font: {
+      size: 1rem;
+    }
+    line-height: 1.5rem;
+    margin: 0.5rem 0;
+  }
+}
+
+.evaluation {
+  @extend %flex-row;
+  align-items: center;
+  margin: {
+    top: 3rem;
+    bottom: 1.5rem;
+  }
+  width: 100%;
+
+  &Title {
+    @extend .recipeTitle;
+    margin-right: 1.9rem;
+  }
+}
+.star {
+  color: $primary;
+  cursor: pointer;
+}
+
+.comment {
+  @extend .recipe;
+
+  &Title {
+    @extend .recipeTitle;
+  }
+
+  &Num {
+    display: inline;
+    @extend %flex-row;
+    @extend %center;
+    margin-left: 2rem;
+    font-size: 0.9rem;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .arrow {
+    margin-left: 0.3rem;
+    font-size: 0.7rem;
+    color: $text-deep-gray;
+  }
+}
