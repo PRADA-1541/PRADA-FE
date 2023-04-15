@@ -13,6 +13,11 @@ $border-radius-small: 0.25rem;
   flex-direction: row;
 }
 
+%center {
+  justify-content: center;
+  align-items: center;
+}
+
 * {
   font: normal normal normal 18px Spoqa Han Sans Neo;
   opacity: 1;
