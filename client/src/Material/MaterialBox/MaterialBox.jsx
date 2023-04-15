@@ -64,4 +64,4 @@ MaterialBox.propTypes = {
   isDetailRecipe: PropTypes.bool,
 };
 
-export default MaterialBox;
+export default React.memo(MaterialBox, (prevProps, nextProps) => prevProps.ingredients === nextProps.ingredients);
