@@ -151,7 +151,7 @@ const CocktailRecipe = () => {
         <h2 className='commentTitle'>
           댓글
           <span className='commentNum' onClick={commentToggle}>
-            6974
+            112
             <Arrow />
           </span>
         </h2>
