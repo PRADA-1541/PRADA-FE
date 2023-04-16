@@ -1,5 +1,5 @@
-@use '../styles/globalStyle.scss';
-@import '../styles/colors.scss';
+@use '../../styles/globalStyle.scss';
+@import '../../styles/colors.scss';
 
 .cocktailRecipeContainer {
   @extend %flex-column;

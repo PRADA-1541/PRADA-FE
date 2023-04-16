@@ -15,7 +15,7 @@ import Main from './Main/Main';
 import SignIn from './Auth/SignIn';
 import SignUp from './Auth/SignUp';
 import CocktailList from './CocktailList/CocktailList';
-import CocktailRecpie from './Recipe/CocktailRecipe';
+import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
