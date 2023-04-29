@@ -69,12 +69,16 @@ input {
 
 button {
   margin: 1rem 0;
-  padding: 0.2rem 1.2rem;
-  background: $primary;
-  border: 1px solid $primary-border;
+  padding: 0.2rem 0.8rem;
+  background: white;
+  border: 1px solid black;
   border-radius: $border-radius-small;
-  color: white;
   cursor: pointer;
+  &:hover {
+    color: white;
+    transition: 0.2s ease-out;
+    background: black;
+  }
 }
 
 a {
