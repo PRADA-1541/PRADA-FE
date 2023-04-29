@@ -17,6 +17,8 @@ import SignUp from './Auth/SignUp';
 import CocktailList from './CocktailList/CocktailList';
 import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
 import RecipeForm from './Recipe/RecipeForm/RecipeForm';
+import Header from './Header/Header';
+import Footer from './Footer/Footer';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -42,22 +44,26 @@ const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 
 const App = () => {
   return (
-    <div className='AppContainer'>
+    <>
       <RecoilRoot>
         <BrowserRouter>
-          <SentryRoutes>
-            <Route path='/' element={<Main />} />
-            <Route path='/signin' element={<SignIn />} />
-            <Route path='/signup' element={<SignUp />} />
-            <Route path='/cocktails/:category' element={<CocktailList />} />
-            <Route path='/cocktail'>
-              <Route path=':cocktailIdx' element={<CocktailRecpie />} />
-              <Route path='new' element={<RecipeForm />} />
-            </Route>
-          </SentryRoutes>
+          <Header />
+          <main className='AppContainer'>
+            <SentryRoutes>
+              <Route path='/' element={<Main />} />
+              <Route path='/signin' element={<SignIn />} />
+              <Route path='/signup' element={<SignUp />} />
+              <Route path='/cocktails/:category' element={<CocktailList />} />
+              <Route path='/cocktail'>
+                <Route path=':cocktailIdx' element={<CocktailRecpie />} />
+                <Route path='new' element={<RecipeForm />} />
+              </Route>
+            </SentryRoutes>
+          </main>
+          <Footer />
         </BrowserRouter>
       </RecoilRoot>
-    </div>
+    </>
   );
 };
 
