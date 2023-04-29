@@ -29,6 +29,10 @@ $border-radius-small: 0.25rem;
   }
 }
 
+%transition-2 {
+  transition: all 0.2s ease-in-out;
+}
+
 * {
   font: normal normal normal 18px Spoqa Han Sans Neo;
   opacity: 1;
@@ -75,8 +79,8 @@ button {
   border-radius: $border-radius-small;
   cursor: pointer;
   &:hover {
+    @extend %transition-2;
     color: white;
-    transition: 0.2s ease-out;
     background: black;
   }
 }
