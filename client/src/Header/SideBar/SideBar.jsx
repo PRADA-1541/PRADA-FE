@@ -1,6 +1,6 @@
 import React from 'react';
 import './SideBar.scss';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultImage from '../../assets/images/defaultImage.png';
 import useClickState from '../../hooks/useClickState';
@@ -8,11 +8,6 @@ import { useEffect } from 'react';
 
 const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
   const [ref, handleClickOutside] = useClickState(setIsMenuOpen);
-  const location = useLocation();
-
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [location.pathname]);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
