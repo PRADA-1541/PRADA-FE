@@ -15,7 +15,8 @@ import Main from './Main/Main';
 import SignIn from './Auth/SignIn';
 import SignUp from './Auth/SignUp';
 import CocktailList from './CocktailList/CocktailList';
-import CocktailRecpie from './Recipe/CocktailRecipe';
+import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
+import RecipeForm from './Recipe/RecipeForm/RecipeForm';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 
@@ -55,6 +56,7 @@ const App = () => {
               <Route path='/cocktails/:category' element={<CocktailList />} />
               <Route path='/cocktail'>
                 <Route path=':cocktailIdx' element={<CocktailRecpie />} />
+                <Route path='new' element={<RecipeForm />} />
               </Route>
             </SentryRoutes>
           </main>
