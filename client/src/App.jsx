@@ -47,7 +47,7 @@ const App = () => {
       <RecoilRoot>
         <BrowserRouter>
           <Header />
-          <div className='AppContainer'>
+          <main className='AppContainer'>
             <SentryRoutes>
               <Route path='/' element={<Main />} />
               <Route path='/signin' element={<SignIn />} />
@@ -57,7 +57,7 @@ const App = () => {
                 <Route path=':cocktailIdx' element={<CocktailRecpie />} />
               </Route>
             </SentryRoutes>
-          </div>
+          </main>
           <Footer />
         </BrowserRouter>
       </RecoilRoot>
