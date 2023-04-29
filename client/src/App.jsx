@@ -17,6 +17,7 @@ import SignUp from './Auth/SignUp';
 import CocktailList from './CocktailList/CocktailList';
 import CocktailRecpie from './Recipe/CocktailRecipe';
 import Header from './Header/Header';
+import Footer from './Footer/Footer';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -46,7 +47,7 @@ const App = () => {
       <RecoilRoot>
         <BrowserRouter>
           <Header />
-          <div className='AppContainer'>
+          <main className='AppContainer'>
             <SentryRoutes>
               <Route path='/' element={<Main />} />
               <Route path='/signin' element={<SignIn />} />
@@ -56,7 +57,8 @@ const App = () => {
                 <Route path=':cocktailIdx' element={<CocktailRecpie />} />
               </Route>
             </SentryRoutes>
-          </div>
+          </main>
+          <Footer />
         </BrowserRouter>
       </RecoilRoot>
     </>
