@@ -1,7 +1,7 @@
 @use '../../styles/variables.scss';
 @import '../../styles/variables.scss';
 
-.ingredient {
+.ingredientBox {
   @extend %flex-row;
   @extend %center;
   position: relative;
