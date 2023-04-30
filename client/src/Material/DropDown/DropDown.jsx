@@ -4,12 +4,12 @@ import PropTypes from 'prop-types';
 import useClickState from '../../hooks/useClickState';
 
 const DropDown = ({ setDropDown, list, onClick }) => {
-  const [ref, unitHandleClickOutside] = useClickState(setDropDown);
+  const [ref, handleClickOutside] = useClickState(setDropDown);
 
   useEffect(() => {
-    document.addEventListener('mousedown', unitHandleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', unitHandleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [ref]);
 
