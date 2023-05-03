@@ -49,17 +49,7 @@ textarea {
 }
 
 button {
-  margin: 1rem 0;
-  padding: 0.2rem 0.8rem;
-  background: white;
-  border: 1px solid black;
-  border-radius: $border-radius-small;
-  cursor: pointer;
-  &:hover {
-    @extend %transition-2;
-    color: white;
-    background: black;
-  }
+  @extend %button;
 }
 
 a {
