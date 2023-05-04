@@ -12,7 +12,7 @@ const Ingredient = ({ ingredient }) => {
   };
 
   return (
-    <div className='ingredient' onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
+    <div className='ingredientBox' onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
       <img className='ingredientImg' src={ingredient} alt='재료 이미지' />
       {cocktailIdx && isHover && (
         <div className='ingredientInfo'>

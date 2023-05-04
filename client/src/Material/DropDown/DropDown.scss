@@ -1,0 +1,23 @@
+@import '../../styles/variables.scss';
+
+.dropDown {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  background-color: white;
+  border: {
+    style: solid;
+    width: 1px;
+    color: $border-gray;
+    radius: 0.2rem;
+  }
+  @extend %box-shadow;
+
+  li {
+    border-bottom: {
+      style: solid;
+      width: 1px;
+      color: $border-gray;
+    }
+  }
+}

@@ -1,0 +1,84 @@
+//color
+$primary: #c72323;
+$gray: gray;
+$light-gray: #f4f4f4;
+$light-gray-active: #e8e5e5;
+
+$primary-border: #d34949;
+$border-gray: #c9c9c9;
+
+$text-gray: #3b3b3b;
+$text-deep-gray: #000000a6;
+$text-light-gray: #0000006c;
+
+$shadow: #00000029;
+$shadow-hover: #0000004d;
+
+$background: #00000069;
+$background-footer: #f4f4f4;
+
+//variable
+
+$border: solid 1px $border-gray;
+$border-radius-small: 0.25rem;
+
+%flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+%center {
+  justify-content: center;
+  align-items: center;
+}
+
+%contents-box {
+  margin: auto;
+  width: 80%;
+  padding: 1rem 1.5rem;
+  border: $border;
+}
+
+%transition-2 {
+  transition: all 0.2s ease-in-out;
+}
+%transition-4 {
+  transition: all 0.4s ease-in-out;
+}
+
+%box-shadow {
+  box-shadow: 0px 4px 10px $shadow;
+}
+
+@mixin btn {
+  margin: 1rem 0;
+  padding: 0.2rem 0.8rem;
+  border-radius: $border-radius-small;
+  cursor: pointer;
+  border: 1px solid black;
+}
+
+%button {
+  @include btn;
+  background: white;
+  &:hover {
+    @extend %transition-2;
+    color: white;
+    background: black;
+  }
+}
+%button-reverse {
+  @include btn;
+  background: black;
+  color: white;
+  &:hover {
+    @extend %transition-2;
+    color: black;
+    background: white;
+  }
+}

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './CocktailRecipe.scss';
 import { useParams } from 'react-router-dom';
-import data from '../assets/data/cocktails.json';
-import { CocktailInfo } from '../Preview/CocktailPreveiw_bg/CocktailPreview';
+import data from '../../assets/data/cocktails.json';
+import { CocktailInfo } from '../../Preview/CocktailPreveiw_bg/CocktailPreview';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
-import Comment from '../Material/Comment/Comment';
+import Comment from '../../Material/Comment/Comment';
 
 const CocktailRecipe = () => {
   const { cocktailIdx } = useParams();

@@ -3,14 +3,13 @@ import './Header.scss';
 import { Link, useLocation } from 'react-router-dom';
 import { HiMenuAlt2 } from 'react-icons/hi';
 import SideBar from './SideBar/SideBar';
+import useScrollMove from '../hooks/useScrollMove';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const scrollToTop = useScrollMove('top');
 
   useEffect(() => {
     setIsMenuOpen(false);

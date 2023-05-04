@@ -1,7 +1,8 @@
-@use '../../styles/globalStyle.scss';
-@import '../../styles/colors.scss';
+@use '../../styles/variables.scss';
+@import '../../styles/variables.scss';
 
 .keywordContainer {
+  display: inline-block;
   padding: 0.2rem 0.6rem;
   padding-top: 0.1rem;
   margin: 0.3rem 0.4rem;
@@ -18,5 +19,10 @@
     margin: 0 0.2rem;
     font-size: 16px;
     color: $text-gray;
+  }
+
+  &-checked {
+    @extend .keywordContainer;
+    background-color: $light-gray-active;
   }
 }
