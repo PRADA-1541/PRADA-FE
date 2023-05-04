@@ -1,5 +1,14 @@
 import { atom } from 'recoil';
 
+export const userInfoAtom = atom({
+  key: 'userInfoAtom',
+  default: {
+    nickname: '',
+    email: '',
+    profileImage: '',
+  },
+});
+
 export const newIngredientAtom = atom({
   key: 'newIngredientAtom',
   default: {
