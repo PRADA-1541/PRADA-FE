@@ -10,7 +10,9 @@ import {
   matchRoutes,
 } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
-import { RecoilRoot } from 'recoil';
+import { RecoilRoot, useSetRecoilState } from 'recoil';
+import { useCookies } from 'react-cookie';
+import { refresh } from './api/authService';
 import Main from './Main/Main';
 import CocktailList from './CocktailList/CocktailList';
 import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
@@ -18,6 +20,7 @@ import RecipeForm from './Recipe/RecipeForm/RecipeForm';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import { SendKakaoToken } from './api/authService';
+import { isSignedInAtom, userInfoAtom } from './recoil/atom';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -42,10 +45,31 @@ Sentry.init({
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 
 const App = () => {
+  const [cookies, setCookie] = useCookies(['refresh-token']);
+  const setUserInfo = useSetRecoilState(userInfoAtom);
+  const setIsSignedIn = useSetRecoilState(isSignedInAtom);
+
   useEffect(() => {
     const urlParams = new URL(location.href).searchParams;
     const kakaoToken = urlParams.get('code');
-    if (kakaoToken) SendKakaoToken(kakaoToken);
+    if (kakaoToken) SendKakaoToken(kakaoToken, setUserInfo, cookies, setCookie, setIsSignedIn);
+
+    async function Refresh() {
+      try {
+        if (await refresh(cookies['refresh-token'], cookies, setUserInfo, setIsSignedIn)) {
+          setIsSignedIn(true);
+        } else {
+          sessionStorage.removeItem('token_exp');
+        }
+      } catch (err) {
+        sessionStorage.removeItem('token_exp');
+      }
+    }
+    if (cookies['refresh-token']) {
+      Refresh();
+    } else {
+      sessionStorage.removeItem('token_exp');
+    }
   }, []);
 
   return (
