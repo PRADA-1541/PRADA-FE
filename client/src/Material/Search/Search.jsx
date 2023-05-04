@@ -3,7 +3,7 @@ import './Search.scss';
 import PropTypes from 'prop-types';
 import useClickState from '../../hooks/useClickState';
 
-const Search = ({ setSearch, placeholder, setText, list }) => {
+const Search = ({ setSearch, placeholder, setText, setNewIngredientInfo, list }) => {
   const [searchWord, setSearchWord] = useState('');
   const [ref, handleClickOutside] = useClickState(setSearch);
 
@@ -17,6 +17,9 @@ const Search = ({ setSearch, placeholder, setText, list }) => {
   const handleClick = (item) => {
     setText(item);
     setSearch(false);
+    if (setNewIngredientInfo) {
+      setNewIngredientInfo({});
+    }
   };
 
   return (
@@ -47,6 +50,7 @@ Search.propTypes = {
   setSearch: PropTypes.func.isRequired,
   placeholder: PropTypes.string.isRequired,
   setText: PropTypes.func.isRequired,
+  setNewIngredientInfo: PropTypes.func,
   list: PropTypes.array.isRequired,
 };
 
