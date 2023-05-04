@@ -10,7 +10,8 @@
   height: 100%;
   @extend %transition-4;
   background-color: $background;
-  &_hidden {
+
+  &Hidden {
     @extend .background;
     background-color: inherit;
     visibility: hidden;
@@ -21,7 +22,7 @@
   position: fixed;
   @extend %flex-column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
   top: 0;
   right: 0;
   height: 100vh;
@@ -30,8 +31,11 @@
   background-color: white;
   @extend %transition-4;
   transform: translateX(0);
+  &SignedIn {
+    justify-content: space-around;
+  }
 
-  &_hidden {
+  &Hidden {
     @extend .sideBar;
     transform: translateX(20rem);
   }
@@ -55,6 +59,18 @@
       weight: 500;
     }
   }
+}
+
+.login {
+  margin: {
+    top: 2rem;
+    bottom: 4rem;
+  }
+  font: {
+    size: 1rem;
+    weight: 500;
+  }
+  cursor: pointer;
 }
 
 ul {
