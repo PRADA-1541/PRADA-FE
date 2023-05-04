@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import './styles/globalStyle.scss';
 import {
   Routes,
   Route,
@@ -10,15 +11,13 @@ import {
 } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import { RecoilRoot } from 'recoil';
-import './styles/globalStyle.scss';
 import Main from './Main/Main';
-import SignIn from './Auth/SignIn';
-import SignUp from './Auth/SignUp';
 import CocktailList from './CocktailList/CocktailList';
 import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
 import RecipeForm from './Recipe/RecipeForm/RecipeForm';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
+import { SendKakaoToken } from './api/authService';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -43,6 +42,12 @@ Sentry.init({
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 
 const App = () => {
+  useEffect(() => {
+    const urlParams = new URL(location.href).searchParams;
+    const kakaoToken = urlParams.get('code');
+    if (kakaoToken) SendKakaoToken(kakaoToken);
+  }, []);
+
   return (
     <>
       <RecoilRoot>
@@ -51,8 +56,6 @@ const App = () => {
           <main className='AppContainer'>
             <SentryRoutes>
               <Route path='/' element={<Main />} />
-              <Route path='/signin' element={<SignIn />} />
-              <Route path='/signup' element={<SignUp />} />
               <Route path='/cocktails/:category' element={<CocktailList />} />
               <Route path='/cocktail'>
                 <Route path=':cocktailIdx' element={<CocktailRecpie />} />
