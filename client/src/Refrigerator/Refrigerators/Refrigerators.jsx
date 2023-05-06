@@ -10,30 +10,11 @@ import refrigerator7 from '../../assets/images/refrigerator/refrigerator7.png';
 import refrigerator8 from '../../assets/images/refrigerator/refrigerator8.png';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { refrigeratorsAtom } from '../../recoil/atom';
 
 const Refrigerators = () => {
-  const refrigerators = [
-    {
-      refrigeratorIdx: 1,
-      refrigeratorName: '냉장고 1',
-      isCurrent: 0,
-    },
-    {
-      refrigeratorIdx: 2,
-      refrigeratorName: '냉장고 2',
-      isCurrent: 1,
-    },
-    {
-      refrigeratorIdx: 3,
-      refrigeratorName: '냉장고 3',
-      isCurrent: 0,
-    },
-    {
-      refrigeratorIdx: 4,
-      refrigeratorName: '냉장고 4',
-      isCurrent: 0,
-    },
-  ];
+  const refrigerators = useRecoilValue(refrigeratorsAtom);
 
   const newRefrigerator = () => {
     if (refrigerators.length >= 8) {
