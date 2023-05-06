@@ -42,7 +42,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
             <li>즐겨찾기</li>
           </Link>
           <hr />
-          <Link>
+          <Link to='/refrigerator'>
             <li>내 냉장고</li>
           </Link>
           <Link>
