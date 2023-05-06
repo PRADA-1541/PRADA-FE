@@ -28,6 +28,12 @@ export const Auth = {
     auth.post('users/kakao/signin', {
       kakaoToken: kakaoToken,
     }),
+  nicknameValid: (nickname) => auth.get(`users/nicknameValid/nickname?nickname=${nickname}`),
+  signup: (email, nickname) =>
+    auth.post('users/signup', {
+      email: email,
+      nickname: nickname,
+    }),
 };
 
 export const UserApi = {

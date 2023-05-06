@@ -1,7 +1,7 @@
 import { api, Auth, UserApi } from './api';
 import jwt_decode from 'jwt-decode';
 
-export const getKaKaoToken = async (token, setUserInfo, cookies, setCookie, setIsSignedIn) => {
+export const GetKaKaoToken = async (token, setUserInfo, cookies, setCookie, setIsSignedIn) => {
   try {
     const res = await Auth.getKaKaoToken(token);
     const accessToken = res.data.access_token;
@@ -12,7 +12,7 @@ export const getKaKaoToken = async (token, setUserInfo, cookies, setCookie, setI
   }
 };
 
-export const getUserInfo = async () => {
+export const GetUserInfo = async () => {
   try {
     const res = await UserApi.getUserInfo();
     const userInfo = {
@@ -31,7 +31,7 @@ export const TokenConfig = async (token) => {
   api.defaults.headers.common['x-access-token'] = token;
   const decodedUser = jwt_decode(token);
   sessionStorage.setItem('token_exp', decodedUser.exp);
-  const userInfo = await getUserInfo();
+  const userInfo = await GetUserInfo();
   return userInfo;
 };
 
@@ -103,7 +103,7 @@ export const SendKakaoToken = async (kakaoToken, setUserInfo, cookies, setCookie
   try {
     const res = await Auth.sendKakaoToken(kakaoToken);
     if (res.status === 302) {
-      location.replace('/signup');
+      location.replace(`/signup/${res.data.result.email}`);
       return false;
     }
     const token = res.data.result.accessToken;
@@ -122,6 +122,48 @@ export const SendKakaoToken = async (kakaoToken, setUserInfo, cookies, setCookie
       expires: exp,
     });
     authInterceptor(cookies, setUserInfo, setIsSignedIn);
+    return true;
+  } catch (error) {
+    if (error.response.data && error.response.data.message) {
+      alert(error.response.data.message);
+    } else {
+      console.log(error);
+    }
+  }
+};
+
+export const NicknameValid = async (nickname) => {
+  try {
+    const res = await Auth.nicknameValid(nickname);
+    alert(res.data.message);
+    return true;
+  } catch (error) {
+    alert(error.response.data.message);
+    return false;
+  }
+};
+
+export const SignUp = async (email, nickname, setUserInfo, cookies, setCookie, setIsSignedIn) => {
+  try {
+    const res = await Auth.signup(email, nickname);
+    const token = res.data.result.accessToken;
+    alert('회원가입이 완료되었습니다.');
+    const userInfo = await TokenConfig(token);
+    if (!userInfo) {
+      alert('다시 로그인해주세요.');
+      return false;
+    }
+    setUserInfo(userInfo);
+    const decoded_refresh = jwt_decode(res.data.result.refreshToken);
+    const exp = new Date(decoded_refresh.exp * 1000);
+    setCookie('refresh-token', res.data.result.refreshToken, {
+      path: '/',
+      secure: true,
+      sameSite: 'none',
+      expires: exp,
+    });
+    authInterceptor(cookies, setUserInfo, setIsSignedIn);
+    location.replace('/');
     return true;
   } catch (error) {
     if (error.response.data && error.response.data.message) {

@@ -12,7 +12,7 @@ import {
 import * as Sentry from '@sentry/react';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
 import { useCookies } from 'react-cookie';
-import { getKaKaoToken, refresh } from './api/authService';
+import { GetKaKaoToken, refresh } from './api/authService';
 import Main from './Main/Main';
 import CocktailList from './CocktailList/CocktailList';
 import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
@@ -20,6 +20,7 @@ import RecipeForm from './Recipe/RecipeForm/RecipeForm';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import { isSignedInAtom, userInfoAtom } from './recoil/atom';
+import SignUp from './Auth/SignUp';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -51,7 +52,7 @@ const App = () => {
   useEffect(() => {
     const urlParams = new URL(location.href).searchParams;
     const kakaoToken = urlParams.get('code');
-    if (kakaoToken) getKaKaoToken(kakaoToken, setUserInfo, cookies, setCookie, setIsSignedIn);
+    if (kakaoToken) GetKaKaoToken(kakaoToken, setUserInfo, cookies, setCookie, setIsSignedIn);
 
     async function Refresh() {
       try {
@@ -79,6 +80,7 @@ const App = () => {
           <main className='AppContainer'>
             <SentryRoutes>
               <Route path='/' element={<Main />} />
+              <Route path='/signup/:email' element={<SignUp />} />
               <Route path='/cocktails/:category' element={<CocktailList />} />
               <Route path='/cocktail'>
                 <Route path=':cocktailIdx' element={<CocktailRecpie />} />
