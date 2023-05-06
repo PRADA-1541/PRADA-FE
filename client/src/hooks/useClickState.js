@@ -4,7 +4,7 @@ const useClickState = (setModal) => {
   const ref = useRef(null);
   const handleClickOutside = (e) => {
     if (ref.current && !ref.current.contains(e.target)) {
-      setModal(false);
+      if (setModal) setModal(false);
     }
   };
 
