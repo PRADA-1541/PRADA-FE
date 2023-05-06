@@ -11,6 +11,13 @@ export const auth = axios.create({
 });
 
 export const Auth = {
+  getKaKaoToken: (token) =>
+    axios.post('https://kauth.kakao.com/oauth/token', {
+      grant_type: 'authorization_code',
+      client_id: process.env.REACT_APP_REST_API_KEY,
+      redirect_uri: process.env.REACT_APP_SIGNIN_REDIRECT,
+      code: token,
+    }),
   refresh: (token) =>
     auth.get('user/refresh', {
       headers: {

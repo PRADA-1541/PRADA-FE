@@ -12,14 +12,13 @@ import {
 import * as Sentry from '@sentry/react';
 import { RecoilRoot, useSetRecoilState } from 'recoil';
 import { useCookies } from 'react-cookie';
-import { refresh } from './api/authService';
+import { getKaKaoToken, refresh } from './api/authService';
 import Main from './Main/Main';
 import CocktailList from './CocktailList/CocktailList';
 import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
 import RecipeForm from './Recipe/RecipeForm/RecipeForm';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-import { SendKakaoToken } from './api/authService';
 import { isSignedInAtom, userInfoAtom } from './recoil/atom';
 
 Sentry.init({
@@ -52,7 +51,7 @@ const App = () => {
   useEffect(() => {
     const urlParams = new URL(location.href).searchParams;
     const kakaoToken = urlParams.get('code');
-    if (kakaoToken) SendKakaoToken(kakaoToken, setUserInfo, cookies, setCookie, setIsSignedIn);
+    if (kakaoToken) getKaKaoToken(kakaoToken, setUserInfo, cookies, setCookie, setIsSignedIn);
 
     async function Refresh() {
       try {

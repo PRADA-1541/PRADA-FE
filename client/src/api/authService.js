@@ -1,14 +1,16 @@
 import { api, Auth, UserApi } from './api';
 import jwt_decode from 'jwt-decode';
 
-// export const SendKakaoToken = async (kakaoToken) => {
-//   try {
-//     const res = await Auth.sendKakaoToken(kakaoToken);
-//     if (res) return true;
-//   } catch (err) {
-//     console.log(err.res);
-//   }
-// };
+export const getKaKaoToken = async (token, setUserInfo, cookies, setCookie, setIsSignedIn) => {
+  try {
+    const res = await Auth.getKaKaoToken(token);
+    const accessToken = res.data.access_token;
+    SendKakaoToken(accessToken, setUserInfo, cookies, setCookie, setIsSignedIn);
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
 
 export const getUserInfo = async () => {
   try {
@@ -100,6 +102,10 @@ export const authInterceptor = (cookies, setUserInfo, setIsSignedIn) => {
 export const SendKakaoToken = async (kakaoToken, setUserInfo, cookies, setCookie, setIsSignedIn) => {
   try {
     const res = await Auth.sendKakaoToken(kakaoToken);
+    if (res.status === 302) {
+      location.replace('/signup');
+      return false;
+    }
     const token = res.data.result.accessToken;
     const userInfo = await TokenConfig(token);
     if (!userInfo) {
