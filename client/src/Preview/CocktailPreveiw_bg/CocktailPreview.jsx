@@ -60,10 +60,10 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
           <p className='cocktailContent'>
             <Content />
           </p>
+          {(category || cocktailIdx) && (
+            <MaterialBox type='재료' ingredients={ingredients} isDetailRecipe={cocktailIdx ? true : false} />
+          )}
         </div>
-        {(category || cocktailIdx) && (
-          <MaterialBox type='재료' ingredients={ingredients} isDetailRecipe={cocktailIdx ? true : false} />
-        )}
         {isMobile && <hr />}
         <div className='eval'>
           <EvalStars />

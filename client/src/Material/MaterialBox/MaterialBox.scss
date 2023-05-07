@@ -30,6 +30,14 @@
   .arrowRight {
     right: -1.5rem;
   }
+
+  @include mobile {
+    flex-wrap: nowrap;
+    margin: 0;
+    // padding: 0 1rem;
+    width: 100%;
+    overflow-x: scroll;
+  }
 }
 
 .keywords {
