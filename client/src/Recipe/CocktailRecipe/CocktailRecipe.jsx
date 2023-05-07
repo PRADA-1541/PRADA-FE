@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 import './CocktailRecipe.scss';
 import { useParams } from 'react-router-dom';
 import data from '../../assets/data/cocktails.json';
+import gin from '../../assets/images/ingredients/재료_진.png';
+import strawberry from '../../assets/images/ingredients/재료_딸기.png';
+import vodka from '../../assets/images/ingredients/재료_보드카.png';
+import milk from '../../assets/images/ingredients/재료_우유.png';
+import tomatoJuice from '../../assets/images/ingredients/재료_토마토주스.png';
+import sugar from '../../assets/images/ingredients/재료_설탕.png';
 import { CocktailInfo } from '../../Preview/CocktailPreveiw_bg/CocktailPreview';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
@@ -20,50 +26,52 @@ const CocktailRecipe = () => {
       profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
       date: '2021-08-01',
       content: '맛있어요',
-      like: 0,
-      dislike: 0,
-    },
-    {
-      id: 2,
-      name: '김영희',
-      profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-      date: '2021-08-01',
-      content:
-        '맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥',
-      like: 45,
+      like: 3,
       dislike: 2,
     },
-    {
-      id: 3,
-      name: '김영희',
-      profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-      date: '2021-08-01',
-      content: '맛있어요',
-      like: 45,
-      dislike: 2,
-    },
-    {
-      id: 4,
-      name: '김영희',
-      profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-      date: '2021-08-01',
-      content: '맛있어요',
-      like: 45,
-      dislike: 25,
-    },
-    {
-      id: 5,
-      name: '김영희',
-      profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-      date: '2021-08-01',
-      content: '맛있어요',
-      like: 45,
-      dislike: 2,
-    },
+    // {
+    //   id: 2,
+    //   name: '김영희',
+    //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
+    //   date: '2021-08-01',
+    //   content:
+    //     '맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥',
+    //   like: 45,
+    //   dislike: 2,
+    // },
+    // {
+    //   id: 3,
+    //   name: '김영희',
+    //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
+    //   date: '2021-08-01',
+    //   content: '맛있어요',
+    //   like: 45,
+    //   dislike: 2,
+    // },
+    // {
+    //   id: 4,
+    //   name: '김영희',
+    //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
+    //   date: '2021-08-01',
+    //   content: '맛있어요',
+    //   like: 45,
+    //   dislike: 25,
+    // },
+    // {
+    //   id: 5,
+    //   name: '김영희',
+    //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
+    //   date: '2021-08-01',
+    //   content: '맛있어요',
+    //   like: 45,
+    //   dislike: 2,
+    // },
   ];
 
+  const ingredients = [gin, strawberry, vodka, milk, tomatoJuice, sugar];
+
   const recipe =
-    '1. 레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다. \n2. 레몬씨를 레몬주스와 함께 믹서기에 넣는다. \n3. 레몬주스를 냉장고에 넣는다.';
+    '1. Mix everything well in a cocktail shaker with some ice to make everything nice and creamy.\n2. Pour into a cocktail glass and serve.';
 
   useEffect(() => {
     setCocktail(data[cocktailIdx]);
@@ -120,7 +128,8 @@ const CocktailRecipe = () => {
           content={cocktail.cocktailDescription}
           keywords={cocktail.cocktailKeyword}
           evaluation={cocktail.averageRating}
-          ingredients={cocktail.IngredientsURL}
+          // ingredients={cocktail.IngredientsURL}
+          ingredients={ingredients}
           isFavorite={false}
         />
       )}
@@ -140,7 +149,7 @@ const CocktailRecipe = () => {
         <h2 className='commentTitle'>
           댓글
           <span className='commentNum' onClick={commentToggle}>
-            112
+            1
             <Arrow />
           </span>
         </h2>
