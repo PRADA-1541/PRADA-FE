@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './SideBar.scss';
+import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultImage from '../../assets/images/defaultImage.png';
 import useClickState from '../../hooks/useClickState';
-import { useEffect } from 'react';
+import { HiMenuAlt2 } from 'react-icons/hi';
 
 const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const [ref, handleClickOutside] = useClickState(setIsMenuOpen);
 
   useEffect(() => {
@@ -18,8 +20,9 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
 
   return (
     <>
-      <div className={isMenuOpen ? 'background' : 'background_hidden'} />
+      {!isMobile && <div className={isMenuOpen ? 'background' : 'background_hidden'} />}
       <div className={isMenuOpen ? 'sideBar' : 'sideBar_hidden'} ref={ref}>
+        {isMobile && <HiMenuAlt2 className='closeSideBar' onClick={() => setIsMenuOpen(false)} />}
         <div className='profile'>
           <img className='profileImg' src={defaultImage} alt='profile Image' />
           <span className='profileName'>김준하</span>
