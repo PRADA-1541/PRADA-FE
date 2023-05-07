@@ -5,6 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { refrigeratorsAtom } from '../../recoil/atom';
 import { Link, useNavigate } from 'react-router-dom';
 import Search from '../../Material/Search/Search';
+import RefrigeratorIngredient from '../../Material/Ingredient/RefrigeratorIngredient/RefrigeratorIngredient';
 // import { useParams } from 'react-router-dom';
 
 const Refrigerator = () => {
@@ -72,11 +73,23 @@ const Refrigerator = () => {
   ];
 
   const [editState, setEditState] = useState(false);
+  const [name, setName] = useState('');
   const refrigerators = useRecoilValue(refrigeratorsAtom);
   const navigate = useNavigate();
 
   const changeCurrentRefrigerator = (refrigeratorIdx) => {
     console.log(refrigeratorIdx);
+  };
+
+  const startEditing = () => {
+    setEditState(true);
+    setName(curRefrigerator.refrigeratorName);
+  };
+
+  const stopEditing = () => {
+    setEditState(false);
+    //TODO: 냉장고 이름 변경 기능 구현
+    console.log(name);
   };
 
   const onRemove = () => {
@@ -111,28 +124,15 @@ const Refrigerator = () => {
     );
   };
 
-  const IngredientList = () => {
-    return (
-      <div className='ingredientList'>
-        {curRefrigerator.ingredients.map((ingredient) => (
-          <div
-            className={editState ? 'ingredientInRefrigeratorEditting' : 'ingredientInRefrigerator'}
-            key={ingredient.ingredientIdx}
-            onClick={editState && (() => deleteIngredient(ingredient.ingredientIdx))}
-          >
-            <img src={ingredient.ingredientImg} alt='재료 이미지' />
-            <span>{ingredient.ingredientName}</span>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
   return (
     <div style={{ position: 'relative' }}>
       <RefrigeratorList />
       <div className='refrigeratorName'>
-        <h1>{curRefrigerator.refrigeratorName}</h1>
+        {editState ? (
+          <input type='text' value={name} onChange={(e) => setName(e.target.value)} />
+        ) : (
+          <h1>{curRefrigerator.refrigeratorName}</h1>
+        )}
         {curRefrigerator.isCurrent === 1 ? (
           <AiFillStar className='refrigeratorStar' onClick={(e) => e.preventDefault()} />
         ) : (
@@ -143,20 +143,26 @@ const Refrigerator = () => {
         )}
       </div>
       <div className='refrigerator'>
-        <IngredientList />
+        <div className='ingredientList'>
+          <RefrigeratorIngredient
+            ingredients={curRefrigerator.ingredients}
+            editState={editState}
+            deleteIngredient={deleteIngredient}
+          />
+        </div>
         <div className='searchForRefrigerator'>
           {editState && <Search placeholder='재료를 검색해주세요.' setText={addIngredient} list={ingredientList} />}
         </div>
       </div>
       <div className='buttonContainer'>
         {editState ? (
-          <button onClick={() => setEditState(false)}>완료</button>
+          <button onClick={stopEditing}>완료</button>
         ) : (
           <>
             <button className='deleteRefrigerator' onClick={onRemove}>
               삭제
             </button>
-            <button onClick={() => setEditState(true)}>수정</button>
+            <button onClick={startEditing}>수정</button>
           </>
         )}
       </div>
