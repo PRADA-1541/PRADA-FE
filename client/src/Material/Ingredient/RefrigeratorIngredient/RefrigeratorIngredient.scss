@@ -5,7 +5,7 @@
   @extend %flex-column;
   align-items: center;
   span {
-    padding-top: 0.5rem;
+    padding-bottom: 1rem;
   }
   &Editting {
     @extend .ingredientInRefrigerator;
