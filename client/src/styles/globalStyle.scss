@@ -22,6 +22,11 @@ div#root {
 .AppContainer {
   margin: 3rem 0;
   width: 60rem;
+
+  @include mobile {
+    margin: 0;
+    width: 20rem;
+  }
 }
 
 form {
@@ -60,6 +65,10 @@ a {
 h1 {
   font-size: 26px;
   font-weight: 500;
+
+  @include mobile {
+    font-size: 20px;
+  }
 }
 
 h2 {

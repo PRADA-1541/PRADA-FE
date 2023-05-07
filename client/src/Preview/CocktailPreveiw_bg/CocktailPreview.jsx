@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import './CocktailPreview.scss';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import defaultImage from '../../assets/images/defaultImage.png';
@@ -8,6 +9,8 @@ import { useParams, Link } from 'react-router-dom';
 import MaterialBox from '../../Material/MaterialBox/MaterialBox';
 
 export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, ingredients, isFavorite }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
+
   const [evalStars, setEvalStars] = useState(0);
   const [halfStar, setHalfStar] = useState(false);
   const { category, cocktailIdx } = useParams();
@@ -47,18 +50,21 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
         <img src={imageURL ?? defaultImage} alt='cocktail image' />
       </div>
       <div className='cocktailInfo'>
-        <h2>
-          {name}
-          {cocktailIdx &&
-            (isFavorite ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
-        </h2>
-        <hr />
-        <p className='cocktailContent'>
-          <Content />
-        </p>
+        <div className='cocktailDetail'>
+          <h2>
+            {name}
+            {cocktailIdx &&
+              (isFavorite ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
+          </h2>
+          {!isMobile && <hr />}
+          <p className='cocktailContent'>
+            <Content />
+          </p>
+        </div>
         {(category || cocktailIdx) && (
           <MaterialBox type='재료' ingredients={ingredients} isDetailRecipe={cocktailIdx ? true : false} />
         )}
+        {isMobile && <hr />}
         <div className='eval'>
           <EvalStars />
           {halfStar && (
@@ -68,7 +74,7 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
           )}
           <p>{evaluation}</p>
         </div>
-        {keywords && <MaterialBox type='키워드' keywords={keywords} />}
+        {!isMobile && keywords && <MaterialBox type='키워드' keywords={keywords} />}
       </div>
     </div>
   );

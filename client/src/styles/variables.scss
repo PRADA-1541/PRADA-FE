@@ -20,6 +20,7 @@ $background-footer: #f4f4f4;
 //variable
 
 $border: solid 1px $border-gray;
+$border-radius-bg: 1.5rem;
 $border-radius-small: 0.25rem;
 
 %flex-column {
@@ -80,5 +81,12 @@ $border-radius-small: 0.25rem;
     @extend %transition-2;
     color: black;
     background: white;
+  }
+}
+
+$mobile: 576px;
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
   }
 }
