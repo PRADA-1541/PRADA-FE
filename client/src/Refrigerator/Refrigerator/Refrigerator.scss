@@ -3,16 +3,16 @@
 
 .searchForRefrigerator {
   position: relative;
-}
-.searchContainer {
-  position: inherit;
-  top: 0;
-  margin-top: 2rem;
-  box-shadow: none;
-  border: {
-    style: none;
-    top: $border;
-    radius: 0;
+  .searchContainer {
+    position: inherit;
+    top: 0;
+    margin-top: 2rem;
+    box-shadow: none;
+    border: {
+      style: none;
+      top: $border;
+      radius: 0;
+    }
   }
 }
 
