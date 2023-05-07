@@ -10,31 +10,65 @@
     margin: {
       top: 1rem;
     }
+
+    @include mobile {
+      flex-direction: row;
+      justify-content: space-between;
+      width: 18rem;
+      padding: 1rem;
+    }
   }
 
   &Header {
-    flex: none;
     @extend %flex-row;
     align-items: flex-start;
     width: 20%;
     .nameAndDate {
       @extend %flex-column;
     }
+
+    @include mobile {
+      width: 30%;
+    }
   }
 
   &Profile {
+    @extend %flex-row;
+    align-items: center;
+    margin-bottom: 0.3rem;
+    span {
+      margin-left: 0.2rem;
+      font-size: 0.8rem;
+    }
+  }
+
+  &ProfileImg {
     display: inline;
     width: 2rem;
     border-radius: 100%;
+
+    @include mobile {
+      width: 1.5rem;
+    }
   }
 
   &Name {
     font-size: 0.8rem;
     margin: 0;
+
+    @include mobile {
+      font-size: 0.6rem;
+    }
   }
   &Date {
     font-size: 0.7rem;
     margin: 0;
+
+    @include mobile {
+      margin-top: 0.3rem;
+      font-size: 0.5rem;
+      color: $text-light-gray;
+    }
   }
 
   &Content {
@@ -42,6 +76,13 @@
     width: 70%;
     font-size: 0.9rem;
     line-height: 1.3rem;
+
+    @include mobile {
+      width: 100%;
+      color: $text-gray;
+      font-size: 0.7rem;
+      line-height: 1rem;
+    }
   }
 
   &Eval {
@@ -56,6 +97,9 @@
         font-size: 0.8rem;
         margin: 0.2rem;
       }
+    }
+    .commentLike {
+      color: $primary;
     }
   }
 }

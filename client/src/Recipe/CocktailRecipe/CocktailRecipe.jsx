@@ -62,11 +62,8 @@ const CocktailRecipe = () => {
     },
   ];
 
-  const recipe = [
-    '레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다.',
-    '레몬씨를 레몬주스와 함께 믹서기에 넣는다.',
-    '레몬주스를 냉장고에 넣는다.',
-  ];
+  const recipe =
+    '1. 레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다. 레몬을 씻어서 레몬씨를 뽑아낸다. \n2. 레몬씨를 레몬주스와 함께 믹서기에 넣는다. \n3. 레몬주스를 냉장고에 넣는다.';
 
   useEffect(() => {
     setCocktail(data[cocktailIdx]);
@@ -79,14 +76,6 @@ const CocktailRecipe = () => {
   const Arrow = () => {
     if (commentVisible) return <SlArrowUp className='arrow' />;
     else return <SlArrowDown className='arrow' />;
-  };
-
-  const Recipe = () => {
-    return recipe.map((direction, idx) => (
-      <li className='recipeText' key={idx}>
-        {direction}
-      </li>
-    ));
   };
 
   const Evaluation = () => {
@@ -138,9 +127,9 @@ const CocktailRecipe = () => {
       <div className='recipe'>
         <h2 className='recipeTitle'>레시피</h2>
         <div className='recipeContent'>
-          <ol>
-            <Recipe />
-          </ol>
+          {recipe.split('\n').map((item, idx) => (
+            <p key={idx}>{item}</p>
+          ))}
         </div>
       </div>
       <div className='evaluation'>

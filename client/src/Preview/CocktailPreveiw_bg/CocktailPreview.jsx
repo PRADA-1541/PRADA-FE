@@ -61,10 +61,20 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
             <Content />
           </p>
           {(category || cocktailIdx) && (
-            <MaterialBox type='재료' ingredients={ingredients} isDetailRecipe={cocktailIdx ? true : false} />
+            <>
+              {isMobile && cocktailIdx && <h3>재료</h3>}
+              <MaterialBox type='재료' ingredients={ingredients} isDetailRecipe={cocktailIdx ? true : false} />
+            </>
+          )}
+          {!isMobile && keywords && <MaterialBox type='키워드' keywords={keywords} />}
+          {isMobile && keywords && cocktailIdx && (
+            <>
+              <h3>키워드</h3>
+              <MaterialBox type='키워드' keywords={keywords} />
+            </>
           )}
         </div>
-        {isMobile && <hr />}
+        {isMobile && !cocktailIdx && <hr />}
         <div className='eval'>
           <EvalStars />
           {halfStar && (
@@ -74,7 +84,6 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
           )}
           <p>{evaluation}</p>
         </div>
-        {!isMobile && keywords && <MaterialBox type='키워드' keywords={keywords} />}
       </div>
     </div>
   );

@@ -8,6 +8,10 @@
     color: $text-deep-gray;
   }
   cursor: default;
+
+  @include mobile {
+    margin: 0 0 1rem 0;
+  }
 }
 
 @mixin materialBox {
@@ -34,7 +38,6 @@
   @include mobile {
     flex-wrap: nowrap;
     margin: 0;
-    // padding: 0 1rem;
     width: 100%;
     overflow-x: scroll;
   }
@@ -44,4 +47,12 @@
   @include materialBox;
   justify-content: right;
   margin-top: 4.3rem;
+
+  @include mobile {
+    flex-wrap: nowrap;
+    justify-content: left;
+    margin: 0;
+    width: 100%;
+    overflow-x: scroll;
+  }
 }

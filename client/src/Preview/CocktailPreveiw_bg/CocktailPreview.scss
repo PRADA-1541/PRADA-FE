@@ -94,6 +94,20 @@
     p {
       font-size: 0.9rem;
     }
+    h3 {
+      margin-bottom: 0.4rem;
+      font: {
+        size: 1rem;
+        weight: 500;
+      }
+      text: {
+        decoration: {
+          line: underline;
+          color: $text-light-gray;
+        }
+        underline-position: under;
+      }
+    }
   }
 }
 
@@ -102,6 +116,10 @@
   font-size: 2rem;
   color: $primary;
   cursor: pointer;
+
+  @include mobile {
+    font-size: 1.5rem;
+  }
 }
 
 .eval {
@@ -119,6 +137,9 @@
 
   @include mobile {
     border: none;
+    svg {
+      color: $primary;
+    }
   }
 }
 
