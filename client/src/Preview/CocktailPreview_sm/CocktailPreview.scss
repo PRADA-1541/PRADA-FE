@@ -51,5 +51,8 @@
 
   @include mobile {
     font-size: x-small;
+    svg {
+      font-size: x-small;
+    }
   }
 }
