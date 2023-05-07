@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Refrigerator.scss';
+import ingredientList from '../../assets/data/ingredients.json';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
 import { refrigeratorsAtom } from '../../recoil/atom';
@@ -51,26 +52,6 @@ const Refrigerator = () => {
       },
     ],
   };
-  const ingredientList = [
-    '다크럼',
-    '다크 럼',
-    '럼',
-    '럼다크',
-    '데킬라',
-    '진',
-    '보드카',
-    '위스키',
-    '브랜디',
-    '기타',
-    '오렌지',
-    '레몬',
-    '라임',
-    '자몽',
-    '토닉워터',
-    '콜라',
-    '사이다',
-    '진저에일',
-  ];
 
   const [editState, setEditState] = useState(false);
   const [name, setName] = useState('');
