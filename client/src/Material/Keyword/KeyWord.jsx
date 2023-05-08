@@ -4,10 +4,10 @@ import './KeyWord.scss';
 
 const KeyWord = ({ keyword, onClick, isChecked }) => {
   return (
-    <span className={isChecked ? 'keywordContainer-checked' : 'keywordContainer'} onClick={onClick}>
-      <p className='hashtag'>#</p>
-      <p className='keyword'>{keyword}</p>
-    </span>
+    <div className={isChecked ? 'keywordContainer-checked' : 'keywordContainer'} onClick={onClick}>
+      <span className='hashtag'>#</span>
+      <span className='keyword'>{keyword}</span>
+    </div>
   );
 };
 

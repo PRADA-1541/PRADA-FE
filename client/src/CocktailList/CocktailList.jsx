@@ -24,7 +24,7 @@ const CocktailList = () => {
 
   return (
     <>
-      <h1 className='category'>{category}</h1>
+      <h1>{category}</h1>
       <RecipeList />
     </>
   );
