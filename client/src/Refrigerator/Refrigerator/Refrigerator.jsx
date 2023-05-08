@@ -108,7 +108,7 @@ const Refrigerator = () => {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className='refrigeratorBox'>
       <RefrigeratorList />
       <div className='refrigeratorName'>
         {editState ? (
