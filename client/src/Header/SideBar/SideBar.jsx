@@ -6,17 +6,17 @@ import PropTypes from 'prop-types';
 import defaultImage from '../../assets/images/defaultImage.png';
 import useClickState from '../../hooks/useClickState';
 import { useRecoilValue } from 'recoil';
-import { isSignedInAtom, userInfoAtom } from '../../recoil/atom';
+import { userInfoAtom } from '../../recoil/atom';
+import { HiMenuAlt2 } from 'react-icons/hi';
 
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_SIGNIN_REDIRECT;
 const KAKAO_LOGIN_API = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
-import { HiMenuAlt2 } from 'react-icons/hi';
 
 const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const [ref, handleClickOutside] = useClickState(setIsMenuOpen);
-  const isSignedIn = useRecoilValue(isSignedInAtom);
+  // const isSignedIn = useRecoilValue(isSignedInAtom);
   const userInfo = useRecoilValue(userInfoAtom);
 
   useEffect(() => {
@@ -34,11 +34,17 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
         <div className='profile'>
           <img
             className='profileImg'
-            src={isSignedIn ? (userInfo.profileImage === '' ? defaultImage : userInfo.profileImage) : defaultImage}
+            src={
+              userInfo.nickname !== ''
+                ? userInfo.profileImage === ''
+                  ? defaultImage
+                  : userInfo.profileImage
+                : defaultImage
+            }
             alt='profile Image'
           />
-          {isSignedIn ? (
-            <span className='profileName'>{userInfo.email}</span>
+          {userInfo.nickname !== '' ? (
+            <span className='profileName'>{userInfo.nickname}</span>
           ) : (
             <Link className='login' to={KAKAO_LOGIN_API}>
               로그인 해주세요.
@@ -58,7 +64,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
           <Link>
             <li>칵테일 가이드 라인</li>
           </Link>
-          {isSignedIn && (
+          {userInfo.nickname !== '' && (
             <>
               <hr />
               <Link>
@@ -77,7 +83,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
             </>
           )}
         </ul>
-        {isSignedIn && (
+        {userInfo.nickname !== '' && (
           <div className='logoutContainer'>
             <button className='logout'>로그아웃</button>
           </div>

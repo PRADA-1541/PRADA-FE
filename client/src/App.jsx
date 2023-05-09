@@ -10,7 +10,7 @@ import {
   matchRoutes,
 } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
-import { RecoilRoot, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useCookies } from 'react-cookie';
 import { GetKaKaoToken, refresh } from './api/authService';
 import Main from './Main/Main';
@@ -49,9 +49,11 @@ const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 const App = () => {
   const [cookies, setCookie] = useCookies(['refresh-token']);
   const setUserInfo = useSetRecoilState(userInfoAtom);
+  const userInfo = useRecoilValue(userInfoAtom);
   const setIsSignedIn = useSetRecoilState(isSignedInAtom);
 
   useEffect(() => {
+    console.log(userInfo);
     const urlParams = new URL(location.href).searchParams;
     const kakaoToken = urlParams.get('code');
     if (kakaoToken) GetKaKaoToken(kakaoToken, setUserInfo, cookies, setCookie, setIsSignedIn);
@@ -76,27 +78,25 @@ const App = () => {
 
   return (
     <>
-      <RecoilRoot>
-        <BrowserRouter>
-          <Header />
-          <main className='AppContainer'>
-            <SentryRoutes>
-              <Route path='/' element={<Main />} />
-              <Route path='/signup/:email' element={<SignUp />} />
-              <Route path='/cocktails/:category' element={<CocktailList />} />
-              <Route path='/cocktail'>
-                <Route path=':cocktailIdx' element={<CocktailRecpie />} />
-                <Route path='new' element={<RecipeForm />} />
-              </Route>
-              <Route path='/refrigerator'>
-                <Route path='list' element={<Refrigerators />} />
-                <Route path=':refrigeratorIdx' element={<Refrigerator />} />
-              </Route>
-            </SentryRoutes>
-          </main>
-          <Footer />
-        </BrowserRouter>
-      </RecoilRoot>
+      <BrowserRouter>
+        <Header />
+        <main className='AppContainer'>
+          <SentryRoutes>
+            <Route path='/' element={<Main />} />
+            <Route path='/signup/:email' element={<SignUp />} />
+            <Route path='/cocktails/:category' element={<CocktailList />} />
+            <Route path='/cocktail'>
+              <Route path=':cocktailIdx' element={<CocktailRecpie />} />
+              <Route path='new' element={<RecipeForm />} />
+            </Route>
+            <Route path='/refrigerator'>
+              <Route path='list' element={<Refrigerators />} />
+              <Route path=':refrigeratorIdx' element={<Refrigerator />} />
+            </Route>
+          </SentryRoutes>
+        </main>
+        <Footer />
+      </BrowserRouter>
     </>
   );
 };

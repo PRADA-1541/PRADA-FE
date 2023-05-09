@@ -10,7 +10,7 @@ export const userInfoAtom = atom({
   default: {
     nickname: '',
     email: '',
-    profileImage: '',
+    // profileImage: '',
   },
 });
 
