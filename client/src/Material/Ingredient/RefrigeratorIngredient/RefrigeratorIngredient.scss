@@ -1,0 +1,14 @@
+@use '../../../styles/variables.scss';
+
+.ingredientInRefrigerator {
+  position: relative;
+  @extend %flex-column;
+  align-items: center;
+  span {
+    padding-bottom: 1rem;
+  }
+  &Editting {
+    @extend .ingredientInRefrigerator;
+    cursor: pointer;
+  }
+}

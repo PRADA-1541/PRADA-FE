@@ -5,6 +5,10 @@
   @extend %flex-column;
   align-items: center;
   @extend %box-shadow;
+
+  @include mobile {
+    margin: 0 0.5rem;
+  }
 }
 
 .previewImgContainer {
@@ -12,6 +16,11 @@
   height: 13rem;
   width: 13rem;
   overflow: hidden;
+
+  @include mobile {
+    height: 6.5rem;
+    width: 6.5rem;
+  }
 }
 
 .previewImg {
@@ -28,6 +37,10 @@
 
 .cocktailName {
   margin-bottom: 0;
+
+  @include mobile {
+    font-size: x-small;
+  }
 }
 
 .cocktailEval {
@@ -35,4 +48,11 @@
   align-items: center;
   margin: 0;
   margin-bottom: 0.5rem;
+
+  @include mobile {
+    font-size: x-small;
+    svg {
+      font-size: x-small;
+    }
+  }
 }

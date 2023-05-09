@@ -16,7 +16,7 @@ const Search = ({ setSearch, placeholder, setText, setNewIngredientInfo, list })
 
   const handleClick = (item) => {
     setText(item);
-    setSearch(false);
+    if (setSearch) setSearch(false);
     if (setNewIngredientInfo) {
       setNewIngredientInfo({});
     }
@@ -47,7 +47,7 @@ const Search = ({ setSearch, placeholder, setText, setNewIngredientInfo, list })
 };
 
 Search.propTypes = {
-  setSearch: PropTypes.func.isRequired,
+  setSearch: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
   setText: PropTypes.func.isRequired,
   setNewIngredientInfo: PropTypes.func,

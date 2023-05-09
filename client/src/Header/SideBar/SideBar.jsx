@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import './SideBar.scss';
+import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultImage from '../../assets/images/defaultImage.png';
@@ -10,8 +11,10 @@ import { isSignedInAtom, userInfoAtom } from '../../recoil/atom';
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_SIGNIN_REDIRECT;
 const KAKAO_LOGIN_API = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+import { HiMenuAlt2 } from 'react-icons/hi';
 
 const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const [ref, handleClickOutside] = useClickState(setIsMenuOpen);
   const isSignedIn = useRecoilValue(isSignedInAtom);
   const userInfo = useRecoilValue(userInfoAtom);
@@ -25,8 +28,9 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
 
   return (
     <>
-      <div className={isMenuOpen ? 'background' : 'backgroundHidden'} />
-      <div className={isMenuOpen ? (isSignedIn ? 'sideBarSignedIn' : 'sideBar') : 'sideBarHidden'} ref={ref}>
+      {!isMobile && <div className={isMenuOpen ? 'background' : 'background_hidden'} />}
+      <div className={isMenuOpen ? 'sideBar' : 'sideBar_hidden'} ref={ref}>
+        {isMobile && <HiMenuAlt2 className='closeSideBar' onClick={() => setIsMenuOpen(false)} />}
         <div className='profile'>
           <img
             className='profileImg'
@@ -61,7 +65,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
                 <li>즐겨찾기</li>
               </Link>
               <hr />
-              <Link>
+              <Link to='/refrigerator/list'>
                 <li>내 냉장고</li>
               </Link>
               <Link>

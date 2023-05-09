@@ -15,12 +15,27 @@
     padding: 0.2rem 0;
     font-size: 0.8rem;
   }
+
+  @include mobile {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    div,
+    span {
+      padding: 0.1rem 0;
+      font-size: 0.4rem;
+    }
+  }
 }
 
 .projectInfo {
   display: grid;
   grid-template-columns: 1fr 4fr;
   width: 30rem;
+
+  @include mobile {
+    width: 100%;
+  }
 }
 
 .developers {
@@ -39,4 +54,11 @@
 .guide {
   text-align: right;
   line-height: 1.2rem;
+
+  @include mobile {
+    margin-top: 0.5rem;
+    color: $text-light-gray;
+    text-align: left;
+    line-height: 0.8rem;
+  }
 }

@@ -1,3 +1,10 @@
+$mobile: 576px;
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
 //color
 $primary: #c72323;
 $gray: gray;
@@ -67,6 +74,7 @@ $border-radius-small: 0.25rem;
 
 %button {
   @include btn;
+  color: black;
   background: white;
   &:hover {
     @extend %transition-2;

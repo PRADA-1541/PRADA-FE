@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import './CocktailPreview.scss';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import defaultImage from '../../assets/images/defaultImage.png';
@@ -8,6 +9,8 @@ import { useParams, Link } from 'react-router-dom';
 import MaterialBox from '../../Material/MaterialBox/MaterialBox';
 
 export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, ingredients, isFavorite }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
+
   const [evalStars, setEvalStars] = useState(0);
   const [halfStar, setHalfStar] = useState(false);
   const { category, cocktailIdx } = useParams();
@@ -47,18 +50,31 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
         <img src={imageURL ?? defaultImage} alt='cocktail image' />
       </div>
       <div className='cocktailInfo'>
-        <h2>
-          {name}
-          {cocktailIdx &&
-            (isFavorite ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
-        </h2>
-        <hr />
-        <p className='cocktailContent'>
-          <Content />
-        </p>
-        {(category || cocktailIdx) && (
-          <MaterialBox type='재료' ingredients={ingredients} isDetailRecipe={cocktailIdx ? true : false} />
-        )}
+        <div className='cocktailDetail'>
+          <h2>
+            {name}
+            {cocktailIdx &&
+              (isFavorite ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
+          </h2>
+          {!isMobile && <hr />}
+          <p className='cocktailContent'>
+            <Content />
+          </p>
+          {(category || cocktailIdx) && (
+            <>
+              {isMobile && cocktailIdx && <h3>재료</h3>}
+              <MaterialBox type='재료' ingredients={ingredients} isDetailRecipe={cocktailIdx ? true : false} />
+            </>
+          )}
+          {!isMobile && keywords && <MaterialBox type='키워드' keywords={keywords} />}
+          {isMobile && keywords && cocktailIdx && (
+            <>
+              <h3>키워드</h3>
+              <MaterialBox type='키워드' keywords={keywords} />
+            </>
+          )}
+        </div>
+        {isMobile && !cocktailIdx && <hr />}
         <div className='eval'>
           <EvalStars />
           {halfStar && (
@@ -68,7 +84,6 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
           )}
           <p>{evaluation}</p>
         </div>
-        {keywords && <MaterialBox type='키워드' keywords={keywords} />}
       </div>
     </div>
   );

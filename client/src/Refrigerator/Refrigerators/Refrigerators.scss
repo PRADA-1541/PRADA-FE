@@ -1,0 +1,43 @@
+@use '../../styles/variables.scss';
+@import '../../styles/variables.scss';
+
+.refrigeratorHeader {
+  @extend %flex-row;
+  justify-content: space-between;
+}
+
+.refrigeratorGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 1rem;
+  justify-items: center;
+  width: 100%;
+  padding: 1rem;
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 576px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  img {
+    width: 80%;
+  }
+}
+
+.refrigeratorContainer {
+  position: relative;
+  @extend %flex-column;
+  align-items: center;
+  svg {
+    position: absolute;
+    top: 0;
+    right: 13%;
+    height: 2.5rem;
+    width: 2.5rem;
+    padding: 0.5rem;
+    color: $primary;
+    cursor: pointer;
+  }
+  cursor: pointer;
+}

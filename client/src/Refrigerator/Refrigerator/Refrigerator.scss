@@ -1,0 +1,95 @@
+@use '../../styles/variables.scss';
+@import '../../styles/variables.scss';
+
+.searchForRefrigerator {
+  position: relative;
+  .searchContainer {
+    position: inherit;
+    top: 0;
+    margin-top: 2rem;
+    box-shadow: none;
+    border: {
+      style: none;
+      top: $border;
+      radius: 0;
+    }
+  }
+}
+
+.refrigeratorLinkList {
+  position: absolute;
+  top: 2rem;
+  left: -12rem;
+  width: 10rem;
+  border: $border;
+  li {
+    text-align: center;
+    color: black;
+  }
+  .currentList {
+    background-color: black;
+    color: white;
+  }
+}
+
+.refrigeratorName {
+  @extend %flex-row;
+  align-items: center;
+
+  input {
+    margin: 0;
+  }
+}
+
+.refrigeratorStar {
+  height: 2.5rem;
+  width: 2.5rem;
+  padding: 0.5rem;
+  color: $primary;
+  cursor: pointer;
+}
+
+.refrigerator {
+  border: $border;
+  border-radius: $border-radius-small;
+  padding-top: 1rem;
+}
+
+.ingredientList {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+  justify-items: center;
+  max-height: 40rem;
+  overflow-y: scroll;
+  width: 100%;
+  padding: 0 2rem;
+  //   @media (max-width: 768px) {
+  //     grid-template-columns: repeat(3, 1fr);
+  //   }
+  //   @media (max-width: 576px) {
+  //     grid-template-columns: repeat(1, 1fr);
+  //   }
+
+  img {
+    width: 80%;
+    height: 10rem;
+    object-fit: scale-down;
+  }
+}
+
+.buttonContainer {
+  @extend %flex-row;
+  justify-content: right;
+}
+
+.deleteRefrigerator {
+  margin-right: 0.5rem;
+  background-color: $primary;
+  color: white;
+  border-color: $primary;
+  &:hover {
+    color: $primary;
+    background-color: white;
+  }
+}
