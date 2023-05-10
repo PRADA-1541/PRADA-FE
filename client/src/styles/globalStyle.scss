@@ -54,6 +54,11 @@ textarea {
 
 button {
   @extend %button;
+
+  @include mobile {
+    font-size: medium;
+    padding: 0.2rem 0.5rem;
+  }
 }
 
 a {
