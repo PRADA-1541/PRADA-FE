@@ -44,6 +44,11 @@
 
   input {
     margin: 0;
+
+    @include mobile {
+      margin: 1rem 0;
+      width: 100%;
+    }
   }
 }
 
@@ -53,12 +58,22 @@
   padding: 0.5rem;
   color: $primary;
   cursor: pointer;
+
+  @include mobile {
+    height: 2.2rem;
+    width: 2.2rem;
+  }
 }
 
 .refrigerator {
   border: $border;
   border-radius: $border-radius-small;
   padding-top: 1rem;
+
+  @include mobile {
+    border: none;
+    padding: 0;
+  }
 }
 
 .ingredientList {
@@ -70,17 +85,21 @@
   overflow-y: scroll;
   width: 100%;
   padding: 0 2rem;
-  //   @media (max-width: 768px) {
-  //     grid-template-columns: repeat(3, 1fr);
-  //   }
-  //   @media (max-width: 576px) {
-  //     grid-template-columns: repeat(1, 1fr);
-  //   }
+
+  @include mobile {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 0;
+    max-height: 30rem;
+  }
 
   img {
     width: 80%;
     height: 10rem;
     object-fit: scale-down;
+
+    @include mobile {
+      height: 5rem;
+    }
   }
 }
 

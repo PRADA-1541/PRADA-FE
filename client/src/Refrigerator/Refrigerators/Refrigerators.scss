@@ -4,6 +4,15 @@
 .refrigeratorHeader {
   @extend %flex-row;
   justify-content: space-between;
+  align-items: center;
+}
+
+.addRefrigerator {
+  @include mobile {
+    margin: 0;
+    font-size: small;
+    padding: 0.2rem 0.5rem;
+  }
 }
 
 .refrigeratorGrid {
@@ -13,11 +22,8 @@
   justify-items: center;
   width: 100%;
   padding: 1rem;
-  @media (max-width: 768px) {
+  @include mobile {
     grid-template-columns: repeat(2, 1fr);
-  }
-  @media (max-width: 576px) {
-    grid-template-columns: repeat(1, 1fr);
   }
 
   img {
@@ -38,6 +44,12 @@
     padding: 0.5rem;
     color: $primary;
     cursor: pointer;
+
+    @include mobile {
+      right: 5%;
+      height: 2.2rem;
+      width: 2.2rem;
+    }
   }
   cursor: pointer;
 }

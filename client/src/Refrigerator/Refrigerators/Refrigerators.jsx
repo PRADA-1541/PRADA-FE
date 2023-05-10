@@ -102,7 +102,9 @@ const Refrigerators = () => {
     <div>
       <div className='refrigeratorHeader'>
         <h1>내 냉장고</h1>
-        <button onClick={newRefrigerator}>냉장고 추가</button>
+        <button className='addRefrigerator' onClick={newRefrigerator}>
+          냉장고 추가
+        </button>
       </div>
       <div className='refrigeratorGrid'>{refrigerators.length === 0 ? <Info /> : <RefrigeratorList />}</div>
     </div>
