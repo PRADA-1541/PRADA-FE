@@ -1,4 +1,5 @@
 @use '../../../styles/variables.scss';
+@import '../../../styles/variables.scss';
 
 .ingredientInRefrigerator {
   position: relative;
@@ -10,5 +11,12 @@
   &Editting {
     @extend .ingredientInRefrigerator;
     cursor: pointer;
+  }
+}
+
+.ingredientNameInRefrigerator {
+  text-align: center;
+  @include mobile {
+    font-size: medium;
   }
 }
