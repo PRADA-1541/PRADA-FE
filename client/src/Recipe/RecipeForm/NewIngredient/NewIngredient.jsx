@@ -9,7 +9,7 @@ import ImagePreview from '../../../Material/ImagePreview/ImagePreview';
 const NewIngredient = ({ setNewIngredientInfo, setIngredientName, newIngredient, setNewIngredient }) => {
   const ingredientImageRef = useRef();
   const [newIngredientTemp, setNewIngredientTemp] = useRecoilState(newIngredientAtom);
-  const categoryList = ['#Spirits', '#Liqueur', '#Drinks', '#Garnish', '#Syrup', '#Ingreidents'];
+  const categoryList = ['Spirits', 'Liqueur', 'Drinks', 'Garnish', 'Syrup', 'Ingreidents'];
 
   const [ref, handleClickOutside] = useClickState(setNewIngredient);
 
@@ -58,15 +58,19 @@ const NewIngredient = ({ setNewIngredientInfo, setIngredientName, newIngredient,
   };
 
   const Categories = () => {
-    return categoryList.map((item) => (
-      <span
-        className={newIngredientTemp.category === item ? 'selectedCategory' : 'ingredientCategory'}
-        onClick={() => setNewIngredientTemp({ ...newIngredientTemp, category: item })}
-        key={item}
-      >
-        {item}
-      </span>
-    ));
+    return (
+      <div className='categoryContainer'>
+        {categoryList.map((item) => (
+          <span
+            className={newIngredientTemp.category === item ? 'selectedCategory' : 'ingredientCategory'}
+            onClick={() => setNewIngredientTemp({ ...newIngredientTemp, category: item })}
+            key={item}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -93,7 +97,6 @@ const NewIngredient = ({ setNewIngredientInfo, setIngredientName, newIngredient,
       <br />
       <label>종류 : </label>
       <Categories />
-      <br />
       <br />
       <label htmlFor='ingredientImage'>
         재료 이미지

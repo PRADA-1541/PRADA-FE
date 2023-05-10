@@ -46,7 +46,7 @@
 .keywords {
   @include materialBox;
   justify-content: right;
-  margin-top: 4.3rem;
+  margin-top: 1rem;
 
   @include mobile {
     flex-wrap: nowrap;

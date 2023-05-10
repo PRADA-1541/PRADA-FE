@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import './RecipeForm.scss';
 import ingredientList from '../../assets/data/ingredients.json';
 import PropTypes from 'prop-types';
+import { useMediaQuery } from 'react-responsive';
 import { newIngredientAtom } from '../../recoil/atom';
 import { useResetRecoilState } from 'recoil';
 import KeyWord from '../../Material/Keyword/KeyWord';
@@ -12,6 +13,8 @@ import NewIngredient from './NewIngredient/NewIngredient';
 import ImagePreview from '../../Material/ImagePreview/ImagePreview';
 
 const RecipeForm = () => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
+
   const [isFirst, setIsFirst] = useState(true);
 
   const [cocktailName, setCocktailName] = useState('');
@@ -216,17 +219,21 @@ const RecipeForm = () => {
                   />
                 )}
               </div>
-              <div className='newIngredientBtn' onClick={() => setNewIngredient(!newIngredient)}>
-                새로운 재료
-              </div>
-              <NewIngredient
-                setNewIngredientInfo={setNewIngredientInfo}
-                setIngredientName={setIngredientName}
-                newIngredient={newIngredient}
-                setNewIngredient={setNewIngredient}
-              />
+              {!isMobile && (
+                <>
+                  <div className='newIngredientBtn' onClick={() => setNewIngredient(!newIngredient)}>
+                    새로운 재료
+                  </div>
+                  <NewIngredient
+                    setNewIngredientInfo={setNewIngredientInfo}
+                    setIngredientName={setIngredientName}
+                    newIngredient={newIngredient}
+                    setNewIngredient={setNewIngredient}
+                  />
+                </>
+              )}
             </div>
-            <br />
+            {!isMobile && <br />}
             <div className='volumeContainer'>
               <input
                 className='volume'
@@ -241,6 +248,19 @@ const RecipeForm = () => {
                 {unitDropDown && <DropDown setDropDown={setUnitDropDown} list={unitList} onClick={setUnit} />}
               </div>
             </div>
+            {isMobile && (
+              <div style={{ position: 'relative' }}>
+                <div className='newIngredientBtn' onClick={() => setNewIngredient(!newIngredient)}>
+                  새로운 재료
+                </div>
+                <NewIngredient
+                  setNewIngredientInfo={setNewIngredientInfo}
+                  setIngredientName={setIngredientName}
+                  newIngredient={newIngredient}
+                  setNewIngredient={setNewIngredient}
+                />
+              </div>
+            )}
           </div>
         );
       } else {
@@ -253,7 +273,7 @@ const RecipeForm = () => {
             <div className='ingredientSelectBtn' style={{ cursor: 'default' }}>
               {ingredients[idx].name}
             </div>
-            <br />
+            {!isMobile && <br />}
             <div className='volumeContainer'>
               <div className='unit' style={{ cursor: 'default' }}>
                 {ingredients[idx].volume}
@@ -273,11 +293,11 @@ const RecipeForm = () => {
       <h1>레시피 작성</h1>
       <form className='recipeFormContainer' onSubmit={(e) => e.preventDefault()}>
         {isFirst && (
-          <div className='formContainer'>
+          <>
             <h2>1. 칵테일 정보</h2>
             <div className='cocktailFormInfo'>
               <label htmlFor='cocktailFormName'>
-                <Required /> 칵테일 이름 :
+                <Required /> 칵테일 이름
               </label>
               <input
                 value={cocktailName}
@@ -328,14 +348,16 @@ const RecipeForm = () => {
               <br />
               {imagePreview && <ImagePreview imagePreview={imagePreview} deleteImage={deleteImage} />}
             </div>
-          </div>
+          </>
         )}
         {!isFirst && (
           <>
             <div className='formContainer'>
               <h2>2. 재료</h2>
               <Ingredients />
-              <button onClick={addIngredient}>추가</button>
+              <button className='ingredientAddBtn' onClick={addIngredient}>
+                추가
+              </button>
             </div>
             <div className='formContainer' style={{ marginTop: '2rem' }}>
               <h2>3. 레시피</h2>

@@ -2,6 +2,7 @@
 
 .dropDown {
   position: absolute;
+  z-index: 100;
   width: 100%;
   left: 0;
   background-color: white;
@@ -18,6 +19,10 @@
       style: solid;
       width: 1px;
       color: $border-gray;
+    }
+
+    @include mobile {
+      font-size: medium;
     }
   }
 }
