@@ -11,6 +11,7 @@ import SearchIcon from '@mui/icons-material/Search';
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchState, setSearchState] = useState(false);
+  const [searchWord, setSearchWord] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -19,6 +20,7 @@ const Header = () => {
   useEffect(() => {
     setIsMenuOpen(false);
     scrollToTop();
+    setSearchWord('');
     if (
       location.pathname === '/' ||
       location.pathname === '/cocktails/IBM' ||
@@ -33,8 +35,12 @@ const Header = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const search = (e, searchWord) => {
+  const search = (e) => {
     e.preventDefault();
+    if (searchWord === '') {
+      alert('검색어를 입력해주세요');
+      return;
+    }
     navigate(`/search/${searchWord}`);
   };
 
@@ -52,7 +58,7 @@ const Header = () => {
       {searchState && (
         <form
           onSubmit={(e) => {
-            search(e, e.target[0].value);
+            search(e);
           }}
         >
           <TextField
@@ -62,6 +68,10 @@ const Header = () => {
             label='검색어를 입력해주세요'
             type='search'
             variant='standard'
+            value={searchWord}
+            onChange={(e) => {
+              setSearchWord(e.target.value);
+            }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>

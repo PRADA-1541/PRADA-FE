@@ -61,7 +61,7 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
           <p className='cocktailContent'>
             <Content />
           </p>
-          {(location.path !== '/' || cocktailIdx) && (
+          {(location.pathname !== '/' || cocktailIdx) && (
             <>
               {isMobile && cocktailIdx && <h3>재료</h3>}
               <MaterialBox type='재료' ingredients={ingredients} isDetailRecipe={cocktailIdx ? true : false} />
