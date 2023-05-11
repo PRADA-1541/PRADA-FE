@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Header.scss';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { HiMenuAlt2 } from 'react-icons/hi';
 import SideBar from './SideBar/SideBar';
 import useScrollMove from '../hooks/useScrollMove';
@@ -10,8 +10,9 @@ import SearchIcon from '@mui/icons-material/Search';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
   const [searchState, setSearchState] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const scrollToTop = useScrollMove('top');
 
@@ -21,7 +22,8 @@ const Header = () => {
     if (
       location.pathname === '/' ||
       location.pathname === '/cocktails/IBM' ||
-      location.pathname === '/cocktails/custom'
+      location.pathname === '/cocktails/custom' ||
+      location.pathname.startsWith('/search')
     )
       setSearchState(true);
     else setSearchState(false);
@@ -33,7 +35,7 @@ const Header = () => {
 
   const search = (e, searchWord) => {
     e.preventDefault();
-    console.log(searchWord);
+    navigate(`/search/${searchWord}`);
   };
 
   return (
