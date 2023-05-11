@@ -21,6 +21,7 @@ import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import Refrigerators from './Refrigerator/Refrigerators/Refrigerators';
 import Refrigerator from './Refrigerator/Refrigerator/Refrigerator';
+import SearchList from './SearchList/SearchList';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -64,6 +65,7 @@ const App = () => {
                 <Route path='list' element={<Refrigerators />} />
                 <Route path=':refrigeratorIdx' element={<Refrigerator />} />
               </Route>
+              <Route path='/search/:searchWord' element={<SearchList />} />
             </SentryRoutes>
           </main>
           <Footer />
