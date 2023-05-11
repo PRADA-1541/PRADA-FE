@@ -10,7 +10,7 @@ import data from '../assets/data/cocktails.json';
 const SearchList = () => {
   const { searchWord } = useParams();
   const [newSearchWord, setNewSearchWord] = useState(searchWord);
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -21,7 +21,7 @@ const SearchList = () => {
   }, [searchWord]);
 
   return (
-    <div>
+    <>
       <h1>{newSearchWord}에 대한 검색결과</h1>
       <Box sx={{ width: '100%' }}>
         <Tabs value={value} textColor='inherit' variant='fullWidth' centered onChange={handleChange}>
@@ -31,7 +31,7 @@ const SearchList = () => {
         </Tabs>
       </Box>
       <RecipeList recipeList={data} />
-    </div>
+    </>
   );
 };
 
