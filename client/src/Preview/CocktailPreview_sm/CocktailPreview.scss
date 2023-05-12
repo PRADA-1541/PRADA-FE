@@ -13,6 +13,8 @@
 
 .previewImgContainer {
   @extend %flex-column;
+  @extend %center;
+
   height: 12rem;
   width: 12rem;
   overflow: hidden;
