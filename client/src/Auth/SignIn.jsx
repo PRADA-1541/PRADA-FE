@@ -1,30 +1,23 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Auth.scss';
-
-const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
-const REDIRECT_URI = process.env.REACT_APP_SIGNIN_REDIRECT;
-const KAKAO_LOGIN_API = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+import React, { useEffect } from 'react';
+import { useSetRecoilState } from 'recoil';
+import { useCookies } from 'react-cookie';
+import { GetKaKaoToken } from '../api/authService';
+import { userInfoAtom, isSignedInAtom } from '../recoil/atom';
+import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
-  const signIn = (e) => {
-    e.preventDefault();
-  };
+  const [, setCookie] = useCookies(['refresh-token']);
+  const setUserInfo = useSetRecoilState(userInfoAtom);
+  const setIsSignedIn = useSetRecoilState(isSignedInAtom);
+  const navigate = useNavigate();
 
-  return (
-    <div className='bg'>
-      <div className='authBox'>
-        <h1>PRADA</h1>
-        <form>
-          <input type='text' placeholder='아이디' />
-          <input type='password' placeholder='비밀번호' />
-          <button onClick={signIn}>로그인</button>
-          <Link>아이디 | 비밀번호 찾기</Link>
-          <Link to={KAKAO_LOGIN_API}>카카오톡</Link>
-        </form>
-      </div>
-    </div>
-  );
+  useEffect(() => {
+    const urlParams = new URL(location.href).searchParams;
+    const kakaoToken = urlParams.get('code');
+    if (kakaoToken) GetKaKaoToken(kakaoToken, setUserInfo, setCookie, setIsSignedIn, navigate);
+  }, []);
+
+  return <></>;
 };
 
 export default SignIn;
