@@ -1,11 +1,11 @@
 import { api, Auth, UserApi } from './api';
 import jwt_decode from 'jwt-decode';
 
-export const GetKaKaoToken = async (token, setUserInfo, cookies, setCookie, setIsSignedIn) => {
+export const GetKaKaoToken = async (token, setUserInfo, refreshToken, setCookie, setIsSignedIn, navigate) => {
   try {
     const res = await Auth.getKaKaoToken(token);
     const accessToken = res.data.access_token;
-    SendKakaoToken(accessToken, setUserInfo, cookies, setCookie, setIsSignedIn);
+    SendKakaoToken(accessToken, setUserInfo, refreshToken, setCookie, setIsSignedIn, navigate);
   } catch (error) {
     console.log(error);
     return false;
@@ -33,10 +33,9 @@ export const TokenConfig = async (token) => {
   sessionStorage.setItem('token_exp', decodedUser.exp);
   const userInfo = await GetUserInfo();
   return userInfo;
-  // return true;
 };
 
-export const refresh = async (refreshToken, cookies, setUserInfo, setSignInState) => {
+export const refresh = async (refreshToken, setUserInfo, setSignInState) => {
   try {
     const res = await Auth.refresh(refreshToken);
     const token = res.data.result;
@@ -46,7 +45,7 @@ export const refresh = async (refreshToken, cookies, setUserInfo, setSignInState
       return false;
     }
     setUserInfo(userInfo);
-    authInterceptor(cookies, setUserInfo, setSignInState);
+    authInterceptor(refreshToken, setUserInfo, setSignInState);
     return token;
   } catch (error) {
     if (error.response.data && error.response.data.message) {
@@ -58,15 +57,16 @@ export const refresh = async (refreshToken, cookies, setUserInfo, setSignInState
   }
 };
 
-export const authInterceptor = (cookies, setUserInfo, setIsSignedIn) => {
+export const authInterceptor = (refreshToken, setUserInfo, setIsSignedIn) => {
   api.interceptors.request.use(
     async (config) => {
       const timestamp = new Date().getTime() / 1000;
+      // const refreshToken = cookies['refresh-token'];
+      // console.log(refreshToken);
       const exp = sessionStorage.getItem('token_exp');
       if (exp) {
         if (parseInt(exp) - timestamp < 10) {
-          const refreshToken = cookies['refresh-token'];
-          const token = await refresh(refreshToken, cookies, setUserInfo, setIsSignedIn);
+          const token = await refresh(refreshToken, setUserInfo, setIsSignedIn);
           if (token) {
             setIsSignedIn(true);
             config.headers = {
@@ -100,32 +100,31 @@ export const authInterceptor = (cookies, setUserInfo, setIsSignedIn) => {
   // return true;
 };
 
-export const SendKakaoToken = async (kakaoToken, setUserInfo, cookies, setCookie, setIsSignedIn) => {
+export const SendKakaoToken = async (kakaoToken, setUserInfo, setCookie, setIsSignedIn, navigate) => {
   try {
     const res = await Auth.sendKakaoToken(kakaoToken);
     const token = res.data.result.accessToken;
     const userInfo = await TokenConfig(token);
     if (!userInfo) {
-      console.log('hi');
       alert('다시 로그인해주세요.');
       return false;
     }
-    console.log(userInfo);
     setUserInfo(userInfo);
-    console.log('hi');
-    const decoded_refresh = jwt_decode(res.data.result.refreshToken);
+    const refreshToken = res.data.result.refreshToken;
+    const decoded_refresh = jwt_decode(refreshToken);
     const exp = new Date(decoded_refresh.exp * 1000);
-    setCookie('refresh-token', res.data.result.refreshToken, {
+    setCookie('refresh-token', refreshToken, {
       path: '/',
       secure: true,
       sameSite: 'none',
       expires: exp,
     });
-    authInterceptor(cookies, setUserInfo, setIsSignedIn);
+    navigate('/');
+    authInterceptor(refreshToken, setUserInfo, setIsSignedIn);
     return true;
   } catch (error) {
     if (error.response.status === 302) {
-      location.replace(`/signup/${error.response.data.result.email}`);
+      navigate(`/signup/${error.response.data.result.email}`);
       return false;
     }
     if (error.response.data && error.response.data.message) {
@@ -147,7 +146,7 @@ export const NicknameValid = async (nickname) => {
   }
 };
 
-export const signUp = async (email, nickname, setUserInfo, cookies, setCookie, setIsSignedIn) => {
+export const signUp = async (email, nickname, setUserInfo, setCookie, setIsSignedIn) => {
   try {
     const res = await Auth.signup(email, nickname);
     const token = res.data.result.accessToken;
@@ -166,8 +165,7 @@ export const signUp = async (email, nickname, setUserInfo, cookies, setCookie, s
       sameSite: 'none',
       expires: exp,
     });
-    authInterceptor(cookies, setUserInfo, setIsSignedIn);
-    location.replace('/');
+    authInterceptor(res.data.result.refreshToken, setUserInfo, setIsSignedIn);
     return true;
   } catch (error) {
     if (error.response.data && error.response.data.message) {

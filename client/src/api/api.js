@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  // baseURL: process.env.REACT_APP_API_URL,
-  baseURL: process.env.REACT_APP_API_URL_LOCAL,
+  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.REACT_APP_API_URL_LOCAL,
 });
 
 export const auth = axios.create({
-  // baseURL: process.env.REACT_APP_API_URL,
-  baseURL: process.env.REACT_APP_API_URL_LOCAL,
+  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.REACT_APP_API_URL_LOCAL,
 });
 
 export const Auth = {
@@ -27,7 +27,7 @@ export const Auth = {
       }
     ),
   refresh: (token) =>
-    auth.post('user/refresh', {
+    auth.post('users/refresh-token/verify', {
       token: token,
     }),
   sendKakaoToken: (kakaoToken) =>

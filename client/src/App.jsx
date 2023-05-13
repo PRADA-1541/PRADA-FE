@@ -10,9 +10,9 @@ import {
   matchRoutes,
 } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { useCookies } from 'react-cookie';
-import { GetKaKaoToken, refresh } from './api/authService';
+import { refresh } from './api/authService';
 import Main from './Main/Main';
 import CocktailList from './CocktailList/CocktailList';
 import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
@@ -25,6 +25,7 @@ import Refrigerators from './Refrigerator/Refrigerators/Refrigerators';
 import Refrigerator from './Refrigerator/Refrigerator/Refrigerator';
 import SearchList from './SearchList/SearchList';
 import MyPosting from './MyPosting/MyPosting';
+import SignIn from './Auth/SignIn';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -49,20 +50,14 @@ Sentry.init({
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 
 const App = () => {
-  const [cookies, setCookie] = useCookies(['refresh-token']);
+  const [cookies] = useCookies(['refresh-token']);
   const setUserInfo = useSetRecoilState(userInfoAtom);
-  const userInfo = useRecoilValue(userInfoAtom);
   const setIsSignedIn = useSetRecoilState(isSignedInAtom);
 
   useEffect(() => {
-    console.log(userInfo);
-    const urlParams = new URL(location.href).searchParams;
-    const kakaoToken = urlParams.get('code');
-    if (kakaoToken) GetKaKaoToken(kakaoToken, setUserInfo, cookies, setCookie, setIsSignedIn);
-
     async function Refresh() {
       try {
-        if (await refresh(cookies['refresh-token'], cookies, setUserInfo, setIsSignedIn)) {
+        if (await refresh(cookies['refresh-token'], setUserInfo, setIsSignedIn)) {
           setIsSignedIn(true);
         } else {
           sessionStorage.removeItem('token_exp');
@@ -85,6 +80,7 @@ const App = () => {
         <main className='AppContainer'>
           <SentryRoutes>
             <Route path='/' element={<Main />} />
+            <Route path='/signin' element={<SignIn />} />
             <Route path='/signup/:email' element={<SignUp />} />
             <Route path='/cocktails/:category' element={<CocktailList />} />
             <Route path='/cocktail'>
