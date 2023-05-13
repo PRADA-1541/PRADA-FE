@@ -27,10 +27,8 @@ export const Auth = {
       }
     ),
   refresh: (token) =>
-    auth.get('user/refresh', {
-      headers: {
-        'x-access-token': token,
-      },
+    auth.post('user/refresh', {
+      token: token,
     }),
   sendKakaoToken: (kakaoToken) =>
     auth.post('users/kakao/signin', {
