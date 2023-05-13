@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import defaultImage from '../../assets/images/defaultImage.png';
 import useClickState from '../../hooks/useClickState';
 import { useRecoilValue } from 'recoil';
-import { userInfoAtom } from '../../recoil/atom';
+import { userInfoAtom, isSignedInAtom } from '../../recoil/atom';
 import { HiMenuAlt2 } from 'react-icons/hi';
 
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
@@ -16,7 +16,7 @@ const KAKAO_LOGIN_API = `https://kauth.kakao.com/oauth/authorize?client_id=${RES
 const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const [ref, handleClickOutside] = useClickState(setIsMenuOpen);
-  // const isSignedIn = useRecoilValue(isSignedInAtom);
+  const isSignedIn = useRecoilValue(isSignedInAtom);
   const userInfo = useRecoilValue(userInfoAtom);
 
   useEffect(() => {
@@ -29,21 +29,15 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
   return (
     <>
       {!isMobile && <div className={isMenuOpen ? 'background' : 'background_hidden'} />}
-      <div className={isMenuOpen ? 'sideBar' : 'sideBar_hidden'} ref={ref}>
+      <div className={isMenuOpen ? (isSignedIn ? 'sideBarSignedIn' : 'sideBar') : 'sideBar_hidden'} ref={ref}>
         {isMobile && <HiMenuAlt2 className='closeSideBar' onClick={() => setIsMenuOpen(false)} />}
         <div className='profile'>
           <img
             className='profileImg'
-            src={
-              userInfo.nickname !== ''
-                ? userInfo.profileImage === ''
-                  ? defaultImage
-                  : userInfo.profileImage
-                : defaultImage
-            }
+            src={isSignedIn ? (userInfo.profileImage === '' ? defaultImage : userInfo.profileImage) : defaultImage}
             alt='profile Image'
           />
-          {userInfo.nickname !== '' ? (
+          {isSignedIn !== '' ? (
             <span className='profileName'>{userInfo.nickname}</span>
           ) : (
             <Link className='login' to={KAKAO_LOGIN_API}>
@@ -64,7 +58,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
           <Link>
             <li>칵테일 가이드 라인</li>
           </Link>
-          {userInfo.nickname !== '' && (
+          {isSignedIn && (
             <>
               <hr />
               <Link>
@@ -83,7 +77,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
             </>
           )}
         </ul>
-        {userInfo.nickname !== '' && (
+        {isSignedIn && (
           <div className='logoutContainer'>
             <button className='logout'>로그아웃</button>
           </div>
