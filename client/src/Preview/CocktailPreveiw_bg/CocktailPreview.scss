@@ -40,7 +40,8 @@
   }
 }
 
-.cocktailImg {
+.cocktailImg,
+.cocktailImg-border {
   @extend %flex-column;
   justify-content: center;
   max: {
@@ -58,6 +59,11 @@
     img {
       width: 20rem;
     }
+  }
+}
+
+.cocktailImg-border {
+  @include mobile {
     border-top-left-radius: $border-radius-bg;
     border-top-right-radius: $border-radius-bg;
   }
