@@ -23,10 +23,10 @@ const CocktailList = () => {
   const { category } = useParams();
 
   return (
-    <>
+    <div className='cocktailList'>
       <h1>{category}</h1>
       <RecipeList recipeList={data} />
-    </>
+    </div>
   );
 };
 
