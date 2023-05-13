@@ -10,7 +10,7 @@ const RefrigeratorIngredient = ({ ingredients, editState, deleteIngredient }) =>
       onClick={editState ? () => deleteIngredient(ingredient.ingredientIdx) : () => {}}
     >
       <img src={ingredient.ingredientImg} alt='재료 이미지' />
-      <span>{ingredient.ingredientName}</span>
+      <span className='ingredientNameInRefrigerator'>{ingredient.ingredientName}</span>
     </div>
   ));
 };
