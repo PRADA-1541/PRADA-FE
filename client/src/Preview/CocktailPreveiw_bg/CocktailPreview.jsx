@@ -24,6 +24,8 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
       setEvalStars(Math.ceil(evaluation));
       setHalfStar(false);
     }
+
+    console.log(location.pathname);
   }, [evaluation]);
 
   const Content = () => {
@@ -47,7 +49,7 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
 
   return (
     <div className='cocktailInfoContainer'>
-      <div className='cocktailImg'>
+      <div className={location.pathname.startsWith('/cocktail/') ? 'cocktailImg' : 'cocktailImg-border'}>
         <img src={imageURL ?? defaultImage} alt='cocktail image' />
       </div>
       <div className='cocktailInfo'>
