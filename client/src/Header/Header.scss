@@ -42,4 +42,8 @@
   top: 4rem;
   right: 10rem;
   width: 15rem;
+
+  @include mobile {
+    right: 1rem;
+  }
 }
