@@ -1,3 +1,11 @@
+@import '../styles/variables.scss';
+
+.cocktailList {
+  @include mobile {
+    margin-top: 3rem;
+  }
+}
+
 .category {
   margin: {
     left: 2rem;

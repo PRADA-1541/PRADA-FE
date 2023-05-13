@@ -21,7 +21,7 @@ const SearchList = () => {
   }, [searchWord]);
 
   return (
-    <>
+    <div className='searchListContainer'>
       <h1>{newSearchWord}에 대한 검색결과</h1>
       <Box sx={{ width: '100%' }}>
         <Tabs value={value} textColor='inherit' variant='fullWidth' centered onChange={handleChange}>
@@ -31,7 +31,7 @@ const SearchList = () => {
         </Tabs>
       </Box>
       <RecipeList recipeList={data} />
-    </>
+    </div>
   );
 };
 

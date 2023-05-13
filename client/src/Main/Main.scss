@@ -1,7 +1,12 @@
 @use '../styles/variables.scss';
+@import '../styles/variables.scss';
 
 .homeContainer {
   @extend %flex-column;
   align-items: center;
   width: 100%;
+
+  @include mobile {
+    margin-top: 2rem;
+  }
 }
