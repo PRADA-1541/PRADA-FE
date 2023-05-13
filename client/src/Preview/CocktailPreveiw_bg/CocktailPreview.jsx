@@ -24,8 +24,6 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
       setEvalStars(Math.ceil(evaluation));
       setHalfStar(false);
     }
-
-    console.log(location.pathname);
   }, [evaluation]);
 
   const Content = () => {
