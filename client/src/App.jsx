@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import './styles/globalStyle.scss';
+import React from 'react';
 import {
   Routes,
   Route,
@@ -10,22 +9,20 @@ import {
   matchRoutes,
 } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
-import { useSetRecoilState } from 'recoil';
-import { useCookies } from 'react-cookie';
-import { refresh } from './api/authService';
+import { RecoilRoot } from 'recoil';
+import './styles/globalStyle.scss';
 import Main from './Main/Main';
+import SignIn from './Auth/SignIn';
+import SignUp from './Auth/SignUp';
 import CocktailList from './CocktailList/CocktailList';
 import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
 import RecipeForm from './Recipe/RecipeForm/RecipeForm';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-import { isSignedInAtom, userInfoAtom } from './recoil/atom';
-import SignUp from './Auth/SignUp';
 import Refrigerators from './Refrigerator/Refrigerators/Refrigerators';
 import Refrigerator from './Refrigerator/Refrigerator/Refrigerator';
 import SearchList from './SearchList/SearchList';
 import MyPosting from './MyPosting/MyPosting';
-import SignIn from './Auth/SignIn';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -50,53 +47,32 @@ Sentry.init({
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 
 const App = () => {
-  const [cookies] = useCookies(['refresh-token']);
-  const setUserInfo = useSetRecoilState(userInfoAtom);
-  const setIsSignedIn = useSetRecoilState(isSignedInAtom);
-
-  useEffect(() => {
-    async function Refresh() {
-      try {
-        if (await refresh(cookies['refresh-token'], setUserInfo, setIsSignedIn)) {
-          setIsSignedIn(true);
-        } else {
-          sessionStorage.removeItem('token_exp');
-        }
-      } catch (err) {
-        sessionStorage.removeItem('token_exp');
-      }
-    }
-    if (cookies['refresh-token']) {
-      Refresh();
-    } else {
-      sessionStorage.removeItem('token_exp');
-    }
-  }, []);
-
   return (
     <>
-      <BrowserRouter>
-        <Header />
-        <main className='AppContainer'>
-          <SentryRoutes>
-            <Route path='/' element={<Main />} />
-            <Route path='/signin' element={<SignIn />} />
-            <Route path='/signup/:email' element={<SignUp />} />
-            <Route path='/cocktails/:category' element={<CocktailList />} />
-            <Route path='/cocktail'>
-              <Route path=':cocktailIdx' element={<CocktailRecpie />} />
-              <Route path='new' element={<RecipeForm />} />
-            </Route>
-            <Route path='/refrigerator'>
-              <Route path='list' element={<Refrigerators />} />
-              <Route path=':refrigeratorIdx' element={<Refrigerator />} />
-            </Route>
-            <Route path='/search/:searchWord' element={<SearchList />} />
-            <Route path='/myPosting' element={<MyPosting />} />
-          </SentryRoutes>
-        </main>
-        <Footer />
-      </BrowserRouter>
+      <RecoilRoot>
+        <BrowserRouter>
+          <Header />
+          <main className='AppContainer'>
+            <SentryRoutes>
+              <Route path='/' element={<Main />} />
+              <Route path='/signin' element={<SignIn />} />
+              <Route path='/signup' element={<SignUp />} />
+              <Route path='/cocktails/:category' element={<CocktailList />} />
+              <Route path='/cocktail'>
+                <Route path=':cocktailIdx' element={<CocktailRecpie />} />
+                <Route path='new' element={<RecipeForm />} />
+              </Route>
+              <Route path='/refrigerator'>
+                <Route path='list' element={<Refrigerators />} />
+                <Route path=':refrigeratorIdx' element={<Refrigerator />} />
+              </Route>
+              <Route path='/search/:searchWord' element={<SearchList />} />
+              <Route path='/myPosting' element={<MyPosting />} />
+            </SentryRoutes>
+          </main>
+          <Footer />
+        </BrowserRouter>
+      </RecoilRoot>
     </>
   );
 };
