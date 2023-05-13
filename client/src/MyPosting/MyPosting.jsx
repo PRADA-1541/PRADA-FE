@@ -103,9 +103,9 @@ const MyPosting = () => {
       <h1>내가 작성한 글/평점</h1>
       <Box sx={{ width: '100%' }}>
         <Tabs value={value} textColor='inherit' variant='fullWidth' centered onChange={handleChange}>
-          <Tab label='커스텀 레시피' />
-          <Tab label='댓글' />
-          <Tab label='평점' />
+          <Tab label='커스텀 레시피' sx={{ fontSize: '0.8rem' }} />
+          <Tab label='댓글' sx={{ fontSize: '0.8rem' }} />
+          <Tab label='평점' sx={{ fontSize: '0.8rem' }} />
         </Tabs>
       </Box>
       <Materials />
