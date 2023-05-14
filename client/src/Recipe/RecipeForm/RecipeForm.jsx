@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './RecipeForm.scss';
-import ingredientList from '../../assets/data/ingredients.json';
+// import ingredientList from '../../assets/data/ingredients.json';
 import PropTypes from 'prop-types';
 import { useMediaQuery } from 'react-responsive';
 import { newIngredientAtom } from '../../recoil/atom';
@@ -11,9 +11,13 @@ import Search from '../../Material/Search/Search';
 import useScrollMove from '../../hooks/useScrollMove';
 import NewIngredient from './NewIngredient/NewIngredient';
 import ImagePreview from '../../Material/ImagePreview/ImagePreview';
+import { GetRecipePriorInfo, UploadRecipe } from '../../api/recipeService';
+import { UploadImg } from '../../api/recipeService';
+import { useNavigate } from 'react-router-dom';
 
 const RecipeForm = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
+  const navigate = useNavigate();
 
   const [isFirst, setIsFirst] = useState(true);
 
@@ -26,7 +30,7 @@ const RecipeForm = () => {
 
   const [ingredientsNum, setIngredientsNum] = useState(1);
   const [ingredients, setIngredients] = useState([]);
-  const [ingredientName, setIngredientName] = useState('');
+  const [ingredientObject, setIngredientObject] = useState({});
   const [volume, setVolume] = useState('');
   const volumeRef = useRef();
   const [unit, setUnit] = useState('');
@@ -36,29 +40,16 @@ const RecipeForm = () => {
   const [newIngredientInfo, setNewIngredientInfo] = useState({});
   const [directions, setDirections] = useState('');
 
-  const resetNewIngredientAtom = useResetRecoilState(newIngredientAtom);
+  const [keywordsList, setKeywordsList] = useState({});
+  const [ingredientCategory, setIngredientCategory] = useState([]);
+  const [ingredientList, setIngredientList] = useState([]);
 
+  const resetNewIngredientAtom = useResetRecoilState(newIngredientAtom);
   const scrollToTop = useScrollMove('top');
 
-  const keywordsList = {
-    a: ['달콤한', '시원한', '담백한', '달달한', '쓴맛', '매운맛', '신맛', '술', '맥주', '와인'],
-    b: [
-      '소주',
-      '막걸리',
-      '집에서',
-      '친구와',
-      '연인과',
-      '가족과',
-      '데이트',
-      '편안한',
-      '행복한',
-      '힐링',
-      '휴식',
-      '포근한',
-    ],
-    c: ['봄', '여름', '가을', '겨울', '아침', '점심', '저녁', '야식', '간식'],
-    d: ['술안주', '술자리', '주말', '평일', '휴일', '휴가'],
-  };
+  useEffect(() => {
+    GetRecipePriorInfo(setKeywordsList, setIngredientCategory, setIngredientList);
+  }, []);
 
   const unitList = ['ml', 'dash', 'teaspoon', 'drops', 'gram', '개', 'slice', 'peel', 'leaves'];
 
@@ -96,7 +87,7 @@ const RecipeForm = () => {
     scrollToTop();
   };
 
-  const submitRecipe = () => {
+  const submitRecipe = async () => {
     if (cocktailName === '') {
       alert('칵테일 이름을 입력해주세요.');
       setIsFirst(true);
@@ -120,22 +111,40 @@ const RecipeForm = () => {
       alert('레시피를 입력해주세요.');
       return;
     }
-    const formData = new FormData();
-    formData.append('name', cocktailName);
-    formData.append('description', cocktailDescription);
-    formData.append('keywords', checkedKeywords);
-    if (imageFile) formData.append('image', imageFile);
-    formData.append('ingredients', ingredients);
-    // formData.append('directions', directions);
-    // TODO: formData에 directions 추가, api 연결
-    // console.log(cocktailName, cocktailDescription, checkedKeywords, imageFile, ingredients, directions);
-    for (let value of formData.values()) {
-      console.log(value);
+
+    let imgUrl = '';
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append('image', imageFile);
+      imgUrl = await UploadImg('Cocktail', formData);
+      if (!imgUrl) {
+        alert('이미지 업로드에 실패했습니다.');
+        return;
+      }
+    }
+
+    const recipe = {};
+    recipe.cocktailName = cocktailName;
+    recipe.cocktailDescription = cocktailDescription;
+    recipe.cocktailKeyword = checkedKeywords.join(' ');
+    recipe.cocktailImage = imgUrl === '' ? null : imgUrl;
+    recipe.ingredients = ingredients.filter((item) => !item.ingredientCategoryIdx);
+    recipe.customIngredients = ingredients.filter((item) => item.ingredientCategoryIdx);
+    recipe.cocktailDirection = directions;
+    recipe.userIdx = 102;
+
+    const response = await UploadRecipe(recipe);
+    if (response) {
+      alert('레시피가 등록되었습니다.');
+      navigate('/');
+    } else {
+      alert('레시피 등록에 실패했습니다.');
+      return;
     }
   };
 
   const addIngredient = () => {
-    if (ingredientName === '' && !newIngredientInfo.name) {
+    if (!ingredientObject.ingredientName && !newIngredientInfo.name) {
       alert('재료를 입력해주세요.');
       return;
     }
@@ -152,16 +161,25 @@ const RecipeForm = () => {
       setIngredients([
         ...ingredients,
         {
-          name: newIngredientInfo.name,
-          description: newIngredientInfo.description,
-          category: newIngredientInfo.category,
-          image: newIngredientInfo.image ?? null,
-          volume: volume,
-          unit: unit,
+          ingredientName: newIngredientInfo.name,
+          ingredientDescription: newIngredientInfo.description,
+          ingredientCategoryIdx: newIngredientInfo.category,
+          ingredientImage: newIngredientInfo.image ?? null,
+          ingredientVolume: volume,
+          volumeUnit: unit,
         },
       ]);
-    else setIngredients([...ingredients, { name: ingredientName, volume: volume, unit: unit }]);
-    setIngredientName('');
+    else
+      setIngredients([
+        ...ingredients,
+        {
+          ingredientName: ingredientObject.ingredientName,
+          ingredientIdx: ingredientObject.ingredientIdx,
+          ingredientVolume: volume,
+          volumeUnit: unit,
+        },
+      ]);
+    setIngredientObject({});
     setUnit('');
     setVolume('');
     setNewIngredientInfo({});
@@ -176,14 +194,27 @@ const RecipeForm = () => {
     setIngredientsNum(ingredientsNum - 1);
   };
 
+  const KeywordListContainer = () => {
+    return Object.keys(keywordsList).map((keywordType) => {
+      return <KeywordList key={keywordType} keywordType={keywordType} />;
+    });
+  };
+
   const KeywordList = ({ keywordType }) => {
     return (
       <div className='keywordList'>
         <div className='keywordListHeader'>{keywordType}</div>
         <div className='keywordListBox'>
-          {keywordsList[keywordType].map((keyword, idx) => {
-            const isChecked = checkedKeywords.includes(keyword);
-            return <KeyWord key={idx} keyword={keyword} onClick={() => keywordClick(keyword)} isChecked={isChecked} />;
+          {keywordsList[keywordType].map((keyword) => {
+            const isChecked = checkedKeywords.includes(keyword.keyword);
+            return (
+              <KeyWord
+                key={keyword.keywordIdx}
+                keyword={keyword.keyword}
+                onClick={() => keywordClick(keyword.keyword)}
+                isChecked={isChecked}
+              />
+            );
           })}
         </div>
       </div>
@@ -207,13 +238,15 @@ const RecipeForm = () => {
             <h3>재료{idx + 1}</h3>
             <div className='ingredientSelectBtnContainer'>
               <div className='ingredientSelectBtn' onClick={() => !ingredientDropDown && setIngredientDropDown(true)}>
-                {(ingredientName == '') & !newIngredientInfo.name ? '재료를 선택해주세요' : ingredientName}
+                {!ingredientObject.ingredientName & !newIngredientInfo.name
+                  ? '재료를 선택해주세요'
+                  : ingredientObject.ingredientName}
                 {newIngredientInfo.name}
                 {ingredientDropDown && (
                   <Search
                     setSearch={setIngredientDropDown}
                     placeholder='재료를 검색해주세요'
-                    setText={setIngredientName}
+                    setObject={setIngredientObject}
                     setNewIngredientInfo={setNewIngredientInfo}
                     list={ingredientList}
                   />
@@ -225,8 +258,9 @@ const RecipeForm = () => {
                     새로운 재료
                   </div>
                   <NewIngredient
+                    categoryList={ingredientCategory}
                     setNewIngredientInfo={setNewIngredientInfo}
-                    setIngredientName={setIngredientName}
+                    setIngredientObject={setIngredientObject}
                     newIngredient={newIngredient}
                     setNewIngredient={setNewIngredient}
                   />
@@ -254,8 +288,9 @@ const RecipeForm = () => {
                   새로운 재료
                 </div>
                 <NewIngredient
+                  categoryList={ingredientCategory}
                   setNewIngredientInfo={setNewIngredientInfo}
-                  setIngredientName={setIngredientName}
+                  setIngredienObject={setIngredientObject}
                   newIngredient={newIngredient}
                   setNewIngredient={setNewIngredient}
                 />
@@ -271,15 +306,15 @@ const RecipeForm = () => {
             </div>
             <h3>재료{idx + 1}</h3>
             <div className='ingredientSelectBtn' style={{ cursor: 'default' }}>
-              {ingredients[idx].name}
+              {ingredients[idx].ingredientName}
             </div>
             {!isMobile && <br />}
             <div className='volumeContainer'>
               <div className='unit' style={{ cursor: 'default' }}>
-                {ingredients[idx].volume}
+                {ingredients[idx].ingredientVolume}
               </div>
               <div className='unit' style={{ cursor: 'default' }}>
-                {ingredients[idx].unit}
+                {ingredients[idx].volumeUnit}
               </div>
             </div>
           </div>
@@ -326,12 +361,7 @@ const RecipeForm = () => {
               {checkedKeywords.map((keyword, idx) => {
                 return <KeyWord key={idx} keyword={keyword} onClick={() => keywordClick(keyword)} />;
               })}
-              <div className='keywordListContainer'>
-                <KeywordList keywordType='a' />
-                <KeywordList keywordType='b' />
-                <KeywordList keywordType='c' />
-                <KeywordList keywordType='d' />
-              </div>
+              <div className='keywordListContainer'>{keywordsList && <KeywordListContainer />}</div>
               <br />
               <label htmlFor='cocktailFormImage'>
                 칵테일 이미지

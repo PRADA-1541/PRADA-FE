@@ -39,6 +39,7 @@
   @extend %transition-4;
   transform: translateX(0);
   &SignedIn {
+    @extend .sideBar;
     justify-content: space-around;
   }
 
