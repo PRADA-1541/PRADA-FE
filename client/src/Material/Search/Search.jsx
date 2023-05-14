@@ -3,7 +3,7 @@ import './Search.scss';
 import PropTypes from 'prop-types';
 import useClickState from '../../hooks/useClickState';
 
-const Search = ({ setSearch, placeholder, setText, setNewIngredientInfo, list }) => {
+const Search = ({ setSearch, placeholder, setObject, setNewIngredientInfo, list }) => {
   const [searchWord, setSearchWord] = useState('');
   const [ref, handleClickOutside] = useClickState(setSearch);
 
@@ -15,7 +15,7 @@ const Search = ({ setSearch, placeholder, setText, setNewIngredientInfo, list })
   }, [ref]);
 
   const handleClick = (item) => {
-    setText(item);
+    setObject(item);
     if (setSearch) setSearch(false);
     if (setNewIngredientInfo) {
       setNewIngredientInfo({});
@@ -33,10 +33,10 @@ const Search = ({ setSearch, placeholder, setText, setNewIngredientInfo, list })
       />
       <ul className='searchList'>
         {list.map((item) => {
-          if (item.includes(searchWord)) {
+          if (item.ingredientName.includes(searchWord)) {
             return (
-              <li className='searchedItem' key={item} onClick={() => handleClick(item)}>
-                {item}
+              <li className='searchedItem' key={item.ingredientIdx} onClick={() => handleClick(item)}>
+                {item.ingredientName}
               </li>
             );
           }
@@ -49,7 +49,7 @@ const Search = ({ setSearch, placeholder, setText, setNewIngredientInfo, list })
 Search.propTypes = {
   setSearch: PropTypes.func,
   placeholder: PropTypes.string.isRequired,
-  setText: PropTypes.func.isRequired,
+  setObject: PropTypes.func.isRequired,
   setNewIngredientInfo: PropTypes.func,
   list: PropTypes.array.isRequired,
 };
