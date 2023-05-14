@@ -49,7 +49,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
           <Link to='/cocktail/new'>
             <li>레시피 작성</li>
           </Link>
-          <Link to='/cocktails/IBM'>
+          <Link to='/cocktails/official'>
             <li>공식 레시피</li>
           </Link>
           <Link to='/cocktails/custom'>
@@ -61,7 +61,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
           {isSignedIn && (
             <>
               <hr />
-              <Link>
+              <Link to='/cocktails/favorite'>
                 <li>즐겨찾기</li>
               </Link>
               <hr />
