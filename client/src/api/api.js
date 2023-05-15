@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  // baseURL: process.env.REACT_APP_API_URL,
-  baseURL: process.env.REACT_APP_API_URL_LOCAL,
+  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.REACT_APP_API_URL_LOCAL,
 });
 
 export const auth = axios.create({
-  // baseURL: process.env.REACT_APP_API_URL,
-  baseURL: process.env.REACT_APP_API_URL_LOCAL,
+  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.REACT_APP_API_URL_LOCAL,
 });
 
 export const Auth = {
@@ -50,4 +50,13 @@ export const Recipe = {
   getRecipePriorInfo: () => api.get('cocktails/priorInfoToRegister'),
   uploadImg: (directory, formData) => api.post(`upload?directory=${directory}`, formData),
   uploadRecipe: (recipe) => api.post('users/custom-cocktail', recipe),
+};
+
+export const Refrigerator = {
+  getRefrigeratorList: () => api.get('users/refrigerator?userIdx=5'),
+  createRefrigerator: (refrigeratorName, isMain) =>
+    api.post('users/refrigerator?userIdx=5', {
+      refrigeratorName: refrigeratorName,
+      isMain: isMain,
+    }),
 };

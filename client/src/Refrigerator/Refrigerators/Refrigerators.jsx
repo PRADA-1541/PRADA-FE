@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './Refrigerators.scss';
 import refrigerator1 from '../../assets/images/refrigerator/refrigerator1.png';
 import refrigerator2 from '../../assets/images/refrigerator/refrigerator2.png';
@@ -10,11 +10,16 @@ import refrigerator7 from '../../assets/images/refrigerator/refrigerator7.png';
 import refrigerator8 from '../../assets/images/refrigerator/refrigerator8.png';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
-import { refrigeratorsAtom } from '../../recoil/atom';
+import { useRecoilState } from 'recoil';
+import { refrigeratorsAtom } from '../../recoil/refrigeratorAtom';
+import { CreateRefrigerator, GetRefrigeratorList } from '../../api/refrigeratorService';
 
 const Refrigerators = () => {
-  const refrigerators = useRecoilValue(refrigeratorsAtom);
+  const [refrigerators, setRefrigerators] = useRecoilState(refrigeratorsAtom);
+
+  useEffect(() => {
+    GetRefrigeratorList(setRefrigerators);
+  }, []);
 
   const newRefrigerator = () => {
     if (refrigerators.length >= 8) {
@@ -22,9 +27,10 @@ const Refrigerators = () => {
       return;
     }
     if (refrigerators.length === 0) {
-      console.log('냉장고 1');
+      CreateRefrigerator('냉장고 1', 1, setRefrigerators);
       return;
     } else {
+      CreateRefrigerator('냉장고 ' + (refrigerators.length + 1), 0, setRefrigerators);
       console.log('냉장고 ' + (refrigerators.length + 1));
     }
   };
@@ -84,7 +90,7 @@ const Refrigerators = () => {
           <img src={refrigeratorImg} alt='냉장고 이미지' />
           <>
             <span>{refrigerator.refrigeratorName}</span>
-            {refrigerator.isCurrent === 1 ? (
+            {refrigerator.isMain === 1 ? (
               <AiFillStar className='refrigeratorStar' onClick={(e) => e.preventDefault()} />
             ) : (
               <AiOutlineStar

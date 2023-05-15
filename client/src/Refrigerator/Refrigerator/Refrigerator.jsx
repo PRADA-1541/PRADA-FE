@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Refrigerator.scss';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { useRecoilValue } from 'recoil';
-import { refrigeratorsAtom } from '../../recoil/atom';
+import { refrigeratorsAtom } from '../../recoil/refrigeratorAtom';
 import { Link, useNavigate } from 'react-router-dom';
 import ingredientList from '../../assets/data/ingredients.json';
 import gin from '../../assets/images/ingredients/재료_진.png';
