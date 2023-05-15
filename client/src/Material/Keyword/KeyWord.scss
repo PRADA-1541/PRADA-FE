@@ -3,22 +3,38 @@
 
 .keywordContainer {
   display: inline-block;
-  padding: 0.2rem 0.6rem;
-  padding-top: 0.1rem;
+  padding: 0.1rem 0.6rem 0.2rem 0.6rem;
   margin: 0.3rem 0.4rem;
-  border: solid;
-  border-width: 1px;
+  border: {
+    style: solid;
+    width: 1px;
+  }
   cursor: pointer;
 
+  @include mobile {
+    flex: 0 0 auto;
+    padding: 0 0.4rem;
+    border: $border;
+    border-radius: $border-radius-small;
+    span {
+      font-size: small;
+    }
+  }
+
   .hashtag {
-    display: inline;
+    @include mobile {
+      color: $primary;
+    }
   }
 
   .keyword {
-    display: inline;
     margin: 0 0.2rem;
     font-size: 16px;
     color: $text-gray;
+
+    @include mobile {
+      font-size: small;
+    }
   }
 
   &-checked {

@@ -10,18 +10,26 @@
   height: 100%;
   @extend %transition-4;
   background-color: $background;
-  &_hidden {
+
+  &Hidden {
     @extend .background;
     background-color: inherit;
     visibility: hidden;
   }
 }
 
+.closeSideBar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.4rem;
+}
+
 .sideBar {
   position: fixed;
   @extend %flex-column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-start;
   top: 0;
   right: 0;
   height: 100vh;
@@ -30,10 +38,23 @@
   background-color: white;
   @extend %transition-4;
   transform: translateX(0);
+  &SignedIn {
+    @extend .sideBar;
+    justify-content: space-around;
+  }
+
+  @include mobile {
+    width: 100%;
+    padding-top: 5rem;
+  }
 
   &_hidden {
     @extend .sideBar;
     transform: translateX(20rem);
+
+    @include mobile {
+      transform: translateX(100%);
+    }
   }
 }
 
@@ -55,6 +76,18 @@
       weight: 500;
     }
   }
+}
+
+.login {
+  margin: {
+    top: 2rem;
+    bottom: 4rem;
+  }
+  font: {
+    size: 1rem;
+    weight: 500;
+  }
+  cursor: pointer;
 }
 
 ul {
@@ -82,6 +115,7 @@ ul {
     @extend %flex-row;
     justify-content: flex-end;
     width: 100%;
+    margin-bottom: 4rem;
   }
   font-size: 0.8rem;
   padding: 1px 0.2rem;

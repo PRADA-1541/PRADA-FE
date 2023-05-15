@@ -1,3 +1,10 @@
+$mobile: 576px;
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
 //color
 $primary: #c72323;
 $gray: gray;
@@ -20,6 +27,7 @@ $background-footer: #f4f4f4;
 //variable
 
 $border: solid 1px $border-gray;
+$border-radius-bg: 1.5rem;
 $border-radius-small: 0.25rem;
 
 %flex-column {
@@ -42,6 +50,11 @@ $border-radius-small: 0.25rem;
   width: 80%;
   padding: 1rem 1.5rem;
   border: $border;
+  background-color: white;
+
+  @include mobile {
+    padding: 0.5rem 1rem;
+  }
 }
 
 %transition-2 {
@@ -61,10 +74,15 @@ $border-radius-small: 0.25rem;
   border-radius: $border-radius-small;
   cursor: pointer;
   border: 1px solid black;
+  @include mobile {
+    font-size: medium;
+    padding: 0.2rem 0.5rem;
+  }
 }
 
 %button {
   @include btn;
+  color: black;
   background: white;
   &:hover {
     @extend %transition-2;

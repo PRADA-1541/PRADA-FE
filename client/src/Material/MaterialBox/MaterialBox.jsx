@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './MaterialBox.scss';
+import { useMediaQuery } from 'react-responsive';
 import PropTypes from 'prop-types';
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
 import KeyWord from '../Keyword/KeyWord';
 import Ingredient from '../Ingredient/Ingredient';
 
 const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const [currentSlide, setCurrentSlide] = useState(0);
 
   const slideHandler = (e, direction) => {
@@ -31,6 +33,11 @@ const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
       .map((ingredient, idx) => <Ingredient key={idx} ingredient={ingredient} />);
   };
 
+  const IngredientsMobile = () => {
+    if (!ingredients) return null;
+    return ingredients.map((ingredient, idx) => <Ingredient key={idx} ingredient={ingredient} />);
+  };
+
   const Keywords = () => {
     if (!keywords) return null;
     return keywords.map((keyword) => <KeyWord key={keyword} keyword={keyword} />);
@@ -40,13 +47,13 @@ const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
     <div className='materialContainer'>
       {type === '재료' ? (
         <div className='ingredients'>
-          {!isDetailRecipe && currentSlide !== 0 && (
+          {!isMobile && !isDetailRecipe && currentSlide !== 0 && (
             <SlArrowLeft className='arrowLeft' onClick={(e) => slideHandler(e, 'prev')} />
           )}
-          {!isDetailRecipe && currentSlide !== parseInt((ingredients.length - 1) / 5) && (
+          {!isMobile && !isDetailRecipe && currentSlide !== parseInt((ingredients.length - 1) / 5) && (
             <SlArrowRight className='arrowRight' onClick={(e) => slideHandler(e, 'next')} />
           )}
-          <Ingredients />
+          {isMobile ? <IngredientsMobile /> : <Ingredients />}
         </div>
       ) : (
         <div className='keywords'>

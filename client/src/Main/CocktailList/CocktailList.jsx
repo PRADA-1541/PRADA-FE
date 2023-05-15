@@ -4,9 +4,11 @@ import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
 import CocktailPreview from '../../Preview/CocktailPreview_sm/CocktailPreview';
 import Proptypes from 'prop-types';
 import data from '../../assets/data/cocktails.json';
+import { useMediaQuery } from 'react-responsive';
 
 const CocktailList = ({ category }) => {
   const [isFirst, setIsFirst] = useState(true);
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
 
   const prevList = () => {
     setIsFirst(true);
@@ -28,13 +30,24 @@ const CocktailList = ({ category }) => {
       ));
   };
 
+  const CocktailPreviewsMobile = () => {
+    return data.map((cocktail) => (
+      <CocktailPreview
+        key={cocktail.cocktailIdx}
+        imageURL={cocktail.cocktailImage}
+        name={cocktail.cocktailName}
+        evaluation={cocktail.averageRating}
+      />
+    ));
+  };
+
   return (
     <div className='listContainer'>
       <h1>{category}</h1>
       <div className='cocktailContainer'>
-        <CocktailPreviews />
-        {!isFirst && <SlArrowLeft className='arrowLeft' onClick={prevList} />}
-        {isFirst && <SlArrowRight className='arrowRight' onClick={nextList} />}
+        {isMobile ? <CocktailPreviewsMobile /> : <CocktailPreviews />}
+        {!isMobile && !isFirst && <SlArrowLeft className='arrowLeft' onClick={prevList} />}
+        {!isMobile && isFirst && <SlArrowRight className='arrowRight' onClick={nextList} />}
       </div>
     </div>
   );

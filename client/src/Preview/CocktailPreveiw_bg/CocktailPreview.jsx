@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import './CocktailPreview.scss';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import defaultImage from '../../assets/images/defaultImage.png';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import MaterialBox from '../../Material/MaterialBox/MaterialBox';
 
 export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, ingredients, isFavorite }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
+
   const [evalStars, setEvalStars] = useState(0);
   const [halfStar, setHalfStar] = useState(false);
-  const { category, cocktailIdx } = useParams();
+  const { cocktailIdx } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (evaluation % 1 < 0.75) {
@@ -43,22 +47,35 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
 
   return (
     <div className='cocktailInfoContainer'>
-      <div className='cocktailImg'>
+      <div className={location.pathname.startsWith('/cocktail/') ? 'cocktailImg' : 'cocktailImg-border'}>
         <img src={imageURL ?? defaultImage} alt='cocktail image' />
       </div>
       <div className='cocktailInfo'>
-        <h2>
-          {name}
-          {cocktailIdx &&
-            (isFavorite ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
-        </h2>
-        <hr />
-        <p className='cocktailContent'>
-          <Content />
-        </p>
-        {(category || cocktailIdx) && (
-          <MaterialBox type='재료' ingredients={ingredients} isDetailRecipe={cocktailIdx ? true : false} />
-        )}
+        <div className='cocktailDetail'>
+          <h2>
+            {name}
+            {cocktailIdx &&
+              (isFavorite ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
+          </h2>
+          {!isMobile && <hr />}
+          <p className='cocktailContent'>
+            <Content />
+          </p>
+          {(location.pathname !== '/' || cocktailIdx) && (
+            <>
+              {isMobile && cocktailIdx && <h3>재료</h3>}
+              <MaterialBox type='재료' ingredients={ingredients} isDetailRecipe={cocktailIdx ? true : false} />
+            </>
+          )}
+          {!isMobile && keywords && <MaterialBox type='키워드' keywords={keywords} />}
+          {isMobile && keywords && cocktailIdx && (
+            <>
+              <h3>키워드</h3>
+              <MaterialBox type='키워드' keywords={keywords} />
+            </>
+          )}
+        </div>
+        {isMobile && !cocktailIdx && <hr />}
         <div className='eval'>
           <EvalStars />
           {halfStar && (
@@ -68,7 +85,6 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
           )}
           <p>{evaluation}</p>
         </div>
-        {keywords && <MaterialBox type='키워드' keywords={keywords} />}
       </div>
     </div>
   );
@@ -85,11 +101,11 @@ CocktailInfo.propTypes = {
 };
 
 const CocktailPreview = ({ cocktailIdx, name, imageURL, content, keywords, evaluation, ingredients, isFavorite }) => {
-  const { category } = useParams();
+  const location = useLocation();
 
   return (
     <div className='simplePreviewContainer'>
-      {!category && <h1>오늘의 추천 칵테일</h1>}
+      {location.pathname === '/' && <h1>오늘의 추천 칵테일</h1>}
       <Link className='recipePreviewContainer' to={'/cocktail/' + cocktailIdx}>
         <CocktailInfo
           cocktailIdx={cocktailIdx}

@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './SideBar.scss';
+import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultImage from '../../assets/images/defaultImage.png';
 import useClickState from '../../hooks/useClickState';
-import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+import { userInfoAtom, isSignedInAtom } from '../../recoil/atom';
+import { HiMenuAlt2 } from 'react-icons/hi';
+
+const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
+const REDIRECT_URI = process.env.REACT_APP_SIGNIN_REDIRECT;
+const KAKAO_LOGIN_API = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const [ref, handleClickOutside] = useClickState(setIsMenuOpen);
+  const isSignedIn = useRecoilValue(isSignedInAtom);
+  const userInfo = useRecoilValue(userInfoAtom);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -18,11 +28,22 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
 
   return (
     <>
-      <div className={isMenuOpen ? 'background' : 'background_hidden'} />
-      <div className={isMenuOpen ? 'sideBar' : 'sideBar_hidden'} ref={ref}>
+      {!isMobile && <div className={isMenuOpen ? 'background' : 'background_hidden'} />}
+      <div className={isMenuOpen ? (isSignedIn ? 'sideBarSignedIn' : 'sideBar') : 'sideBar_hidden'} ref={ref}>
+        {isMobile && <HiMenuAlt2 className='closeSideBar' onClick={() => setIsMenuOpen(false)} />}
         <div className='profile'>
-          <img className='profileImg' src={defaultImage} alt='profile Image' />
-          <span className='profileName'>김준하</span>
+          <img
+            className='profileImg'
+            src={isSignedIn ? (userInfo.profileImage === '' ? defaultImage : userInfo.profileImage) : defaultImage}
+            alt='profile Image'
+          />
+          {isSignedIn !== '' ? (
+            <span className='profileName'>{userInfo.nickname}</span>
+          ) : (
+            <Link className='login' to={KAKAO_LOGIN_API}>
+              로그인 해주세요.
+            </Link>
+          )}
         </div>
         <ul>
           <Link to='/cocktail/new'>
@@ -37,24 +58,30 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
           <Link>
             <li>칵테일 가이드 라인</li>
           </Link>
-          <hr />
-          <Link>
-            <li>즐겨찾기</li>
-          </Link>
-          <hr />
-          <Link to='/refrigerator/list'>
-            <li>내 냉장고</li>
-          </Link>
-          <Link>
-            <li>내가 작성한 글</li>
-          </Link>
-          <Link>
-            <li>내 프로필 관리</li>
-          </Link>
+          {isSignedIn && (
+            <>
+              <hr />
+              <Link>
+                <li>즐겨찾기</li>
+              </Link>
+              <hr />
+              <Link to='/refrigerator/list'>
+                <li>내 냉장고</li>
+              </Link>
+              <Link to='/myPosting'>
+                <li>내가 작성한 글/평점</li>
+              </Link>
+              <Link>
+                <li>내 프로필 관리</li>
+              </Link>
+            </>
+          )}
         </ul>
-        <div className='logoutContainer'>
-          <button className='logout'>로그아웃</button>
-        </div>
+        {isSignedIn && (
+          <div className='logoutContainer'>
+            <button className='logout'>로그아웃</button>
+          </div>
+        )}
       </div>
     </>
   );

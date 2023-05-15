@@ -5,11 +5,17 @@ import { newIngredientAtom } from '../../../recoil/atom';
 import { useRecoilState } from 'recoil';
 import useClickState from '../../../hooks/useClickState';
 import ImagePreview from '../../../Material/ImagePreview/ImagePreview';
+import { UploadImg } from '../../../api/recipeService';
 
-const NewIngredient = ({ setNewIngredientInfo, setIngredientName, newIngredient, setNewIngredient }) => {
+const NewIngredient = ({
+  categoryList,
+  setNewIngredientInfo,
+  setIngredientObject,
+  newIngredient,
+  setNewIngredient,
+}) => {
   const ingredientImageRef = useRef();
   const [newIngredientTemp, setNewIngredientTemp] = useRecoilState(newIngredientAtom);
-  const categoryList = ['#Spirits', '#Liqueur', '#Drinks', '#Garnish', '#Syrup', '#Ingreidents'];
 
   const [ref, handleClickOutside] = useClickState(setNewIngredient);
 
@@ -34,7 +40,7 @@ const NewIngredient = ({ setNewIngredientInfo, setIngredientName, newIngredient,
     ingredientImageRef.current.value = null;
   };
 
-  const enroll = () => {
+  const enroll = async () => {
     if (!newIngredientTemp.name) {
       alert('재료 이름을 입력해주세요.');
       return;
@@ -47,26 +53,42 @@ const NewIngredient = ({ setNewIngredientInfo, setIngredientName, newIngredient,
       alert('재료 카테고리를 선택해주세요.');
       return;
     }
+
+    let imgUrl = '';
+    if (newIngredientTemp.image) {
+      const formData = new FormData();
+      formData.append('image', newIngredientTemp.image);
+      imgUrl = await UploadImg('Ingredient', formData);
+      if (!imgUrl) {
+        alert('이미지 업로드에 실패했습니다.');
+        return;
+      }
+    }
+
     setNewIngredientInfo({
       name: newIngredientTemp.name,
       description: newIngredientTemp.description,
       category: newIngredientTemp.category,
-      image: newIngredientTemp.image,
+      image: imgUrl === '' ? null : imgUrl,
     });
     setNewIngredient(false);
-    setIngredientName('');
+    setIngredientObject({});
   };
 
   const Categories = () => {
-    return categoryList.map((item) => (
-      <span
-        className={newIngredientTemp.category === item ? 'selectedCategory' : 'ingredientCategory'}
-        onClick={() => setNewIngredientTemp({ ...newIngredientTemp, category: item })}
-        key={item}
-      >
-        {item}
-      </span>
-    ));
+    return (
+      <div className='categoryContainer'>
+        {categoryList.map((item, idx) => (
+          <span
+            className={newIngredientTemp.category === idx ? 'selectedCategory' : 'ingredientCategory'}
+            onClick={() => setNewIngredientTemp({ ...newIngredientTemp, category: idx })}
+            key={idx}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    );
   };
 
   return (
@@ -94,7 +116,6 @@ const NewIngredient = ({ setNewIngredientInfo, setIngredientName, newIngredient,
       <label>종류 : </label>
       <Categories />
       <br />
-      <br />
       <label htmlFor='ingredientImage'>
         재료 이미지
         <div className='cocktailFormImageBtn'>추가</div>
@@ -119,8 +140,9 @@ const NewIngredient = ({ setNewIngredientInfo, setIngredientName, newIngredient,
 };
 
 NewIngredient.propTypes = {
+  categoryList: PropTypes.array.isRequired,
   setNewIngredientInfo: PropTypes.func.isRequired,
-  setIngredientName: PropTypes.func.isRequired,
+  setIngredientObject: PropTypes.func.isRequired,
   newIngredient: PropTypes.bool.isRequired,
   setNewIngredient: PropTypes.func.isRequired,
 };

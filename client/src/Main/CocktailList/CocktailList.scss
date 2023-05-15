@@ -20,6 +20,11 @@
   align-items: center;
   justify-content: space-between;
   height: 17rem;
+
+  @include mobile {
+    height: 10rem;
+    overflow-y: hidden;
+  }
 }
 
 .arrowLeft {
