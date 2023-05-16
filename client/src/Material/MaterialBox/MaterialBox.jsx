@@ -4,7 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 import PropTypes from 'prop-types';
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
 import KeyWord from '../Keyword/KeyWord';
-import Ingredient from '../Ingredient/Ingredient';
+import Ingredient from '../Ingredient/Ingredient_sm/Ingredient';
 
 const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
