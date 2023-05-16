@@ -64,7 +64,7 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
           {(location.pathname !== '/' || cocktailIdx) && (
             <>
               {isMobile && cocktailIdx && <h3>재료</h3>}
-              <MaterialBox type='재료' ingredients={ingredients} isDetailRecipe={cocktailIdx ? true : false} />
+              {!cocktailIdx && <MaterialBox type='재료' ingredients={ingredients} />}
             </>
           )}
           {!isMobile && keywords && <MaterialBox type='키워드' keywords={keywords} />}
@@ -96,7 +96,7 @@ CocktailInfo.propTypes = {
   content: PropTypes.string.isRequired,
   keywords: PropTypes.arrayOf(PropTypes.string),
   evaluation: PropTypes.number.isRequired,
-  ingredients: PropTypes.arrayOf(PropTypes.string),
+  ingredients: PropTypes.arrayOf(PropTypes.object),
   isFavorite: PropTypes.bool,
 };
 
@@ -129,7 +129,7 @@ CocktailPreview.propTypes = {
   content: PropTypes.string.isRequired,
   keywords: PropTypes.arrayOf(PropTypes.string),
   evaluation: PropTypes.number.isRequired,
-  ingredients: PropTypes.arrayOf(PropTypes.string),
+  ingredients: PropTypes.arrayOf(PropTypes.object),
   isFavorite: PropTypes.bool,
 };
 

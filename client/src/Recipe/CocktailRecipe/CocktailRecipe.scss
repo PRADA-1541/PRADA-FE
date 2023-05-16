@@ -29,6 +29,24 @@
   }
 }
 
+.recipeIngredients {
+  @extend %flex-column;
+  margin-top: 1rem;
+  width: 100%;
+
+  &Title {
+    margin-left: 1.5rem;
+    font: {
+      size: 1.1rem;
+      weight: 400;
+    }
+  }
+
+  &Content {
+    padding: 0 10%;
+  }
+}
+
 .recipe {
   @extend %flex-column;
   margin-top: 3rem;

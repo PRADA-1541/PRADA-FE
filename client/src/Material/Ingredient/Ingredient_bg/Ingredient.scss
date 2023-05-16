@@ -1,0 +1,32 @@
+@use '../../../styles/variables.scss';
+@import '../../../styles/variables.scss';
+
+.ingredientContainer_bg {
+  display: grid;
+  grid-template-columns: 1fr 1fr 5fr;
+  align-items: center;
+  margin: 0.5rem 0;
+  height: 5rem;
+
+  img {
+    width: 5rem;
+    border-radius: 100%;
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+}
+
+.ingredientNameAndVolume_bg {
+  p {
+    margin: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  span {
+    font-size: 0.8rem;
+    color: $text-deep-gray;
+  }
+}

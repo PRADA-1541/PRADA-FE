@@ -12,6 +12,7 @@ import { CocktailInfo } from '../../Preview/CocktailPreveiw_bg/CocktailPreview';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 import Comment from '../../Material/Comment/Comment';
+import Ingredient from '../../Material/Ingredient/Ingredient_bg/Ingredient';
 
 const CocktailRecipe = () => {
   const { cocktailIdx } = useParams();
@@ -68,7 +69,60 @@ const CocktailRecipe = () => {
     // },
   ];
 
-  const ingredients = [gin, strawberry, vodka, milk, tomatoJuice, sugar];
+  // const ingredients = [gin, strawberry, vodka, milk, tomatoJuice, sugar];
+  const ingredients = [
+    {
+      ingredientIdx: 1,
+      ingredientImage: gin,
+      ingredientName: '진',
+      Volume: 30,
+      volumeUnit: 'ml',
+      ingredientDescription:
+        '증류주의 한 종류. 알코올 도수는 대개 40도 이상이며 주로 칵테일을 제조하는 데 많이 쓰인다.',
+    },
+    {
+      ingredientIdx: 2,
+      ingredientImage: strawberry,
+      ingredientName: '딸기',
+      Volume: 1,
+      volumeUnit: 'slice',
+      ingredientDescription: '딸기는 쌍떡잎식물의 이판화군 장미목 장미과의 여러해살이풀 혹은 그 열매를 가리킨다.',
+    },
+    {
+      ingredientIdx: 3,
+      ingredientImage: vodka,
+      ingredientName: '보드카',
+      Volume: 10,
+      volumeUnit: 'ml',
+      ingredientDescription:
+        '보드카는 증류주의 한 종류. 알코올 도수는 대개 40도 이상이며 주로 칵테일을 제조하는 데 많이 쓰인다.',
+    },
+    {
+      ingredientIdx: 4,
+      ingredientImage: milk,
+      ingredientName: '우유',
+      Volume: 20,
+      volumeUnit: 'ml',
+      ingredientDescription: '우유는 유제품의 일종으로, 유제품은 유당을 함유하고 있는 동물의 젖을 가공한 것을 말한다.',
+    },
+    {
+      ingredientIdx: 5,
+      ingredientImage: tomatoJuice,
+      ingredientName: '토마토 주스',
+      Volume: 20,
+      volumeUnit: 'ml',
+      ingredientDescription: '토마토 주스는 토마토를 원료로 만든 주스이다.',
+    },
+    {
+      ingredientIdx: 6,
+      ingredientImage: sugar,
+      ingredientName: '설탕',
+      Volume: 1,
+      volumeUnit: 'tea Spoon',
+      ingredientDescription:
+        '사탕수수나, 사탕무, 사탕단풍, 야자수, 사탕옥수수 등의 즙이나 진액을 정제하면 나오는 가루 형태의 감미료로 주로 단맛을 내는 데 쓰인다.',
+    },
+  ];
 
   const recipe =
     '1. Mix everything well in a cocktail shaker with some ice to make everything nice and creamy.\n2. Pour into a cocktail glass and serve.';
@@ -128,11 +182,18 @@ const CocktailRecipe = () => {
           content={cocktail.cocktailDescription}
           keywords={cocktail.cocktailKeyword}
           evaluation={cocktail.averageRating}
-          // ingredients={cocktail.IngredientsURL}
           ingredients={ingredients}
           isFavorite={false}
         />
       )}
+      <div className='recipeIngredients'>
+        <h2 className='recipeIngredientsTitle'>재료</h2>
+        <div className='recipeIngredientsContent'>
+          {ingredients.map((ingredient) => (
+            <Ingredient ingredient={ingredient} key={ingredient.ingredientIdx} />
+          ))}
+        </div>
+      </div>
       <div className='recipe'>
         <h2 className='recipeTitle'>레시피</h2>
         <div className='recipeContent'>
