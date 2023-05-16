@@ -35,3 +35,14 @@ export const UploadRecipe = async (recipe) => {
     return false;
   }
 };
+
+export const GetRecipeList = async (isCustom, pageSize, orderBy, lastCocktailIdx, setRecipeList) => {
+  try {
+    const res = await Recipe.getRecipeList(isCustom, pageSize, orderBy, lastCocktailIdx);
+    setRecipeList(res.data.result);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};

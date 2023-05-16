@@ -13,7 +13,7 @@ const Ingredient = ({ ingredient }) => {
 
   return (
     <div className='ingredientBox' onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-      <img className='ingredientImg' src={ingredient} alt='재료 이미지' />
+      <img className='ingredientImg' src={process.env.REACT_APP_IMG_BASE_URL + ingredient} alt='재료 이미지' />
       {cocktailIdx && isHover && (
         <div className='ingredientInfo'>
           <p className='ingredientName'>{ingredientName}</p>

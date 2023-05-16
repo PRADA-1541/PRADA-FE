@@ -3,6 +3,9 @@ import './CocktailList.scss';
 import { useParams, useNavigate } from 'react-router-dom';
 import data from '../assets/data/cocktails.json';
 import CocktailPreview from '../Preview/CocktailPreveiw_bg/CocktailPreview';
+import { SlArrowDown } from 'react-icons/sl';
+import DropDown from '../Material/DropDown/DropDown';
+// import { GetRecipeList } from '../api/recipeService';
 
 export const RecipeList = ({ recipeList }) => {
   return recipeList.map((cocktail) => (
@@ -11,6 +14,7 @@ export const RecipeList = ({ recipeList }) => {
       cocktailIdx={cocktail.cocktailIdx}
       name={cocktail.cocktailName}
       imageURL={cocktail.cocktailImage}
+      // imageURL={process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage}
       content={cocktail.cocktailDescription}
       keywords={cocktail.cocktailKeyword}
       // keywords={cocktail.cocktailKeyword.split(' ')}
@@ -23,15 +27,24 @@ export const RecipeList = ({ recipeList }) => {
 const CocktailList = () => {
   const { category } = useParams();
   const [curCategory, setCurCategory] = useState('');
+  const [recipeList, setRecipeList] = useState([]);
+  const [dropDown, setDropDown] = useState(false);
+  const [sort, setSort] = useState('최근 등록순');
+  const sortList = ['최근 등록순', '평점순', '조회순'];
+
   const navigate = useNavigate();
 
   useEffect(() => {
+    setRecipeList(data.filter((cocktail, idx) => idx < 10));
+
     switch (category) {
       case 'official':
         setCurCategory('공식 칵테일');
+        // GetRecipeList(0, 10, 'createdAt', 0, setRecipeList);
         break;
       case 'custom':
         setCurCategory('커스텀 칵테일');
+        // GetRecipeList(1, 10, 'createdAt', 0, setRecipeList);
         break;
       case 'favorite':
         setCurCategory('즐겨찾기');
@@ -43,10 +56,29 @@ const CocktailList = () => {
     }
   }, [category]);
 
+  const getMoreList = () => {
+    setRecipeList([...recipeList, ...data.filter((cocktail, idx) => idx > 10)]);
+  };
+
+  const handle = (e) => {
+    e.stopPropagation();
+    setDropDown(!dropDown);
+  };
+
   return (
     <div className='cocktailList'>
       <h1>{curCategory}</h1>
-      <RecipeList recipeList={data} />
+      <div className='sort'>
+        <div className='curSort' onMouseDown={(e) => handle(e)}>
+          {sort}
+          <SlArrowDown />
+        </div>
+        {dropDown && <DropDown setDropDown={setDropDown} list={sortList} onClick={setSort} />}
+      </div>
+      <RecipeList recipeList={recipeList} />
+      <div className='moreList'>
+        <SlArrowDown onClick={getMoreList} />
+      </div>
     </div>
   );
 };

@@ -23,7 +23,7 @@ const Header = () => {
     setSearchWord('');
     if (
       location.pathname === '/' ||
-      location.pathname === '/cocktails/IBM' ||
+      location.pathname === '/cocktails/official' ||
       location.pathname === '/cocktails/custom' ||
       location.pathname.startsWith('/search')
     )

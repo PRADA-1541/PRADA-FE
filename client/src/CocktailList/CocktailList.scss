@@ -1,14 +1,51 @@
+@use '../styles/variables.scss';
 @import '../styles/variables.scss';
 
 .cocktailList {
+  position: relative;
+
   @include mobile {
     margin-top: 3rem;
   }
 }
 
-.category {
-  margin: {
-    left: 2rem;
-    bottom: 1.5rem;
+.sort {
+  position: absolute;
+  top: 0.3rem;
+  right: 0;
+  height: fit-content;
+  width: 8rem;
+  font-size: medium;
+  text-align: center;
+  background-color: white;
+  border: $border;
+  border-radius: $border-radius-small;
+
+  svg {
+    margin-left: 0.4rem;
+    font-size: small;
+  }
+}
+
+.curSort {
+  width: 100%;
+  padding: 0.2rem;
+  cursor: pointer;
+}
+
+.moreList {
+  width: 100%;
+  text-align: center;
+
+  svg {
+    height: 100%;
+    padding: 1rem 3rem;
+    font-size: 8rem;
+    cursor: pointer;
+
+    &:hover {
+      @extend %transition-2;
+      color: $gray;
+    }
   }
 }

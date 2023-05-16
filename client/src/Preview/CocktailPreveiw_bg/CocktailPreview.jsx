@@ -96,7 +96,7 @@ CocktailInfo.propTypes = {
   content: PropTypes.string.isRequired,
   keywords: PropTypes.arrayOf(PropTypes.string),
   evaluation: PropTypes.number.isRequired,
-  ingredients: PropTypes.arrayOf(PropTypes.string),
+  ingredients: PropTypes.array,
   isFavorite: PropTypes.bool,
 };
 
@@ -129,7 +129,7 @@ CocktailPreview.propTypes = {
   content: PropTypes.string.isRequired,
   keywords: PropTypes.arrayOf(PropTypes.string),
   evaluation: PropTypes.number.isRequired,
-  ingredients: PropTypes.arrayOf(PropTypes.string),
+  ingredients: PropTypes.array,
   isFavorite: PropTypes.bool,
 };
 
