@@ -34,3 +34,130 @@ export const CreateRefrigerator = async (refrigeratorName, isMain, setRefriegrat
     return false;
   }
 };
+
+export const DeleteRefrigerator = async (refrigeratorIdx) => {
+  try {
+    const res = await Refrigerator.deleteRefrigerator(refrigeratorIdx);
+    if (res) return true;
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    }
+    return false;
+  }
+};
+
+export const GetRefrigerator = async (refrigeratorIdx, setRefrigerator) => {
+  try {
+    const res = await Refrigerator.getRefrigerator(refrigeratorIdx);
+    if (res) {
+      setRefrigerator(res.data.result);
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    }
+    return false;
+  }
+};
+
+export const ChangeRefrigeratorName = async (refrigeratorIdx, refrigeratorName, setRefrigerator) => {
+  try {
+    const res = await Refrigerator.changeRefrigeratorName(refrigeratorIdx, refrigeratorName);
+    if (res) {
+      const refrigeratorRes = await GetRefrigerator(refrigeratorIdx, setRefrigerator);
+      if (refrigeratorRes) return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    }
+    return false;
+  }
+};
+
+export const ChangeMainRefrigerator = async (refrigeratorIdx, setRefrigerators, setRefrigerator) => {
+  try {
+    const res = await Refrigerator.changeMainRefrigerator(refrigeratorIdx);
+    if (res) {
+      if (setRefrigerators) {
+        const refrigeratorsRes = await GetRefrigeratorList(refrigeratorIdx, setRefrigerators);
+        if (refrigeratorsRes) return true;
+      } else {
+        const refrigeratorRes = await GetRefrigerator(refrigeratorIdx, setRefrigerator);
+        if (refrigeratorRes) return true;
+      }
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    }
+    return false;
+  }
+};
+
+export const GetIngredientList = async (setIngredientList) => {
+  try {
+    const res = await Refrigerator.getIngredientList();
+    if (res) {
+      setIngredientList(res.data.result);
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    }
+    return false;
+  }
+};
+
+export const AddIngredient = async (refrigeratorIdx, ingredientIdx, setRefrigerator) => {
+  try {
+    const res = await Refrigerator.addIngredient(refrigeratorIdx, ingredientIdx);
+    if (res) {
+      const refrigeratorRes = await Refrigerator.getRefrigerator(refrigeratorIdx);
+      if (refrigeratorRes) {
+        setRefrigerator(refrigeratorRes.data.result);
+        return true;
+      }
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    }
+    return false;
+  }
+};
+
+export const DeleteIngredient = async (refrigeratorIdx, ingredientIdx, setRefrigerator) => {
+  try {
+    const res = await Refrigerator.deleteIngredient(refrigeratorIdx, ingredientIdx);
+    if (res) {
+      const refrigeratorRes = await Refrigerator.getRefrigerator(refrigeratorIdx);
+      if (refrigeratorRes) {
+        setRefrigerator(refrigeratorRes.data.result);
+        return true;
+      }
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    }
+    return false;
+  }
+};

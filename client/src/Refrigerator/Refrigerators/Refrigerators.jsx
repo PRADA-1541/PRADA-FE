@@ -12,7 +12,7 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { refrigeratorsAtom } from '../../recoil/refrigeratorAtom';
-import { CreateRefrigerator, GetRefrigeratorList } from '../../api/refrigeratorService';
+import { ChangeMainRefrigerator, CreateRefrigerator, GetRefrigeratorList } from '../../api/refrigeratorService';
 
 const Refrigerators = () => {
   const [refrigerators, setRefrigerators] = useRecoilState(refrigeratorsAtom);
@@ -35,9 +35,9 @@ const Refrigerators = () => {
     }
   };
 
-  const changeCurrentRefrigerator = (e, refrigeratorIdx) => {
+  const changeMainRefrigerator = (e, refrigeratorIdx) => {
     e.preventDefault();
-    console.log(refrigeratorIdx);
+    ChangeMainRefrigerator(refrigeratorIdx, setRefrigerators);
   };
 
   const Info = () => {
@@ -90,12 +90,13 @@ const Refrigerators = () => {
           <img src={refrigeratorImg} alt='냉장고 이미지' />
           <>
             <span>{refrigerator.refrigeratorName}</span>
+            {/* TODO: 메인 냉장고 설정 후 랜더링 안됨 */}
             {refrigerator.isMain === 1 ? (
               <AiFillStar className='refrigeratorStar' onClick={(e) => e.preventDefault()} />
             ) : (
               <AiOutlineStar
                 className='refrigeratorStar'
-                onClick={(e) => changeCurrentRefrigerator(e, refrigerator.refrigeratorIdx)}
+                onClick={(e) => changeMainRefrigerator(e, refrigerator.refrigeratorIdx)}
               />
             )}
           </>

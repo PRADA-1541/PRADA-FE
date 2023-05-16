@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-  // baseURL: process.env.REACT_APP_API_URL_LOCAL,
+  // baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_API_URL_LOCAL,
 });
 
 export const auth = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
-  // baseURL: process.env.REACT_APP_API_URL_LOCAL,
+  // baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_API_URL_LOCAL,
 });
 
 export const Auth = {
@@ -56,7 +56,22 @@ export const Refrigerator = {
   getRefrigeratorList: () => api.get('users/refrigerator?userIdx=5'),
   createRefrigerator: (refrigeratorName, isMain) =>
     api.post('users/refrigerator?userIdx=5', {
-      refrigeratorName: refrigeratorName,
-      isMain: isMain,
+      refrigeratorName,
+      isMain,
     }),
+  deleteRefrigerator: (refrigeratorIdx) =>
+    api.update('users/refrigerator', {
+      refrigeratorIdx,
+    }),
+  changeRefrigeratorName: (refrigeratorIdx, refrigeratorName) =>
+    api.patch(`users/refrigerator/${refrigeratorIdx}`, {
+      refrigeratorName,
+    }),
+  changeMainRefrigerator: (refrigeratorIdx) => api.patch(`users/refrigerator/${refrigeratorIdx}/main?userIdx=5`),
+  getRefrigerator: (refrigeratorIdx) => api.get(`users/refrigerator/${refrigeratorIdx}/ingredient`),
+  getIngredientList: () => api.get('ingredients'),
+  addIngredient: (refrigeratorIdx, ingredientIdx) =>
+    api.post(`users/refrigerator/${refrigeratorIdx}/ingredient/${ingredientIdx}`),
+  deleteIngredient: (refrigeratorIdx, ingredientIdx) =>
+    api.delete(`users/refrigerator/${refrigeratorIdx}/ingredient/${ingredientIdx}`),
 };
