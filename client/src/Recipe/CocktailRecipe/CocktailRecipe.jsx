@@ -17,18 +17,26 @@ import Ingredient from '../../Material/Ingredient/Ingredient_bg/Ingredient';
 const CocktailRecipe = () => {
   const { cocktailIdx } = useParams();
   const [cocktail, setCocktail] = useState();
-  const [commentVisible, setCommentVisible] = useState(false);
   const [evalStars, setEvalStars] = useState(0);
+  const [isCustom, setIsCustom] = useState(0);
+  const [isFavorite, setIsFavorite] = useState(0);
+  const [createdAt, setCreatedAt] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [rating, setRating] = useState(0);
+  const [cocktailDirection, setCocktailDirection] = useState('');
+  const [commentCount, setCommentCount] = useState(0);
+  const [commentVisible, setCommentVisible] = useState(false);
+  const [isCommentReceived, setIsCommentReceived] = useState(false);
 
   const comments = [
     {
-      id: 1,
-      name: '김철수',
-      profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-      date: '2021-08-01',
-      content: '맛있어요',
-      like: 3,
-      dislike: 2,
+      cocktailCommentIdx: 1,
+      nickname: '김철수',
+      profileImg: 'https://avatars.githubusercontent.com/u/48292190?v=4',
+      cocktailCommentCreatedAt: '2021-08-01',
+      cocktailComment: '맛있어요',
+      cocktailCommentLikes: 3,
+      cocktailCommentDisLikes: 2,
     },
     // {
     //   id: 2,
@@ -129,10 +137,24 @@ const CocktailRecipe = () => {
 
   useEffect(() => {
     setCocktail(data[cocktailIdx]);
+
+    //TODO: 서버에서 받아오기
+    setIsCustom(1);
+    setIsFavorite(1);
+    setCreatedAt('2021-08-01');
+    setNickname('김준하');
+    setRating(4);
+    setEvalStars(4);
+    setCocktailDirection(recipe);
+    setCommentCount(5);
   }, [cocktailIdx]);
 
   const commentToggle = () => {
     setCommentVisible(!commentVisible);
+    if (!isCommentReceived) {
+      setIsCommentReceived(true);
+      //TODO: 댓글 받아오기
+    }
   };
 
   const Arrow = () => {
@@ -150,7 +172,8 @@ const CocktailRecipe = () => {
             className='star'
             key={idx}
             onMouseEnter={() => setEvalStars(idx + 1)}
-            onMouseLeave={() => setEvalStars(0)}
+            onMouseLeave={() => setEvalStars(rating)}
+            onClick={() => setRating(idx + 1)}
           />
         );
       else
@@ -159,31 +182,35 @@ const CocktailRecipe = () => {
             className='star'
             key={idx}
             onMouseEnter={() => setEvalStars(idx + 1)}
-            onMouseLeave={() => setEvalStars(0)}
+            onMouseLeave={() => setEvalStars(rating)}
+            onClick={() => setRating(idx + 1)}
           />
         );
     });
   };
 
   const Comments = () => {
-    return comments.map((comment) => <Comment comment={comment} key={comment.id} />);
+    return comments.map((comment) => <Comment comment={comment} key={comment.cocktailCommentIdx} />);
   };
 
   return (
     <div className='cocktailRecipeContainer'>
-      <div className='dateAndProfile'>
-        <span>2023.04.14</span>
-        <span>김준하</span>
-      </div>
+      {isCustom === 1 && (
+        <div className='dateAndProfile'>
+          <span>{createdAt}</span>
+          <span>{nickname}</span>
+        </div>
+      )}
       {cocktail && (
         <CocktailInfo
+          ABV={cocktail.ABV}
+          cocktailIdx={cocktail.cocktailIdx}
           name={cocktail.cocktailName}
           imageURL={cocktail.cocktailImage}
           content={cocktail.cocktailDescription}
           keywords={cocktail.cocktailKeyword}
           evaluation={cocktail.averageRating}
-          ingredients={ingredients}
-          isFavorite={false}
+          isFavorite={isFavorite}
         />
       )}
       <div className='recipeIngredients'>
@@ -197,7 +224,7 @@ const CocktailRecipe = () => {
       <div className='recipe'>
         <h2 className='recipeTitle'>레시피</h2>
         <div className='recipeContent'>
-          {recipe.split('\n').map((item, idx) => (
+          {cocktailDirection.split('\n').map((item, idx) => (
             <p key={idx}>{item}</p>
           ))}
         </div>
@@ -210,7 +237,7 @@ const CocktailRecipe = () => {
         <h2 className='commentTitle'>
           댓글
           <span className='commentNum' onClick={commentToggle}>
-            1
+            {commentCount}
             <Arrow />
           </span>
         </h2>

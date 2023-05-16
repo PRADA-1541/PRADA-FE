@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import MaterialBox from '../../Material/MaterialBox/MaterialBox';
 
-export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, ingredients, isFavorite }) => {
+export const CocktailInfo = ({ ABV, name, imageURL, content, keywords, evaluation, ingredients, isFavorite }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
 
   const [evalStars, setEvalStars] = useState(0);
@@ -55,7 +55,8 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
           <h2>
             {name}
             {cocktailIdx &&
-              (isFavorite ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
+              (isFavorite === 1 ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
+            <span className='ABV'>{ABV.toFixed(2)} 도</span>
           </h2>
           {!isMobile && <hr />}
           <p className='cocktailContent'>
@@ -91,16 +92,27 @@ export const CocktailInfo = ({ name, imageURL, content, keywords, evaluation, in
 };
 
 CocktailInfo.propTypes = {
+  ABV: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   imageURL: PropTypes.string,
   content: PropTypes.string.isRequired,
   keywords: PropTypes.arrayOf(PropTypes.string),
   evaluation: PropTypes.number.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.object),
-  isFavorite: PropTypes.bool,
+  isFavorite: PropTypes.number,
 };
 
-const CocktailPreview = ({ cocktailIdx, name, imageURL, content, keywords, evaluation, ingredients, isFavorite }) => {
+const CocktailPreview = ({
+  ABV,
+  cocktailIdx,
+  name,
+  imageURL,
+  content,
+  keywords,
+  evaluation,
+  ingredients,
+  isFavorite,
+}) => {
   const location = useLocation();
 
   return (
@@ -108,6 +120,7 @@ const CocktailPreview = ({ cocktailIdx, name, imageURL, content, keywords, evalu
       {location.pathname === '/' && <h1>오늘의 추천 칵테일</h1>}
       <Link className='recipePreviewContainer' to={'/cocktail/' + cocktailIdx}>
         <CocktailInfo
+          ABV={ABV}
           cocktailIdx={cocktailIdx}
           name={name}
           imageURL={imageURL}
@@ -123,6 +136,7 @@ const CocktailPreview = ({ cocktailIdx, name, imageURL, content, keywords, evalu
 };
 
 CocktailPreview.propTypes = {
+  ABV: PropTypes.number.isRequired,
   cocktailIdx: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   imageURL: PropTypes.string,
@@ -130,7 +144,7 @@ CocktailPreview.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
   evaluation: PropTypes.number.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.object),
-  isFavorite: PropTypes.bool,
+  isFavorite: PropTypes.number,
 };
 
 export default CocktailPreview;

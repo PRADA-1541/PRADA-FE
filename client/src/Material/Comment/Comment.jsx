@@ -11,20 +11,20 @@ const Comment = ({ comment }) => {
     return (
       <div className='commentContainer'>
         <div className='commentHeader'>
-          <img className='commentProfileImg' src={comment.profile} alt='프로필 이미지' />
+          <img className='commentProfileImg' src={comment.profileImg} alt='프로필 이미지' />
           <div className='nameAndDate'>
-            <p className='commentName'>{comment.name}</p>
-            <p className='commentDate'>{comment.date}</p>
+            <p className='commentName'>{comment.nickname}</p>
+            <p className='commentDate'>{comment.cocktailCommentCreatedAt}</p>
           </div>
         </div>
-        <p className='commentContent'>{comment.content}</p>
+        <p className='commentContent'>{comment.cocktailComment}</p>
         <div className='commentEval'>
           <p className='commentLike'>
-            {comment.like}
+            {comment.cocktailCommentLikes}
             <AiOutlineLike />
           </p>
           <p className='commentDislike'>
-            {comment.dislike}
+            {comment.cocktailCommentDisLikes}
             <AiOutlineDislike />
           </p>
         </div>
@@ -37,19 +37,19 @@ const Comment = ({ comment }) => {
       <div className='commentContainer'>
         <div>
           <div className='commentProfile'>
-            <img className='commentProfileImg' src={comment.profile} alt='프로필 이미지' />
-            <span>{comment.name}</span>
+            <img className='commentProfileImg' src={comment.profileImg} alt='프로필 이미지' />
+            <span>{comment.nickname}</span>
           </div>
-          <p className='commentContent'>{comment.content}</p>
-          <p className='commentDate'>{comment.date}</p>
+          <p className='commentContent'>{comment.cocktailComment}</p>
+          <p className='commentDate'>{comment.cocktailCommentCreatedAt}</p>
         </div>
         <div className='commentEval'>
           <p className='commentLike'>
-            {comment.like}
+            {comment.cocktailCommentLikes}
             <AiOutlineLike />
           </p>
           <p className='commentDislike'>
-            {comment.dislike}
+            {comment.cocktailCommentDisLikes}
             <AiOutlineDislike />
           </p>
         </div>
