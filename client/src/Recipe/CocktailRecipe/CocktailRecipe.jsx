@@ -13,6 +13,7 @@ import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 import Comment from '../../Material/Comment/Comment';
 import Ingredient from '../../Material/Ingredient/Ingredient_bg/Ingredient';
+import CommentForm from '../../Material/Comment/CommentForm/CommentForm';
 
 const CocktailRecipe = () => {
   const { cocktailIdx } = useParams();
@@ -157,6 +158,11 @@ const CocktailRecipe = () => {
     }
   };
 
+  const submitComment = (comment) => {
+    console.log(comment);
+    //TODO: 댓글 서버에 보내기, 성공하면 댓글 리스트 다시 받아옴
+  };
+
   const Arrow = () => {
     if (commentVisible) return <SlArrowUp className='arrow' />;
     else return <SlArrowDown className='arrow' />;
@@ -241,6 +247,7 @@ const CocktailRecipe = () => {
             <Arrow />
           </span>
         </h2>
+        {commentVisible && <CommentForm submitComment={submitComment} />}
         {commentVisible && <Comments />}
       </div>
     </div>

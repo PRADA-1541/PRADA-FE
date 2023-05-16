@@ -56,7 +56,7 @@ export const CocktailInfo = ({ ABV, name, imageURL, content, keywords, evaluatio
             {name}
             {cocktailIdx &&
               (isFavorite === 1 ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
-            <span className='ABV'>{ABV.toFixed(2)} 도</span>
+            {ABV && <span className='ABV'>{ABV.toFixed(2)} 도</span>}
           </h2>
           {!isMobile && <hr />}
           <p className='cocktailContent'>
@@ -92,7 +92,7 @@ export const CocktailInfo = ({ ABV, name, imageURL, content, keywords, evaluatio
 };
 
 CocktailInfo.propTypes = {
-  ABV: PropTypes.number.isRequired,
+  ABV: PropTypes.number,
   name: PropTypes.string.isRequired,
   imageURL: PropTypes.string,
   content: PropTypes.string.isRequired,
@@ -136,7 +136,7 @@ const CocktailPreview = ({
 };
 
 CocktailPreview.propTypes = {
-  ABV: PropTypes.number.isRequired,
+  ABV: PropTypes.number,
   cocktailIdx: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   imageURL: PropTypes.string,
