@@ -53,21 +53,18 @@ export const Recipe = {
 };
 
 export const Refrigerator = {
-  getRefrigeratorList: () => api.get('users/refrigerator?userIdx=5'),
+  getRefrigeratorList: () => api.get('users/refrigerator?userIdx=6'),
   createRefrigerator: (refrigeratorName, isMain) =>
-    api.post('users/refrigerator?userIdx=5', {
+    api.post('users/refrigerator?userIdx=6', {
       refrigeratorName,
       isMain,
     }),
-  deleteRefrigerator: (refrigeratorIdx) =>
-    api.update('users/refrigerator', {
-      refrigeratorIdx,
-    }),
+  deleteRefrigerator: (refrigeratorIdx) => api.delete(`users/refrigerator/${refrigeratorIdx}`),
   changeRefrigeratorName: (refrigeratorIdx, refrigeratorName) =>
     api.patch(`users/refrigerator/${refrigeratorIdx}`, {
       refrigeratorName,
     }),
-  changeMainRefrigerator: (refrigeratorIdx) => api.patch(`users/refrigerator/${refrigeratorIdx}/main?userIdx=5`),
+  changeMainRefrigerator: (refrigeratorIdx) => api.patch(`users/refrigerator/${refrigeratorIdx}/main?userIdx=6`),
   getRefrigerator: (refrigeratorIdx) => api.get(`users/refrigerator/${refrigeratorIdx}/ingredient`),
   getIngredientList: () => api.get('ingredients'),
   addIngredient: (refrigeratorIdx, ingredientIdx) =>

@@ -83,18 +83,10 @@ export const ChangeRefrigeratorName = async (refrigeratorIdx, refrigeratorName, 
   }
 };
 
-export const ChangeMainRefrigerator = async (refrigeratorIdx, setRefrigerators, setRefrigerator) => {
+export const ChangeMainRefrigerator = async (refrigeratorIdx) => {
   try {
     const res = await Refrigerator.changeMainRefrigerator(refrigeratorIdx);
-    if (res) {
-      if (setRefrigerators) {
-        const refrigeratorsRes = await GetRefrigeratorList(refrigeratorIdx, setRefrigerators);
-        if (refrigeratorsRes) return true;
-      } else {
-        const refrigeratorRes = await GetRefrigerator(refrigeratorIdx, setRefrigerator);
-        if (refrigeratorRes) return true;
-      }
-    }
+    if (res) return true;
   } catch (error) {
     if (error.response.data) {
       if (error.response.data.message) {

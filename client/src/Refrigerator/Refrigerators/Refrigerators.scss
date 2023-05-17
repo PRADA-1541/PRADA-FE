@@ -8,10 +8,39 @@
 }
 
 .addRefrigerator {
-  @include mobile {
+  position: relative;
+
+  &Btn {
+    @include mobile {
+      margin: 0;
+      font-size: small;
+      padding: 0.2rem 0.5rem;
+    }
+  }
+}
+
+.newRefrigeratorName {
+  position: absolute;
+  @extend %flex-column;
+  align-items: flex-end;
+  top: 3rem;
+  right: 0;
+  border: $border;
+  border-radius: $border-radius-small;
+  @extend %box-shadow;
+  background-color: $light-gray;
+  padding: 0.5rem 1rem;
+  z-index: 100;
+
+  input {
+    width: 13rem;
+    margin-bottom: 0.5rem;
+  }
+
+  button {
     margin: 0;
-    font-size: small;
-    padding: 0.2rem 0.5rem;
+    right: 0;
+    font-size: 0.8rem;
   }
 }
 

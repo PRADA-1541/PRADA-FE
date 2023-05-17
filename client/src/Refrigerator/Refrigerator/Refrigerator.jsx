@@ -78,8 +78,9 @@ const Refrigerator = () => {
     GetRefrigerator(refrigeratorIdx, setRefrigerator);
   }, [refrigeratorIdx]);
 
-  const changeCurrentRefrigerator = (refrigeratorIdx) => {
-    ChangeMainRefrigerator(refrigeratorIdx, setRefrigerator);
+  const changeCurrentRefrigerator = async () => {
+    const result = await ChangeMainRefrigerator(refrigeratorIdx);
+    if (result) GetRefrigerator(refrigeratorIdx, setRefrigerator);
   };
 
   const startEditing = async () => {
@@ -149,10 +150,7 @@ const Refrigerator = () => {
         {refrigerator.refrigerator?.isMain === 1 ? (
           <AiFillStar className='refrigeratorStar' onClick={(e) => e.preventDefault()} />
         ) : (
-          <AiOutlineStar
-            className='refrigeratorStar'
-            onClick={() => changeCurrentRefrigerator(refrigerator.refrigerator?.refrigeratorIdx)}
-          />
+          <AiOutlineStar className='refrigeratorStar' onClick={changeCurrentRefrigerator} />
         )}
       </div>
       <div className='refrigerator'>

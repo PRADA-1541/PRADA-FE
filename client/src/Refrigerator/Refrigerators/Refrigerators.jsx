@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import './Refrigerators.scss';
 import refrigerator1 from '../../assets/images/refrigerator/refrigerator1.png';
 import refrigerator2 from '../../assets/images/refrigerator/refrigerator2.png';
@@ -11,11 +11,14 @@ import refrigerator8 from '../../assets/images/refrigerator/refrigerator8.png';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import PropTypes from 'prop-types';
 import { refrigeratorsAtom } from '../../recoil/refrigeratorAtom';
 import { ChangeMainRefrigerator, CreateRefrigerator, GetRefrigeratorList } from '../../api/refrigeratorService';
 
 const Refrigerators = () => {
   const [refrigerators, setRefrigerators] = useRecoilState(refrigeratorsAtom);
+  const [refrigeratorNameInput, setRefrigeratorNameInput] = useState(false);
+  const newRefrigeratorNameRef = useRef(null);
 
   useEffect(() => {
     GetRefrigeratorList(setRefrigerators);
@@ -26,18 +29,27 @@ const Refrigerators = () => {
       alert('냉장고는 최대 8개까지 추가할 수 있습니다.');
       return;
     }
-    if (refrigerators.length === 0) {
-      CreateRefrigerator('냉장고 1', 1, setRefrigerators);
+    if (newRefrigeratorNameRef.current.value === '') {
+      alert('냉장고 이름을 입력해주세요.');
       return;
-    } else {
-      CreateRefrigerator('냉장고 ' + (refrigerators.length + 1), 0, setRefrigerators);
-      console.log('냉장고 ' + (refrigerators.length + 1));
     }
+    CreateRefrigerator(newRefrigeratorNameRef.current.value, refrigerators.length === 0 ? 1 : 0, setRefrigerators);
   };
 
-  const changeMainRefrigerator = (e, refrigeratorIdx) => {
+  const changeMainRefrigerator = async (e, refrigeratorIdx) => {
     e.preventDefault();
-    ChangeMainRefrigerator(refrigeratorIdx, setRefrigerators);
+    const result = await ChangeMainRefrigerator(refrigeratorIdx);
+    if (result) {
+      setRefrigerators((prev) =>
+        prev.map((refrigerator) => {
+          if (refrigerator.refrigeratorIdx === refrigeratorIdx) {
+            return { ...refrigerator, isMain: 1 };
+          } else {
+            return { ...refrigerator, isMain: 0 };
+          }
+        })
+      );
+    }
   };
 
   const Info = () => {
@@ -48,6 +60,38 @@ const Refrigerators = () => {
       </Link>
     );
   };
+
+  const Refrigerator = ({ refrigerator, refrigeratorImg }) => {
+    return (
+      <Link
+        className='refrigeratorContainer'
+        key={refrigerator.refrigeratorIdx}
+        to={`/refrigerator/${refrigerator.refrigeratorIdx}`}
+      >
+        <img src={refrigeratorImg} alt='냉장고 이미지' />
+        <>
+          <span>{refrigerator.refrigeratorName}</span>
+          {refrigerator.isMain === 1 ? (
+            <AiFillStar className='refrigeratorStar' onClick={(e) => e.preventDefault()} />
+          ) : (
+            <AiOutlineStar
+              className='refrigeratorStar'
+              onClick={(e) => changeMainRefrigerator(e, refrigerator.refrigeratorIdx)}
+            />
+          )}
+        </>
+      </Link>
+    );
+  };
+
+  Refrigerator.propTypes = {
+    refrigerator: PropTypes.object.isRequired,
+    refrigeratorImg: PropTypes.string.isRequired,
+  };
+
+  React.memo(Refrigerator, (prevProps, nextProps) => {
+    return prevProps.refrigeratorImg === nextProps.refrigeratorImg;
+  });
 
   const RefrigeratorList = () => {
     return refrigerators.map((refrigerator, idx) => {
@@ -82,25 +126,11 @@ const Refrigerators = () => {
       }
 
       return (
-        <Link
-          className='refrigeratorContainer'
+        <Refrigerator
           key={refrigerator.refrigeratorIdx}
-          to={`/refrigerator/${refrigerator.refrigeratorIdx}`}
-        >
-          <img src={refrigeratorImg} alt='냉장고 이미지' />
-          <>
-            <span>{refrigerator.refrigeratorName}</span>
-            {/* TODO: 메인 냉장고 설정 후 랜더링 안됨 */}
-            {refrigerator.isMain === 1 ? (
-              <AiFillStar className='refrigeratorStar' onClick={(e) => e.preventDefault()} />
-            ) : (
-              <AiOutlineStar
-                className='refrigeratorStar'
-                onClick={(e) => changeMainRefrigerator(e, refrigerator.refrigeratorIdx)}
-              />
-            )}
-          </>
-        </Link>
+          refrigerator={refrigerator}
+          refrigeratorImg={refrigeratorImg}
+        />
       );
     });
   };
@@ -109,9 +139,17 @@ const Refrigerators = () => {
     <div>
       <div className='refrigeratorHeader'>
         <h1>내 냉장고</h1>
-        <button className='addRefrigerator' onClick={newRefrigerator}>
-          냉장고 추가
-        </button>
+        <div className='addRefrigerator'>
+          <button className='addRefrigeratorBtn' onClick={() => setRefrigeratorNameInput(!refrigeratorNameInput)}>
+            냉장고 추가
+          </button>
+          {refrigeratorNameInput && (
+            <form className='newRefrigeratorName' onSubmit={newRefrigerator}>
+              <input type='text' ref={newRefrigeratorNameRef} placeholder='냉장고의 이름을 입력해주세요.' />
+              <button type='submit'>추가</button>
+            </form>
+          )}
+        </div>
       </div>
       <div className='refrigeratorGrid'>{refrigerators.length === 0 ? <Info /> : <RefrigeratorList />}</div>
     </div>
