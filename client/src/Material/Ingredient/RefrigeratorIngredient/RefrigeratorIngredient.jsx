@@ -7,9 +7,9 @@ const RefrigeratorIngredient = ({ ingredients, editState, deleteIngredient }) =>
     <div
       className={editState ? 'ingredientInRefrigeratorEditting' : 'ingredientInRefrigerator'}
       key={ingredient.ingredientIdx}
-      onClick={editState ? () => deleteIngredient(ingredient.ingredientIdx) : () => {}}
+      onClick={editState ? () => deleteIngredient(ingredient) : () => {}}
     >
-      <img src={ingredient.ingredientImg} alt='재료 이미지' />
+      <img src={ingredient.ingredientImage} alt='재료 이미지' />
       <span className='ingredientNameInRefrigerator'>{ingredient.ingredientName}</span>
     </div>
   ));
@@ -20,7 +20,7 @@ RefrigeratorIngredient.propTypes = {
     PropTypes.shape({
       ingredientIdx: PropTypes.number.isRequired,
       ingredientName: PropTypes.string.isRequired,
-      ingredientImg: PropTypes.string.isRequired,
+      ingredientImage: PropTypes.string.isRequired,
     })
   ).isRequired,
   editState: PropTypes.bool.isRequired,
@@ -29,5 +29,6 @@ RefrigeratorIngredient.propTypes = {
 
 export default React.memo(
   RefrigeratorIngredient,
-  (prevProps, nextProps) => prevProps.ingredients === nextProps.ingredients
+  (prevProps, nextProps) =>
+    prevProps.ingredients === nextProps.ingredients && prevProps.editState === nextProps.editState
 );
