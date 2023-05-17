@@ -5,6 +5,9 @@ import CocktailPreview from '../../Preview/CocktailPreview_sm/CocktailPreview';
 import Proptypes from 'prop-types';
 import data from '../../assets/data/cocktails.json';
 import { useMediaQuery } from 'react-responsive';
+// import testImage from '../../assets/images/pngwing.com-2 (1).png';
+// import testImage from '../../assets/images/pngwing.com-5.png';
+// import testImage from '../../assets/images/pngwing.com-6.png';
 
 const CocktailList = ({ category }) => {
   const [isFirst, setIsFirst] = useState(true);
@@ -24,6 +27,7 @@ const CocktailList = ({ category }) => {
         <CocktailPreview
           key={cocktail.cocktailIdx}
           imageURL={cocktail.cocktailImage}
+          // imageURL={testImage}
           name={cocktail.cocktailName}
           evaluation={cocktail.averageRating}
         />

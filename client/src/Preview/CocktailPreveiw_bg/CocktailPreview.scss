@@ -43,13 +43,14 @@
 .cocktailImg,
 .cocktailImg-border {
   @extend %flex-column;
-  justify-content: center;
-  max: {
-    height: 25rem;
-  }
+  @extend %center;
+  max-height: 25rem;
+  width: 18rem;
   overflow: hidden;
   img {
-    width: 18rem;
+    max-height: 100%;
+    width: 100%;
+    object-fit: scale-down;
   }
 
   @include mobile {
