@@ -46,6 +46,10 @@ export const UserApi = {
   getUserInfo: () => api.get('users/userInfo'),
 };
 
+export const Recommendation = {
+  getRecommendedList: () => api.get('cocktails/recommendedCocktail?userIdx=6'),
+};
+
 export const Recipe = {
   getRecipePriorInfo: () => api.get('cocktails/priorInfoToRegister'),
   uploadImg: (directory, formData) => api.post(`upload?directory=${directory}`, formData),

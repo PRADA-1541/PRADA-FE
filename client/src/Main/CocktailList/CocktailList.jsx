@@ -3,10 +3,10 @@ import './CocktailList.scss';
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
 import CocktailPreview from '../../Preview/CocktailPreview_sm/CocktailPreview';
 import Proptypes from 'prop-types';
-import data from '../../assets/data/cocktails.json';
+// import data from '../../assets/data/cocktails.json';
 import { useMediaQuery } from 'react-responsive';
 
-const CocktailList = ({ category }) => {
+const CocktailList = ({ category, data }) => {
   const [isFirst, setIsFirst] = useState(true);
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
 
@@ -55,6 +55,7 @@ const CocktailList = ({ category }) => {
 
 CocktailList.propTypes = {
   category: Proptypes.string.isRequired,
+  data: Proptypes.array.isRequired,
 };
 
 export default CocktailList;
