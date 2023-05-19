@@ -50,6 +50,8 @@ export const Recipe = {
   getRecipePriorInfo: () => api.get('cocktails/priorInfoToRegister'),
   uploadImg: (directory, formData) => api.post(`upload?directory=${directory}`, formData),
   uploadRecipe: (recipe) => api.post('users/custom-cocktail', recipe),
+  getRecipeList: (isCustom, cursor, pageSize, orderBy) =>
+    api.get(`cocktails/${isCustom}?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}`),
 };
 
 export const Refrigerator = {

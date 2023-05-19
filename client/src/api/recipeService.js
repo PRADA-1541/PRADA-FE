@@ -17,7 +17,7 @@ export const GetRecipePriorInfo = async (setKeywordsList, setUnitList, setIngred
 export const UploadImg = async (directory, formData) => {
   try {
     const res = await Recipe.uploadImg(directory, formData);
-    return process.env.REACT_APP_IMG_BASE_URL + res.data.url;
+    return res.data.url;
   } catch (error) {
     console.log(error);
     return false;
@@ -30,6 +30,18 @@ export const UploadRecipe = async (recipe) => {
     if (res) {
       return true;
     }
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const GetRecipeList = async (isCustom, cursor, pageSize, orderBy, setCursor, prevList, setRecipeList) => {
+  try {
+    const res = await Recipe.getRecipeList(isCustom, cursor, pageSize, orderBy);
+    setRecipeList([...prevList, ...res.data.result.cocktails]);
+    setCursor(res.data.result.cursor?.toString());
+    return true;
   } catch (error) {
     console.log(error);
     return false;
