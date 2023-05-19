@@ -21,7 +21,10 @@ const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
 
   const Ingredients = () => {
     if (!ingredients) return null;
-    if (isDetailRecipe) return ingredients.map((ingredient, idx) => <Ingredient key={idx} ingredient={ingredient} />);
+    if (isDetailRecipe)
+      return ingredients.map((ingredient) => (
+        <Ingredient key={ingredient.ingredientIdx} ingredient={ingredient.ingredientImage} />
+      ));
     return ingredients
       .filter((item, idx) => {
         if (currentSlide === 0) {
@@ -30,12 +33,14 @@ const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
           return idx >= currentSlide * 5 && idx < (currentSlide + 1) * 5;
         }
       })
-      .map((ingredient, idx) => <Ingredient key={idx} ingredient={ingredient} />);
+      .map((ingredient) => <Ingredient key={ingredient.ingredientIdx} ingredient={ingredient.ingredientImage} />);
   };
 
   const IngredientsMobile = () => {
     if (!ingredients) return null;
-    return ingredients.map((ingredient, idx) => <Ingredient key={idx} ingredient={ingredient} />);
+    return ingredients.map((ingredient) => (
+      <Ingredient key={ingredient.ingredientIdx} ingredient={ingredient.ingredientImage} />
+    ));
   };
 
   const Keywords = () => {
@@ -66,7 +71,7 @@ const MaterialBox = ({ type, ingredients, keywords, isDetailRecipe }) => {
 
 MaterialBox.propTypes = {
   type: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(PropTypes.string),
+  ingredients: PropTypes.array,
   keywords: PropTypes.arrayOf(PropTypes.string),
   isDetailRecipe: PropTypes.bool,
 };
