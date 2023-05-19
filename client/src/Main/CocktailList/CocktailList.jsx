@@ -23,6 +23,7 @@ const CocktailList = ({ category, data }) => {
       .map((cocktail) => (
         <CocktailPreview
           key={cocktail.cocktailIdx}
+          cocktailIdx={cocktail.cocktailIdx}
           imageURL={cocktail.cocktailImage}
           name={cocktail.cocktailName}
           evaluation={cocktail.averageRating}
@@ -34,6 +35,7 @@ const CocktailList = ({ category, data }) => {
     return data.map((cocktail) => (
       <CocktailPreview
         key={cocktail.cocktailIdx}
+        cocktailIdx={cocktail.cocktailIdx}
         imageURL={cocktail.cocktailImage}
         name={cocktail.cocktailName}
         evaluation={cocktail.averageRating}
