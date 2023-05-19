@@ -1,33 +1,28 @@
 import React from 'react';
 import './Ingredient.scss';
 import PropTypes from 'prop-types';
+import vodka from '../../../assets/images/ingredients/재료_보드카.png';
 
 const Ingredient = ({ ingredient }) => {
   return (
     <div className='ingredientContainer_bg'>
-      <img src={ingredient.ingredientImage} alt={ingredient.ingredientName} />
-      <div className='ingredientNameAndVolume_bg'>
+      <img className='prevent-overflow' src={vodka ?? ingredient.ingredientImage} alt={ingredient.ingredientName} />
+      <div className='ingredientNameAndVolume_bg prevent-overflow'>
         <p>{ingredient.ingredientName}</p>
-        {ingredient.Volume && (
+        {ingredient.ingredientVolume && (
           <span>
-            {ingredient.Volume}
+            {ingredient.ingredientVolume}
             {ingredient.volumeUnit}
           </span>
         )}
       </div>
-      <p>{ingredient.ingredientDescription}</p>
+      <p className='prevent-overflow'>{ingredient.ingredientDescription}</p>
     </div>
   );
 };
 
 Ingredient.propTypes = {
-  ingredient: PropTypes.shape({
-    ingredientImage: PropTypes.string.isRequired,
-    ingredientName: PropTypes.string.isRequired,
-    Volume: PropTypes.number.isRequired,
-    volumeUnit: PropTypes.string.isRequired,
-    ingredientDescription: PropTypes.string.isRequired,
-  }).isRequired,
+  ingredient: PropTypes.object.isRequired,
 };
 
 export default Ingredient;

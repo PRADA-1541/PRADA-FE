@@ -56,7 +56,7 @@ export const CocktailInfo = ({ ABV, name, imageURL, content, keywords, evaluatio
             {name}
             <span style={{ fontStyle: 'italic' }}>(Alexander)</span>
             {cocktailIdx &&
-              (isFavorite === 1 ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
+              (isFavorite ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
             {ABV && <span className='ABV'>{ABV.toFixed(1)} 도</span>}
           </h2>
           {!isMobile && <hr />}
@@ -100,7 +100,7 @@ CocktailInfo.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
   evaluation: PropTypes.number.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.object),
-  isFavorite: PropTypes.number,
+  isFavorite: PropTypes.bool,
 };
 
 const CocktailPreview = ({
@@ -145,7 +145,7 @@ CocktailPreview.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
   evaluation: PropTypes.number.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.object),
-  isFavorite: PropTypes.number,
+  isFavorite: PropTypes.bool,
 };
 
 export default CocktailPreview;

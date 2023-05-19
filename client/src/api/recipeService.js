@@ -47,3 +47,32 @@ export const GetRecipeList = async (isCustom, cursor, pageSize, orderBy, setCurs
     return false;
   }
 };
+
+export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStars, setIsFavorite, setIngredients) => {
+  try {
+    const res = await Recipe.getRecipe(cocktailIdx);
+    const { cocktail, ingredients, userEvaluation, bookmark } = res.data.result;
+    setCocktail({
+      cocktailIdx: cocktail.cocktailIdx,
+      cocktailName: cocktail.cocktailName,
+      cocktailImage: cocktail.cocktailImage,
+      ABV: cocktail.degree,
+      cocktailDescription: cocktail.cocktailDescription,
+      keywords: cocktail.cocktailKeyword.split(' '),
+      averageRating: cocktail.averageRating,
+      isCustom: cocktail.isCustom,
+      commentCount: cocktail.commentCount,
+      cocktailDirection: cocktail.cocktailDirection,
+      createdAt: cocktail.customCocktailCreatedAt ?? null,
+      nickname: cocktail.nickname ?? null,
+    });
+    setRating(userEvaluation ?? 0);
+    setEvalStars(userEvaluation ?? 0);
+    setIsFavorite(bookmark ? true : false);
+    setIngredients(ingredients);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};

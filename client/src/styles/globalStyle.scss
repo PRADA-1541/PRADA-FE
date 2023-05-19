@@ -105,3 +105,10 @@ ol {
 .hidden {
   display: none;
 }
+
+.prevent-overflow {
+  word-break: break-all;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}

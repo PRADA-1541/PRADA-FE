@@ -52,6 +52,7 @@ export const Recipe = {
   uploadRecipe: (recipe) => api.post('users/custom-cocktail', recipe),
   getRecipeList: (isCustom, cursor, pageSize, orderBy) =>
     api.get(`cocktails/${isCustom}?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}`),
+  getRecipe: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}`),
 };
 
 export const Refrigerator = {
