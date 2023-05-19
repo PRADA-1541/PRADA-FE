@@ -3,7 +3,8 @@
 @import './variables.scss';
 
 * {
-  font: normal normal normal 18px Spoqa Han Sans Neo;
+  font: normal normal normal 18px;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   opacity: 1;
   box-sizing: border-box;
 }
