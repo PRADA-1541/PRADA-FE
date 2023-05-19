@@ -36,10 +36,11 @@ export const UploadRecipe = async (recipe) => {
   }
 };
 
-export const GetRecipeList = async (isCustom, pageSize, orderBy, lastCocktailIdx, setRecipeList) => {
+export const GetRecipeList = async (isCustom, cursor, pageSize, orderBy, setCursor, prevList, setRecipeList) => {
   try {
-    const res = await Recipe.getRecipeList(isCustom, pageSize, orderBy, lastCocktailIdx);
-    setRecipeList(res.data.result);
+    const res = await Recipe.getRecipeList(isCustom, cursor, pageSize, orderBy);
+    setRecipeList([...prevList, ...res.data.result.cocktails]);
+    setCursor(res.data.result.cursor?.toString());
     return true;
   } catch (error) {
     console.log(error);
