@@ -24,7 +24,8 @@ const Refrigerators = () => {
     GetRefrigeratorList(setRefrigerators);
   }, []);
 
-  const newRefrigerator = () => {
+  const newRefrigerator = async (e) => {
+    e.preventDefault();
     if (refrigerators.length >= 8) {
       alert('냉장고는 최대 8개까지 추가할 수 있습니다.');
       return;
@@ -33,7 +34,12 @@ const Refrigerators = () => {
       alert('냉장고 이름을 입력해주세요.');
       return;
     }
-    CreateRefrigerator(newRefrigeratorNameRef.current.value, refrigerators.length === 0 ? 1 : 0, setRefrigerators);
+    const res = await CreateRefrigerator(
+      newRefrigeratorNameRef.current.value,
+      refrigerators.length === 0 ? 1 : 0,
+      setRefrigerators
+    );
+    if (res) setRefrigeratorNameInput(false);
   };
 
   const changeMainRefrigerator = async (e, refrigeratorIdx) => {
@@ -144,7 +150,7 @@ const Refrigerators = () => {
             냉장고 추가
           </button>
           {refrigeratorNameInput && (
-            <form className='newRefrigeratorName' onSubmit={newRefrigerator}>
+            <form className='newRefrigeratorName' onSubmit={(e) => newRefrigerator(e)}>
               <input type='text' ref={newRefrigeratorNameRef} placeholder='냉장고의 이름을 입력해주세요.' />
               <button type='submit'>추가</button>
             </form>
