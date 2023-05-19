@@ -54,9 +54,10 @@ export const CocktailInfo = ({ ABV, name, imageURL, content, keywords, evaluatio
         <div className='cocktailDetail'>
           <h2>
             {name}
+            <span style={{ fontStyle: 'italic' }}>(Alexander)</span>
             {cocktailIdx &&
               (isFavorite === 1 ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
-            {ABV && <span className='ABV'>{ABV.toFixed(2)} 도</span>}
+            {ABV && <span className='ABV'>{ABV.toFixed(1)} 도</span>}
           </h2>
           {!isMobile && <hr />}
           <p className='cocktailContent'>

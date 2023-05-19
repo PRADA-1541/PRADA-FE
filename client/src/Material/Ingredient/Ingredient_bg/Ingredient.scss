@@ -4,6 +4,7 @@
 .ingredientContainer_bg {
   display: grid;
   grid-template-columns: 1fr 1fr 5fr;
+  grid-gap: 1rem;
   align-items: center;
   margin: 0.5rem 0;
   height: 5rem;
