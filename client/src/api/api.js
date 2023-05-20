@@ -54,6 +54,13 @@ export const Recipe = {
     api.get(`cocktails/${isCustom}?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}`),
 };
 
+export const Search = {
+  getSearchRecipeList: (isCustom, cursor, pageSize, orderBy, searchKey, searchValue) =>
+    api.get(
+      `search-cocktail/${isCustom}?pageSize=${pageSize}&orderBy=${orderBy}&cursor=${cursor}&searchKey=${searchKey}&searchValue=${searchValue}`
+    ),
+};
+
 export const Refrigerator = {
   getRefrigeratorList: () => api.get('users/refrigerator?userIdx=6'),
   createRefrigerator: (refrigeratorName, isMain) =>

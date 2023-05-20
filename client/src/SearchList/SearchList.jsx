@@ -1,24 +1,63 @@
 import React, { useEffect, useState } from 'react';
 import './SearchList.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { RecipeList } from '../CocktailList/CocktailList';
-import data from '../assets/data/cocktails.json';
+import { SlArrowDown } from 'react-icons/sl';
+import DropDown from '../Material/DropDown/DropDown';
+import { GetSearchRecipeList } from '../api/search';
+// import data from '../assets/data/cocktails.json';
 
 const SearchList = () => {
   const { searchWord } = useParams();
   const [newSearchWord, setNewSearchWord] = useState(searchWord);
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const [cursor, setCursor] = useState('');
+  const [recipeList, setRecipeList] = useState([]);
+  const [dropDown, setDropDown] = useState(false);
+  const [sort, setSort] = useState('최근 등록순');
+  const sortList = ['최근 등록순', '평점순', '조회순'];
+  const sortMap = {
+    '최근 등록순': 'createdAt',
+    평점순: 'rating',
+    조회순: 'readCount',
   };
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setNewSearchWord(searchWord);
-  }, [searchWord]);
+    getCocktailList('', []);
+  }, [value, sort, searchWord]);
+
+  const getCocktailList = (cursor, prevList) => {
+    switch (value) {
+      case 0:
+        GetSearchRecipeList(0, cursor, 2, sortMap[sort], 'name', searchWord, setCursor, prevList, setRecipeList);
+        break;
+      case 1:
+        GetSearchRecipeList(1, cursor, 2, sortMap[sort], 'name', searchWord, setCursor, prevList, setRecipeList);
+        break;
+      case 2:
+        break;
+      default:
+        alert('잘못된 접근입니다.');
+        navigate('/');
+        break;
+    }
+  };
+
+  const handleSort = (e) => {
+    e.stopPropagation();
+    setDropDown(!dropDown);
+  };
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <div className='searchListContainer'>
@@ -30,7 +69,19 @@ const SearchList = () => {
           <Tab label='재료' sx={{ fontSize: '0.8rem' }} />
         </Tabs>
       </Box>
-      <RecipeList recipeList={data} />
+      <div className='sort'>
+        <div className='curSort' onMouseDown={(e) => handleSort(e)}>
+          {sort}
+          <SlArrowDown />
+        </div>
+        {dropDown && <DropDown setDropDown={setDropDown} list={sortList} onClick={setSort} />}
+      </div>
+      <RecipeList recipeList={recipeList} />
+      {cursor && (
+        <div className='moreList'>
+          <SlArrowDown onClick={() => getCocktailList(cursor, recipeList)} />
+        </div>
+      )}
     </div>
   );
 };
