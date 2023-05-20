@@ -14,7 +14,7 @@ import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 import Comment from '../../Material/Comment/Comment';
 import Ingredient from '../../Material/Ingredient/Ingredient_bg/Ingredient';
 import CommentForm from '../../Material/Comment/CommentForm/CommentForm';
-import { GetRecipe, UpdateIsFavorite } from '../../api/recipeService';
+import { GetRecipe, UpdateIsFavorite, UpdateRating, UploadRating } from '../../api/recipeService';
 
 const CocktailRecipe = () => {
   const { cocktailIdx } = useParams();
@@ -169,6 +169,16 @@ const CocktailRecipe = () => {
     if (res) setIsFavorite(isFavorite);
   };
 
+  const updateRating = async (evalStars) => {
+    if (rating === 0) {
+      const res = await UploadRating(cocktailIdx, evalStars);
+      if (res) setRating(evalStars);
+    } else {
+      const res = await UpdateRating(cocktailIdx, evalStars);
+      if (res) setRating(evalStars);
+    }
+  };
+
   const commentToggle = () => {
     setCommentVisible(!commentVisible);
     if (!isCommentReceived) {
@@ -198,7 +208,7 @@ const CocktailRecipe = () => {
             key={idx}
             onMouseEnter={() => setEvalStars(idx + 1)}
             onMouseLeave={() => setEvalStars(rating)}
-            onClick={() => setRating(idx + 1)}
+            onClick={() => updateRating(idx + 1)}
           />
         );
       else
@@ -208,7 +218,7 @@ const CocktailRecipe = () => {
             key={idx}
             onMouseEnter={() => setEvalStars(idx + 1)}
             onMouseLeave={() => setEvalStars(rating)}
-            onClick={() => setRating(idx + 1)}
+            onClick={() => updateRating(idx + 1)}
           />
         );
     });

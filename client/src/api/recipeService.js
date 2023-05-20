@@ -90,3 +90,31 @@ export const UpdateIsFavorite = async (cocktailIdx, isFavorite) => {
     return false;
   }
 };
+
+export const UploadRating = async (cocktailIdx, rating) => {
+  try {
+    const res = await Recipe.uploadRating(cocktailIdx, rating);
+    if (res) {
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
+    }
+    return false;
+  }
+};
+
+export const UpdateRating = async (cocktailIdx, rating) => {
+  try {
+    const res = await Recipe.updateRating(cocktailIdx, rating);
+    if (res) {
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
+    }
+    return false;
+  }
+};

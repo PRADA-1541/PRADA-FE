@@ -58,6 +58,16 @@ export const Recipe = {
       userIdx: 5,
       isFavorite: isFavorite,
     }),
+  uploadRating: (cocktailIdx, rating) =>
+    api.post(`cocktail/${cocktailIdx}/user-evaluation`, {
+      userIdx: 5,
+      rating: rating,
+    }),
+  updateRating: (cocktailIdx, rating) =>
+    api.patch(`cocktail/${cocktailIdx}/user-evaluation`, {
+      userIdx: 5,
+      rating: rating,
+    }),
 };
 
 export const Refrigerator = {
