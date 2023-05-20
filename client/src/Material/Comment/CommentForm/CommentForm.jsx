@@ -1,13 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './CommentForm.scss';
 import PropTypes from 'prop-types';
 
-const CommentForm = ({ submitComment }) => {
+const CommentForm = ({ submitComment, prevValue }) => {
   const commentRef = useRef();
+
+  useEffect(() => {
+    commentRef.current.value = prevValue ?? '';
+  }, [prevValue]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     submitComment(commentRef.current.value);
+    commentRef.current.value = '';
   };
 
   return (
@@ -22,6 +27,7 @@ const CommentForm = ({ submitComment }) => {
 
 CommentForm.propTypes = {
   submitComment: PropTypes.func.isRequired,
+  prevValue: PropTypes.string,
 };
 
 export default CommentForm;

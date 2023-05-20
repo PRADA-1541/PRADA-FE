@@ -14,7 +14,15 @@ import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 import Comment from '../../Material/Comment/Comment';
 import Ingredient from '../../Material/Ingredient/Ingredient_bg/Ingredient';
 import CommentForm from '../../Material/Comment/CommentForm/CommentForm';
-import { GetRecipe, UpdateIsFavorite, UpdateRating, UploadRating } from '../../api/recipeService';
+import {
+  DeleteComment,
+  GetComments,
+  GetRecipe,
+  UpdateIsFavorite,
+  UpdateRating,
+  UploadComment,
+  UploadRating,
+} from '../../api/recipeService';
 
 const CocktailRecipe = () => {
   const { cocktailIdx } = useParams();
@@ -43,55 +51,56 @@ const CocktailRecipe = () => {
   // const [commentCount, setCommentCount] = useState(0);
   const [commentVisible, setCommentVisible] = useState(false);
   const [isCommentReceived, setIsCommentReceived] = useState(false);
+  const [comments, setComments] = useState([]);
 
-  const comments = [
-    {
-      cocktailCommentIdx: 1,
-      nickname: '김철수',
-      profileImg: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-      cocktailCommentCreatedAt: '2021-08-01',
-      cocktailComment: '맛있어요',
-      cocktailCommentLikes: 3,
-      cocktailCommentDisLikes: 2,
-    },
-    // {
-    //   id: 2,
-    //   name: '김영희',
-    //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-    //   date: '2021-08-01',
-    //   content:
-    //     '맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥',
-    //   like: 45,
-    //   dislike: 2,
-    // },
-    // {
-    //   id: 3,
-    //   name: '김영희',
-    //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-    //   date: '2021-08-01',
-    //   content: '맛있어요',
-    //   like: 45,
-    //   dislike: 2,
-    // },
-    // {
-    //   id: 4,
-    //   name: '김영희',
-    //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-    //   date: '2021-08-01',
-    //   content: '맛있어요',
-    //   like: 45,
-    //   dislike: 25,
-    // },
-    // {
-    //   id: 5,
-    //   name: '김영희',
-    //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-    //   date: '2021-08-01',
-    //   content: '맛있어요',
-    //   like: 45,
-    //   dislike: 2,
-    // },
-  ];
+  // const comments = [
+  //   {
+  //     cocktailCommentIdx: 1,
+  //     nickname: '김철수',
+  //     profileImg: 'https://avatars.githubusercontent.com/u/48292190?v=4',
+  //     cocktailCommentCreatedAt: '2021-08-01',
+  //     cocktailComment: '맛있어요',
+  //     cocktailCommentLikes: 3,
+  //     cocktailCommentDisLikes: 2,
+  //   },
+  //   // {
+  //   //   id: 2,
+  //   //   name: '김영희',
+  //   //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
+  //   //   date: '2021-08-01',
+  //   //   content:
+  //   //     '맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥',
+  //   //   like: 45,
+  //   //   dislike: 2,
+  //   // },
+  //   // {
+  //   //   id: 3,
+  //   //   name: '김영희',
+  //   //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
+  //   //   date: '2021-08-01',
+  //   //   content: '맛있어요',
+  //   //   like: 45,
+  //   //   dislike: 2,
+  //   // },
+  //   // {
+  //   //   id: 4,
+  //   //   name: '김영희',
+  //   //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
+  //   //   date: '2021-08-01',
+  //   //   content: '맛있어요',
+  //   //   like: 45,
+  //   //   dislike: 25,
+  //   // },
+  //   // {
+  //   //   id: 5,
+  //   //   name: '김영희',
+  //   //   profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
+  //   //   date: '2021-08-01',
+  //   //   content: '맛있어요',
+  //   //   like: 45,
+  //   //   dislike: 2,
+  //   // },
+  // ];
 
   // const ingredients = [gin, strawberry, vodka, milk, tomatoJuice, sugar];
   // const ingredients = [
@@ -183,13 +192,27 @@ const CocktailRecipe = () => {
     setCommentVisible(!commentVisible);
     if (!isCommentReceived) {
       setIsCommentReceived(true);
-      //TODO: 댓글 받아오기
+      GetComments(cocktailIdx, setComments);
     }
   };
 
-  const submitComment = (comment) => {
-    console.log(comment);
-    //TODO: 댓글 서버에 보내기, 성공하면 댓글 리스트 다시 받아옴
+  const submitComment = async (comment) => {
+    const res = await UploadComment(cocktailIdx, comment);
+    if (res) {
+      setCocktail({ ...cocktail, commentCount: cocktail.commentCount + 1 });
+      GetComments(cocktailIdx, setComments);
+    }
+  };
+
+  const deleteComment = async (commentIdx) => {
+    if (window.confirm('댓글을 삭제하시겠습니까?')) {
+      const res = await DeleteComment(commentIdx);
+      if (res) {
+        alert('댓글이 삭제되었습니다.');
+        setCocktail({ ...cocktail, commentCount: cocktail.commentCount - 1 });
+        GetComments(cocktailIdx, setComments);
+      }
+    }
   };
 
   const Arrow = () => {
@@ -225,7 +248,7 @@ const CocktailRecipe = () => {
   };
 
   const Comments = () => {
-    return comments.map((comment) => <Comment comment={comment} key={comment.cocktailCommentIdx} />);
+    return comments.map((comment) => <Comment comment={comment} deleteComment={deleteComment} key={comment.id} />);
   };
 
   return (

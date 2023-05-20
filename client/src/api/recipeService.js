@@ -118,3 +118,60 @@ export const UpdateRating = async (cocktailIdx, rating) => {
     return false;
   }
 };
+
+export const GetComments = async (cocktailIdx, setComments) => {
+  try {
+    const res = await Recipe.getComments(cocktailIdx);
+    if (res) {
+      setComments(res.data.result);
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
+    }
+    return false;
+  }
+};
+
+export const UploadComment = async (cocktailIdx, comment) => {
+  try {
+    const res = await Recipe.uploadComment(cocktailIdx, comment);
+    if (res) {
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
+    }
+    return false;
+  }
+};
+
+export const UpdateComment = async (commentIdx, comment) => {
+  try {
+    const res = await Recipe.updateComment(commentIdx, comment);
+    if (res) {
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
+    }
+    return false;
+  }
+};
+
+export const DeleteComment = async (commentIdx) => {
+  try {
+    const res = await Recipe.deleteComment(commentIdx);
+    if (res) {
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
+    }
+    return false;
+  }
+};

@@ -68,6 +68,10 @@ export const Recipe = {
       userIdx: 5,
       rating: rating,
     }),
+  getComments: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}/comments`),
+  uploadComment: (cocktailIdx, content) => api.post(`cocktail/${cocktailIdx}/comment?userIdx=5`, { content }),
+  updateComment: (commentIdx, content) => api.patch(`comment/${commentIdx}?userIdx=5`, { content }),
+  deleteComment: (commentIdx) => api.delete(`comment/${commentIdx}?userIdx=5`),
 };
 
 export const Refrigerator = {
