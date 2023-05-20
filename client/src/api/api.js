@@ -59,6 +59,8 @@ export const Search = {
     api.get(
       `search-cocktail/${isCustom}?pageSize=${pageSize}&orderBy=${orderBy}&cursor=${cursor}&searchKey=${searchKey}&searchValue=${searchValue}`
     ),
+  getSearchIngredientList: (pageSize, cursor, value) =>
+    api.get(`ingredient/search?pageSize=${pageSize}&cursor=${cursor}&value=${value}`),
 };
 
 export const Refrigerator = {
