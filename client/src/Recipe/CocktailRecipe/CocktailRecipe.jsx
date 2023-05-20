@@ -14,7 +14,7 @@ import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
 import Comment from '../../Material/Comment/Comment';
 import Ingredient from '../../Material/Ingredient/Ingredient_bg/Ingredient';
 import CommentForm from '../../Material/Comment/CommentForm/CommentForm';
-import { GetRecipe } from '../../api/recipeService';
+import { GetRecipe, UpdateIsFavorite } from '../../api/recipeService';
 
 const CocktailRecipe = () => {
   const { cocktailIdx } = useParams();
@@ -164,6 +164,11 @@ const CocktailRecipe = () => {
     // setCommentCount(5);
   }, [cocktailIdx]);
 
+  const updateFavorite = async (isFavorite) => {
+    const res = await UpdateIsFavorite(cocktailIdx, isFavorite);
+    if (res) setIsFavorite(isFavorite);
+  };
+
   const commentToggle = () => {
     setCommentVisible(!commentVisible);
     if (!isCommentReceived) {
@@ -231,6 +236,7 @@ const CocktailRecipe = () => {
           keywords={cocktail.keywords}
           evaluation={cocktail.averageRating}
           isFavorite={isFavorite}
+          updateFavorite={updateFavorite}
         />
       )}
       <div className='recipeIngredients'>

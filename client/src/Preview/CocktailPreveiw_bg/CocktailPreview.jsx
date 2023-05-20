@@ -8,7 +8,17 @@ import { useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import MaterialBox from '../../Material/MaterialBox/MaterialBox';
 
-export const CocktailInfo = ({ ABV, name, imageURL, content, keywords, evaluation, ingredients, isFavorite }) => {
+export const CocktailInfo = ({
+  ABV,
+  name,
+  imageURL,
+  content,
+  keywords,
+  evaluation,
+  ingredients,
+  isFavorite,
+  updateFavorite,
+}) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
 
   const [evalStars, setEvalStars] = useState(0);
@@ -56,7 +66,11 @@ export const CocktailInfo = ({ ABV, name, imageURL, content, keywords, evaluatio
             {name}
             <span style={{ fontStyle: 'italic' }}>(Alexander)</span>
             {cocktailIdx &&
-              (isFavorite ? <AiFillStar className='favoriteStar' /> : <AiOutlineStar className='favoriteStar' />)}
+              (isFavorite ? (
+                <AiFillStar className='favoriteStar' onClick={() => updateFavorite(false)} />
+              ) : (
+                <AiOutlineStar className='favoriteStar' onClick={() => updateFavorite(true)} />
+              ))}
             {ABV && <span className='ABV'>{ABV.toFixed(1)} 도</span>}
           </h2>
           {!isMobile && <hr />}
@@ -101,6 +115,7 @@ CocktailInfo.propTypes = {
   evaluation: PropTypes.number.isRequired,
   ingredients: PropTypes.arrayOf(PropTypes.object),
   isFavorite: PropTypes.bool,
+  updateFavorite: PropTypes.func,
 };
 
 const CocktailPreview = ({

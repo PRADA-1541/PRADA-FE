@@ -76,3 +76,17 @@ export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStar
     return false;
   }
 };
+
+export const UpdateIsFavorite = async (cocktailIdx, isFavorite) => {
+  try {
+    const res = await Recipe.updateIsFavorite(cocktailIdx, isFavorite);
+    if (res) {
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
+    }
+    return false;
+  }
+};
