@@ -6,6 +6,11 @@
   @extend %flex-column;
   align-items: flex-end;
 
+  a {
+    width: 100%;
+    color: black;
+  }
+
   span {
     margin: {
       top: 0.3rem;

@@ -20,11 +20,11 @@ const Comment = ({ comment }) => {
         <p className='commentContent'>{comment.content}</p>
         <div className='commentEval'>
           <p className='commentLike'>
-            {comment.like}
+            {comment.likeCount}
             <AiOutlineLike />
           </p>
           <p className='commentDislike'>
-            {comment.dislike}
+            {comment.dislikeCount}
             <AiOutlineDislike />
           </p>
         </div>
@@ -45,11 +45,11 @@ const Comment = ({ comment }) => {
         </div>
         <div className='commentEval'>
           <p className='commentLike'>
-            {comment.like}
+            {comment.likeCount}
             <AiOutlineLike />
           </p>
           <p className='commentDislike'>
-            {comment.dislike}
+            {comment.dislikeCount}
             <AiOutlineDislike />
           </p>
         </div>
