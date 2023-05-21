@@ -47,3 +47,15 @@ export const GetRecipeList = async (isCustom, cursor, pageSize, orderBy, setCurs
     return false;
   }
 };
+
+export const GetFavoriteRecipeList = async (cursor, pageSize, orderBy, setCursor, prevList, setRecipeList) => {
+  try {
+    const res = await Recipe.getFavoriteRecipeList(cursor, pageSize, orderBy);
+    setRecipeList([...prevList, ...res.data.result.cocktails]);
+    setCursor(res.data.result.cursor?.toString());
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};

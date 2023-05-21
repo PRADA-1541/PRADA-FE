@@ -52,12 +52,14 @@ export const Recipe = {
   uploadRecipe: (recipe) => api.post('users/custom-cocktail', recipe),
   getRecipeList: (isCustom, cursor, pageSize, orderBy) =>
     api.get(`cocktails/${isCustom}?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}`),
+  getFavoriteRecipeList: (cursor, pageSize, orderBy) =>
+    api.get(`cocktails/favorite?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
 };
 
 export const Refrigerator = {
-  getRefrigeratorList: () => api.get('users/refrigerator?userIdx=6'),
+  getRefrigeratorList: () => api.get('users/refrigerator?userIdx=5'),
   createRefrigerator: (refrigeratorName, isMain) =>
-    api.post('users/refrigerator?userIdx=6', {
+    api.post('users/refrigerator?userIdx=5', {
       refrigeratorName,
       isMain,
     }),
@@ -66,7 +68,7 @@ export const Refrigerator = {
     api.patch(`users/refrigerator/${refrigeratorIdx}`, {
       refrigeratorName,
     }),
-  changeMainRefrigerator: (refrigeratorIdx) => api.patch(`users/refrigerator/${refrigeratorIdx}/main?userIdx=6`),
+  changeMainRefrigerator: (refrigeratorIdx) => api.patch(`users/refrigerator/${refrigeratorIdx}/main?userIdx=5`),
   getRefrigerator: (refrigeratorIdx) => api.get(`users/refrigerator/${refrigeratorIdx}/ingredient`),
   getIngredientList: () => api.get('ingredients'),
   addIngredient: (refrigeratorIdx, ingredientIdx) =>
