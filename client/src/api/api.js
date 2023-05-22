@@ -54,6 +54,26 @@ export const Recipe = {
     api.get(`cocktails/${isCustom}?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}`),
   getFavoriteRecipeList: (cursor, pageSize, orderBy) =>
     api.get(`cocktails/favorite?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
+  getRecipe: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}`),
+  updateIsFavorite: (cocktailIdx, isFavorite) =>
+    api.post(`cocktail/${cocktailIdx}/bookmark`, {
+      userIdx: 5,
+      isFavorite: isFavorite,
+    }),
+  uploadRating: (cocktailIdx, rating) =>
+    api.post(`cocktail/${cocktailIdx}/user-evaluation`, {
+      userIdx: 5,
+      rating: rating,
+    }),
+  updateRating: (cocktailIdx, rating) =>
+    api.patch(`cocktail/${cocktailIdx}/user-evaluation`, {
+      userIdx: 5,
+      rating: rating,
+    }),
+  getComments: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}/comments`),
+  uploadComment: (cocktailIdx, content) => api.post(`cocktail/${cocktailIdx}/comment?userIdx=5`, { content }),
+  updateComment: (commentIdx, content) => api.patch(`comment/${commentIdx}?userIdx=5`, { content }),
+  deleteComment: (commentIdx) => api.delete(`comment/${commentIdx}?userIdx=5`),
 };
 
 export const Refrigerator = {

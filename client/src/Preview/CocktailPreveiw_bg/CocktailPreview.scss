@@ -131,6 +131,18 @@
   }
 }
 
+.ABV {
+  margin: {
+    left: 0.6rem;
+    top: 0.5rem;
+  }
+  color: $text-light-gray;
+  font: {
+    style: italic;
+    size: 0.9rem;
+  }
+}
+
 .eval {
   position: absolute;
   @extend %flex-row;
@@ -153,6 +165,7 @@
 }
 
 .cocktailContent {
-  font-size: 20px;
-  line-height: 1.5rem;
+  padding-right: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.7rem;
 }
