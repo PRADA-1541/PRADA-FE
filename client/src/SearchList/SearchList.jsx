@@ -12,7 +12,7 @@ import Ingredient from '../Material/Ingredient/Ingredient_bg/Ingredient';
 // import data from '../assets/data/cocktails.json';
 
 const SearchList = () => {
-  const { searchWord } = useParams();
+  const { searchWord, searchIdx } = useParams();
   const [newSearchWord, setNewSearchWord] = useState(searchWord);
   const [value, setValue] = useState(0);
 
@@ -32,19 +32,39 @@ const SearchList = () => {
 
   useEffect(() => {
     setNewSearchWord(searchWord);
-    getCocktailList('', []);
+    getList('', []);
   }, [value, sort, searchWord]);
 
-  const getCocktailList = (cursor, prevList) => {
+  const getList = (cursor, prevList) => {
     switch (value) {
       case 0:
-        GetSearchRecipeList(0, cursor, 2, sortMap[sort], 'name', searchWord, setCursor, prevList, setRecipeList);
+        GetSearchRecipeList(
+          0,
+          cursor,
+          15,
+          sortMap[sort],
+          searchIdx ? 'ingredient' : 'name',
+          searchIdx ?? searchWord,
+          setCursor,
+          prevList,
+          setRecipeList
+        );
         break;
       case 1:
-        GetSearchRecipeList(1, cursor, 2, sortMap[sort], 'name', searchWord, setCursor, prevList, setRecipeList);
+        GetSearchRecipeList(
+          1,
+          cursor,
+          15,
+          sortMap[sort],
+          searchIdx ? 'ingredient' : 'name',
+          searchIdx ?? searchWord,
+          setCursor,
+          prevList,
+          setRecipeList
+        );
         break;
       case 2:
-        GetSearchIngredientList(2, cursor, searchWord, setCursor, prevList, setIngredientList);
+        GetSearchIngredientList(15, cursor, searchWord, setCursor, prevList, setIngredientList);
         break;
       default:
         alert('잘못된 접근입니다.');
@@ -58,7 +78,7 @@ const SearchList = () => {
     setDropDown(!dropDown);
   };
 
-  const handleChange = (event, newValue) => {
+  const changeTab = (event, newValue) => {
     setValue(newValue);
   };
 
@@ -76,7 +96,7 @@ const SearchList = () => {
     <div className='searchListContainer'>
       <h1>{newSearchWord}에 대한 검색결과</h1>
       <Box sx={{ width: '100%' }}>
-        <Tabs value={value} textColor='inherit' variant='fullWidth' centered onChange={handleChange}>
+        <Tabs value={value} textColor='inherit' variant='fullWidth' centered onChange={changeTab}>
           <Tab label='공식 레시피' sx={{ fontSize: '0.8rem' }} />
           <Tab label='커스텀 레시피' sx={{ fontSize: '0.8rem' }} />
           <Tab label='재료' sx={{ fontSize: '0.8rem' }} />
@@ -94,7 +114,7 @@ const SearchList = () => {
       {value === 2 ? <IngredientList /> : <RecipeList recipeList={recipeList} />}
       {cursor && (
         <div className='moreList'>
-          <SlArrowDown onClick={() => getCocktailList(cursor, recipeList)} />
+          <SlArrowDown onClick={() => getList(cursor, value === 2 ? ingredientList : recipeList)} />
         </div>
       )}
     </div>
