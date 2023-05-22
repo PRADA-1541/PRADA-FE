@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import './Comment.scss';
 import { useMediaQuery } from 'react-responsive';
 import PropTypes from 'prop-types';
-import { AiOutlineLike, AiOutlineDislike } from 'react-icons/ai';
+import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'react-icons/ai';
 import defaultImage from '../../assets/images/defaultImage.png';
 import { useRecoilValue } from 'recoil';
 import { userInfoAtom } from '../../recoil/atom';
 import CommentForm from './CommentForm/CommentForm';
-import { UpdateComment } from '../../api/recipeService';
+import { SetCommentLikeState, UpdateComment } from '../../api/recipeService';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Comment = ({ comment, deleteComment }) => {
@@ -23,6 +23,40 @@ const Comment = ({ comment, deleteComment }) => {
 
   const moveToRecipe = () => {
     navigate(`/cocktail/${comment.cocktailIdx}`);
+  };
+
+  const likeComment = async () => {
+    if (comment.hasLike === 1) {
+      const res = await SetCommentLikeState(comment.id, null);
+      if (res) {
+        comment.likeCount -= 1;
+        comment.hasLike = null;
+      }
+    } else {
+      const res = await SetCommentLikeState(comment.id, 1);
+      if (res) {
+        comment.likeCount += 1;
+        if (comment.hasLike === -1) comment.dislikeCount -= 1;
+        comment.hasLike = 1;
+      }
+    }
+  };
+
+  const dislikeComment = async () => {
+    if (comment.hasLike === -1) {
+      const res = await SetCommentLikeState(comment.id, null);
+      if (res) {
+        comment.dislikeCount -= 1;
+        comment.hasLike = null;
+      }
+    } else {
+      const res = await SetCommentLikeState(comment.id, -1);
+      if (res) {
+        comment.dislikeCount += 1;
+        if (comment.hasLike === 1) comment.likeCount -= 1;
+        comment.hasLike = -1;
+      }
+    }
   };
 
   const updateComment = async (content) => {
@@ -51,13 +85,13 @@ const Comment = ({ comment, deleteComment }) => {
             <p className='commentContent'>{comment.content}</p>
           </>
           <div className='commentEval'>
-            <p className='commentLike'>
+            <p className='commentLike' onClick={likeComment}>
               {comment.likeCount}
-              <AiOutlineLike />
+              {comment.hasLike === 1 ? <AiFillLike /> : <AiOutlineLike />}
             </p>
-            <p className='commentDislike'>
+            <p className='commentDislike' onClick={dislikeComment}>
               {comment.dislikeCount}
-              <AiOutlineDislike />
+              {comment.hasLike === -1 ? <AiFillDislike /> : <AiOutlineDislike />}
             </p>
           </div>
         </div>

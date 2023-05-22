@@ -163,9 +163,7 @@ export const UploadComment = async (cocktailIdx, comment) => {
 export const UpdateComment = async (commentIdx, comment) => {
   try {
     const res = await Recipe.updateComment(commentIdx, comment);
-    if (res) {
-      return true;
-    }
+    if (res) return true;
   } catch (error) {
     if (error.response.data) {
       if (error.response.data.message) alert(error.response.data.message);
@@ -177,9 +175,19 @@ export const UpdateComment = async (commentIdx, comment) => {
 export const DeleteComment = async (commentIdx) => {
   try {
     const res = await Recipe.deleteComment(commentIdx);
-    if (res) {
-      return true;
+    if (res) return true;
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
     }
+    return false;
+  }
+};
+
+export const SetCommentLikeState = async (commentIdx, state) => {
+  try {
+    const res = await Recipe.setCommentLikeState(commentIdx, state);
+    if (res) return true;
   } catch (error) {
     if (error.response.data) {
       if (error.response.data.message) alert(error.response.data.message);
