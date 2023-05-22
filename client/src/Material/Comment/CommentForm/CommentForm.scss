@@ -1,0 +1,23 @@
+@use '../../../styles/variables.scss';
+@import '../../../styles/variables.scss';
+
+.commentForm {
+  @extend %flex-column;
+  align-items: flex-end;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.commentTextarea {
+  margin-bottom: 0.5rem;
+  height: 5rem;
+  width: 100%;
+  text-align: start;
+  padding: 0.5rem 0.7rem;
+  background-color: $background-light-gray;
+}
+
+.commentSubmitBtn {
+  margin: 0;
+  width: fit-content;
+}

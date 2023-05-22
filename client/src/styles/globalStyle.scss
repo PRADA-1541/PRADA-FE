@@ -1,9 +1,13 @@
 @use './variables.scss';
-@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
 @import './variables.scss';
 
+@font-face {
+  font-family: 'spoqa';
+  src: url('../assets/SpoqaHanSansNeo_OTF_original/SpoqaHanSansNeo-Regular.otf') format('opentype');
+}
+
 * {
-  font: normal normal normal 18px Spoqa Han Sans Neo;
+  font: normal normal normal 18px 'spoqa';
   opacity: 1;
   box-sizing: border-box;
 }
@@ -57,7 +61,7 @@ button {
 }
 
 a {
-  font-size: small;
+  font-size: medium;
   text-decoration: none;
   color: #777777;
 }
@@ -100,4 +104,11 @@ ol {
 
 .hidden {
   display: none;
+}
+
+.prevent-overflow {
+  word-break: break-all;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
 }
