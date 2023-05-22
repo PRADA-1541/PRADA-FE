@@ -77,6 +77,18 @@ export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStar
   }
 };
 
+export const GetFavoriteRecipeList = async (cursor, pageSize, orderBy, setCursor, prevList, setRecipeList) => {
+  try {
+    const res = await Recipe.getFavoriteRecipeList(cursor, pageSize, orderBy);
+    setRecipeList([...prevList, ...res.data.result.cocktails]);
+    setCursor(res.data.result.cursor?.toString());
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
 export const UpdateIsFavorite = async (cocktailIdx, isFavorite) => {
   try {
     const res = await Recipe.updateIsFavorite(cocktailIdx, isFavorite);
