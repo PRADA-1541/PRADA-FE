@@ -75,7 +75,7 @@ const Header = () => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
-                  <SearchIcon style={{ cursor: 'pointer' }} />
+                  <SearchIcon onClick={search} style={{ cursor: 'pointer' }} />
                 </InputAdornment>
               ),
             }}
