@@ -1,6 +1,8 @@
 @import '../styles/variables.scss';
 
 .searchListContainer {
+  position: relative;
+
   @include mobile {
     margin-top: 3rem;
   }

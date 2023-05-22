@@ -76,6 +76,15 @@ export const Recipe = {
   deleteComment: (commentIdx) => api.delete(`comment/${commentIdx}?userIdx=5`),
 };
 
+export const Search = {
+  getSearchRecipeList: (isCustom, cursor, pageSize, orderBy, searchKey, searchValue) =>
+    api.get(
+      `search-cocktail/${isCustom}?pageSize=${pageSize}&orderBy=${orderBy}&cursor=${cursor}&searchKey=${searchKey}&searchValue=${searchValue}`
+    ),
+  getSearchIngredientList: (pageSize, cursor, value) =>
+    api.get(`ingredient/search?pageSize=${pageSize}&cursor=${cursor}&value=${value}`),
+};
+
 export const Refrigerator = {
   getRefrigeratorList: () => api.get('users/refrigerator?userIdx=5'),
   createRefrigerator: (refrigeratorName, isMain) =>
