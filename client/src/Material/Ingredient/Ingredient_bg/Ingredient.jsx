@@ -8,7 +8,7 @@ const Ingredient = ({ ingredient }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
-  const isRecipeDetail = pathname.startsWith('cocktail/') & (pathname !== '/cocktail/new');
+  const isRecipeDetail = pathname.startsWith('/cocktail/') & (pathname !== '/cocktail/new');
 
   return (
     <div
@@ -23,7 +23,6 @@ const Ingredient = ({ ingredient }) => {
         </p>
         {ingredient.ingredientVolume && (
           <span>
-            20ml
             {ingredient.ingredientVolume}
             {ingredient.volumeUnit}
           </span>

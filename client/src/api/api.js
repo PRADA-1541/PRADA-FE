@@ -105,3 +105,12 @@ export const Refrigerator = {
   deleteIngredient: (refrigeratorIdx, ingredientIdx) =>
     api.delete(`users/refrigerator/${refrigeratorIdx}/ingredient/${ingredientIdx}`),
 };
+
+export const MyPosting = {
+  getMyCustomRecipeList: (cursor, pageSize, orderBy) =>
+    api.get(`cocktails/create/customCocktail?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
+  getMyCommentList: (cursor, pageSize, orderBy) =>
+    api.get(`cocktails/create/cocktailComment?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
+  getMyEvaluationList: (cursor, pageSize, orderBy) =>
+    api.get(`cocktails/create/cocktailEval?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
+};

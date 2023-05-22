@@ -27,7 +27,7 @@ export const CocktailInfo = ({
   const location = useLocation();
 
   useEffect(() => {
-    if (evaluation % 1 < 0.75) {
+    if (evaluation % 1 < 0.75 && evaluation % 1 > 0) {
       setEvalStars(Math.floor(evaluation));
       setHalfStar(true);
     } else {

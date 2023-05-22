@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import './CocktailPreview.scss';
 import defaultImage from '../../assets/images/defaultImage.png';
 import { AiFillStar } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
-const CocktailPreview = ({ imageURL, name, evaluation }) => {
+const CocktailPreview = ({ cocktailIdx, imageURL, name, evaluation }) => {
   return (
-    <div className='previewContainer'>
+    <Link className='previewContainer' to={`/cocktail/${cocktailIdx}`}>
       <div className='previewImgContainer'>
         <img src={imageURL ?? defaultImage} alt='cocktail' className={imageURL ? 'previewImg' : 'altImg'} />
       </div>
@@ -15,11 +16,12 @@ const CocktailPreview = ({ imageURL, name, evaluation }) => {
         <AiFillStar className='evalStar' />
         {evaluation}
       </p>
-    </div>
+    </Link>
   );
 };
 
 CocktailPreview.propTypes = {
+  cocktailIdx: PropTypes.number.isRequired,
   imageURL: PropTypes.string,
   name: PropTypes.string.isRequired,
   evaluation: PropTypes.number.isRequired,

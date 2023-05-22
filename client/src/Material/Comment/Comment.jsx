@@ -8,14 +8,22 @@ import { useRecoilValue } from 'recoil';
 import { userInfoAtom } from '../../recoil/atom';
 import CommentForm from './CommentForm/CommentForm';
 import { UpdateComment } from '../../api/recipeService';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Comment = ({ comment, deleteComment }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
-  const { userIdx } = useRecoilValue(userInfoAtom);
+  const { userIdx, nickname } = useRecoilValue(userInfoAtom);
   const [isEditting, setIsEditting] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const pathname = location.pathname;
 
   const date = new Date(comment.createdAt);
   const createdAt = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+
+  const moveToRecipe = () => {
+    navigate(`/cocktail/${comment.cocktailIdx}`);
+  };
 
   const updateComment = async (content) => {
     const res = await UpdateComment(comment.id, content);
@@ -31,11 +39,11 @@ const Comment = ({ comment, deleteComment }) => {
       <CommentForm submitComment={updateComment} prevValue={comment.content} />
     ) : (
       <>
-        <div className='commentContainer'>
+        <div className={pathname === '/myPosting' ? 'myCommentLink' : 'commentContainer'} onClick={moveToRecipe}>
           <div className='commentHeader'>
             <img className='commentProfileImg' src={comment.profileImg ?? defaultImage} alt='프로필 이미지' />
             <div className='nameAndDate'>
-              <p className='commentName'>{comment.nickname}</p>
+              <p className='commentName'>{comment.nickname ?? nickname}</p>
               <p className='commentDate'>{createdAt.toString()}</p>
             </div>
           </div>
