@@ -7,7 +7,8 @@ import Tab from '@mui/material/Tab';
 import { RecipeList } from '../CocktailList/CocktailList';
 import { SlArrowDown } from 'react-icons/sl';
 import DropDown from '../Material/DropDown/DropDown';
-import { GetSearchRecipeList } from '../api/search';
+import { GetSearchRecipeList, GetSearchIngredientList } from '../api/search';
+import Ingredient from '../Material/Ingredient/Ingredient_bg/Ingredient';
 // import data from '../assets/data/cocktails.json';
 
 const SearchList = () => {
@@ -17,6 +18,7 @@ const SearchList = () => {
 
   const [cursor, setCursor] = useState('');
   const [recipeList, setRecipeList] = useState([]);
+  const [ingredientList, setIngredientList] = useState([]);
   const [dropDown, setDropDown] = useState(false);
   const [sort, setSort] = useState('최근 등록순');
   const sortList = ['최근 등록순', '평점순', '조회순'];
@@ -42,6 +44,7 @@ const SearchList = () => {
         GetSearchRecipeList(1, cursor, 2, sortMap[sort], 'name', searchWord, setCursor, prevList, setRecipeList);
         break;
       case 2:
+        GetSearchIngredientList(2, cursor, searchWord, setCursor, prevList, setIngredientList);
         break;
       default:
         alert('잘못된 접근입니다.');
@@ -59,6 +62,16 @@ const SearchList = () => {
     setValue(newValue);
   };
 
+  const IngredientList = () => {
+    return (
+      <div style={{ width: '80%', margin: 'auto' }}>
+        {ingredientList.map((ingredient) => (
+          <Ingredient key={ingredient.ingredientIdx} ingredient={ingredient} />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className='searchListContainer'>
       <h1>{newSearchWord}에 대한 검색결과</h1>
@@ -69,14 +82,16 @@ const SearchList = () => {
           <Tab label='재료' sx={{ fontSize: '0.8rem' }} />
         </Tabs>
       </Box>
-      <div className='sort'>
-        <div className='curSort' onMouseDown={(e) => handleSort(e)}>
-          {sort}
-          <SlArrowDown />
+      {value !== 2 && (
+        <div className='sort'>
+          <div className='curSort' onMouseDown={(e) => handleSort(e)}>
+            {sort}
+            <SlArrowDown />
+          </div>
+          {dropDown && <DropDown setDropDown={setDropDown} list={sortList} onClick={setSort} />}
         </div>
-        {dropDown && <DropDown setDropDown={setDropDown} list={sortList} onClick={setSort} />}
-      </div>
-      <RecipeList recipeList={recipeList} />
+      )}
+      {value === 2 ? <IngredientList /> : <RecipeList recipeList={recipeList} />}
       {cursor && (
         <div className='moreList'>
           <SlArrowDown onClick={() => getCocktailList(cursor, recipeList)} />

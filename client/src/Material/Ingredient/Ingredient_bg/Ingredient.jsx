@@ -8,13 +8,17 @@ const Ingredient = ({ ingredient }) => {
     <div className='ingredientContainer_bg'>
       <img className='prevent-overflow' src={vodka ?? ingredient.ingredientImage} alt={ingredient.ingredientName} />
       <div className='ingredientNameAndVolume_bg prevent-overflow'>
-        <p>{ingredient.ingredientName}</p>
-        {ingredient.ingredientVolume && (
-          <span>
-            {ingredient.ingredientVolume}
-            {ingredient.volumeUnit}
-          </span>
-        )}
+        <p>
+          {ingredient.ingredientName}
+          <span className='ingredientCategory_bg'>{ingredient.ingredientCategory}</span>
+        </p>
+        {/* {ingredient.ingredientVolume && ( */}
+        <span>
+          20ml
+          {/* {ingredient.ingredientVolume}
+            {ingredient.volumeUnit} */}
+        </span>
+        {/* )} */}
       </div>
       <p className='prevent-overflow'>{ingredient.ingredientDescription}</p>
     </div>
