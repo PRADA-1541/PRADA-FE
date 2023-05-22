@@ -10,10 +10,14 @@ const Ingredient = ({ ingredient }) => {
   const pathname = location.pathname;
   const isRecipeDetail = pathname.startsWith('/cocktail/') & (pathname !== '/cocktail/new');
 
+  const search = () => {
+    navigate(`/search/${ingredient.ingredientName}/${ingredient.ingredientIdx}`);
+  };
+
   return (
     <div
       className={isRecipeDetail ? 'ingredientContainer_bg_recipe' : 'ingredientContainer_bg'}
-      onClick={isRecipeDetail ? navigate(`/search/${ingredient.ingredientName}/${ingredient.ingredientIdx}`) : null}
+      onClick={isRecipeDetail ? search : null}
     >
       <img className='prevent-overflow' src={vodka ?? ingredient.ingredientImage} alt={ingredient.ingredientName} />
       <div className='ingredientNameAndVolume_bg prevent-overflow'>
