@@ -10,7 +10,6 @@ import CocktailPreview from '../Preview/CocktailPreview_sm/CocktailPreview';
 import { SlArrowDown } from 'react-icons/sl';
 import DropDown from '../Material/DropDown/DropDown';
 import { GetMyCommentList, GetMyCustomRecipeList, GetMyEvaluationList } from '../api/myPostingService';
-import { Link } from 'react-router-dom';
 
 const MyPosting = () => {
   const [value, setValue] = useState(0);
@@ -145,9 +144,7 @@ const MyPosting = () => {
       ) : value === 1 ? (
         comments.map((comment) => (
           <div className='myComment' key={comment.id}>
-            <Link className='myCommentLink' to={`/cocktail/${comment.cocktailIdx}`}>
-              <Comment comment={comment} />
-            </Link>
+            <Comment comment={comment} />
             <span>{comment.cocktailName}</span>
           </div>
         ))

@@ -19,7 +19,7 @@ export const RecipeList = ({ recipeList }) => {
       // keywords={cocktail.cocktailKeyword}
       keywords={cocktail.cocktailKeyword.split(' ')}
       evaluation={cocktail.averageRating}
-      ingredients={cocktail.ingredients}
+      ingredients={cocktail.ingredientInfo}
     />
   ));
 };

@@ -1,22 +1,35 @@
 @use '../../styles/variables.scss';
 @import '../../styles/variables.scss';
 
+@mixin Comment {
+  @extend %flex-row;
+  @extend %contents-box;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  margin: {
+    top: 1rem;
+  }
+
+  @include mobile {
+    flex-direction: row;
+    justify-content: space-between;
+    width: 18rem;
+    padding: 1rem;
+  }
+}
+
+.myCommentLink {
+  @include Comment;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $background-lighter-gray;
+  }
+}
+
 .comment {
   &Container {
-    @extend %flex-row;
-    @extend %contents-box;
-    justify-content: space-between;
-    padding: 0.7rem 1rem;
-    margin: {
-      top: 1rem;
-    }
-
-    @include mobile {
-      flex-direction: row;
-      justify-content: space-between;
-      width: 18rem;
-      padding: 1rem;
-    }
+    @include Comment;
   }
 
   &Header {
