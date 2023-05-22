@@ -83,5 +83,5 @@ export const MyPosting = {
   getMyCommentList: (cursor, pageSize, orderBy) =>
     api.get(`cocktails/create/cocktailComment?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
   getMyEvaluationList: (cursor, pageSize, orderBy) =>
-    api.get(`users/create/cocktailEval?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
+    api.get(`cocktails/create/cocktailEval?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
 };
