@@ -100,7 +100,7 @@ const MyPosting = () => {
       propList !== undefined ? propList : value === 0 ? recipeList : value === 1 ? comments : cocktailList;
     switch (value) {
       case 0:
-        GetMyCustomRecipeList(cursor, 12, sort, setCursor, prevList, setRecipeList);
+        GetMyCustomRecipeList(cursor, 15, sort, setCursor, prevList, setRecipeList);
         break;
       case 1:
         GetMyCommentList(cursor, 10, sort, setCursor, prevList, setComments);

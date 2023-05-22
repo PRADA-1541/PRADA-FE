@@ -48,15 +48,15 @@ const CocktailList = () => {
     switch (category) {
       case 'official':
         setCurCategory('공식 칵테일');
-        GetRecipeList(0, cursor, 2, sortMap[sort], setCursor, prevList, setRecipeList);
+        GetRecipeList(0, cursor, 15, sortMap[sort], setCursor, prevList, setRecipeList);
         break;
       case 'custom':
         setCurCategory('커스텀 칵테일');
-        GetRecipeList(1, cursor, 2, sortMap[sort], setCursor, prevList, setRecipeList);
+        GetRecipeList(1, cursor, 15, sortMap[sort], setCursor, prevList, setRecipeList);
         break;
       case 'favorite':
         setCurCategory('즐겨찾기');
-        GetFavoriteRecipeList(cursor, 2, sortMap[sort], setCursor, prevList, setRecipeList);
+        GetFavoriteRecipeList(cursor, 15, sortMap[sort], setCursor, prevList, setRecipeList);
         break;
       default:
         alert('잘못된 접근입니다.');
