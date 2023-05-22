@@ -11,6 +11,10 @@
   }
   cursor: pointer;
 
+  &:hover {
+    background-color: $light-gray-active;
+  }
+
   @include mobile {
     flex: 0 0 auto;
     padding: 0 0.4rem;

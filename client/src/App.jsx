@@ -91,7 +91,10 @@ const App = () => {
               <Route path='list' element={<Refrigerators />} />
               <Route path=':refrigeratorIdx' element={<Refrigerator />} />
             </Route>
-            <Route path='/search/:searchWord' element={<SearchList />} />
+            <Route path='/search'>
+              <Route path=':searchWord/:searchIdx' element={<SearchList />} />
+              <Route path=':searchWord' element={<SearchList />} />
+            </Route>
             <Route path='/myPosting' element={<MyPosting />} />
           </SentryRoutes>
         </main>
