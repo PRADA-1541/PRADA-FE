@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import CocktailPreview from '../Preview/CocktailPreveiw_bg/CocktailPreview';
 import { SlArrowDown } from 'react-icons/sl';
 import DropDown from '../Material/DropDown/DropDown';
-import { GetRecipeList } from '../api/recipeService';
+import { GetFavoriteRecipeList, GetRecipeList } from '../api/recipeService';
 
 export const RecipeList = ({ recipeList }) => {
   return recipeList.map((cocktail) => (
@@ -56,6 +56,7 @@ const CocktailList = () => {
         break;
       case 'favorite':
         setCurCategory('즐겨찾기');
+        GetFavoriteRecipeList(cursor, 2, sortMap[sort], setCursor, prevList, setRecipeList);
         break;
       default:
         alert('잘못된 접근입니다.');

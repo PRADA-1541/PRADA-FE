@@ -76,6 +76,7 @@
     width: 70%;
     font-size: 0.9rem;
     line-height: 1.3rem;
+    white-space: pre-wrap;
 
     @include mobile {
       width: 100%;
@@ -107,4 +108,16 @@
 .nameAndDate {
   margin-left: 0.7rem;
   color: $text-light-gray;
+}
+
+.updateComment {
+  margin: 0 0.1rem;
+  color: $text-light-gray;
+  font-size: 0.7rem;
+  cursor: pointer;
+
+  &Box {
+    width: 90%;
+    text-align: right;
+  }
 }
