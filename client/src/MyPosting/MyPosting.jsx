@@ -101,13 +101,13 @@ const MyPosting = () => {
       propList !== undefined ? propList : value === 0 ? recipeList : value === 1 ? comments : cocktailList;
     switch (value) {
       case 0:
-        GetMyCustomRecipeList(cursor, 2, sort, setCursor, prevList, setRecipeList);
+        GetMyCustomRecipeList(cursor, 12, sort, setCursor, prevList, setRecipeList);
         break;
       case 1:
-        GetMyCommentList(cursor, 2, sort, setCursor, prevList, setComments);
+        GetMyCommentList(cursor, 10, sort, setCursor, prevList, setComments);
         break;
       case 2:
-        GetMyEvaluationList(cursor, 2, sort, setCursor, prevList, setCocktailList);
+        GetMyEvaluationList(cursor, 8, sort, setCursor, prevList, setCocktailList);
         break;
       default:
         break;
@@ -156,9 +156,10 @@ const MyPosting = () => {
           {cocktailList.map((cocktail) => (
             <CocktailPreview
               key={cocktail.cocktailIdx}
+              cocktailIdx={cocktail.cocktailIdx}
               imageURL={cocktail.cocktailImage}
               name={cocktail.cocktailName}
-              evaluation={cocktail.averageRating}
+              evaluation={cocktail.rating}
             />
           ))}
         </div>

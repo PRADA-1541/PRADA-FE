@@ -9,7 +9,7 @@ export const userInfoAtom = atom({
   key: 'userInfoAtom',
   default: {
     userIdx: 5,
-    nickname: 'z',
+    nickname: '김준하',
     email: '',
     profileImage: '',
   },

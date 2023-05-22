@@ -11,7 +11,7 @@ import { UpdateComment } from '../../api/recipeService';
 
 const Comment = ({ comment, deleteComment }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
-  const { userIdx } = useRecoilValue(userInfoAtom);
+  const { userIdx, nickname } = useRecoilValue(userInfoAtom);
   const [isEditting, setIsEditting] = useState(false);
 
   const date = new Date(comment.createdAt);
@@ -35,7 +35,7 @@ const Comment = ({ comment, deleteComment }) => {
           <div className='commentHeader'>
             <img className='commentProfileImg' src={comment.profileImg ?? defaultImage} alt='프로필 이미지' />
             <div className='nameAndDate'>
-              <p className='commentName'>{comment.nickname}</p>
+              <p className='commentName'>{comment.nickname ?? nickname}</p>
               <p className='commentDate'>{createdAt.toString()}</p>
             </div>
           </div>
