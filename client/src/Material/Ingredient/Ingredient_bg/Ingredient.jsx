@@ -2,7 +2,7 @@ import React from 'react';
 import './Ingredient.scss';
 import PropTypes from 'prop-types';
 import { useNavigate, useLocation } from 'react-router-dom';
-import vodka from '../../../assets/images/ingredients/재료_보드카.png';
+import defaultImg from '../../../assets/images/defaultImage.png';
 
 const Ingredient = ({ ingredient }) => {
   const navigate = useNavigate();
@@ -19,7 +19,11 @@ const Ingredient = ({ ingredient }) => {
       className={isRecipeDetail ? 'ingredientContainer_bg_recipe' : 'ingredientContainer_bg'}
       onClick={isRecipeDetail ? search : null}
     >
-      <img className='prevent-overflow' src={vodka ?? ingredient.ingredientImage} alt={ingredient.ingredientName} />
+      <img
+        className='prevent-overflow'
+        src={process.env.REACT_APP_IMG_BASE_URL + ingredient.ingredientImage ?? defaultImg}
+        alt={ingredient.ingredientName}
+      />
       <div className='ingredientNameAndVolume_bg prevent-overflow'>
         <p>
           {ingredient.ingredientName}
