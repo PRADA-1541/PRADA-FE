@@ -18,7 +18,7 @@ export const GetUserInfo = async () => {
     const userInfo = {
       nickname: res.data.result.nickname,
       email: res.data.result.email,
-      // profileImage: res.data.result.profileImage,
+      profileImage: res.data.result.profile,
     };
     return userInfo;
   } catch (error) {
@@ -146,9 +146,9 @@ export const NicknameValid = async (nickname) => {
   }
 };
 
-export const signUp = async (email, nickname, setUserInfo, setCookie, setIsSignedIn) => {
+export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie, setIsSignedIn) => {
   try {
-    const res = await Auth.signup(email, nickname);
+    const res = await Auth.signup(email, nickname, profileImg);
     const token = res.data.result.accessToken;
     alert('회원가입이 완료되었습니다.');
     const userInfo = await TokenConfig(token);

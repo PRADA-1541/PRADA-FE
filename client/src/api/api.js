@@ -28,17 +28,18 @@ export const Auth = {
     ),
   refresh: (token) =>
     auth.post('users/refresh-token/verify', {
-      token: token,
+      token,
     }),
   sendKakaoToken: (kakaoToken) =>
     auth.post('users/kakao/signin', {
-      kakaoToken: kakaoToken,
+      kakaoToken,
     }),
   nicknameValid: (nickname) => auth.get(`users/nickname-valid?nickname=${nickname}`),
-  signup: (email, nickname) =>
+  signup: (email, nickname, profile) =>
     auth.post('users/signup', {
-      email: email,
-      nickname: nickname,
+      email,
+      nickname,
+      profile,
     }),
 };
 
