@@ -3,6 +3,7 @@ import './Ingredient.scss';
 import PropTypes from 'prop-types';
 import { useNavigate, useLocation } from 'react-router-dom';
 import defaultImg from '../../../assets/images/defaultImage.png';
+import refrigerator from '../../../assets/images/refrigerator/refrigerator8.png';
 
 const Ingredient = ({ ingredient }) => {
   const navigate = useNavigate();
@@ -19,11 +20,16 @@ const Ingredient = ({ ingredient }) => {
       className={isRecipeDetail ? 'ingredientContainer_bg_recipe' : 'ingredientContainer_bg'}
       onClick={isRecipeDetail ? search : null}
     >
-      <img
-        className='prevent-overflow'
-        src={ingredient.ingredientImage ? process.env.REACT_APP_IMG_BASE_URL + ingredient.ingredientImage : defaultImg}
-        alt={ingredient.ingredientName}
-      />
+      <div className='ingredientImgContainer'>
+        <img
+          className='ingredientImg_bg prevent-overflow'
+          src={
+            ingredient.ingredientImage ? process.env.REACT_APP_IMG_BASE_URL + ingredient.ingredientImage : defaultImg
+          }
+          alt={ingredient.ingredientName}
+        />
+        {ingredient.hasIngredient && <img src={refrigerator} alt='냉장고' className='isInRefrigerator' />}
+      </div>
       <div className='ingredientNameAndVolume_bg prevent-overflow'>
         <p>
           {ingredient.ingredientName}

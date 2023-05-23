@@ -39,7 +39,7 @@ export const UploadRecipe = async (recipe) => {
 export const GetRecipeList = async (isCustom, cursor, pageSize, orderBy, setCursor, prevList, setRecipeList) => {
   try {
     const res = await Recipe.getRecipeList(isCustom, cursor, pageSize, orderBy);
-    setRecipeList([...prevList, ...res.data.result.cocktails]);
+    setRecipeList([...prevList, ...(res.data.result.cocktails ?? [])]);
     setCursor(res.data.result.cursor?.toString());
     return true;
   } catch (error) {
@@ -51,9 +51,10 @@ export const GetRecipeList = async (isCustom, cursor, pageSize, orderBy, setCurs
 export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStars, setIsFavorite, setIngredients) => {
   try {
     const res = await Recipe.getRecipe(cocktailIdx);
-    const { cocktail, ingredients, userEvaluation, bookmark } = res.data.result;
+    const { cocktail, ingredients, rating, isFavorite } = res.data.result;
     setCocktail({
       cocktailIdx: cocktail.cocktailIdx,
+      cocktailKorName: cocktail.cocktailKorName,
       cocktailName: cocktail.cocktailName,
       cocktailImage: cocktail.cocktailImage,
       ABV: cocktail.degree,
@@ -66,9 +67,9 @@ export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStar
       createdAt: cocktail.customCocktailCreatedAt ?? null,
       nickname: cocktail.nickname ?? null,
     });
-    setRating(userEvaluation ?? 0);
-    setEvalStars(userEvaluation ?? 0);
-    setIsFavorite(bookmark ? true : false);
+    setRating(rating ?? 0);
+    setEvalStars(rating ?? 0);
+    setIsFavorite(isFavorite ? true : false);
     setIngredients(ingredients);
     return true;
   } catch (error) {
@@ -189,6 +190,7 @@ export const SetCommentLikeState = async (commentIdx, state) => {
     const res = await Recipe.setCommentLikeState(commentIdx, state);
     if (res) return true;
   } catch (error) {
+    console.log(error);
     if (error.response.data) {
       if (error.response.data.message) alert(error.response.data.message);
     }

@@ -8,12 +8,16 @@ import { useRecoilValue } from 'recoil';
 import { userInfoAtom } from '../../recoil/atom';
 import CommentForm from './CommentForm/CommentForm';
 import { SetCommentLikeState, UpdateComment } from '../../api/recipeService';
+// import { UpdateComment } from '../../api/recipeService';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Comment = ({ comment, deleteComment }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const { userIdx, nickname } = useRecoilValue(userInfoAtom);
   const [isEditting, setIsEditting] = useState(false);
+  const [hasLike, setHasLike] = useState(comment.hasLike);
+  const [likeCount, setLikeCount] = useState(comment.likeCount);
+  const [dislikeCount, setDislikeCount] = useState(comment.dislikeCount);
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
@@ -21,40 +25,64 @@ const Comment = ({ comment, deleteComment }) => {
   const date = new Date(comment.createdAt);
   const createdAt = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 
+  // useEffect(() => {
+  //   console.log(comment);
+  // }, [comment]);
+
   const moveToRecipe = () => {
     navigate(`/cocktail/${comment.cocktailIdx}`);
   };
 
   const likeComment = async () => {
-    if (comment.hasLike === 1) {
+    if (hasLike === 1) {
       const res = await SetCommentLikeState(comment.id, null);
       if (res) {
-        comment.likeCount -= 1;
-        comment.hasLike = null;
+        console.log('1');
+        // comment.likeCount -= 1;
+        // comment.hasLike = null;
+        setHasLike(null);
+        setLikeCount(likeCount - 1);
       }
     } else {
       const res = await SetCommentLikeState(comment.id, 1);
       if (res) {
-        comment.likeCount += 1;
-        if (comment.hasLike === -1) comment.dislikeCount -= 1;
-        comment.hasLike = 1;
+        console.log('2');
+        // comment.likeCount += 1;
+        setLikeCount(likeCount + 1);
+        if (hasLike === -1) {
+          // comment.dislikeCount -= 1;
+          setDislikeCount(dislikeCount - 1);
+          console.log('3');
+        }
+        // comment.hasLike = 1;
+        setHasLike(1);
       }
     }
   };
 
   const dislikeComment = async () => {
-    if (comment.hasLike === -1) {
+    if (hasLike === -1) {
       const res = await SetCommentLikeState(comment.id, null);
       if (res) {
-        comment.dislikeCount -= 1;
-        comment.hasLike = null;
+        console.log('4');
+        // comment.dislikeCount -= 1;
+        // comment.hasLike = null;
+        setHasLike(null);
+        setDislikeCount(dislikeCount - 1);
       }
     } else {
       const res = await SetCommentLikeState(comment.id, -1);
       if (res) {
-        comment.dislikeCount += 1;
-        if (comment.hasLike === 1) comment.likeCount -= 1;
-        comment.hasLike = -1;
+        console.log('5');
+        // comment.dislikeCount += 1;
+        setDislikeCount(dislikeCount + 1);
+        if (hasLike === 1) {
+          // comment.likeCount -= 1;
+          setLikeCount(likeCount - 1);
+          console.log('6');
+        }
+        // comment.hasLike = -1;
+        setHasLike(-1);
       }
     }
   };
@@ -90,12 +118,14 @@ const Comment = ({ comment, deleteComment }) => {
           </>
           <div className='commentEval'>
             <p className='commentLike' onClick={likeComment}>
-              {comment.likeCount}
-              {comment.hasLike === 1 ? <AiFillLike /> : <AiOutlineLike />}
+              {/* {comment.likeCount} */}
+              {likeCount}
+              {hasLike === 1 ? <AiFillLike /> : <AiOutlineLike />}
             </p>
             <p className='commentDislike' onClick={dislikeComment}>
-              {comment.dislikeCount}
-              {comment.hasLike === -1 ? <AiFillDislike /> : <AiOutlineDislike />}
+              {/* {comment.dislikeCount} */}
+              {dislikeCount}
+              {hasLike === -1 ? <AiFillDislike /> : <AiOutlineDislike />}
             </p>
           </div>
         </div>
