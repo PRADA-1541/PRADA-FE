@@ -70,10 +70,11 @@ export const Recipe = {
       userIdx: 5,
       rating: rating,
     }),
-  getComments: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}/comments`),
+  getComments: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}/comments?userIdx=5`),
   uploadComment: (cocktailIdx, content) => api.post(`cocktail/${cocktailIdx}/comment?userIdx=5`, { content }),
   updateComment: (commentIdx, content) => api.patch(`comment/${commentIdx}?userIdx=5`, { content }),
   deleteComment: (commentIdx) => api.delete(`comment/${commentIdx}?userIdx=5`),
+  setCommentLikeState: (commentIdx, state) => api.post(`comment/${commentIdx}?userIdx=5`, { state }),
 };
 
 export const Search = {

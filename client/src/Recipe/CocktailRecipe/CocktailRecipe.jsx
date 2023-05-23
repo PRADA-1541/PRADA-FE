@@ -28,6 +28,7 @@ const CocktailRecipe = () => {
   const { cocktailIdx } = useParams();
   const [cocktail, setCocktail] = useState({
     cocktailIdx: cocktailIdx,
+    cocktailKorName: '',
     cocktailName: '',
     cocktailImage: '',
     ABV: 0,
@@ -263,8 +264,9 @@ const CocktailRecipe = () => {
         <CocktailInfo
           ABV={cocktail.ABV}
           cocktailIdx={cocktail.cocktailIdx}
+          korName={cocktail.cocktailKorName}
           name={cocktail.cocktailName}
-          imageURL={cocktail.cocktailImage}
+          imageURL={process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage}
           content={cocktail.cocktailDescription}
           keywords={cocktail.keywords}
           evaluation={cocktail.averageRating}

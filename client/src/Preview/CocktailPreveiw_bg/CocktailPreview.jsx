@@ -10,6 +10,7 @@ import MaterialBox from '../../Material/MaterialBox/MaterialBox';
 
 export const CocktailInfo = ({
   ABV,
+  korName,
   name,
   imageURL,
   content,
@@ -27,7 +28,10 @@ export const CocktailInfo = ({
   const location = useLocation();
 
   useEffect(() => {
-    if (evaluation % 1 < 0.75 && evaluation % 1 > 0) {
+    if (evaluation === 0) {
+      setEvalStars(0);
+      setHalfStar(true);
+    } else if (evaluation % 1 < 0.75 && evaluation % 1 > 0) {
       setEvalStars(Math.floor(evaluation));
       setHalfStar(true);
     } else {
@@ -63,8 +67,8 @@ export const CocktailInfo = ({
       <div className='cocktailInfo'>
         <div className='cocktailDetail'>
           <h2>
-            {name}
-            <span style={{ fontStyle: 'italic' }}>(Alexander)</span>
+            {korName}
+            <span style={{ fontStyle: 'italic' }}>({name})</span>
             {cocktailIdx &&
               (isFavorite ? (
                 <AiFillStar className='favoriteStar' onClick={() => updateFavorite(false)} />
@@ -108,6 +112,7 @@ export const CocktailInfo = ({
 
 CocktailInfo.propTypes = {
   ABV: PropTypes.number,
+  korName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   imageURL: PropTypes.string,
   content: PropTypes.string.isRequired,
@@ -121,6 +126,7 @@ CocktailInfo.propTypes = {
 const CocktailPreview = ({
   ABV,
   cocktailIdx,
+  korName,
   name,
   imageURL,
   content,
@@ -138,6 +144,7 @@ const CocktailPreview = ({
         <CocktailInfo
           ABV={ABV}
           cocktailIdx={cocktailIdx}
+          korName={korName}
           name={name}
           imageURL={imageURL}
           content={content}
@@ -154,6 +161,7 @@ const CocktailPreview = ({
 CocktailPreview.propTypes = {
   ABV: PropTypes.number,
   cocktailIdx: PropTypes.number.isRequired,
+  korName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   imageURL: PropTypes.string,
   content: PropTypes.string.isRequired,
