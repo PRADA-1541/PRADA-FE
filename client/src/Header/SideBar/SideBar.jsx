@@ -55,9 +55,6 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
           <Link to='/cocktails/custom'>
             <li>커스텀 레시피</li>
           </Link>
-          <Link>
-            <li>칵테일 가이드 라인</li>
-          </Link>
           {isSignedIn && (
             <>
               <hr />
