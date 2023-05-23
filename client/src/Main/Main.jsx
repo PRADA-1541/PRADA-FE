@@ -15,6 +15,7 @@ const Main = () => {
     <div className='homeContainer'>
       <CocktailPreview
         cocktailIdx={cocktailIdx}
+        korName={cocktailName}
         name={cocktailName}
         content={cocktailDescription}
         imageURL={cocktailImage}

@@ -263,6 +263,7 @@ const CocktailRecipe = () => {
         <CocktailInfo
           ABV={cocktail.ABV}
           cocktailIdx={cocktail.cocktailIdx}
+          korName={cocktail.cocktailName}
           name={cocktail.cocktailName}
           imageURL={cocktail.cocktailImage}
           content={cocktail.cocktailDescription}

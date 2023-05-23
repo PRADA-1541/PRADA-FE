@@ -12,12 +12,13 @@ export const RecipeList = ({ recipeList }) => {
     <CocktailPreview
       key={cocktail.cocktailIdx}
       cocktailIdx={cocktail.cocktailIdx}
+      korName={cocktail.cocktailName}
       name={cocktail.cocktailName}
       // imageURL={cocktail.cocktailImage}
       imageURL={process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage}
       content={cocktail.cocktailDescription}
       // keywords={cocktail.cocktailKeyword}
-      keywords={cocktail.cocktailKeyword.split(' ')}
+      keywords={cocktail.cocktailKeyword.split(', ')}
       evaluation={cocktail.averageRating}
       ingredients={cocktail.ingredientInfo}
     />
