@@ -6,7 +6,8 @@ import SideBar from './SideBar/SideBar';
 import useScrollMove from '../hooks/useScrollMove';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
-import SearchIcon from '@mui/icons-material/Search';
+import logo from '../assets/images/logo/logo_white.png';
+import chatLogo from '../assets/images/logo/chat_black.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -48,8 +49,8 @@ const Header = () => {
     <>
       <header className='header'>
         <div className='headerContainer'>
-          <Link className='logo' to='/' onClick={scrollToTop}>
-            BOTTENDER
+          <Link to='/' onClick={scrollToTop}>
+            <img className='headerLogo' src={logo} alt='logo' />
           </Link>
           <HiMenuAlt2 className='menu' onClick={toggleMenu} />
         </div>
@@ -75,7 +76,7 @@ const Header = () => {
             InputProps={{
               endAdornment: (
                 <InputAdornment position='end'>
-                  <SearchIcon onClick={search} style={{ cursor: 'pointer' }} />
+                  <img src={chatLogo} onClick={search} className='searchIcon' />
                 </InputAdornment>
               ),
             }}
