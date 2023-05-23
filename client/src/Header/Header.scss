@@ -15,7 +15,7 @@
   top: 0;
   height: 4rem;
   width: 100%;
-  padding: 0 2.5rem;
+  padding: 0 2rem 0 1.5rem;
   background-color: black;
   box-shadow: 0px 3px 6px $shadow;
 
@@ -24,12 +24,8 @@
   }
 }
 
-.logo {
-  color: white;
-  font: {
-    size: 1.5rem;
-    weight: 500;
-  }
+.headerLogo {
+  width: 12rem;
 }
 
 .menu {
@@ -46,4 +42,9 @@
   @include mobile {
     right: 1rem;
   }
+}
+
+.searchIcon {
+  width: 2.5rem;
+  cursor: pointer;
 }

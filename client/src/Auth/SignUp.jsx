@@ -6,6 +6,7 @@ import { signUp } from '../api/authService';
 import { useSetRecoilState } from 'recoil';
 import { userInfoAtom, isSignedInAtom } from '../recoil/atom';
 import { useCookies } from 'react-cookie';
+import logo from '../assets/images/logo/logo_black.png';
 
 const SignUp = () => {
   const { email } = useParams();
@@ -38,7 +39,7 @@ const SignUp = () => {
 
   return (
     <form className='signupContainer' onSubmit={(e) => e.preventDefault()}>
-      <h1>BOTTENDER</h1>
+      <img src={logo} alt='logo' style={{ width: '15rem' }} />
       <label htmlFor='cocktailFormImage'>
         칵테일 이미지
         <div className='cocktailFormImageBtn'>추가</div>
