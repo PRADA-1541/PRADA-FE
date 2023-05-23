@@ -75,7 +75,11 @@ const Comment = ({ comment, deleteComment }) => {
       <>
         <div className={pathname === '/myPosting' ? 'myCommentLink' : 'commentContainer'} onClick={moveToRecipe}>
           <div className='commentHeader'>
-            <img className='commentProfileImg' src={comment.profileImg ?? defaultImage} alt='프로필 이미지' />
+            <img
+              className='commentProfileImg'
+              src={comment.profileImg ? process.env.REACT_APP_IMG_BASE_URL + comment.profileImg : defaultImage}
+              alt='프로필 이미지'
+            />
             <div className='nameAndDate'>
               <p className='commentName'>{comment.nickname ?? nickname}</p>
               <p className='commentDate'>{createdAt.toString()}</p>
@@ -116,7 +120,11 @@ const Comment = ({ comment, deleteComment }) => {
       <div className='commentContainer'>
         <div>
           <div className='commentProfile'>
-            <img className='commentProfileImg' src={comment.profileImg ?? defaultImage} alt='프로필 이미지' />
+            <img
+              className='commentProfileImg'
+              src={comment.profileImg ? process.env.REACT_APP_IMG_BASE_URL + comment.profileImg : defaultImage}
+              alt='프로필 이미지'
+            />
             <span>{comment.nickname}</span>
           </div>
           <p className='commentContent'>{comment.content}</p>

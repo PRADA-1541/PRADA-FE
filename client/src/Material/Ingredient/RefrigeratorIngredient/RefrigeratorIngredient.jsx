@@ -1,6 +1,7 @@
 import React from 'react';
 import './RefrigeratorIngredient.scss';
 import PropTypes from 'prop-types';
+import defaultImage from '../../../assets/images/defaultImage.png';
 
 const RefrigeratorIngredient = ({ ingredients, editState, deleteIngredient }) => {
   return ingredients.map((ingredient) => (
@@ -9,7 +10,12 @@ const RefrigeratorIngredient = ({ ingredients, editState, deleteIngredient }) =>
       key={ingredient.ingredientIdx}
       onClick={editState ? () => deleteIngredient(ingredient) : () => {}}
     >
-      <img src={ingredient.ingredientImage} alt='재료 이미지' />
+      <img
+        src={
+          ingredient.ingredientImage ? process.env.REACT_APP_IMG_BASE_URL + ingredient.ingredientImage : defaultImage
+        }
+        alt='재료 이미지'
+      />
       <span className='ingredientNameInRefrigerator'>{ingredient.ingredientName}</span>
     </div>
   ));

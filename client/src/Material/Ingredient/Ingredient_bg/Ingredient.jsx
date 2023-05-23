@@ -21,7 +21,7 @@ const Ingredient = ({ ingredient }) => {
     >
       <img
         className='prevent-overflow'
-        src={process.env.REACT_APP_IMG_BASE_URL + ingredient.ingredientImage ?? defaultImg}
+        src={ingredient.ingredientImage ? process.env.REACT_APP_IMG_BASE_URL + ingredient.ingredientImage : defaultImg}
         alt={ingredient.ingredientName}
       />
       <div className='ingredientNameAndVolume_bg prevent-overflow'>
