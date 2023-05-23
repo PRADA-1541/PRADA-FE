@@ -64,3 +64,19 @@
     }
   }
 }
+
+.editBtn {
+  margin: auto;
+  font-size: medium;
+  &Complete {
+    @extend .editBtn;
+    @extend %button-reverse;
+  }
+
+  &Container {
+    @extend %flex-row;
+    @extend %center;
+    margin-top: 1rem;
+    width: 35%;
+  }
+}

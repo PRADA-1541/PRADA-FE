@@ -1,27 +1,37 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './SignUp.scss';
 import defaultProfile from '../assets/images/defaultProfile.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import { NicknameValid } from '../api/authService';
 import { signUp } from '../api/authService';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userInfoAtom, isSignedInAtom } from '../recoil/atom';
 import { useCookies } from 'react-cookie';
 import { TiDelete } from 'react-icons/ti';
 import { UploadImg } from '../api/recipeService';
 
-const SignUp = () => {
+const UserInfo = () => {
   const { email } = useParams();
   const nicknameRef = useRef();
   const [validation, setValidation] = useState(false);
+  const [inputState, setInputState] = useState(false);
   const navigate = useNavigate();
 
   const [cookies, setCookie] = useCookies(['refresh-token']);
-  const setUserInfo = useSetRecoilState(userInfoAtom);
+  const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const setIsSignedIn = useSetRecoilState(isSignedInAtom);
   const profileImgRef = useRef();
   const [profileImg, setProfileImg] = useState(null);
   const [profileImgPreview, setProfileImgPreview] = useState(null);
+
+  useEffect(() => {
+    if (email) setInputState(true);
+    else {
+      setInputState(false);
+      nicknameRef.current.value = userInfo.nickname;
+      setProfileImgPreview(userInfo.profileImage);
+    }
+  }, [email]);
 
   const handleFile = (e) => {
     const file = e.target.files[0];
@@ -49,7 +59,7 @@ const SignUp = () => {
     }
   };
 
-  const signUpSubmit = async () => {
+  const userInfoSubmit = async () => {
     if (nicknameRef.current.value === '') return alert('닉네임을 입력해주세요.');
     if (!validation) return alert('닉네임 중복확인을 해주세요.');
 
@@ -74,10 +84,23 @@ const SignUp = () => {
     if (res) navigate('/');
   };
 
+  const cancel = () => {
+    setInputState(false);
+    nicknameRef.current.value = userInfo.nickname;
+    setProfileImg(null);
+    setProfileImgPreview(userInfo.profileImage);
+    profileImgRef.current.value = '';
+  };
+
   return (
     <form className='signupContainer' onSubmit={(e) => e.preventDefault()}>
       <h1>BOTTENDER</h1>
-      <label htmlFor='cocktailFormImage'>
+      <label
+        htmlFor='cocktailFormImage'
+        onClick={(e) => {
+          if (!inputState) e.preventDefault();
+        }}
+      >
         <div className='profileImgEnroll'>
           <img src={profileImgPreview ?? defaultProfile} alt='profile' />
           {profileImgPreview && <TiDelete className='deleteBtn' onClick={deleteImage} />}
@@ -94,23 +117,50 @@ const SignUp = () => {
       <div>
         <label htmlFor='email'>이메일</label>
         <br />
-        <input type='text' id='email' value={email} disabled />
+        <input type='text' id='email' value={email ?? userInfo.email} disabled />
       </div>
       <div>
         <label htmlFor='nickname'>닉네임</label>
         <br />
         <div className='nicknameInput'>
-          <input type='text' id='nickname' ref={nicknameRef} />
-          <button className='nicknameValid' onClick={nicknameValid}>
-            중복확인
-          </button>
+          <input type='text' id='nickname' ref={nicknameRef} disabled={!inputState} />
+          {inputState && (
+            <button className='nicknameValid' onClick={nicknameValid}>
+              중복확인
+            </button>
+          )}
         </div>
       </div>
-      <button type='submit' onClick={signUpSubmit}>
-        회원가입
-      </button>
+      {email && inputState && (
+        <button type='submit' onClick={userInfoSubmit}>
+          회원가입
+        </button>
+      )}
+      {!email && (
+        <div className='editBtnContainer'>
+          {inputState ? (
+            <>
+              <button className='editBtn' onClick={cancel}>
+                취소
+              </button>
+              <button className='editBtnComplete' onClick={userInfoSubmit}>
+                완료
+              </button>
+            </>
+          ) : (
+            <button
+              className='editBtn'
+              onClick={() => {
+                setInputState(!inputState);
+              }}
+            >
+              수정하기
+            </button>
+          )}
+        </div>
+      )}
     </form>
   );
 };
 
-export default SignUp;
+export default UserInfo;

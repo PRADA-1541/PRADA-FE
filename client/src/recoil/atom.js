@@ -10,8 +10,8 @@ export const userInfoAtom = atom({
   default: {
     userIdx: 5,
     nickname: '김준하',
-    email: '',
-    profileImage: '',
+    email: 'junhakjh@ajou.ac.kr',
+    profileImage: null,
   },
 });
 
