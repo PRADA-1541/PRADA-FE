@@ -53,6 +53,11 @@ export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStar
     const res = await Recipe.getRecipe(cocktailIdx);
     if (res) Recipe.updateReadCount(cocktailIdx);
     const { cocktail, ingredients, rating, isFavorite } = res.data.result;
+    let createdAt = null;
+    if (cocktail.createdAt) {
+      const date = new Date(cocktail.createdAt);
+      createdAt = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+    }
     setCocktail({
       cocktailIdx: cocktail.cocktailIdx,
       cocktailKorName: cocktail.cocktailKorName,
@@ -65,7 +70,8 @@ export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStar
       isCustom: cocktail.isCustom,
       commentCount: cocktail.commentCount,
       cocktailDirection: cocktail.cocktailDirection,
-      createdAt: cocktail.customCocktailCreatedAt ?? null,
+      userIdx: cocktail.userIdx ?? null,
+      createdAt: createdAt ?? null,
       nickname: cocktail.nickname ?? null,
     });
     setRating(rating ?? 0);
@@ -75,6 +81,18 @@ export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStar
     return true;
   } catch (error) {
     console.log(error);
+    return false;
+  }
+};
+
+export const DeleteRecipe = async (cocktailIdx) => {
+  try {
+    const res = await Recipe.deleteRecipe(cocktailIdx);
+    if (res) return true;
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
+    }
     return false;
   }
 };

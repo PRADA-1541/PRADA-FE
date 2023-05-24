@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './CocktailRecipe.scss';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 // import data from '../../assets/data/cocktails.json';
 // import gin from '../../assets/images/ingredients/재료_진.png';
 // import strawberry from '../../assets/images/ingredients/재료_딸기.png';
@@ -16,6 +16,7 @@ import Ingredient from '../../Material/Ingredient/Ingredient_bg/Ingredient';
 import CommentForm from '../../Material/Comment/CommentForm/CommentForm';
 import {
   DeleteComment,
+  DeleteRecipe,
   GetComments,
   GetRecipe,
   UpdateIsFavorite,
@@ -23,6 +24,8 @@ import {
   UploadComment,
   UploadRating,
 } from '../../api/recipeService';
+import { useRecoilValue } from 'recoil';
+import { userInfoAtom } from '../../recoil/atom';
 
 const CocktailRecipe = () => {
   const { cocktailIdx } = useParams();
@@ -53,6 +56,8 @@ const CocktailRecipe = () => {
   const [commentVisible, setCommentVisible] = useState(false);
   const [isCommentReceived, setIsCommentReceived] = useState(false);
   const [comments, setComments] = useState([]);
+  const { userIdx } = useRecoilValue(userInfoAtom);
+  const navigate = useNavigate();
 
   // const comments = [
   //   {
@@ -174,9 +179,15 @@ const CocktailRecipe = () => {
     // setCommentCount(5);
   }, [cocktailIdx]);
 
-  // useEffect(() => {
-  //   console.log(cocktail);
-  // }, [cocktail]);
+  const deleteRecipe = async () => {
+    if (window.confirm('레시피를 삭제하시겠습니까?')) {
+      const res = await DeleteRecipe(cocktailIdx);
+      if (res) {
+        alert('레시피가 삭제되었습니다.');
+        navigate('/myPosting');
+      }
+    }
+  };
 
   const updateFavorite = async (isFavorite) => {
     const res = await UpdateIsFavorite(cocktailIdx, isFavorite);
@@ -259,10 +270,18 @@ const CocktailRecipe = () => {
   return (
     <div className='cocktailRecipeContainer'>
       {cocktail.isCustom === 1 && (
-        <div className='dateAndProfile'>
-          <span>{cocktail.createdAt}</span>
-          <span>{cocktail.nickname}</span>
-        </div>
+        <>
+          {userIdx === cocktail.userIdx && (
+            <div className='cocktailRecipeUserBtnContainer'>
+              <span>수정</span>
+              <span onClick={deleteRecipe}>삭제</span>
+            </div>
+          )}
+          <div className='dateAndProfile'>
+            <span>{cocktail.createdAt}</span>
+            <span>{cocktail.nickname}</span>
+          </div>
+        </>
       )}
       {cocktail && (
         <CocktailInfo

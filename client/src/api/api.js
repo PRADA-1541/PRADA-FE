@@ -55,6 +55,7 @@ export const Recipe = {
   getFavoriteRecipeList: (cursor, pageSize, orderBy) =>
     api.get(`cocktails/favorite?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
   getRecipe: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}`),
+  deleteRecipe: (cocktailIdx) => api.delete(`custom-cocktail/${cocktailIdx}`),
   updateReadCount: (cocktailIdx) =>
     api.put(`cocktails/detail/readLogics`, {
       userIdx: 5,

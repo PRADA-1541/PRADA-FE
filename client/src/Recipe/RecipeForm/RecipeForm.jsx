@@ -22,6 +22,7 @@ const RecipeForm = () => {
   const [isFirst, setIsFirst] = useState(true);
 
   const [cocktailName, setCocktailName] = useState('');
+  const [cocktailKorName, setCocktailKorName] = useState('');
   const [cocktailDescription, setCocktailDescription] = useState('');
   const [checkedKeywords, setCheckedKeywords] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
@@ -88,8 +89,13 @@ const RecipeForm = () => {
   };
 
   const submitRecipe = async () => {
-    if (cocktailName === '') {
+    if (cocktailKorName === '') {
       alert('칵테일 이름을 입력해주세요.');
+      setIsFirst(true);
+      return;
+    }
+    if (cocktailName === '') {
+      alert('칵테일 영어 이름을 입력해주세요.');
       setIsFirst(true);
       return;
     }
@@ -125,13 +131,14 @@ const RecipeForm = () => {
 
     const recipe = {};
     recipe.cocktailName = cocktailName;
+    recipe.cocktailKorName = cocktailKorName;
     recipe.cocktailDescription = cocktailDescription;
     recipe.cocktailKeyword = checkedKeywords.join(' ');
     recipe.cocktailImage = imgUrl === '' ? null : imgUrl;
     recipe.ingredients = ingredients.filter((item) => !item.ingredientCategoryIdx);
     recipe.customIngredients = ingredients.filter((item) => item.ingredientCategoryIdx);
     recipe.cocktailDirection = directions;
-    recipe.userIdx = 102;
+    recipe.userIdx = 5;
 
     const response = await UploadRecipe(recipe);
     if (response) {
@@ -331,9 +338,20 @@ const RecipeForm = () => {
           <>
             <h2>1. 칵테일 정보</h2>
             <div className='cocktailFormInfo'>
-              {/* TODO: 한국 이름, 영어 이름 등록 */}
-              <label htmlFor='cocktailFormName'>
+              <label htmlFor='cocktailFormKorName'>
                 <Required /> 칵테일 이름
+              </label>
+              <input
+                value={cocktailKorName}
+                onChange={(e) => setCocktailKorName(e.target.value)}
+                type='text'
+                id='cocktailFormKorName'
+                className='cocktailFormName'
+                required
+              />
+              <br />
+              <label htmlFor='cocktailFormName'>
+                <Required /> 칵테일 영어 이름
               </label>
               <input
                 value={cocktailName}
