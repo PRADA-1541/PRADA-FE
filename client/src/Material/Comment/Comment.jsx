@@ -8,7 +8,6 @@ import { useRecoilValue } from 'recoil';
 import { userInfoAtom } from '../../recoil/atom';
 import CommentForm from './CommentForm/CommentForm';
 import { SetCommentLikeState, UpdateComment } from '../../api/recipeService';
-// import { UpdateComment } from '../../api/recipeService';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const Comment = ({ comment, deleteComment }) => {
@@ -25,10 +24,6 @@ const Comment = ({ comment, deleteComment }) => {
   const date = new Date(comment.createdAt);
   const createdAt = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 
-  // useEffect(() => {
-  //   console.log(comment);
-  // }, [comment]);
-
   const moveToRecipe = () => {
     navigate(`/cocktail/${comment.cocktailIdx}`);
   };
@@ -37,24 +32,16 @@ const Comment = ({ comment, deleteComment }) => {
     if (hasLike === 1) {
       const res = await SetCommentLikeState(comment.id, null);
       if (res) {
-        console.log('1');
-        // comment.likeCount -= 1;
-        // comment.hasLike = null;
         setHasLike(null);
         setLikeCount(likeCount - 1);
       }
     } else {
       const res = await SetCommentLikeState(comment.id, 1);
       if (res) {
-        console.log('2');
-        // comment.likeCount += 1;
         setLikeCount(likeCount + 1);
         if (hasLike === -1) {
-          // comment.dislikeCount -= 1;
           setDislikeCount(dislikeCount - 1);
-          console.log('3');
         }
-        // comment.hasLike = 1;
         setHasLike(1);
       }
     }
@@ -64,24 +51,16 @@ const Comment = ({ comment, deleteComment }) => {
     if (hasLike === -1) {
       const res = await SetCommentLikeState(comment.id, null);
       if (res) {
-        console.log('4');
-        // comment.dislikeCount -= 1;
-        // comment.hasLike = null;
         setHasLike(null);
         setDislikeCount(dislikeCount - 1);
       }
     } else {
       const res = await SetCommentLikeState(comment.id, -1);
       if (res) {
-        console.log('5');
-        // comment.dislikeCount += 1;
         setDislikeCount(dislikeCount + 1);
         if (hasLike === 1) {
-          // comment.likeCount -= 1;
           setLikeCount(likeCount - 1);
-          console.log('6');
         }
-        // comment.hasLike = -1;
         setHasLike(-1);
       }
     }
@@ -101,7 +80,10 @@ const Comment = ({ comment, deleteComment }) => {
       <CommentForm submitComment={updateComment} prevValue={comment.content} />
     ) : (
       <>
-        <div className={pathname === '/myPosting' ? 'myCommentLink' : 'commentContainer'} onClick={moveToRecipe}>
+        <div
+          className={pathname === '/myPosting' ? 'myCommentLink' : 'commentContainer'}
+          onClick={pathname === '/myPosting' ? moveToRecipe : null}
+        >
           <div className='commentHeader'>
             <img
               className='commentProfileImg'
@@ -118,12 +100,10 @@ const Comment = ({ comment, deleteComment }) => {
           </>
           <div className='commentEval'>
             <p className='commentLike' onClick={likeComment}>
-              {/* {comment.likeCount} */}
               {likeCount}
               {hasLike === 1 ? <AiFillLike /> : <AiOutlineLike />}
             </p>
             <p className='commentDislike' onClick={dislikeComment}>
-              {/* {comment.dislikeCount} */}
               {dislikeCount}
               {hasLike === -1 ? <AiFillDislike /> : <AiOutlineDislike />}
             </p>

@@ -51,6 +51,7 @@ export const GetRecipeList = async (isCustom, cursor, pageSize, orderBy, setCurs
 export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStars, setIsFavorite, setIngredients) => {
   try {
     const res = await Recipe.getRecipe(cocktailIdx);
+    if (res) Recipe.updateReadCount(cocktailIdx);
     const { cocktail, ingredients, rating, isFavorite } = res.data.result;
     setCocktail({
       cocktailIdx: cocktail.cocktailIdx,
@@ -59,7 +60,7 @@ export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStar
       cocktailImage: cocktail.cocktailImage,
       ABV: cocktail.degree,
       cocktailDescription: cocktail.cocktailDescription,
-      keywords: cocktail.cocktailKeyword.split(' '),
+      keywords: cocktail.cocktailKeyword.split(', '),
       averageRating: cocktail.averageRating,
       isCustom: cocktail.isCustom,
       commentCount: cocktail.commentCount,

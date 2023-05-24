@@ -174,6 +174,10 @@ const CocktailRecipe = () => {
     // setCommentCount(5);
   }, [cocktailIdx]);
 
+  // useEffect(() => {
+  //   console.log(cocktail);
+  // }, [cocktail]);
+
   const updateFavorite = async (isFavorite) => {
     const res = await UpdateIsFavorite(cocktailIdx, isFavorite);
     if (res) setIsFavorite(isFavorite);
