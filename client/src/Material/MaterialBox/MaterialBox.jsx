@@ -69,4 +69,7 @@ MaterialBox.propTypes = {
   keywords: PropTypes.arrayOf(PropTypes.string),
 };
 
-export default React.memo(MaterialBox, (prevProps, nextProps) => prevProps.ingredients === nextProps.ingredients);
+export default React.memo(
+  MaterialBox,
+  (prevProps, nextProps) => prevProps.ingredients === nextProps.ingredients && prevProps.keywords === nextProps.keywords
+);
