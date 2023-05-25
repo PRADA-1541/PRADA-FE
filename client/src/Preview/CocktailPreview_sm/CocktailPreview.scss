@@ -4,7 +4,11 @@
 .previewContainer {
   @extend %flex-column;
   align-items: center;
+  color: black;
   @extend %box-shadow;
+  &:hover {
+    @extend %box-shadow-hover;
+  }
 
   @include mobile {
     margin: 0 0.5rem;

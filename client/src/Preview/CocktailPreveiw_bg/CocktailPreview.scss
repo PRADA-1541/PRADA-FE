@@ -43,13 +43,14 @@
 .cocktailImg,
 .cocktailImg-border {
   @extend %flex-column;
-  justify-content: center;
-  max: {
-    height: 25rem;
-  }
+  @extend %center;
+  max-height: 25rem;
+  width: 18rem;
   overflow: hidden;
   img {
-    width: 18rem;
+    max-height: 100%;
+    width: 100%;
+    object-fit: scale-down;
   }
 
   @include mobile {
@@ -130,6 +131,18 @@
   }
 }
 
+.ABV {
+  margin: {
+    left: 0.6rem;
+    top: 0.5rem;
+  }
+  color: $text-light-gray;
+  font: {
+    style: italic;
+    size: 0.9rem;
+  }
+}
+
 .eval {
   position: absolute;
   @extend %flex-row;
@@ -152,6 +165,7 @@
 }
 
 .cocktailContent {
-  font-size: 20px;
-  line-height: 1.5rem;
+  padding-right: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.7rem;
 }

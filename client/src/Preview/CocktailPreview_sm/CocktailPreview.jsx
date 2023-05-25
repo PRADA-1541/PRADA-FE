@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 const CocktailPreview = ({ cocktailIdx, imageURL, name, evaluation }) => {
   return (
-    <Link className='previewContainer' to={'/cocktail/' + cocktailIdx} style={{ color: 'black' }}>
+    <Link className='previewContainer' to={`/cocktail/${cocktailIdx}`}>
       <div className='previewImgContainer'>
         <img src={imageURL ?? defaultImage} alt='cocktail' className={imageURL ? 'previewImg' : 'altImg'} />
       </div>

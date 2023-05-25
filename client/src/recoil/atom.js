@@ -8,7 +8,8 @@ export const isSignedInAtom = atom({
 export const userInfoAtom = atom({
   key: 'userInfoAtom',
   default: {
-    nickname: 'z',
+    userIdx: 5,
+    nickname: '김준하',
     email: '',
     profileImage: '',
   },
