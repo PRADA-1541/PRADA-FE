@@ -3,10 +3,7 @@ import './Main.scss';
 import CocktailPreview from '../Preview/CocktailPreveiw_bg/CocktailPreview';
 import CocktailList from './CocktailList/CocktailList';
 import data from '../assets/data/cocktails.json';
-<<<<<<< HEAD
 import { RecommendedCocktail } from '../api/recommendation';
-=======
->>>>>>> fcf943b42f299982c802d0b43482921982f619c3
 // import testImage from '../assets/images/pngwing.com-2 (1).png';
 // import testImage from '../assets/images/pngwing.com-5.png';
 // import testImage from '../assets/images/pngwing.com-6.png';
