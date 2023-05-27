@@ -26,6 +26,7 @@ import Refrigerator from './Refrigerator/Refrigerator/Refrigerator';
 import SearchList from './SearchList/SearchList';
 import MyPosting from './MyPosting/MyPosting';
 import SignIn from './Auth/SignIn';
+import Survey from './Survey/Survey';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -82,6 +83,7 @@ const App = () => {
             <Route path='/' element={<Main />} />
             <Route path='/signin' element={<SignIn />} />
             <Route path='/signup/:email' element={<SignUp />} />
+            <Route path='/survey' element={<Survey />} />
             <Route path='/cocktails/:category' element={<CocktailList />} />
             <Route path='/cocktail'>
               <Route path=':cocktailIdx' element={<CocktailRecpie />} />
