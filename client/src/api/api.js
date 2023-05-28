@@ -47,7 +47,10 @@ export const UserApi = {
 };
 
 export const Recommendation = {
-  getRecommendedList: () => api.get('cocktails/recommendedCocktail?userIdx=6'),
+  getTodayRecommendedCocktail: (isLogin) => api.get(`/todaysRecoommendCocktail?isLogin=${isLogin}`),
+  getRecommendedList: () => api.get('recommend/cocktail?userIdx=5'),
+  getHotList: () => api.get('hot-cocktails'),
+  getMainSortedList: (orderBy) => api.get(`recommended-cocktails?orderBy=${orderBy}`),
 };
 
 export const Recipe = {
