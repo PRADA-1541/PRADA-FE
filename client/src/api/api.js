@@ -46,6 +46,13 @@ export const UserApi = {
   getUserInfo: () => api.get('users/userInfo'),
 };
 
+export const Recommendation = {
+  getTodayRecommendedCocktail: (isLogin) => api.get(`/todaysRecoommendCocktail?isLogin=${isLogin}`),
+  getRecommendedList: () => api.get('recommend/cocktail?userIdx=5'),
+  getHotList: () => api.get('hot-cocktails'),
+  getMainSortedList: (orderBy) => api.get(`recommended-cocktails?orderBy=${orderBy}`),
+};
+
 export const Recipe = {
   getRecipePriorInfo: () => api.get('cocktails/priorInfoToRegister'),
   uploadImg: (directory, formData) => api.post(`upload?directory=${directory}`, formData),

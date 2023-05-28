@@ -33,6 +33,11 @@
   max-height: 100%;
   width: 100%;
   object-fit: scale-down;
+  transition: transform 0.2s ease-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .altImg {
@@ -41,11 +46,19 @@
   object-fit: scale-up;
 }
 
-.cocktailName {
+.cocktailKorName {
   margin-bottom: 0;
 
   @include mobile {
     font-size: x-small;
+  }
+}
+.cocktailName {
+  @extend .cocktailKorName;
+  margin-top: 0;
+  font: {
+    size: 0.8rem;
+    style: italic;
   }
 }
 
