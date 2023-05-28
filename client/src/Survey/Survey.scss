@@ -1,0 +1,96 @@
+@use '../styles/variables.scss';
+@import '../styles/variables.scss';
+
+.surveyContainer {
+  position: relative;
+  @extend %flex-column;
+
+  p {
+    @extend %flex-row;
+  }
+
+  span {
+    padding: 0.5rem;
+  }
+}
+
+.question {
+  @extend %flex-row;
+  align-items: flex-end;
+  margin: {
+    top: 5rem;
+    bottom: 1rem;
+  }
+  font: {
+    size: 1.5rem;
+    weight: bold;
+  }
+
+  span {
+    margin-left: 0.3rem;
+    padding: 0.1rem 0;
+    font: {
+      size: 0.9rem;
+      weight: medium;
+    }
+    color: $text-deep-gray;
+  }
+}
+
+.cocktailsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2rem;
+  justify-items: center;
+  margin-top: 1rem;
+
+  label {
+    position: relative;
+    @extend %flex-column;
+    @extend %center;
+    width: 90%;
+    border: $border;
+    border-radius: $border-radius-bg;
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    input {
+      display: none;
+    }
+
+    span {
+      position: absolute;
+      top: -1rem;
+      background-color: $background-app;
+      font: {
+        size: 1.1rem;
+        weight: bold;
+      }
+    }
+
+    img {
+      width: 70%;
+    }
+
+    p {
+      margin: 0.5rem 0;
+      padding: 0 1rem;
+      text-align: center;
+    }
+  }
+}
+
+.checked {
+  @extend %box-shadow;
+  @extend %box-shadow-hover;
+}
+
+.submitSurvey {
+  position: absolute;
+  right: 0;
+  bottom: -2rem;
+}
