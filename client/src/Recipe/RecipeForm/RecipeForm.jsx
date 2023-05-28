@@ -331,6 +331,7 @@ const RecipeForm = () => {
           <>
             <h2>1. 칵테일 정보</h2>
             <div className='cocktailFormInfo'>
+              {/* TODO: 한국 이름, 영어 이름 등록 */}
               <label htmlFor='cocktailFormName'>
                 <Required /> 칵테일 이름
               </label>

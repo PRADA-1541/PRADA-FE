@@ -19,16 +19,23 @@
     }
   }
 
-  img {
-    height: 5rem;
-    width: 5rem;
-    border-radius: 100%;
-  }
-
   p {
     margin: 0;
     font-size: 0.9rem;
   }
+}
+
+.ingredientImg_bg {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 100%;
+}
+
+.isInRefrigerator {
+  position: absolute;
+  top: -0.3rem;
+  width: 1.7rem;
+  // right: 0.5rem;
 }
 
 .ingredientNameAndVolume_bg {

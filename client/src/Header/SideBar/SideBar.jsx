@@ -34,7 +34,13 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
         <div className='profile'>
           <img
             className='profileImg'
-            src={isSignedIn ? (userInfo.profileImage === '' ? defaultImage : userInfo.profileImage) : defaultImage}
+            src={
+              isSignedIn
+                ? process.env.REACT_APP_IMG_BASE_URL + userInfo.profileImage === ''
+                  ? defaultImage
+                  : process.env.REACT_APP_IMG_BASE_URL + userInfo.profileImage
+                : defaultImage
+            }
             alt='profile Image'
           />
           {isSignedIn !== '' ? (
@@ -54,9 +60,6 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
           </Link>
           <Link to='/cocktails/custom'>
             <li>커스텀 레시피</li>
-          </Link>
-          <Link>
-            <li>칵테일 가이드 라인</li>
           </Link>
           {isSignedIn && (
             <>

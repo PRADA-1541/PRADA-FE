@@ -47,6 +47,13 @@ export const UserApi = {
   getUserInfo: () => api.get('users/userInfo'),
 };
 
+export const Recommendation = {
+  getTodayRecommendedCocktail: (isLogin) => api.get(`/todaysRecoommendCocktail?isLogin=${isLogin}`),
+  getRecommendedList: () => api.get('recommend/cocktail?userIdx=5'),
+  getHotList: () => api.get('hot-cocktails'),
+  getMainSortedList: (orderBy) => api.get(`recommended-cocktails?orderBy=${orderBy}`),
+};
+
 export const Recipe = {
   getRecipePriorInfo: () => api.get('cocktails/priorInfoToRegister'),
   uploadImg: (directory, formData) => api.post(`upload?directory=${directory}`, formData),
@@ -56,6 +63,11 @@ export const Recipe = {
   getFavoriteRecipeList: (cursor, pageSize, orderBy) =>
     api.get(`cocktails/favorite?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
   getRecipe: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}`),
+  updateReadCount: (cocktailIdx) =>
+    api.put(`cocktails/detail/readLogics`, {
+      userIdx: 5,
+      cocktailIdx,
+    }),
   updateIsFavorite: (cocktailIdx, isFavorite) =>
     api.post(`cocktail/${cocktailIdx}/bookmark`, {
       userIdx: 5,
@@ -71,10 +83,11 @@ export const Recipe = {
       userIdx: 5,
       rating: rating,
     }),
-  getComments: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}/comments`),
+  getComments: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}/comments?userIdx=5`),
   uploadComment: (cocktailIdx, content) => api.post(`cocktail/${cocktailIdx}/comment?userIdx=5`, { content }),
   updateComment: (commentIdx, content) => api.patch(`comment/${commentIdx}?userIdx=5`, { content }),
   deleteComment: (commentIdx) => api.delete(`comment/${commentIdx}?userIdx=5`),
+  setCommentLikeState: (commentIdx, state) => api.post(`comment/${commentIdx}?userIdx=5`, { state }),
 };
 
 export const Search = {
