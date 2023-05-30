@@ -325,8 +325,7 @@ const CocktailRecipe = () => {
           imageURL={process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage}
           content={cocktail.cocktailDescription}
           keywords={cocktail.keywords}
-          // evaluation={cocktail.averageRating}
-          evaluation={4.2}
+          evaluation={cocktail.averageRating}
           ingredients={ingredients}
           isFavorite={isFavorite}
           updateFavorite={updateFavorite}
