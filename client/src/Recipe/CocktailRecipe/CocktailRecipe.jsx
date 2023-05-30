@@ -24,10 +24,12 @@ import {
   UploadComment,
   UploadRating,
 } from '../../api/recipeService';
-import { useRecoilValue } from 'recoil';
-import { userInfoAtom } from '../../recoil/atom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { cocktailRecipeAtom, userInfoAtom } from '../../recoil/atom';
+import { useMediaQuery } from 'react-responsive';
 
 const CocktailRecipe = () => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const { cocktailIdx } = useParams();
   const [cocktail, setCocktail] = useState({
     cocktailIdx: cocktailIdx,
@@ -58,6 +60,7 @@ const CocktailRecipe = () => {
   const [comments, setComments] = useState([]);
   const { userIdx } = useRecoilValue(userInfoAtom);
   const navigate = useNavigate();
+  const setCocktailRecipeAtom = useSetRecoilState(cocktailRecipeAtom);
 
   // const comments = [
   //   {
@@ -179,6 +182,36 @@ const CocktailRecipe = () => {
     // setCommentCount(5);
   }, [cocktailIdx]);
 
+  const editRecipe = () => {
+    setCocktailRecipeAtom({
+      cocktailIdx,
+      cocktailName: cocktail.cocktailName,
+      cocktailKorName: cocktail.cocktailKorName,
+      cocktailDescription: cocktail.cocktailDescription,
+      keywords: cocktail.keywords,
+      cocktailImage: cocktail.cocktailImage,
+      ingredients: ingredients.map((ingredient) =>
+        ingredient.isNew === 1
+          ? {
+              ingredientName: ingredient.ingredientName,
+              ingredientDescription: ingredient.ingredientDescription,
+              ingredientCategory: ingredient.ingredientCategory,
+              ingredientImage: ingredient.ingredientImage,
+              ingredientVolume: ingredient.ingredientVolume,
+              volumeUnit: ingredient.volumeUnit,
+            }
+          : {
+              ingredientName: ingredient.ingredientName,
+              ingredientIdx: ingredient.ingredientIdx,
+              ingredientVolume: ingredient.ingredientVolume,
+              volumeUnit: ingredient.volumeUnit,
+            }
+      ),
+      cocktailDirection: cocktail.cocktailDirection,
+    });
+    navigate(`/cocktail/edit/${cocktailIdx}`);
+  };
+
   const deleteRecipe = async () => {
     if (window.confirm('레시피를 삭제하시겠습니까?')) {
       const res = await DeleteRecipe(cocktailIdx);
@@ -273,7 +306,7 @@ const CocktailRecipe = () => {
         <>
           {userIdx === cocktail.userIdx && (
             <div className='cocktailRecipeUserBtnContainer'>
-              <span>수정</span>
+              <span onClick={editRecipe}>수정</span>
               <span onClick={deleteRecipe}>삭제</span>
             </div>
           )}
@@ -292,19 +325,23 @@ const CocktailRecipe = () => {
           imageURL={process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage}
           content={cocktail.cocktailDescription}
           keywords={cocktail.keywords}
-          evaluation={cocktail.averageRating}
+          // evaluation={cocktail.averageRating}
+          evaluation={4.2}
+          ingredients={ingredients}
           isFavorite={isFavorite}
           updateFavorite={updateFavorite}
         />
       )}
-      <div className='recipeIngredients'>
-        <h2 className='recipeIngredientsTitle'>재료</h2>
-        <div className='recipeIngredientsContent'>
-          {ingredients.map((ingredient) => (
-            <Ingredient ingredient={ingredient} key={ingredient.ingredientIdx} />
-          ))}
+      {!isMobile && (
+        <div className='recipeIngredients'>
+          <h2 className='recipeIngredientsTitle'>재료</h2>
+          <div className='recipeIngredientsContent'>
+            {ingredients.map((ingredient) => (
+              <Ingredient ingredient={ingredient} key={ingredient.ingredientIdx} />
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       <div className='recipe'>
         <h2 className='recipeTitle'>레시피</h2>
         <div className='recipeContent'>

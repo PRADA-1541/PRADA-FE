@@ -15,7 +15,12 @@ const KeyWord = ({ keyword, onClick, isChecked }) => {
   return (
     <div className={isChecked ? 'keywordContainer-checked' : 'keywordContainer'} onClick={onClick}>
       <span className='hashtag'>#</span>
-      <span className='keyword' onClick={location.pathname === '/cocktail/new' ? null : search}>
+      <span
+        className='keyword'
+        onClick={
+          (location.pathname === '/cocktail/new') | location.pathname.startsWith('/cocktail/edit') ? null : search
+        }
+      >
         {keyword}
       </span>
     </div>

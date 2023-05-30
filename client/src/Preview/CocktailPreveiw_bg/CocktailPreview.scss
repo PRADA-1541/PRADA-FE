@@ -13,7 +13,7 @@
 .recipePreviewContainer {
   color: black;
   @extend %flex-row;
-  height: 32rem;
+  height: 30rem;
   box-shadow: 0 0 30px $shadow;
   padding: 2rem 1.5rem;
   &:hover {

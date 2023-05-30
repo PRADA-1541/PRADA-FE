@@ -22,7 +22,7 @@ const Footer = () => {
           })}
         </div>
         <span>Copyright</span>
-        <div className='developer'>이건 머해야되지</div>
+        <div className='developer'>6분의 5</div>
       </div>
       <div className='guide'>
         19세 이상의 법적 음주 허용 소비자를 위한 콘텐츠입니다.

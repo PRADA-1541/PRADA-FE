@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 export const api = axios.create({
-  // baseURL: process.env.REACT_APP_API_URL,
-  baseURL: process.env.REACT_APP_API_URL_LOCAL,
+  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.REACT_APP_API_URL_LOCAL,
 });
 
 export const auth = axios.create({
-  // baseURL: process.env.REACT_APP_API_URL,
-  baseURL: process.env.REACT_APP_API_URL_LOCAL,
+  baseURL: process.env.REACT_APP_API_URL,
+  // baseURL: process.env.REACT_APP_API_URL_LOCAL,
 });
 
 export const Auth = {
@@ -56,12 +56,13 @@ export const Recommendation = {
 export const Recipe = {
   getRecipePriorInfo: () => api.get('cocktails/priorInfoToRegister'),
   uploadImg: (directory, formData) => api.post(`upload?directory=${directory}`, formData),
-  uploadRecipe: (recipe) => api.post('users/custom-cocktail', recipe),
+  uploadRecipe: (recipe) => api.post('cocktails/custom-cocktail', recipe),
   getRecipeList: (isCustom, cursor, pageSize, orderBy) =>
     api.get(`cocktails/${isCustom}?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}`),
   getFavoriteRecipeList: (cursor, pageSize, orderBy) =>
     api.get(`cocktails/favorite?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
   getRecipe: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}`),
+  editRecipe: (cocktailIdx, recipe) => api.put(`custom-cocktail/${cocktailIdx}`, recipe),
   deleteRecipe: (cocktailIdx) => api.delete(`custom-cocktail/${cocktailIdx}`),
   updateReadCount: (cocktailIdx) =>
     api.put(`cocktails/detail/readLogics`, {
@@ -100,24 +101,24 @@ export const Search = {
 };
 
 export const Refrigerator = {
-  getRefrigeratorList: () => api.get('users/refrigerator?userIdx=5'),
+  getRefrigeratorList: () => api.get('refrigerator?userIdx=5'),
   createRefrigerator: (refrigeratorName, isMain) =>
-    api.post('users/refrigerator?userIdx=5', {
+    api.post('refrigerator?userIdx=5', {
       refrigeratorName,
       isMain,
     }),
-  deleteRefrigerator: (refrigeratorIdx) => api.delete(`users/refrigerator/${refrigeratorIdx}`),
+  deleteRefrigerator: (refrigeratorIdx) => api.delete(`refrigerator/${refrigeratorIdx}`),
   changeRefrigeratorName: (refrigeratorIdx, refrigeratorName) =>
-    api.patch(`users/refrigerator/${refrigeratorIdx}`, {
+    api.patch(`refrigerator/${refrigeratorIdx}`, {
       refrigeratorName,
     }),
-  changeMainRefrigerator: (refrigeratorIdx) => api.patch(`users/refrigerator/${refrigeratorIdx}/main?userIdx=5`),
-  getRefrigerator: (refrigeratorIdx) => api.get(`users/refrigerator/${refrigeratorIdx}/ingredient`),
+  changeMainRefrigerator: (refrigeratorIdx) => api.patch(`refrigerator/${refrigeratorIdx}/main?userIdx=5`),
+  getRefrigerator: (refrigeratorIdx) => api.get(`refrigerator/${refrigeratorIdx}/ingredient`),
   getIngredientList: () => api.get('ingredients'),
   addIngredient: (refrigeratorIdx, ingredientIdx) =>
-    api.post(`users/refrigerator/${refrigeratorIdx}/ingredient/${ingredientIdx}`),
+    api.post(`refrigerator/${refrigeratorIdx}/ingredient/${ingredientIdx}`),
   deleteIngredient: (refrigeratorIdx, ingredientIdx) =>
-    api.delete(`users/refrigerator/${refrigeratorIdx}/ingredient/${ingredientIdx}`),
+    api.delete(`refrigerator/${refrigeratorIdx}/ingredient/${ingredientIdx}`),
 };
 
 export const MyPosting = {

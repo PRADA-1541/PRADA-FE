@@ -13,6 +13,7 @@ const NewIngredient = ({
   setIngredientObject,
   newIngredient,
   setNewIngredient,
+  ingredientCategoryMapper,
 }) => {
   const ingredientImageRef = useRef();
   const [newIngredientTemp, setNewIngredientTemp] = useRecoilState(newIngredientAtom);
@@ -80,8 +81,10 @@ const NewIngredient = ({
       <div className='categoryContainer'>
         {categoryList.map((item, idx) => (
           <span
-            className={newIngredientTemp.category === idx ? 'selectedCategory' : 'ingredientCategory'}
-            onClick={() => setNewIngredientTemp({ ...newIngredientTemp, category: idx })}
+            className={
+              newIngredientTemp.category === ingredientCategoryMapper[item] ? 'selectedCategory' : 'ingredientCategory'
+            }
+            onClick={() => setNewIngredientTemp({ ...newIngredientTemp, category: ingredientCategoryMapper[item] })}
             key={idx}
           >
             {item}
@@ -145,6 +148,7 @@ NewIngredient.propTypes = {
   setIngredientObject: PropTypes.func.isRequired,
   newIngredient: PropTypes.bool.isRequired,
   setNewIngredient: PropTypes.func.isRequired,
+  ingredientCategoryMapper: PropTypes.object.isRequired,
 };
 
 export default NewIngredient;

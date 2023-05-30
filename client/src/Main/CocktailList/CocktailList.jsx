@@ -48,6 +48,7 @@ const CocktailList = ({ category, data }) => {
         cocktailIdx={cocktail.cocktailIdx}
         imageURL={cocktail.cocktailImage}
         name={cocktail.cocktailName}
+        korName={cocktail.cocktailKorName}
         evaluation={cocktail.averageRating}
       />
     ));

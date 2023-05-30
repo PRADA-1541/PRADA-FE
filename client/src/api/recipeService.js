@@ -1,11 +1,22 @@
 import { Recipe } from './api';
 
-export const GetRecipePriorInfo = async (setKeywordsList, setUnitList, setIngredientList) => {
+export const GetRecipePriorInfo = async (
+  setKeywordsList,
+  setCategoryList,
+  setIngredientList,
+  setIngredientCategoryMapper
+) => {
   try {
     const res = await Recipe.getRecipePriorInfo();
     const { Keyword, IngredientCategory, Ingredient } = res.data.result;
     setKeywordsList(Keyword);
-    setUnitList(IngredientCategory);
+    setCategoryList(IngredientCategory.map((category) => category.ingredientCategory));
+    setIngredientCategoryMapper(
+      IngredientCategory.reduce((acc, cur) => {
+        acc[cur.ingredientCategory] = cur.ingredientCategoryIdx;
+        return acc;
+      }, {})
+    );
     setIngredientList(Ingredient);
     return true;
   } catch (error) {
@@ -81,6 +92,18 @@ export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStar
     return true;
   } catch (error) {
     console.log(error);
+    return false;
+  }
+};
+
+export const EditRecipe = async (cocktailIdx, recipe) => {
+  try {
+    const res = await Recipe.editRecipe(cocktailIdx, recipe);
+    if (res) return true;
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
+    }
     return false;
   }
 };

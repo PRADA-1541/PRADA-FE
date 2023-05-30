@@ -84,7 +84,9 @@ export const CocktailInfo = ({
           {(location.pathname !== '/' || cocktailIdx) && (
             <>
               {isMobile && cocktailIdx && <h3>재료</h3>}
-              {!cocktailIdx && <MaterialBox type='재료' ingredients={ingredients} />}
+              {(!cocktailIdx || isMobile || !location.pathname.startsWith('/cocktail/')) && (
+                <MaterialBox type='재료' ingredients={ingredients} />
+              )}
             </>
           )}
           {!isMobile && keywords && <MaterialBox type='키워드' keywords={keywords} />}
