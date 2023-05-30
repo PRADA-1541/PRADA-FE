@@ -95,6 +95,22 @@
 }
 
 .cocktailDetail {
+  h2 {
+    @extend %flex-row;
+    align-items: flex-end;
+
+    span {
+      margin: {
+        bottom: 0.2rem;
+        left: 0.4rem;
+      }
+      font: {
+        style: italic;
+        size: 1.4rem;
+      }
+      color: $text-deep-gray;
+    }
+  }
   @include mobile {
     padding: 0 1.5rem;
     h2 {

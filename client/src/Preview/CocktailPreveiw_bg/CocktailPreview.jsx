@@ -68,7 +68,7 @@ export const CocktailInfo = ({
         <div className='cocktailDetail'>
           <h2>
             {korName}
-            <span style={{ fontStyle: 'italic' }}>({name})</span>
+            <span>{name}</span>
             {cocktailIdx &&
               (isFavorite ? (
                 <AiFillStar className='favoriteStar' onClick={() => updateFavorite(false)} />
