@@ -2,13 +2,21 @@ import React from 'react';
 import './RefrigeratorIngredient.scss';
 import PropTypes from 'prop-types';
 import defaultImage from '../../../assets/images/defaultImage.png';
+import { useNavigate } from 'react-router-dom';
 
 const RefrigeratorIngredient = ({ ingredients, editState, deleteIngredient }) => {
+  const navigate = useNavigate();
+
+  const search = (e, ingredient) => {
+    e.preventDefault();
+    navigate(`/search/${ingredient.ingredientName}/${ingredient.ingredientIdx}`);
+  };
+
   return ingredients.map((ingredient) => (
     <div
-      className={editState ? 'ingredientInRefrigeratorEditting' : 'ingredientInRefrigerator'}
+      className='ingredientInRefrigerator'
       key={ingredient.ingredientIdx}
-      onClick={editState ? () => deleteIngredient(ingredient) : () => {}}
+      onClick={editState ? () => deleteIngredient(ingredient) : (e) => search(e, ingredient)}
     >
       <img
         src={
