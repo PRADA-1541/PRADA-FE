@@ -8,10 +8,10 @@
   span {
     padding-bottom: 1rem;
   }
-  &Editting {
-    @extend .ingredientInRefrigerator;
-    cursor: pointer;
-  }
+  cursor: pointer;
+  // &Editting {
+  //   @extend .ingredientInRefrigerator;
+  // }
 }
 
 .ingredientNameInRefrigerator {

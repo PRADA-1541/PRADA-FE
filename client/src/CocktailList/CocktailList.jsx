@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CocktailList.scss';
 import { useParams, useNavigate } from 'react-router-dom';
 // import data from '../assets/data/cocktails.json';
+import defaultImg from '../assets/images/defaultImage.png';
 import CocktailPreview from '../Preview/CocktailPreveiw_bg/CocktailPreview';
 import { SlArrowDown } from 'react-icons/sl';
 import DropDown from '../Material/DropDown/DropDown';
@@ -12,10 +13,10 @@ export const RecipeList = ({ recipeList }) => {
     <CocktailPreview
       key={cocktail.cocktailIdx}
       cocktailIdx={cocktail.cocktailIdx}
-      korName={cocktail.cocktailName}
+      korName={cocktail.cocktailKorName}
       name={cocktail.cocktailName}
       // imageURL={cocktail.cocktailImage}
-      imageURL={process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage}
+      imageURL={cocktail.cocktailImage ? process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage : defaultImg}
       content={cocktail.cocktailDescription}
       // keywords={cocktail.cocktailKeyword}
       keywords={cocktail.cocktailKeyword.split(', ')}

@@ -25,3 +25,17 @@ export const newIngredientAtom = atom({
     imagePreview: '',
   },
 });
+
+export const cocktailRecipeAtom = atom({
+  key: 'cocktailRecipeAtom',
+  default: {
+    cocktailIdx: 0,
+    cocktailName: '',
+    cocktailKorName: '',
+    cocktailDescription: '',
+    keywords: [],
+    cocktailImage: '',
+    ingredients: [],
+    cocktailDirection: '',
+  },
+});

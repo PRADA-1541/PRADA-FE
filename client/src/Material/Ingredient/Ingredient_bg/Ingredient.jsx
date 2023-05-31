@@ -26,10 +26,8 @@ const Ingredient = ({ ingredient }) => {
         alt={ingredient.ingredientName}
       />
       <div className='ingredientNameAndVolume_bg prevent-overflow'>
-        <p>
-          {ingredient.ingredientName}
-          <span className='ingredientCategory_bg'>{ingredient.ingredientCategory}</span>
-        </p>
+        <p>{ingredient.ingredientName}</p>
+        <span className='ingredientCategory_bg'>{ingredient.ingredientCategory}</span>
         {ingredient.ingredientVolume && (
           <div style={{ position: 'relative' }}>
             <span>
