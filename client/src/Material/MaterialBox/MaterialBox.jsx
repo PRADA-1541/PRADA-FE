@@ -42,7 +42,13 @@ const MaterialBox = ({ type, ingredients, keywords }) => {
 
   const IngredientsMobile = () => {
     if (!ingredients) return null;
-    return ingredients.map((ingredient) => <Ingredient_sm key={ingredient.ingredientIdx} ingredient={ingredient} />);
+    return (
+      <div className='ingredients'>
+        {ingredients.map((ingredient) => (
+          <Ingredient_sm key={ingredient.ingredientIdx} ingredient={ingredient} />
+        ))}
+      </div>
+    );
   };
 
   const Keywords = () => {

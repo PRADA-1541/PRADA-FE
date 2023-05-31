@@ -36,11 +36,13 @@
 
 .search {
   top: 4rem;
-  right: 10rem;
+  right: 8%;
   width: 15rem;
 
   @include mobile {
+    top: 4rem;
     right: 1rem;
+    width: 12rem;
   }
 }
 
