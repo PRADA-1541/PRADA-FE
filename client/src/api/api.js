@@ -27,9 +27,15 @@ export const Auth = {
       }
     ),
   refresh: (token) =>
-    auth.post('users/refresh-token/verify', {
-      token: token,
-    }),
+    auth.post(
+      'users/refresh-token/verify',
+      {},
+      {
+        headers: {
+          'x-access-token': token,
+        },
+      }
+    ),
   sendKakaoToken: (kakaoToken) =>
     auth.post('users/kakao/signin', {
       kakaoToken: kakaoToken,
@@ -43,7 +49,7 @@ export const Auth = {
 };
 
 export const UserApi = {
-  getUserInfo: () => api.get('users/userInfo'),
+  getUserInfo: () => api.get('users'),
 };
 
 export const Recommendation = {
@@ -59,8 +65,10 @@ export const Recipe = {
   uploadRecipe: (recipe) => api.post('cocktails/custom-cocktail', recipe),
   getRecipeList: (isCustom, cursor, pageSize, orderBy) =>
     api.get(`cocktails/${isCustom}?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}`),
+  // getFavoriteRecipeList: (cursor, pageSize, orderBy) =>
+  //   api.get(`cocktails/favorite?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
   getFavoriteRecipeList: (cursor, pageSize, orderBy) =>
-    api.get(`cocktails/favorite?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
+    api.get(`cocktails/favorite?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}`),
   getRecipe: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}`),
   editRecipe: (cocktailIdx, recipe) => api.put(`custom-cocktail/${cocktailIdx}`, recipe),
   deleteRecipe: (cocktailIdx) => api.delete(`custom-cocktail/${cocktailIdx}`),

@@ -2,14 +2,14 @@ import { atom } from 'recoil';
 
 export const isSignedInAtom = atom({
   key: 'isSignedInAtom',
-  default: true,
+  default: false,
 });
 
 export const userInfoAtom = atom({
   key: 'userInfoAtom',
   default: {
-    userIdx: 5,
-    nickname: '김준하',
+    userIdx: 0,
+    nickname: '',
     email: '',
     profileImage: '',
   },

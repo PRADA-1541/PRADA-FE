@@ -62,12 +62,20 @@ const RecipeForm = () => {
       setCocktailKorName(cocktailRecipe.cocktailKorName);
       setCocktailDescription(cocktailRecipe.cocktailDescription);
       setCheckedKeywords(cocktailRecipe.keywords);
-      setImagePreview(process.env.REACT_APP_IMG_BASE_URL + cocktailRecipe.cocktailImage);
-      setIngredients(cocktailRecipe.ingredients);
+      setImagePreview(
+        cocktailRecipe.cocktailImage ? process.env.REACT_APP_IMG_BASE_URL + cocktailRecipe.cocktailImage : null
+      );
+      setIngredients(
+        cocktailRecipe.ingredients.map((ingredient) =>
+          ingredient.ingredientIdx
+            ? ingredient
+            : { ...ingredient, ingredientCategoryIdx: ingredientCategoryMapper[ingredient.ingredientCategory] }
+        )
+      );
       setIngredientsNum(cocktailRecipe.ingredients.length + 1);
       setDirections(cocktailRecipe.cocktailDirection);
     }
-  }, [location.pathname]);
+  }, [location.pathname, cocktailRecipe, ingredientCategoryMapper]);
 
   const unitList = ['ml', 'dash', 'teaspoon', 'drops', 'gram', '개', 'slice', 'peel', 'leaves'];
 
