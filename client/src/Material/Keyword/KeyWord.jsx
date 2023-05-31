@@ -7,16 +7,21 @@ const KeyWord = ({ keyword, onClick, isChecked }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const isInForm = (location.pathname === '/cocktail/new') | location.pathname.startsWith('/cocktail/edit');
+
   const search = (e) => {
     e.preventDefault();
     navigate(`/search/${keyword}`);
   };
 
   return (
-    <div className={isChecked ? 'keywordContainer-checked' : 'keywordContainer'} onClick={onClick}>
-      <span className='hashtag'>#</span>
+    <div
+      className={isChecked ? 'keywordContainer-checked' : isInForm ? 'keywordContainer' : 'keywordContainer-italic'}
+      onClick={onClick}
+    >
+      <span className={isInForm ? 'hashtag' : 'hashtag-italic'}>#</span>
       <span
-        className='keyword'
+        className={isInForm ? 'keyword' : 'keyword-italic'}
         onClick={
           (location.pathname === '/cocktail/new') | location.pathname.startsWith('/cocktail/edit') ? null : search
         }

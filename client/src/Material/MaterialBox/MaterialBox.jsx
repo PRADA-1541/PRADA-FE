@@ -21,15 +21,23 @@ const MaterialBox = ({ type, ingredients, keywords }) => {
 
   const Ingredients = () => {
     if (!ingredients) return null;
-    return ingredients
-      .filter((item, idx) => {
-        if (currentSlide === 0) {
-          return idx < 5;
-        } else {
-          return idx >= currentSlide * 5 && idx < (currentSlide + 1) * 5;
-        }
-      })
-      .map((ingredient) => <Ingredient_sm key={ingredient.ingredientIdx} ingredient={ingredient} />);
+    return (
+      <div className='ingredients'>
+        {ingredients
+          .filter((item, idx) => {
+            if (currentSlide === 0) {
+              return idx < 6;
+            } else if (currentSlide === parseInt((ingredients.length - 1) / 6)) {
+              return idx >= ingredients.length - 6;
+            } else {
+              return idx >= currentSlide * 6 && idx < (currentSlide + 1) * 6;
+            }
+          })
+          .map((ingredient) => (
+            <Ingredient_sm ingredient={ingredient} key={ingredient.ingredientIdx} />
+          ))}
+      </div>
+    );
   };
 
   const IngredientsMobile = () => {
@@ -45,14 +53,20 @@ const MaterialBox = ({ type, ingredients, keywords }) => {
   return (
     <div className='materialContainer'>
       {type === '재료' ? (
-        <div className='ingredients'>
-          {!isMobile && currentSlide !== 0 && (
-            <SlArrowLeft className='arrowLeft' onClick={(e) => slideHandler(e, 'prev')} />
-          )}
-          {!isMobile && currentSlide !== parseInt((ingredients.length - 1) / 5) && (
-            <SlArrowRight className='arrowRight' onClick={(e) => slideHandler(e, 'next')} />
+        <div className='ingredientsContainer_sm'>
+          {!isMobile && (
+            <SlArrowLeft
+              className={currentSlide === 0 ? 'disabled' : 'ingredientsArrow'}
+              onClick={currentSlide === 0 ? null : (e) => slideHandler(e, 'prev')}
+            />
           )}
           {isMobile ? <IngredientsMobile /> : <Ingredients />}
+          {!isMobile && (
+            <SlArrowRight
+              className={currentSlide === parseInt((ingredients.length - 1) / 6) ? 'disabled' : 'ingredientsArrow'}
+              onClick={currentSlide === parseInt((ingredients.length - 1) / 6) ? null : (e) => slideHandler(e, 'next')}
+            />
+          )}
         </div>
       ) : (
         <div className='keywords'>

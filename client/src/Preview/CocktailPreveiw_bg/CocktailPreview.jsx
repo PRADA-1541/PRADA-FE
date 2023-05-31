@@ -45,10 +45,10 @@ export const CocktailInfo = ({
     else
       return content
         .split(' ')
-        .filter((word, idx) => idx < 20)
+        .filter((word, idx) => idx < 35)
         .map((word, idx) => {
-          if (idx !== 19) return word + ' ';
-          if (idx >= 19) return word + ' ...';
+          if (idx !== 34) return word + ' ';
+          if (idx >= 34) return word + ' ...';
         });
   };
 
@@ -81,6 +81,8 @@ export const CocktailInfo = ({
           <p className='cocktailContent'>
             <Content />
           </p>
+        </div>
+        <div>
           {(location.pathname !== '/' || cocktailIdx) && (
             <>
               {isMobile && cocktailIdx && <h3>재료</h3>}
@@ -96,16 +98,18 @@ export const CocktailInfo = ({
               <MaterialBox type='키워드' keywords={keywords} />
             </>
           )}
-        </div>
-        {isMobile && !cocktailIdx && <hr />}
-        <div className='eval'>
-          <EvalStars />
-          {halfStar && (
-            <div className='halfStar'>
-              <AiFillStar />
+          {isMobile && !cocktailIdx && <hr />}
+          <div className='evalBox'>
+            <div className='eval'>
+              <EvalStars />
+              {halfStar && (
+                <div className='halfStar'>
+                  <AiFillStar />
+                </div>
+              )}
+              <p>{evaluation}</p>
             </div>
-          )}
-          <p>{evaluation}</p>
+          </div>
         </div>
       </div>
     </div>

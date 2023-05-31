@@ -15,10 +15,8 @@ export const RecipeList = ({ recipeList }) => {
       cocktailIdx={cocktail.cocktailIdx}
       korName={cocktail.cocktailKorName}
       name={cocktail.cocktailName}
-      // imageURL={cocktail.cocktailImage}
       imageURL={cocktail.cocktailImage ? process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage : defaultImg}
       content={cocktail.cocktailDescription}
-      // keywords={cocktail.cocktailKeyword}
       keywords={cocktail.cocktailKeyword.split(', ')}
       evaluation={cocktail.averageRating}
       ingredients={cocktail.ingredientInfo}

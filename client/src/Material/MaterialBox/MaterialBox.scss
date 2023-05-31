@@ -2,7 +2,7 @@
 @import '../../styles/variables.scss';
 
 .materialContainer {
-  margin: 2rem 0;
+  margin: 1.5rem 0;
   h1 {
     font-size: 18px;
     color: $text-deep-gray;
@@ -17,25 +17,28 @@
 @mixin materialBox {
   @extend %flex-row;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  align-items: center;
+}
+
+.ingredientsContainer_sm {
+  @include materialBox;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.ingredientsArrow {
+  color: black;
+  font-size: large;
+  cursor: pointer;
+}
+.disabled {
+  color: $text-lighter-gray;
+  cursor: default;
 }
 
 .ingredients {
   @include materialBox;
-  position: relative;
-  margin-left: 2.5rem;
-  width: 27rem;
-  svg {
-    top: 2rem;
-    font-size: x-large;
-  }
-  .arrowLeft {
-    left: -1.5rem;
-  }
-  .arrowRight {
-    right: -1.5rem;
-  }
-
+  width: 92%;
   @include mobile {
     flex-wrap: nowrap;
     margin: 0;
