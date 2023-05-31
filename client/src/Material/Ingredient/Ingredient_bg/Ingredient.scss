@@ -41,7 +41,7 @@
 .ingredientNameAndVolume_bg {
   p {
     margin: 0;
-    margin-bottom: 0.5rem;
+    // margin-bottom: 0.5rem;
     font-weight: 500;
   }
   span {
@@ -49,7 +49,6 @@
     color: $text-deep-gray;
   }
   .ingredientCategory_bg {
-    margin-left: 0.2rem;
     font-size: 0.65rem;
     color: $primary;
   }

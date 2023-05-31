@@ -3,25 +3,26 @@ import './RecipeForm.scss';
 // import ingredientList from '../../assets/data/ingredients.json';
 import PropTypes from 'prop-types';
 import { useMediaQuery } from 'react-responsive';
-import { newIngredientAtom } from '../../recoil/atom';
-import { useResetRecoilState } from 'recoil';
+import { cocktailRecipeAtom, newIngredientAtom } from '../../recoil/atom';
+import { useRecoilValue, useResetRecoilState } from 'recoil';
 import KeyWord from '../../Material/Keyword/KeyWord';
 import DropDown from '../../Material/DropDown/DropDown';
 import Search from '../../Material/Search/Search';
 import useScrollMove from '../../hooks/useScrollMove';
 import NewIngredient from './NewIngredient/NewIngredient';
 import ImagePreview from '../../Material/ImagePreview/ImagePreview';
-import { GetRecipePriorInfo, UploadRecipe } from '../../api/recipeService';
-import { UploadImg } from '../../api/recipeService';
-import { useNavigate } from 'react-router-dom';
+import { GetRecipePriorInfo, UploadRecipe, UploadImg, EditRecipe } from '../../api/recipeService';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const RecipeForm = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isFirst, setIsFirst] = useState(true);
 
   const [cocktailName, setCocktailName] = useState('');
+  const [cocktailKorName, setCocktailKorName] = useState('');
   const [cocktailDescription, setCocktailDescription] = useState('');
   const [checkedKeywords, setCheckedKeywords] = useState([]);
   const [imagePreview, setImagePreview] = useState(null);
@@ -42,14 +43,31 @@ const RecipeForm = () => {
 
   const [keywordsList, setKeywordsList] = useState({});
   const [ingredientCategory, setIngredientCategory] = useState([]);
+  const [ingredientCategoryMapper, setIngredientCategoryMapper] = useState({});
   const [ingredientList, setIngredientList] = useState([]);
+
+  const cocktailRecipe = useRecoilValue(cocktailRecipeAtom);
+  const resetRecipeAtom = useResetRecoilState(cocktailRecipeAtom);
 
   const resetNewIngredientAtom = useResetRecoilState(newIngredientAtom);
   const scrollToTop = useScrollMove('top');
 
   useEffect(() => {
-    GetRecipePriorInfo(setKeywordsList, setIngredientCategory, setIngredientList);
+    GetRecipePriorInfo(setKeywordsList, setIngredientCategory, setIngredientList, setIngredientCategoryMapper);
   }, []);
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/cocktail/edit')) {
+      setCocktailName(cocktailRecipe.cocktailName);
+      setCocktailKorName(cocktailRecipe.cocktailKorName);
+      setCocktailDescription(cocktailRecipe.cocktailDescription);
+      setCheckedKeywords(cocktailRecipe.keywords);
+      setImagePreview(process.env.REACT_APP_IMG_BASE_URL + cocktailRecipe.cocktailImage);
+      setIngredients(cocktailRecipe.ingredients);
+      setIngredientsNum(cocktailRecipe.ingredients.length + 1);
+      setDirections(cocktailRecipe.cocktailDirection);
+    }
+  }, [location.pathname]);
 
   const unitList = ['ml', 'dash', 'teaspoon', 'drops', 'gram', '개', 'slice', 'peel', 'leaves'];
 
@@ -88,8 +106,13 @@ const RecipeForm = () => {
   };
 
   const submitRecipe = async () => {
-    if (cocktailName === '') {
+    if (cocktailKorName === '') {
       alert('칵테일 이름을 입력해주세요.');
+      setIsFirst(true);
+      return;
+    }
+    if (cocktailName === '') {
+      alert('칵테일 영어 이름을 입력해주세요.');
       setIsFirst(true);
       return;
     }
@@ -112,7 +135,7 @@ const RecipeForm = () => {
       return;
     }
 
-    let imgUrl = '';
+    let imgUrl = cocktailRecipe.cocktailImage;
     if (imageFile) {
       const formData = new FormData();
       formData.append('image', imageFile);
@@ -125,21 +148,31 @@ const RecipeForm = () => {
 
     const recipe = {};
     recipe.cocktailName = cocktailName;
+    recipe.cocktailKorName = cocktailKorName;
     recipe.cocktailDescription = cocktailDescription;
-    recipe.cocktailKeyword = checkedKeywords.join(' ');
+    recipe.cocktailKeyword = checkedKeywords.join(', ');
     recipe.cocktailImage = imgUrl === '' ? null : imgUrl;
-    recipe.ingredients = ingredients.filter((item) => !item.ingredientCategoryIdx);
-    recipe.customIngredients = ingredients.filter((item) => item.ingredientCategoryIdx);
+    recipe.ingredients = ingredients.filter((item) => item.ingredientIdx);
+    recipe.customIngredients = ingredients.filter((item) => !item.ingredientIdx);
     recipe.cocktailDirection = directions;
-    recipe.userIdx = 102;
+    recipe.userIdx = 5;
 
-    const response = await UploadRecipe(recipe);
-    if (response) {
-      alert('레시피가 등록되었습니다.');
-      navigate('/');
+    if (location.pathname.startsWith('/cocktail/edit')) {
+      const response = await EditRecipe(cocktailRecipe.cocktailIdx, recipe);
+      if (response) {
+        alert('레시피가 수정되었습니다.');
+        resetRecipeAtom();
+        navigate(`/cocktail/${cocktailRecipe.cocktailIdx}`);
+      }
     } else {
-      alert('레시피 등록에 실패했습니다.');
-      return;
+      const response = await UploadRecipe(recipe);
+      if (response) {
+        alert('레시피가 등록되었습니다.');
+        navigate('/myPosting');
+      } else {
+        alert('레시피 등록에 실패했습니다.');
+        return;
+      }
     }
   };
 
@@ -263,6 +296,7 @@ const RecipeForm = () => {
                     setIngredientObject={setIngredientObject}
                     newIngredient={newIngredient}
                     setNewIngredient={setNewIngredient}
+                    ingredientCategoryMapper={ingredientCategoryMapper}
                   />
                 </>
               )}
@@ -331,9 +365,20 @@ const RecipeForm = () => {
           <>
             <h2>1. 칵테일 정보</h2>
             <div className='cocktailFormInfo'>
-              {/* TODO: 한국 이름, 영어 이름 등록 */}
-              <label htmlFor='cocktailFormName'>
+              <label htmlFor='cocktailFormKorName'>
                 <Required /> 칵테일 이름
+              </label>
+              <input
+                value={cocktailKorName}
+                onChange={(e) => setCocktailKorName(e.target.value)}
+                type='text'
+                id='cocktailFormKorName'
+                className='cocktailFormName'
+                required
+              />
+              <br />
+              <label htmlFor='cocktailFormName'>
+                <Required /> 칵테일 영어 이름
               </label>
               <input
                 value={cocktailName}

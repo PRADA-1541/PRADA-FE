@@ -84,8 +84,9 @@ const App = () => {
             <Route path='/signup/:email' element={<UserInfo />} />
             <Route path='/cocktails/:category' element={<CocktailList />} />
             <Route path='/cocktail'>
-              <Route path=':cocktailIdx' element={<CocktailRecpie />} />
               <Route path='new' element={<RecipeForm />} />
+              <Route path='edit/:cocktailIdx' element={<RecipeForm />} />
+              <Route path=':cocktailIdx' element={<CocktailRecpie />} />
             </Route>
             <Route path='/refrigerator'>
               <Route path='list' element={<Refrigerators />} />

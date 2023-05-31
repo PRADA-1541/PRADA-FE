@@ -84,7 +84,6 @@ const Main = () => {
             ? process.env.REACT_APP_IMG_BASE_URL + todayRecommendedCocktail.cocktailImage
             : null
         }
-        // imageURL={testImage}
         keywords={todayRecommendedCocktail.cocktailKeyword.split(', ')}
         evaluation={todayRecommendedCocktail.averageRating}
       />
