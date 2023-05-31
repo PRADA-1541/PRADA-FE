@@ -36,7 +36,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
             className='profileImg'
             src={
               isSignedIn
-                ? process.env.REACT_APP_IMG_BASE_URL + userInfo.profileImage === ''
+                ? userInfo.profileImage === ''
                   ? defaultImage
                   : process.env.REACT_APP_IMG_BASE_URL + userInfo.profileImage
                 : defaultImage
