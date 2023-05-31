@@ -17,6 +17,7 @@
 @mixin materialBox {
   @extend %flex-row;
   flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .ingredients {
