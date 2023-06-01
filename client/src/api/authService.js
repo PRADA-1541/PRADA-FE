@@ -1,11 +1,11 @@
 import { api, Auth, UserApi } from './api';
 import jwt_decode from 'jwt-decode';
 
-export const GetKaKaoToken = async (token, setUserInfo, refreshToken, setCookie, setIsSignedIn, navigate) => {
+export const GetKaKaoToken = async (token, setUserInfo, refreshToken, setCookie, navigate) => {
   try {
     const res = await Auth.getKaKaoToken(token);
     const accessToken = res.data.access_token;
-    SendKakaoToken(accessToken, setUserInfo, refreshToken, setCookie, setIsSignedIn, navigate);
+    SendKakaoToken(accessToken, setUserInfo, refreshToken, setCookie, navigate);
   } catch (error) {
     console.log(error);
     return false;
@@ -36,7 +36,7 @@ export const TokenConfig = async (token) => {
   return userInfo;
 };
 
-export const refresh = async (refreshToken, setUserInfo, setSignInState) => {
+export const refresh = async (refreshToken, setUserInfo) => {
   try {
     const res = await Auth.refresh(refreshToken);
     const token = res.data.result;
@@ -46,7 +46,7 @@ export const refresh = async (refreshToken, setUserInfo, setSignInState) => {
       return false;
     }
     setUserInfo(userInfo);
-    authInterceptor(refreshToken, setUserInfo, setSignInState);
+    authInterceptor(refreshToken, setUserInfo);
     return token;
   } catch (error) {
     if (error.response.data && error.response.data.message) {
@@ -58,18 +58,15 @@ export const refresh = async (refreshToken, setUserInfo, setSignInState) => {
   }
 };
 
-export const authInterceptor = (refreshToken, setUserInfo, setIsSignedIn) => {
+export const authInterceptor = (refreshToken, setUserInfo) => {
   api.interceptors.request.use(
     async (config) => {
       const timestamp = new Date().getTime() / 1000;
-      // const refreshToken = cookies['refresh-token'];
-      // console.log(refreshToken);
       const exp = sessionStorage.getItem('token_exp');
       if (exp) {
         if (parseInt(exp) - timestamp < 10) {
-          const token = await refresh(refreshToken, setUserInfo, setIsSignedIn);
+          const token = await refresh(refreshToken, setUserInfo);
           if (token) {
-            setIsSignedIn(true);
             config.headers = {
               'x-access-token': token,
             };
@@ -111,6 +108,7 @@ export const SendKakaoToken = async (kakaoToken, setUserInfo, setCookie, setIsSi
       return false;
     }
     setUserInfo(userInfo);
+    setIsSignedIn(true);
     const refreshToken = res.data.result.refreshToken;
     const decoded_refresh = jwt_decode(refreshToken);
     const exp = new Date(decoded_refresh.exp * 1000);
@@ -121,7 +119,7 @@ export const SendKakaoToken = async (kakaoToken, setUserInfo, setCookie, setIsSi
       expires: exp,
     });
     navigate('/');
-    authInterceptor(refreshToken, setUserInfo, setIsSignedIn);
+    authInterceptor(refreshToken, setUserInfo);
     return true;
   } catch (error) {
     if (error.response.status === 302) {
@@ -147,7 +145,7 @@ export const NicknameValid = async (nickname) => {
   }
 };
 
-export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie, setIsSignedIn) => {
+export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie) => {
   try {
     const res = await Auth.signup(email, nickname, profileImg);
     const token = res.data.result.accessToken;
@@ -158,7 +156,6 @@ export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie
       return false;
     }
     setUserInfo(userInfo);
-    setIsSignedIn(true);
     const decoded_refresh = jwt_decode(res.data.result.refreshToken);
     const exp = new Date(decoded_refresh.exp * 1000);
     setCookie('refresh-token', res.data.result.refreshToken, {
@@ -167,7 +164,7 @@ export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie
       sameSite: 'none',
       expires: exp,
     });
-    authInterceptor(res.data.result.refreshToken, setUserInfo, setIsSignedIn);
+    authInterceptor(res.data.result.refreshToken, setUserInfo);
     return true;
   } catch (error) {
     console.log(error);

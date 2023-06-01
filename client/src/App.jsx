@@ -57,7 +57,7 @@ const App = () => {
   useEffect(() => {
     async function Refresh() {
       try {
-        if (await refresh(cookies['refresh-token'], setUserInfo, setIsSignedIn)) {
+        if (await refresh(cookies['refresh-token'], setUserInfo)) {
           setIsSignedIn(true);
         } else {
           sessionStorage.removeItem('token_exp');

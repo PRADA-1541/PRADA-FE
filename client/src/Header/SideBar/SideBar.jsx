@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultImage from '../../assets/images/defaultImage.png';
 import useClickState from '../../hooks/useClickState';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { userInfoAtom, isSignedInAtom } from '../../recoil/atom';
 import { HiMenuAlt2 } from 'react-icons/hi';
+import { useCookies } from 'react-cookie';
 
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_SIGNIN_REDIRECT;
@@ -16,8 +17,9 @@ const KAKAO_LOGIN_API = `https://kauth.kakao.com/oauth/authorize?client_id=${RES
 const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const [ref, handleClickOutside] = useClickState(setIsMenuOpen);
-  const isSignedIn = useRecoilValue(isSignedInAtom);
+  const [isSignedIn, setIsSignedIn] = useRecoilState(isSignedInAtom);
   const userInfo = useRecoilValue(userInfoAtom);
+  const [, , removeCookie] = useCookies(['refresh-token']);
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -25,6 +27,12 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [ref]);
+
+  const logout = () => {
+    setIsSignedIn(false);
+    setIsMenuOpen(false);
+    removeCookie('refresh-token');
+  };
 
   return (
     <>
@@ -36,7 +44,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
             className='profileImg'
             src={
               isSignedIn
-                ? userInfo.profileImage === ''
+                ? userInfo.profileImage
                   ? defaultImage
                   : process.env.REACT_APP_IMG_BASE_URL + userInfo.profileImage
                 : defaultImage
@@ -82,7 +90,9 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
         </ul>
         {isSignedIn && (
           <div className='logoutContainer'>
-            <button className='logout'>로그아웃</button>
+            <button className='logout' onClick={logout}>
+              로그아웃
+            </button>
           </div>
         )}
       </div>
