@@ -3,7 +3,7 @@ import './SideBar.scss';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import defaultImage from '../../assets/images/defaultImage.png';
+import defaultProfile from '../../assets/images/defaultProfile.png';
 import useClickState from '../../hooks/useClickState';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { userInfoAtom, isSignedInAtom } from '../../recoil/atom';
@@ -42,13 +42,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
         <div className='profile'>
           <img
             className='profileImg'
-            src={
-              isSignedIn
-                ? userInfo.profileImage
-                  ? defaultImage
-                  : process.env.REACT_APP_IMG_BASE_URL + userInfo.profileImage
-                : defaultImage
-            }
+            src={userInfo.profileImage ? process.env.REACT_APP_IMG_BASE_URL + userInfo.profileImage : defaultProfile}
             alt='profile Image'
           />
           {isSignedIn ? (
@@ -82,7 +76,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
               <Link to='/myPosting'>
                 <li>내가 작성한 글/평점</li>
               </Link>
-              <Link>
+              <Link to='/user-info'>
                 <li>내 프로필 관리</li>
               </Link>
             </>
