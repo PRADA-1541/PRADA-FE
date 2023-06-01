@@ -3,7 +3,10 @@
 
 .previewContainer {
   @extend %flex-column;
+  justify-content: space-between;
   align-items: center;
+  height: 17rem;
+  width: 12rem;
   color: black;
   @extend %box-shadow;
   &:hover {
@@ -46,8 +49,20 @@
   object-fit: scale-up;
 }
 
+.cocktailInfoContainer_sm {
+  @extend %flex-column;
+  @extend %center;
+  margin-bottom: 0.5rem;
+}
+
 .cocktailKorName {
   margin-bottom: 0;
+  padding: 0 0.5rem;
+  width: 100%;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   @include mobile {
     font-size: small;
@@ -70,7 +85,6 @@
   @extend %flex-row;
   align-items: center;
   margin: 0;
-  margin-bottom: 0.5rem;
 
   @include mobile {
     font-size: x-small;

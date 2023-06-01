@@ -15,12 +15,14 @@ const CocktailPreview = ({ cocktailIdx, imageURL, name, korName, evaluation }) =
           className={imageURL ? 'previewImg' : 'altImg'}
         />
       </div>
-      <p className='cocktailKorName'>{korName}</p>
-      <p className='cocktailName'>{name}</p>
-      <p className='cocktailEval'>
-        <AiFillStar className='evalStar' />
-        {evaluation}
-      </p>
+      <div className='cocktailInfoContainer_sm'>
+        <p className='cocktailKorName'>{korName}</p>
+        <p className='cocktailName'>{name}</p>
+        <p className='cocktailEval'>
+          <AiFillStar className='evalStar' />
+          {evaluation}
+        </p>
+      </div>
     </Link>
   );
 };

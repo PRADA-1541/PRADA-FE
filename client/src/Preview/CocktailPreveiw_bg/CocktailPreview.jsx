@@ -41,7 +41,7 @@ export const CocktailInfo = ({
   }, [evaluation]);
 
   const Content = () => {
-    if (cocktailIdx) return content;
+    if (cocktailIdx | (location.pathname === '/')) return content;
     else
       return content
         .split(' ')
