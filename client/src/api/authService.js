@@ -16,9 +16,10 @@ export const GetUserInfo = async () => {
   try {
     const res = await UserApi.getUserInfo();
     const userInfo = {
+      userIdx: res.data.result.userIdx,
       nickname: res.data.result.nickname,
       email: res.data.result.email,
-      profileImage: res.data.result.profile,
+      profileImage: res.data.result.profile ?? null,
     };
     return userInfo;
   } catch (error) {
@@ -169,10 +170,9 @@ export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie
     authInterceptor(res.data.result.refreshToken, setUserInfo, setIsSignedIn);
     return true;
   } catch (error) {
-    if (error.response.data && error.response.data.message) {
-      alert(error.response.data.message);
-    } else {
-      console.log(error);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) alert(error.response.data.message);
     }
   }
 };
@@ -191,8 +191,8 @@ export const ModifyUserInfo = async (nickname, profileImg, setUserInfo) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data && error.response.data.message) {
-      alert(error.response.data.message);
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
     } else {
       console.log(error);
     }

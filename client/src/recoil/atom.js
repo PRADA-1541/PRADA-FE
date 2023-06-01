@@ -11,7 +11,7 @@ export const userInfoAtom = atom({
     userIdx: 0,
     nickname: '',
     email: '',
-    profileImage: '',
+    profileImage: null,
   },
 });
 

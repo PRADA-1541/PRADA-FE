@@ -17,7 +17,7 @@ const UserInfo = () => {
   const [inputState, setInputState] = useState(false);
   const navigate = useNavigate();
 
-  const [cookies, setCookie] = useCookies(['refresh-token']);
+  const [, setCookie] = useCookies(['refresh-token']);
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const setIsSignedIn = useSetRecoilState(isSignedInAtom);
   const profileImgRef = useRef();
@@ -75,15 +75,7 @@ const UserInfo = () => {
     const nickname = nicknameRef.current.value;
 
     if (email) {
-      const res = await signUp(
-        email,
-        nickname,
-        imgUrl === '' ? null : imgUrl,
-        setUserInfo,
-        cookies,
-        setCookie,
-        setIsSignedIn
-      );
+      const res = await signUp(email, nickname, imgUrl === '' ? null : imgUrl, setUserInfo, setCookie, setIsSignedIn);
       if (res) navigate('/');
     } else {
       const res = await ModifyUserInfo(nickname, imgUrl, setUserInfo);
@@ -113,7 +105,13 @@ const UserInfo = () => {
       >
         <div className='profileImgEnroll'>
           <img
-            src={profileImgPreview ? process.env.REACT_APP_IMG_BASE_URL + profileImgPreview : defaultProfile}
+            src={
+              profileImgPreview
+                ? email
+                  ? profileImgPreview
+                  : process.env.REACT_APP_IMG_BASE_URL + profileImgPreview
+                : defaultProfile
+            }
             alt='profile'
           />
           {profileImgPreview && inputState && <TiDelete className='deleteBtn' onClick={deleteImage} />}
