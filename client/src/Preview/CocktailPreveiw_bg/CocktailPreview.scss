@@ -24,7 +24,8 @@
   @include mobile {
     flex-direction: column;
     height: 100%;
-    padding: 0 0 2.5rem 0;
+    padding: 0;
+    padding-bottom: 0.6rem;
     border-radius: $border-radius-bg;
   }
 }

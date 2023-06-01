@@ -33,7 +33,8 @@ div#root {
   width: 55rem;
 
   @include mobile {
-    margin: 4rem 0;
+    margin: 4rem auto;
+    padding: 0;
     width: 20rem;
   }
 }
