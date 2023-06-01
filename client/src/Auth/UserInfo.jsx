@@ -110,11 +110,9 @@ const UserInfo = () => {
         <div className='profileImgEnroll'>
           <img
             src={
-              profileImgPreview
-                ? email
-                  ? process.env.REACT_APP_IMG_BASE_URL + profileImgPreview
-                  : profileImgPreview
-                : defaultProfile
+              userInfo.profileImage
+                ? process.env.REACT_APP_IMG_BASE_URL + profileImgPreview
+                : profileImgPreview ?? defaultProfile
             }
             alt='profile'
           />
