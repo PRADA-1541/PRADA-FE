@@ -176,3 +176,25 @@ export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie
     }
   }
 };
+
+export const ModifyUserInfo = async (nickname, profileImg, setUserInfo) => {
+  try {
+    const res = await UserApi.modifyUserInfo(nickname, profileImg);
+    if (res) {
+      const userInfo = await GetUserInfo();
+      if (userInfo === false) {
+        alert('다시 로그인해주세요.');
+        return false;
+      }
+      setUserInfo(userInfo);
+      alert('정보가 수정되었습니다.');
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data && error.response.data.message) {
+      alert(error.response.data.message);
+    } else {
+      console.log(error);
+    }
+  }
+};

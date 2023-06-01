@@ -51,6 +51,7 @@ export const Auth = {
 
 export const UserApi = {
   getUserInfo: () => api.get('users'),
+  modifyUserInfo: (nickname, profile) => api.put('users', { nickname, profile, userIdx: 5 }),
 };
 
 export const Recommendation = {

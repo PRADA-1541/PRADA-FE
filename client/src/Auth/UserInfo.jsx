@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import './SignUp.scss';
 import defaultProfile from '../assets/images/defaultProfile.png';
 import { useNavigate, useParams } from 'react-router-dom';
-import { NicknameValid } from '../api/authService';
+import { ModifyUserInfo, NicknameValid } from '../api/authService';
 import { signUp } from '../api/authService';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 import { userInfoAtom, isSignedInAtom } from '../recoil/atom';
@@ -64,6 +64,7 @@ const UserInfo = () => {
     if (!validation) return alert('닉네임 중복확인을 해주세요.');
 
     let imgUrl = '';
+    if (!email) imgUrl = userInfo.profileImage;
     if (profileImg) {
       const formData = new FormData();
       formData.append('image', profileImg);
@@ -72,16 +73,25 @@ const UserInfo = () => {
     }
 
     const nickname = nicknameRef.current.value;
-    const res = await signUp(
-      email,
-      nickname,
-      imgUrl === '' ? null : imgUrl,
-      setUserInfo,
-      cookies,
-      setCookie,
-      setIsSignedIn
-    );
-    if (res) navigate('/');
+
+    if (email) {
+      const res = await signUp(
+        email,
+        nickname,
+        imgUrl === '' ? null : imgUrl,
+        setUserInfo,
+        cookies,
+        setCookie,
+        setIsSignedIn
+      );
+      if (res) navigate('/');
+    } else {
+      const res = await ModifyUserInfo(nickname, imgUrl, setUserInfo);
+      if (res) {
+        setInputState(false);
+        navigate('/');
+      }
+    }
   };
 
   const cancel = () => {
@@ -102,8 +112,11 @@ const UserInfo = () => {
         }}
       >
         <div className='profileImgEnroll'>
-          <img src={profileImgPreview ?? defaultProfile} alt='profile' />
-          {profileImgPreview && <TiDelete className='deleteBtn' onClick={deleteImage} />}
+          <img
+            src={profileImgPreview ? process.env.REACT_APP_IMG_BASE_URL + profileImgPreview : defaultProfile}
+            alt='profile'
+          />
+          {profileImgPreview && inputState && <TiDelete className='deleteBtn' onClick={deleteImage} />}
         </div>
       </label>
       <input
