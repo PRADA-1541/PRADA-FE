@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import './Main.scss';
 import CocktailPreview from '../Preview/CocktailPreveiw_bg/CocktailPreview';
 import CocktailList from './CocktailList/CocktailList';
-// import data from '../assets/data/cocktails.json';
 import {
   GetHotCocktail,
   GetMainSortedList,
@@ -11,13 +10,8 @@ import {
 } from '../api/recommendation';
 import { useRecoilValue } from 'recoil';
 import { isSignedInAtom } from '../recoil/atom';
-// import testImage from '../assets/images/pngwing.com-2 (1).png';
-// import testImage from '../assets/images/pngwing.com-5.png';
-// import testImage from '../assets/images/pngwing.com-6.png';
 
 const Main = () => {
-  // const { cocktailIdx, cocktailName, cocktailDescription, cocktailImage, cocktailKeyword } = data[0];
-  // const { cocktailIdx, cocktailName, cocktailDescription, cocktailKeyword } = data[0];
   const [todayRecommendedCocktail, setTodayRecommendedCocktail] = useState({
     cocktailIdx: 0,
     cocktailName: '',
@@ -45,7 +39,7 @@ const Main = () => {
       GetTodayRecommendedCocktail(1, setTodayRecommendedCocktail);
       RecommendedCocktail(setRecommendedCocktailList, shuffle);
     }
-  }, []);
+  }, [isSignedIn]);
 
   const shuffle = (array) => {
     for (let index = array.length - 1; index > 0; index--) {

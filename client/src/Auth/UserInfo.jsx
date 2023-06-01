@@ -4,8 +4,8 @@ import defaultProfile from '../assets/images/defaultProfile.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ModifyUserInfo, NicknameValid } from '../api/authService';
 import { signUp } from '../api/authService';
-import { useRecoilState, useSetRecoilState } from 'recoil';
-import { userInfoAtom, isSignedInAtom } from '../recoil/atom';
+import { useRecoilState } from 'recoil';
+import { userInfoAtom } from '../recoil/atom';
 import { useCookies } from 'react-cookie';
 import { TiDelete } from 'react-icons/ti';
 import { UploadImg } from '../api/recipeService';
@@ -19,7 +19,6 @@ const UserInfo = () => {
 
   const [, setCookie] = useCookies(['refresh-token']);
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
-  const setIsSignedIn = useSetRecoilState(isSignedInAtom);
   const profileImgRef = useRef();
   const [profileImg, setProfileImg] = useState(null);
   const [profileImgPreview, setProfileImgPreview] = useState(null);
@@ -75,7 +74,7 @@ const UserInfo = () => {
     const nickname = nicknameRef.current.value;
 
     if (email) {
-      const res = await signUp(email, nickname, imgUrl === '' ? null : imgUrl, setUserInfo, setCookie, setIsSignedIn);
+      const res = await signUp(email, nickname, imgUrl === '' ? null : imgUrl, setUserInfo, setCookie);
       if (res) navigate('/');
     } else {
       const res = await ModifyUserInfo(nickname, imgUrl, setUserInfo);
