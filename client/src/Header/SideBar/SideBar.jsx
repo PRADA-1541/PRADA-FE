@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import defaultProfile from '../../assets/images/defaultProfile.png';
 import useClickState from '../../hooks/useClickState';
-import { useRecoilValue, useRecoilState } from 'recoil';
+import { useRecoilValue, useRecoilState, useResetRecoilState } from 'recoil';
 import { userInfoAtom, isSignedInAtom } from '../../recoil/atom';
 import { HiMenuAlt2 } from 'react-icons/hi';
 import { useCookies } from 'react-cookie';
@@ -19,6 +19,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
   const [ref, handleClickOutside] = useClickState(setIsMenuOpen);
   const [isSignedIn, setIsSignedIn] = useRecoilState(isSignedInAtom);
   const userInfo = useRecoilValue(userInfoAtom);
+  const resetUserInfo = useResetRecoilState(userInfoAtom);
   const [, , removeCookie] = useCookies(['refresh-token']);
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
     setIsSignedIn(false);
     setIsMenuOpen(false);
     removeCookie('refresh-token');
+    resetUserInfo();
   };
 
   return (

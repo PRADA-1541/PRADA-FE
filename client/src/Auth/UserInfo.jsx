@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './SignUp.scss';
+import './UserInfo.scss';
 import defaultProfile from '../assets/images/defaultProfile.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ModifyUserInfo, NicknameValid } from '../api/authService';
@@ -30,7 +30,7 @@ const UserInfo = () => {
       nicknameRef.current.value = userInfo.nickname;
       setProfileImgPreview(userInfo.profileImage);
     }
-  }, [email]);
+  }, [email, userInfo]);
 
   const handleFile = (e) => {
     const file = e.target.files[0];
@@ -60,7 +60,12 @@ const UserInfo = () => {
 
   const userInfoSubmit = async () => {
     if (nicknameRef.current.value === '') return alert('닉네임을 입력해주세요.');
-    if (!validation) return alert('닉네임 중복확인을 해주세요.');
+    if (!validation) {
+      if (email) return alert('닉네임 중복확인을 해주세요.');
+      else {
+        if (nicknameRef.current.value !== userInfo.nickname) return alert('닉네임 중복확인을 해주세요.');
+      }
+    }
 
     let imgUrl = '';
     if (!email) imgUrl = userInfo.profileImage;
@@ -107,8 +112,8 @@ const UserInfo = () => {
             src={
               profileImgPreview
                 ? email
-                  ? profileImgPreview
-                  : process.env.REACT_APP_IMG_BASE_URL + profileImgPreview
+                  ? process.env.REACT_APP_IMG_BASE_URL + profileImgPreview
+                  : profileImgPreview
                 : defaultProfile
             }
             alt='profile'
