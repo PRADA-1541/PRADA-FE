@@ -83,6 +83,7 @@
 
   @include mobile {
     width: 100%;
+    padding: 0 1.5rem;
   }
 }
 
@@ -94,7 +95,7 @@
       size: 1.6rem;
       weight: bolder;
     }
-    margin: 0;
+    margin: 1.5rem 0 0 0;
 
     span {
       margin: {
@@ -115,7 +116,6 @@
     }
   }
   @include mobile {
-    padding: 0 1.5rem;
     h2 {
       font-size: 1.2rem;
     }

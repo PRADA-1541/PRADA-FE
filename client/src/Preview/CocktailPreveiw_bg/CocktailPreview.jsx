@@ -41,7 +41,7 @@ export const CocktailInfo = ({
   }, [evaluation]);
 
   const Content = () => {
-    if (cocktailIdx | (location.pathname === '/')) return content;
+    if (cocktailIdx | (location.pathname === '/') | isMobile) return content;
     else
       return content
         .split(' ')
@@ -92,13 +92,13 @@ export const CocktailInfo = ({
             </>
           )}
           {!isMobile && keywords && <MaterialBox type='키워드' keywords={keywords} />}
-          {isMobile && keywords && cocktailIdx && (
+          {isMobile && keywords && (
             <>
-              <h3>키워드</h3>
+              {cocktailIdx && <h3>키워드</h3>}
               <MaterialBox type='키워드' keywords={keywords} />
             </>
           )}
-          {isMobile && !cocktailIdx && <hr />}
+          {/* {isMobile && !cocktailIdx && <hr />} */}
           <div className='evalBox'>
             <div className='eval'>
               <EvalStars />
