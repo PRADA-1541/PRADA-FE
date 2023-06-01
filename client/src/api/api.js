@@ -38,18 +38,20 @@ export const Auth = {
     ),
   sendKakaoToken: (kakaoToken) =>
     auth.post('users/kakao/signin', {
-      kakaoToken: kakaoToken,
+      kakaoToken,
     }),
   nicknameValid: (nickname) => auth.get(`users/nickname-valid?nickname=${nickname}`),
-  signup: (email, nickname) =>
+  signup: (email, nickname, profile) =>
     auth.post('users/signup', {
-      email: email,
-      nickname: nickname,
+      email,
+      nickname,
+      profile,
     }),
 };
 
 export const UserApi = {
   getUserInfo: () => api.get('users'),
+  modifyUserInfo: (nickname, profile) => api.put('users', { nickname, profile, userIdx: 5 }),
 };
 
 export const Recommendation = {

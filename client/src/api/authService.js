@@ -16,9 +16,10 @@ export const GetUserInfo = async () => {
   try {
     const res = await UserApi.getUserInfo();
     const userInfo = {
+      userIdx: res.data.result.userIdx,
       nickname: res.data.result.nickname,
       email: res.data.result.email,
-      // profileImage: res.data.result.profileImage,
+      profileImage: res.data.result.profile ?? null,
     };
     return userInfo;
   } catch (error) {
@@ -146,9 +147,9 @@ export const NicknameValid = async (nickname) => {
   }
 };
 
-export const signUp = async (email, nickname, setUserInfo, setCookie, setIsSignedIn) => {
+export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie, setIsSignedIn) => {
   try {
-    const res = await Auth.signup(email, nickname);
+    const res = await Auth.signup(email, nickname, profileImg);
     const token = res.data.result.accessToken;
     alert('회원가입이 완료되었습니다.');
     const userInfo = await TokenConfig(token);
@@ -169,8 +170,29 @@ export const signUp = async (email, nickname, setUserInfo, setCookie, setIsSigne
     authInterceptor(res.data.result.refreshToken, setUserInfo, setIsSignedIn);
     return true;
   } catch (error) {
-    if (error.response.data && error.response.data.message) {
-      alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) alert(error.response.data.message);
+    }
+  }
+};
+
+export const ModifyUserInfo = async (nickname, profileImg, setUserInfo) => {
+  try {
+    const res = await UserApi.modifyUserInfo(nickname, profileImg);
+    if (res) {
+      const userInfo = await GetUserInfo();
+      if (userInfo === false) {
+        alert('다시 로그인해주세요.');
+        return false;
+      }
+      setUserInfo(userInfo);
+      alert('정보가 수정되었습니다.');
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) alert(error.response.data.message);
     } else {
       console.log(error);
     }

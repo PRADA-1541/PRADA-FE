@@ -20,12 +20,12 @@ import RecipeForm from './Recipe/RecipeForm/RecipeForm';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import { isSignedInAtom, userInfoAtom } from './recoil/atom';
-import SignUp from './Auth/SignUp';
 import Refrigerators from './Refrigerator/Refrigerators/Refrigerators';
 import Refrigerator from './Refrigerator/Refrigerator/Refrigerator';
 import SearchList from './SearchList/SearchList';
 import MyPosting from './MyPosting/MyPosting';
 import SignIn from './Auth/SignIn';
+import UserInfo from './Auth/UserInfo';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -81,7 +81,7 @@ const App = () => {
           <SentryRoutes>
             <Route path='/' element={<Main />} />
             <Route path='/signin' element={<SignIn />} />
-            <Route path='/signup/:email' element={<SignUp />} />
+            <Route path='/signup/:email' element={<UserInfo />} />
             <Route path='/cocktails/:category' element={<CocktailList />} />
             <Route path='/cocktail'>
               <Route path='new' element={<RecipeForm />} />
@@ -97,6 +97,7 @@ const App = () => {
               <Route path=':searchWord' element={<SearchList />} />
             </Route>
             <Route path='/myPosting' element={<MyPosting />} />
+            <Route path='/user-info' element={<UserInfo />} />
           </SentryRoutes>
         </main>
         <Footer />
