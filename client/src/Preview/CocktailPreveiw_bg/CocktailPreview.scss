@@ -24,7 +24,8 @@
   @include mobile {
     flex-direction: column;
     height: 100%;
-    padding: 0 0 2.5rem 0;
+    padding: 0;
+    padding-bottom: 0.6rem;
     border-radius: $border-radius-bg;
   }
 }
@@ -71,18 +72,9 @@
 }
 
 .cocktailInfo {
-  position: relative;
+  @extend %flex-column;
+  justify-content: space-between;
   width: 32rem;
-  h2 {
-    @extend %flex-row;
-    align-items: center;
-    top: 0;
-    font: {
-      size: 36px;
-      weight: 500;
-    }
-    margin-bottom: 0;
-  }
   hr {
     background-color: black;
     height: 0.1rem;
@@ -98,16 +90,21 @@
   h2 {
     @extend %flex-row;
     align-items: flex-end;
-    font-size: 1.5rem;
+    font: {
+      size: 1.6rem;
+      weight: bolder;
+    }
+    margin: 0;
 
     span {
       margin: {
-        bottom: 0.2rem;
+        bottom: 0.1rem;
         left: 0.4rem;
       }
       font: {
         style: italic;
-        size: 1.1rem;
+        size: 1.2rem;
+        weight: bolder;
       }
       color: $text-deep-gray;
 
@@ -165,14 +162,18 @@
   }
 }
 
+.evalBox {
+  @extend %flex-row;
+  justify-content: right;
+  margin-right: 0.4rem;
+}
 .eval {
-  position: absolute;
   @extend %flex-row;
   align-items: center;
+  width: fit-content;
   border: solid;
   border-width: 1px;
-  padding: 0.2rem 0.6rem;
-  right: 0.4rem;
+  padding: 0.1rem 0.4rem;
   p {
     padding-left: 0.5rem;
     margin: 0;
