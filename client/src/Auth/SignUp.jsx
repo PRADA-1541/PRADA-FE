@@ -32,7 +32,6 @@ const SignUp = () => {
     if (nicknameRef.current.value === '') return alert('닉네임을 입력해주세요.');
     if (!validation) return alert('닉네임 중복확인을 해주세요.');
     const nickname = nicknameRef.current.value;
-    // console.log(email, nickname);
     const res = await signUp(email, nickname, setUserInfo, cookies, setCookie, setIsSignedIn);
     if (res) navigate('/');
   };

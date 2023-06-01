@@ -43,7 +43,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
             }
             alt='profile Image'
           />
-          {isSignedIn !== '' ? (
+          {isSignedIn ? (
             <span className='profileName'>{userInfo.nickname}</span>
           ) : (
             <Link className='login' to={KAKAO_LOGIN_API}>

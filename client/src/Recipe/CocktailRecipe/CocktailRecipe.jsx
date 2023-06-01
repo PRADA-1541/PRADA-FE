@@ -201,7 +201,7 @@ const CocktailRecipe = () => {
           cocktailIdx={cocktail.cocktailIdx}
           korName={cocktail.cocktailKorName}
           name={cocktail.cocktailName}
-          imageURL={process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage}
+          imageURL={cocktail.cocktailImage ? process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage : null}
           content={cocktail.cocktailDescription}
           keywords={cocktail.keywords}
           evaluation={cocktail.averageRating}

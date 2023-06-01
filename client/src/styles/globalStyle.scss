@@ -15,7 +15,6 @@
 div#root {
   position: absolute;
   @extend %flex-column;
-  align-items: center;
   flex-wrap: wrap;
   top: 0px;
   left: 0px;
@@ -24,11 +23,18 @@ div#root {
 }
 
 .AppContainer {
-  margin: 3rem 0;
+  margin: auto;
+  margin: {
+    top: 7rem;
+    bottom: 3rem;
+  }
+  padding: 0 3rem;
+  box-sizing: content-box;
   width: 55rem;
 
   @include mobile {
-    margin: 0;
+    margin: 4rem auto;
+    padding: 0;
     width: 20rem;
   }
 }

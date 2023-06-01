@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './styles/globalStyle.scss';
 import {
   Routes,
@@ -10,16 +10,16 @@ import {
   matchRoutes,
 } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
-// import { useSetRecoilState } from 'recoil';
-// import { useCookies } from 'react-cookie';
-// import { refresh } from './api/authService';
+import { useSetRecoilState } from 'recoil';
+import { useCookies } from 'react-cookie';
+import { refresh } from './api/authService';
 import Main from './Main/Main';
 import CocktailList from './CocktailList/CocktailList';
 import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
 import RecipeForm from './Recipe/RecipeForm/RecipeForm';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-// import { isSignedInAtom, userInfoAtom } from './recoil/atom';
+import { isSignedInAtom, userInfoAtom } from './recoil/atom';
 import Refrigerators from './Refrigerator/Refrigerators/Refrigerators';
 import Refrigerator from './Refrigerator/Refrigerator/Refrigerator';
 import SearchList from './SearchList/SearchList';
@@ -50,28 +50,28 @@ Sentry.init({
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 
 const App = () => {
-  // const [cookies] = useCookies(['refresh-token']);
-  // const setUserInfo = useSetRecoilState(userInfoAtom);
-  // const setIsSignedIn = useSetRecoilState(isSignedInAtom);
+  const [cookies] = useCookies(['refresh-token']);
+  const setUserInfo = useSetRecoilState(userInfoAtom);
+  const setIsSignedIn = useSetRecoilState(isSignedInAtom);
 
-  // useEffect(() => {
-  //   async function Refresh() {
-  //     try {
-  //       if (await refresh(cookies['refresh-token'], setUserInfo, setIsSignedIn)) {
-  //         setIsSignedIn(true);
-  //       } else {
-  //         sessionStorage.removeItem('token_exp');
-  //       }
-  //     } catch (err) {
-  //       sessionStorage.removeItem('token_exp');
-  //     }
-  //   }
-  //   if (cookies['refresh-token']) {
-  //     Refresh();
-  //   } else {
-  //     sessionStorage.removeItem('token_exp');
-  //   }
-  // }, []);
+  useEffect(() => {
+    async function Refresh() {
+      try {
+        if (await refresh(cookies['refresh-token'], setUserInfo, setIsSignedIn)) {
+          setIsSignedIn(true);
+        } else {
+          sessionStorage.removeItem('token_exp');
+        }
+      } catch (err) {
+        sessionStorage.removeItem('token_exp');
+      }
+    }
+    if (cookies['refresh-token']) {
+      Refresh();
+    } else {
+      sessionStorage.removeItem('token_exp');
+    }
+  }, []);
 
   return (
     <>

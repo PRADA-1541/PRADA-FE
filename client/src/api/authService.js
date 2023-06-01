@@ -157,6 +157,7 @@ export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie
       return false;
     }
     setUserInfo(userInfo);
+    setIsSignedIn(true);
     const decoded_refresh = jwt_decode(res.data.result.refreshToken);
     const exp = new Date(decoded_refresh.exp * 1000);
     setCookie('refresh-token', res.data.result.refreshToken, {

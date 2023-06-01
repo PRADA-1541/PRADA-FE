@@ -46,3 +46,27 @@
     background-color: $light-gray-active;
   }
 }
+
+.keywordContainer-italic {
+  margin: 0.3rem 0.4rem;
+  span {
+    font: {
+      style: italic;
+      size: 0.8rem;
+    }
+  }
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+// .keyword-italic {
+//   margin-left: 0.2rem;
+//   color: $primary;
+// }
+
+.hashtag-italic {
+  margin-right: 0.2rem;
+  color: $text-keyword;
+}
