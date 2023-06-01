@@ -98,7 +98,6 @@ export const CocktailInfo = ({
               <MaterialBox type='키워드' keywords={keywords} />
             </>
           )}
-          {/* {isMobile && !cocktailIdx && <hr />} */}
           <div className='evalBox'>
             <div className='eval'>
               <EvalStars />
@@ -107,7 +106,7 @@ export const CocktailInfo = ({
                   <AiFillStar />
                 </div>
               )}
-              <p>{evaluation}</p>
+              <p>{evaluation.toFixed(1)}</p>
             </div>
           </div>
         </div>

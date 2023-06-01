@@ -25,7 +25,7 @@ import {
   UploadRating,
 } from '../../api/recipeService';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cocktailRecipeAtom, userInfoAtom } from '../../recoil/atom';
+import { cocktailRecipeAtom, isSignedInAtom, userInfoAtom } from '../../recoil/atom';
 import { useMediaQuery } from 'react-responsive';
 
 const CocktailRecipe = () => {
@@ -56,10 +56,11 @@ const CocktailRecipe = () => {
   const { userIdx } = useRecoilValue(userInfoAtom);
   const navigate = useNavigate();
   const setCocktailRecipeAtom = useSetRecoilState(cocktailRecipeAtom);
+  const isSignedIn = useRecoilValue(isSignedInAtom);
 
   useEffect(() => {
     GetRecipe(cocktailIdx, setCocktail, setRating, setEvalStars, setIsFavorite, setIngredients);
-  }, [cocktailIdx]);
+  }, [cocktailIdx, isSignedIn]);
 
   const editRecipe = () => {
     setCocktailRecipeAtom({
