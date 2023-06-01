@@ -26,16 +26,7 @@ export const Auth = {
         },
       }
     ),
-  refresh: (token) =>
-    auth.post(
-      'users/refresh-token/verify',
-      {},
-      {
-        headers: {
-          'x-access-token': token,
-        },
-      }
-    ),
+  refresh: (token) => auth.post('users/refresh-token/verify', { token }),
   sendKakaoToken: (kakaoToken) =>
     auth.post('users/kakao/signin', {
       kakaoToken,
