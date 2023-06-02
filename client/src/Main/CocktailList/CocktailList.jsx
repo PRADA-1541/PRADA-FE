@@ -33,7 +33,6 @@ const CocktailList = ({ category, data }) => {
           key={cocktail.cocktailIdx}
           cocktailIdx={cocktail.cocktailIdx}
           imageURL={cocktail.cocktailImage}
-          // imageURL={testImage}
           name={cocktail.cocktailName}
           korName={cocktail.cocktailKorName}
           evaluation={cocktail.averageRating}
@@ -48,6 +47,7 @@ const CocktailList = ({ category, data }) => {
         cocktailIdx={cocktail.cocktailIdx}
         imageURL={cocktail.cocktailImage}
         name={cocktail.cocktailName}
+        korName={cocktail.cocktailKorName}
         evaluation={cocktail.averageRating}
       />
     ));

@@ -1,8 +1,8 @@
 import { Recommendation } from './api';
 
-export const GetTodayRecommendedCocktail = async (isLogin, setTodayRecommendedCocktail) => {
+export const GetTodayRecommendedCocktail = async (setTodayRecommendedCocktail) => {
   try {
-    const res = await Recommendation.getTodayRecommendedCocktail(isLogin);
+    const res = await Recommendation.getTodayRecommendedCocktail();
     if (res) {
       setTodayRecommendedCocktail(res.data.result.cocktail[0]);
       return true;

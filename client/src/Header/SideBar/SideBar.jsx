@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import './SideBar.scss';
 import { useMediaQuery } from 'react-responsive';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import defaultImage from '../../assets/images/defaultImage.png';
+import defaultProfile from '../../assets/images/defaultProfile.png';
 import useClickState from '../../hooks/useClickState';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState, useResetRecoilState } from 'recoil';
 import { userInfoAtom, isSignedInAtom } from '../../recoil/atom';
 import { HiMenuAlt2 } from 'react-icons/hi';
+import { useCookies } from 'react-cookie';
+import { api } from '../../api/api';
 
 const REST_API_KEY = process.env.REACT_APP_REST_API_KEY;
 const REDIRECT_URI = process.env.REACT_APP_SIGNIN_REDIRECT;
@@ -16,8 +18,11 @@ const KAKAO_LOGIN_API = `https://kauth.kakao.com/oauth/authorize?client_id=${RES
 const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const [ref, handleClickOutside] = useClickState(setIsMenuOpen);
-  const isSignedIn = useRecoilValue(isSignedInAtom);
+  const [isSignedIn, setIsSignedIn] = useRecoilState(isSignedInAtom);
   const userInfo = useRecoilValue(userInfoAtom);
+  const resetUserInfo = useResetRecoilState(userInfoAtom);
+  const [, , removeCookie] = useCookies(['refresh-token']);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
@@ -25,6 +30,15 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [ref]);
+
+  const logout = () => {
+    removeCookie('refresh-token', { path: '/' });
+    resetUserInfo();
+    setIsSignedIn(false);
+    setIsMenuOpen(false);
+    delete api.defaults.headers.common['x-access-token'];
+    navigate('/');
+  };
 
   return (
     <>
@@ -34,16 +48,10 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
         <div className='profile'>
           <img
             className='profileImg'
-            src={
-              isSignedIn
-                ? process.env.REACT_APP_IMG_BASE_URL + userInfo.profileImage === ''
-                  ? defaultImage
-                  : process.env.REACT_APP_IMG_BASE_URL + userInfo.profileImage
-                : defaultImage
-            }
+            src={userInfo.profileImage ? process.env.REACT_APP_IMG_BASE_URL + userInfo.profileImage : defaultProfile}
             alt='profile Image'
           />
-          {isSignedIn !== '' ? (
+          {isSignedIn ? (
             <span className='profileName'>{userInfo.nickname}</span>
           ) : (
             <Link className='login' to={KAKAO_LOGIN_API}>
@@ -74,7 +82,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
               <Link to='/myPosting'>
                 <li>내가 작성한 글/평점</li>
               </Link>
-              <Link>
+              <Link to='/user-info'>
                 <li>내 프로필 관리</li>
               </Link>
             </>
@@ -82,7 +90,9 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
         </ul>
         {isSignedIn && (
           <div className='logoutContainer'>
-            <button className='logout'>로그아웃</button>
+            <button className='logout' onClick={logout}>
+              로그아웃
+            </button>
           </div>
         )}
       </div>

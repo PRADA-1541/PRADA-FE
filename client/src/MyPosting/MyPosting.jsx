@@ -10,70 +10,18 @@ import CocktailPreview from '../Preview/CocktailPreview_sm/CocktailPreview';
 import { SlArrowDown } from 'react-icons/sl';
 import DropDown from '../Material/DropDown/DropDown';
 import { GetMyCommentList, GetMyCustomRecipeList, GetMyEvaluationList } from '../api/myPostingService';
+import { useRecoilValue } from 'recoil';
+import { isSignedInAtom } from '../recoil/atom';
 
 const MyPosting = () => {
   const [value, setValue] = useState(0);
-
-  // const comments = [
-  //   {
-  //     id: 1,
-  //     name: '김철수',
-  //     profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-  //     date: '2021-08-01',
-  //     content: '맛있어요',
-  //     like: 3,
-  //     dislike: 2,
-  //     cocktailName: 'Alexander',
-  //   },
-  //   {
-  //     id: 2,
-  //     name: '김영희',
-  //     profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-  //     date: '2021-08-01',
-  //     content:
-  //       '맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥 맛있어요 맛없어요 그냥그래요 흥',
-  //     like: 45,
-  //     dislike: 2,
-  //     cocktailName: 'Amaretto Sour',
-  //   },
-  //   {
-  //     id: 3,
-  //     name: '김영희',
-  //     profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-  //     date: '2021-08-01',
-  //     content: '맛있어요',
-  //     like: 45,
-  //     dislike: 2,
-  //     cocktailName: 'Americano',
-  //   },
-  //   {
-  //     id: 4,
-  //     name: '김영희',
-  //     profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-  //     date: '2021-08-01',
-  //     content: '맛있어요',
-  //     like: 45,
-  //     dislike: 25,
-  //     cocktailName: 'Angel Face',
-  //   },
-  //   {
-  //     id: 5,
-  //     name: '김영희',
-  //     profile: 'https://avatars.githubusercontent.com/u/48292190?v=4',
-  //     date: '2021-08-01',
-  //     content: '맛있어요',
-  //     like: 45,
-  //     dislike: 2,
-  //     cocktailName: 'B-52',
-  //   },
-  // ];
-
   const [cursor, setCursor] = useState('');
   const [recipeList, setRecipeList] = useState([]);
   const [comments, setComments] = useState([]);
   const [cocktailList, setCocktailList] = useState([]);
   const [dropDown, setDropDown] = useState(false);
   const [sort, setSort] = useState('최근 등록순');
+  const isSignedIn = useRecoilValue(isSignedInAtom);
   const recipeSortList = ['최근 등록순', '평점순', '조회순'];
   const commentSortList = ['최근 등록순', '공감순', '비공감순'];
   const evaluationSortList = ['최근 등록순', '평점순'];
@@ -87,13 +35,15 @@ const MyPosting = () => {
   };
 
   useEffect(() => {
-    setSort(sortList[value][0]);
-    getMyPosting('', 'createdAt', []);
-  }, [value]);
+    if (isSignedIn) {
+      setSort(sortList[value][0]);
+      getMyPosting('', 'createdAt', []);
+    }
+  }, [value, isSignedIn]);
 
   useEffect(() => {
-    getMyPosting('', sortMap[sort], []);
-  }, [sort]);
+    if (isSignedIn) getMyPosting('', sortMap[sort], []);
+  }, [sort, isSignedIn]);
 
   const getMyPosting = (cursor, sort, propList) => {
     const prevList =

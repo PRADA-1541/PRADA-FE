@@ -13,16 +13,28 @@
   position: relative;
   margin-bottom: 2rem;
   width: 100%;
+
+  @include mobile {
+    margin-bottom: 1rem;
+    h1 {
+      margin: 0;
+    }
+  }
 }
 
 .cocktailContainer {
-  @extend %flex-row;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2.3rem;
   height: 17rem;
 
   @include mobile {
-    height: 10rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 0;
+    height: 11.5rem;
     overflow-y: hidden;
   }
 }

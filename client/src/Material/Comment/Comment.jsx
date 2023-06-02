@@ -127,30 +127,44 @@ const Comment = ({ comment, deleteComment }) => {
 
   const CommentMobile = () => {
     return (
-      <div className='commentContainer'>
-        <div>
-          <div className='commentProfile'>
-            <img
-              className='commentProfileImg'
-              src={comment.profileImg ? process.env.REACT_APP_IMG_BASE_URL + comment.profileImg : defaultImage}
-              alt='프로필 이미지'
-            />
-            <span>{comment.nickname}</span>
+      <>
+        <div className='commentContainer'>
+          <div>
+            <div className='commentProfile'>
+              <img
+                className='commentProfileImg'
+                src={comment.profileImg ? process.env.REACT_APP_IMG_BASE_URL + comment.profileImg : defaultImage}
+                alt='프로필 이미지'
+              />
+              <span>{comment.nickname ?? nickname}</span>
+            </div>
+            <p className='commentContent'>{comment.content}</p>
+            <p className='commentDate'>{createdAt.toString()}</p>
           </div>
-          <p className='commentContent'>{comment.content}</p>
-          <p className='commentDate'>{comment.createdAt}</p>
+          <div className='commentEval'>
+            <p className='commentLike'>
+              {likeCount}
+              {hasLike === 1 ? <AiFillLike /> : <AiOutlineLike />}
+            </p>
+            <p className='commentDislike'>
+              {dislikeCount}
+              {hasLike === -1 ? <AiFillDislike /> : <AiOutlineDislike />}
+            </p>
+          </div>
         </div>
-        <div className='commentEval'>
-          <p className='commentLike'>
-            {comment.likeCount}
-            <AiOutlineLike />
-          </p>
-          <p className='commentDislike'>
-            {comment.dislikeCount}
-            <AiOutlineDislike />
-          </p>
-        </div>
-      </div>
+        {userIdx === comment.authorId && (
+          <>
+            <div className='updateCommentBox'>
+              <span className='updateComment' onClick={() => setIsEditting(true)}>
+                수정
+              </span>
+              <span className='updateComment' onClick={() => deleteComment(comment.id)}>
+                삭제
+              </span>
+            </div>
+          </>
+        )}
+      </>
     );
   };
 

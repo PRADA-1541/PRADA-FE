@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './styles/globalStyle.scss';
 import {
   Routes,
@@ -10,23 +10,23 @@ import {
   matchRoutes,
 } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
-// import { useSetRecoilState } from 'recoil';
-// import { useCookies } from 'react-cookie';
-// import { refresh } from './api/authService';
+import { useSetRecoilState } from 'recoil';
+import { useCookies } from 'react-cookie';
+import { refresh } from './api/authService';
 import Main from './Main/Main';
 import CocktailList from './CocktailList/CocktailList';
 import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
 import RecipeForm from './Recipe/RecipeForm/RecipeForm';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-// import { isSignedInAtom, userInfoAtom } from './recoil/atom';
-import SignUp from './Auth/SignUp';
+import { isSignedInAtom, userInfoAtom } from './recoil/atom';
 import Refrigerators from './Refrigerator/Refrigerators/Refrigerators';
 import Refrigerator from './Refrigerator/Refrigerator/Refrigerator';
 import SearchList from './SearchList/SearchList';
 import MyPosting from './MyPosting/MyPosting';
 import SignIn from './Auth/SignIn';
 import Survey from './Survey/Survey';
+import UserInfo from './Auth/UserInfo';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -51,28 +51,28 @@ Sentry.init({
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 
 const App = () => {
-  // const [cookies] = useCookies(['refresh-token']);
-  // const setUserInfo = useSetRecoilState(userInfoAtom);
-  // const setIsSignedIn = useSetRecoilState(isSignedInAtom);
+  const [cookies] = useCookies(['refresh-token']);
+  const setUserInfo = useSetRecoilState(userInfoAtom);
+  const setIsSignedIn = useSetRecoilState(isSignedInAtom);
 
-  // useEffect(() => {
-  //   async function Refresh() {
-  //     try {
-  //       if (await refresh(cookies['refresh-token'], setUserInfo, setIsSignedIn)) {
-  //         setIsSignedIn(true);
-  //       } else {
-  //         sessionStorage.removeItem('token_exp');
-  //       }
-  //     } catch (err) {
-  //       sessionStorage.removeItem('token_exp');
-  //     }
-  //   }
-  //   if (cookies['refresh-token']) {
-  //     Refresh();
-  //   } else {
-  //     sessionStorage.removeItem('token_exp');
-  //   }
-  // }, []);
+  useEffect(() => {
+    async function Refresh() {
+      try {
+        if (await refresh(cookies['refresh-token'], setUserInfo)) {
+          setIsSignedIn(true);
+        } else {
+          sessionStorage.removeItem('token_exp');
+        }
+      } catch (err) {
+        sessionStorage.removeItem('token_exp');
+      }
+    }
+    if (cookies['refresh-token']) {
+      Refresh();
+    } else {
+      sessionStorage.removeItem('token_exp');
+    }
+  }, []);
 
   return (
     <>
@@ -82,12 +82,13 @@ const App = () => {
           <SentryRoutes>
             <Route path='/' element={<Main />} />
             <Route path='/signin' element={<SignIn />} />
-            <Route path='/signup/:email' element={<SignUp />} />
+            <Route path='/signup/:email' element={<UserInfo />} />
             <Route path='/survey' element={<Survey />} />
             <Route path='/cocktails/:category' element={<CocktailList />} />
             <Route path='/cocktail'>
-              <Route path=':cocktailIdx' element={<CocktailRecpie />} />
               <Route path='new' element={<RecipeForm />} />
+              <Route path='edit/:cocktailIdx' element={<RecipeForm />} />
+              <Route path=':cocktailIdx' element={<CocktailRecpie />} />
             </Route>
             <Route path='/refrigerator'>
               <Route path='list' element={<Refrigerators />} />
@@ -98,6 +99,7 @@ const App = () => {
               <Route path=':searchWord' element={<SearchList />} />
             </Route>
             <Route path='/myPosting' element={<MyPosting />} />
+            <Route path='/user-info' element={<UserInfo />} />
           </SentryRoutes>
         </main>
         <Footer />

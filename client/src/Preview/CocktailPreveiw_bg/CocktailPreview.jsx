@@ -41,14 +41,14 @@ export const CocktailInfo = ({
   }, [evaluation]);
 
   const Content = () => {
-    if (cocktailIdx) return content;
+    if (cocktailIdx | (location.pathname === '/') | isMobile) return content;
     else
       return content
         .split(' ')
-        .filter((word, idx) => idx < 20)
+        .filter((word, idx) => idx < 35)
         .map((word, idx) => {
-          if (idx !== 19) return word + ' ';
-          if (idx >= 19) return word + ' ...';
+          if (idx !== 34) return word + ' ';
+          if (idx >= 34) return word + ' ...';
         });
   };
 
@@ -68,7 +68,7 @@ export const CocktailInfo = ({
         <div className='cocktailDetail'>
           <h2>
             {korName}
-            <span style={{ fontStyle: 'italic' }}>({name})</span>
+            <span>{name}</span>
             {cocktailIdx &&
               (isFavorite ? (
                 <AiFillStar className='favoriteStar' onClick={() => updateFavorite(false)} />
@@ -81,29 +81,32 @@ export const CocktailInfo = ({
           <p className='cocktailContent'>
             <Content />
           </p>
-          {(location.pathname !== '/' || cocktailIdx) && (
-            <>
-              {isMobile && cocktailIdx && <h3>재료</h3>}
-              {!cocktailIdx && <MaterialBox type='재료' ingredients={ingredients} />}
-            </>
-          )}
+        </div>
+        <div>
+          <>
+            {isMobile && cocktailIdx && <h3>재료</h3>}
+            {(!cocktailIdx || isMobile || !location.pathname.startsWith('/cocktail/')) && (
+              <MaterialBox type='재료' ingredients={ingredients} />
+            )}
+          </>
           {!isMobile && keywords && <MaterialBox type='키워드' keywords={keywords} />}
-          {isMobile && keywords && cocktailIdx && (
+          {isMobile && keywords && (
             <>
-              <h3>키워드</h3>
+              {cocktailIdx && <h3>키워드</h3>}
               <MaterialBox type='키워드' keywords={keywords} />
             </>
           )}
-        </div>
-        {isMobile && !cocktailIdx && <hr />}
-        <div className='eval'>
-          <EvalStars />
-          {halfStar && (
-            <div className='halfStar'>
-              <AiFillStar />
+          <div className='evalBox'>
+            <div className='eval'>
+              <EvalStars />
+              {halfStar && (
+                <div className='halfStar'>
+                  <AiFillStar />
+                </div>
+              )}
+              <p>{evaluation.toFixed(1)}</p>
             </div>
-          )}
-          <p>{evaluation}</p>
+          </div>
         </div>
       </div>
     </div>

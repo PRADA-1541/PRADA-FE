@@ -2,22 +2,23 @@ import React, { useState, useEffect } from 'react';
 import './CocktailList.scss';
 import { useParams, useNavigate } from 'react-router-dom';
 // import data from '../assets/data/cocktails.json';
+import defaultImg from '../assets/images/defaultImage.png';
 import CocktailPreview from '../Preview/CocktailPreveiw_bg/CocktailPreview';
 import { SlArrowDown } from 'react-icons/sl';
 import DropDown from '../Material/DropDown/DropDown';
 import { GetFavoriteRecipeList, GetRecipeList } from '../api/recipeService';
+import { useRecoilValue } from 'recoil';
+import { isSignedInAtom } from '../recoil/atom';
 
 export const RecipeList = ({ recipeList }) => {
   return recipeList.map((cocktail) => (
     <CocktailPreview
       key={cocktail.cocktailIdx}
       cocktailIdx={cocktail.cocktailIdx}
-      korName={cocktail.cocktailName}
+      korName={cocktail.cocktailKorName}
       name={cocktail.cocktailName}
-      // imageURL={cocktail.cocktailImage}
-      imageURL={process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage}
+      imageURL={cocktail.cocktailImage ? process.env.REACT_APP_IMG_BASE_URL + cocktail.cocktailImage : defaultImg}
       content={cocktail.cocktailDescription}
-      // keywords={cocktail.cocktailKeyword}
       keywords={cocktail.cocktailKeyword.split(', ')}
       evaluation={cocktail.averageRating}
       ingredients={cocktail.ingredientInfo}
@@ -38,12 +39,19 @@ const CocktailList = () => {
     평점순: 'rating',
     조회순: 'readCount',
   };
+  const isSignedIn = useRecoilValue(isSignedInAtom);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     getCocktailList('', []);
   }, [category, sort]);
+
+  useEffect(() => {
+    if (category === 'favorite' && isSignedIn) {
+      getCocktailList('', []);
+    }
+  }, [isSignedIn]);
 
   const getCocktailList = (cursor, prevList) => {
     switch (category) {
@@ -57,7 +65,7 @@ const CocktailList = () => {
         break;
       case 'favorite':
         setCurCategory('즐겨찾기');
-        GetFavoriteRecipeList(cursor, 15, sortMap[sort], setCursor, prevList, setRecipeList);
+        if (isSignedIn) GetFavoriteRecipeList(cursor, 15, sortMap[sort], setCursor, prevList, setRecipeList);
         break;
       default:
         alert('잘못된 접근입니다.');

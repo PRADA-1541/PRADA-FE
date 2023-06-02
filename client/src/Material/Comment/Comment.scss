@@ -13,8 +13,8 @@
   @include mobile {
     flex-direction: row;
     justify-content: space-between;
-    width: 18rem;
-    padding: 1rem;
+    width: 85%;
+    padding: 0.5rem 1rem;
   }
 }
 
@@ -62,7 +62,10 @@
     border-radius: 100%;
 
     @include mobile {
-      width: 1.5rem;
+      max: {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
     }
   }
 
@@ -134,5 +137,9 @@
   &Box {
     width: 90%;
     text-align: right;
+
+    @include mobile {
+      width: 95%;
+    }
   }
 }

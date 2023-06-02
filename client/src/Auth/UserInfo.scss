@@ -21,6 +21,30 @@
   }
 }
 
+.profileImgEnroll {
+  position: relative;
+  @extend %flex-column;
+  @extend %center;
+  margin: {
+    top: 1rem;
+    bottom: 3rem;
+  }
+  height: 10rem;
+  width: 10rem;
+  background-color: $background-lighter-gray;
+  border-radius: 100%;
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+    cursor: pointer;
+  }
+
+  svg {
+    color: $primary;
+  }
+}
+
 .nickname {
   &Input {
     position: relative;
@@ -41,5 +65,21 @@
       color: $text-deep-gray;
       background: white;
     }
+  }
+}
+
+.editBtn {
+  margin: auto;
+  font-size: medium;
+  &Complete {
+    @extend .editBtn;
+    @extend %button-reverse;
+  }
+
+  &Container {
+    @extend %flex-row;
+    @extend %center;
+    margin-top: 1rem;
+    width: 35%;
   }
 }

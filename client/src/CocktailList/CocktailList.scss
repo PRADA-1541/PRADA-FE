@@ -5,7 +5,13 @@
   position: relative;
 
   @include mobile {
-    margin-top: 3rem;
+    margin-top: 3.5rem;
+    h1 {
+      font: {
+        size: larger;
+        weight: 600;
+      }
+    }
   }
 }
 
@@ -25,12 +31,25 @@
     margin-left: 0.4rem;
     font-size: small;
   }
+
+  @include mobile {
+    top: 0;
+    width: 7rem;
+    svg {
+      margin-left: 0.2rem;
+      font-size: small;
+    }
+  }
 }
 
 .curSort {
   width: 100%;
   padding: 0.2rem;
   cursor: pointer;
+
+  @include mobile {
+    font-size: medium;
+  }
 }
 
 .moreList {

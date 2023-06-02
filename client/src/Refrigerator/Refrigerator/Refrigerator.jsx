@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './Refrigerator.scss';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { refrigeratorsAtom } from '../../recoil/refrigeratorAtom';
 import { Link, useNavigate } from 'react-router-dom';
-// import ingredientList from '../../assets/data/ingredients.json';
-// import gin from '../../assets/images/ingredients/재료_진.png';
-// import strawberry from '../../assets/images/ingredients/재료_딸기.png';
-// import vodka from '../../assets/images/ingredients/재료_보드카.png';
-// import milk from '../../assets/images/ingredients/재료_우유.png';
-// import tomatoJuice from '../../assets/images/ingredients/재료_토마토주스.png';
-// import sugar from '../../assets/images/ingredients/재료_설탕.png';
 import Search from '../../Material/Search/Search';
 import RefrigeratorIngredient from '../../Material/Ingredient/RefrigeratorIngredient/RefrigeratorIngredient';
 import { useParams } from 'react-router-dom';
@@ -22,61 +15,30 @@ import {
   GetRefrigerator,
   DeleteRefrigerator,
   ChangeMainRefrigerator,
+  GetRefrigeratorList,
 } from '../../api/refrigeratorService';
+import { isSignedInAtom } from '../../recoil/atom';
 
 const Refrigerator = () => {
   const { refrigeratorIdx } = useParams();
-  // const refrigerator = {
-  //   refrigeratorIdx: 1,
-  //   refrigeratorName: '냉장고 1',
-  //   isMain: 0,
-  //   ingredients: [
-  //     {
-  //       ingredientIdx: 1,
-  //       ingredientName: 'Gin',
-  //       ingredientImage: gin,
-  //     },
-  //     {
-  //       ingredientIdx: 2,
-  //       ingredientName: 'Strawberry',
-  //       ingredientImage: strawberry,
-  //     },
-  //     {
-  //       ingredientIdx: 3,
-  //       ingredientName: 'Vodka',
-  //       ingredientImage: vodka,
-  //     },
-  //     {
-  //       ingredientIdx: 4,
-  //       ingredientName: 'Milk',
-  //       ingredientImage: milk,
-  //     },
-  //     {
-  //       ingredientIdx: 5,
-  //       ingredientName: 'Tomato Juice',
-  //       ingredientImage: tomatoJuice,
-  //     },
-  //     {
-  //       ingredientIdx: 6,
-  //       ingredientName: 'sugar',
-  //       ingredientImage: sugar,
-  //     },
-  //   ],
-  // };
 
   const [editState, setEditState] = useState(false);
   const [name, setName] = useState('');
-  const [refrigerator, setRefrigerator] = useState({});
+  const [refrigerator, setRefrigerator] = useState({
+    refrigerator: {},
+    ingredients: [],
+  });
   const [ingredientList, setIngredientList] = useState([]);
-  const refrigeratorList = useRecoilValue(refrigeratorsAtom);
+  const [refrigeratorList, setRefrigeratorList] = useRecoilState(refrigeratorsAtom);
+  const isSignedIn = useRecoilValue(isSignedInAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (refrigeratorList.length === 0) {
-      navigate('/refrigerator/list');
+    if (isSignedIn) {
+      GetRefrigeratorList(setRefrigeratorList);
+      GetRefrigerator(refrigeratorIdx, setRefrigerator);
     }
-    GetRefrigerator(refrigeratorIdx, setRefrigerator);
-  }, [refrigeratorIdx]);
+  }, [refrigeratorIdx, isSignedIn]);
 
   const changeCurrentRefrigerator = async () => {
     const result = await ChangeMainRefrigerator(refrigeratorIdx);
@@ -154,16 +116,17 @@ const Refrigerator = () => {
         )}
       </div>
       <div className='refrigerator'>
-        <div className='ingredientList'>
-          {refrigerator.ingredients ? (
+        <div className={refrigerator.ingredients.length !== 0 ? 'ingredientList' : 'emptyRefrigerator'}>
+          {(refrigerator.ingredients.length !== 0) | editState ? (
             <RefrigeratorIngredient
               ingredients={refrigerator.ingredients}
               editState={editState}
               deleteIngredient={deleteIngredient}
             />
           ) : (
-            // TODO: 냉장고에 재료가 없을 때 띄울 문구
-            <div>냉장고에 재료를 추가해주세요.</div>
+            <div className='emptyRefrigeratorText'>
+              냉장고가 비어있습니다. 우측 하단의 수정 버튼을 눌러 재료를 추가해주세요.
+            </div>
           )}
         </div>
         <div className='searchForRefrigerator'>
