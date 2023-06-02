@@ -95,7 +95,10 @@ const MyPosting = () => {
         comments.map((comment) => (
           <div className='myComment' key={comment.id}>
             <Comment comment={comment} />
-            <span>{comment.cocktailName}</span>
+            <div className='myCommentCocktailNameContainer'>
+              <span className='myCommentCocktailKorName'>{'좀비'}</span>
+              <span className='myCommentCocktailName'>{comment.cocktailName}</span>
+            </div>
           </div>
         ))
       ) : (

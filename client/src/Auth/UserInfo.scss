@@ -19,6 +19,15 @@
   input {
     width: 15rem;
   }
+
+  @include mobile {
+    width: 100%;
+    margin-top: 2rem;
+  }
+}
+
+.userInfoLogo {
+  width: 16rem;
 }
 
 .profileImgEnroll {
@@ -65,6 +74,19 @@
       color: $text-deep-gray;
       background: white;
     }
+
+    @include mobile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 0;
+      left: 15rem;
+      width: 1.5rem;
+
+      svg {
+        font-size: 1.3rem;
+      }
+    }
   }
 }
 
@@ -81,5 +103,10 @@
     @extend %center;
     margin-top: 1rem;
     width: 35%;
+
+    @include mobile {
+      margin: 0.5rem;
+      width: 42%;
+    }
   }
 }

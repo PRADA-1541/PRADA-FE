@@ -9,7 +9,6 @@ import { SlArrowDown } from 'react-icons/sl';
 import DropDown from '../Material/DropDown/DropDown';
 import { GetSearchRecipeList, GetSearchIngredientList } from '../api/search';
 import Ingredient from '../Material/Ingredient/Ingredient_bg/Ingredient';
-// import data from '../assets/data/cocktails.json';
 
 const SearchList = () => {
   const { searchWord, searchIdx } = useParams();
@@ -84,7 +83,7 @@ const SearchList = () => {
 
   const IngredientList = () => {
     return (
-      <div style={{ width: '80%', margin: 'auto' }}>
+      <div className='searchedIngredients'>
         {ingredientList.map((ingredient) => (
           <Ingredient key={ingredient.ingredientIdx} ingredient={ingredient} />
         ))}

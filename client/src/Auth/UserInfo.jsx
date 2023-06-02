@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './UserInfo.scss';
 import defaultProfile from '../assets/images/defaultProfile.png';
+import { useMediaQuery } from 'react-responsive';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ModifyUserInfo, NicknameValid } from '../api/authService';
 import { signUp } from '../api/authService';
@@ -9,8 +10,11 @@ import { isSignedInAtom, userInfoAtom } from '../recoil/atom';
 import { useCookies } from 'react-cookie';
 import { TiDelete } from 'react-icons/ti';
 import { UploadImg } from '../api/recipeService';
+import logo from '../assets/images/logo/logo_black.png';
+import { AiOutlineCheck } from 'react-icons/ai';
 
 const UserInfo = () => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const { email } = useParams();
   const nicknameRef = useRef();
   const [validation, setValidation] = useState(false);
@@ -104,7 +108,7 @@ const UserInfo = () => {
 
   return (
     <form className='signupContainer' onSubmit={(e) => e.preventDefault()}>
-      <h1>BOTTENDER</h1>
+      <img className='userInfoLogo' src={logo} />
       <label
         htmlFor='cocktailFormImage'
         onClick={(e) => {
@@ -143,7 +147,7 @@ const UserInfo = () => {
           <input type='text' id='nickname' ref={nicknameRef} disabled={!inputState} />
           {inputState && (
             <button className='nicknameValid' onClick={nicknameValid}>
-              중복확인
+              {isMobile ? <AiOutlineCheck /> : '중복확인'}
             </button>
           )}
         </div>
