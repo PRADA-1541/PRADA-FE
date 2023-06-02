@@ -3,7 +3,7 @@ import './Comment.scss';
 import { useMediaQuery } from 'react-responsive';
 import PropTypes from 'prop-types';
 import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'react-icons/ai';
-import defaultImage from '../../assets/images/defaultImage.png';
+import defaultProfile from '../../assets/images/defaultProfile.png';
 import { useRecoilValue } from 'recoil';
 import { userInfoAtom } from '../../recoil/atom';
 import CommentForm from './CommentForm/CommentForm';
@@ -12,7 +12,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 const Comment = ({ comment, deleteComment }) => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
-  const { userIdx, nickname } = useRecoilValue(userInfoAtom);
+  const { userIdx, nickname, profileImage } = useRecoilValue(userInfoAtom);
   const [isEditting, setIsEditting] = useState(false);
   const [hasLike, setHasLike] = useState(comment.hasLike);
   const [likeCount, setLikeCount] = useState(comment.likeCount);
@@ -85,11 +85,21 @@ const Comment = ({ comment, deleteComment }) => {
           onClick={pathname === '/myPosting' ? moveToRecipe : null}
         >
           <div className='commentHeader'>
-            <img
-              className='commentProfileImg'
-              src={comment.profileImg ? process.env.REACT_APP_IMG_BASE_URL + comment.profileImg : defaultImage}
-              alt='프로필 이미지'
-            />
+            {pathname === '/myPosting' ? (
+              <img
+                className='commentProfileImg'
+                src={profileImage ? process.env.REACT_APP_IMG_BASE_URL + profileImage : defaultProfile}
+                alt='프로필 이미지'
+              />
+            ) : (
+              <img
+                className='commentProfileImg'
+                src={
+                  comment.authorProfile ? process.env.REACT_APP_IMG_BASE_URL + comment.authorProfile : defaultProfile
+                }
+                alt='프로필 이미지'
+              />
+            )}
             <div className='nameAndDate'>
               <p className='commentName'>{comment.nickname ?? nickname}</p>
               <p className='commentDate'>{createdAt.toString()}</p>
@@ -133,7 +143,9 @@ const Comment = ({ comment, deleteComment }) => {
             <div className='commentProfile'>
               <img
                 className='commentProfileImg'
-                src={comment.profileImg ? process.env.REACT_APP_IMG_BASE_URL + comment.profileImg : defaultImage}
+                src={
+                  comment.authorProfile ? process.env.REACT_APP_IMG_BASE_URL + comment.authorProfile : defaultProfile
+                }
                 alt='프로필 이미지'
               />
               <span>{comment.nickname ?? nickname}</span>

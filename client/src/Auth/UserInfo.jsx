@@ -81,7 +81,10 @@ const UserInfo = () => {
 
     if (email) {
       const res = await signUp(email, nickname, imgUrl === '' ? null : imgUrl, setUserInfo, setCookie);
-      if (res) navigate('/');
+      if (res) {
+        alert('회원가입이 완료되었습니다.');
+        navigate('/survey');
+      }
     } else {
       const res = await ModifyUserInfo(nickname, imgUrl, setUserInfo);
       if (res) {

@@ -1,5 +1,21 @@
 import { Recommendation } from './api';
 
+export const UserSurvey = async (cocktails, bases) => {
+  try {
+    const res = await Recommendation.userSurvey(cocktails, bases);
+    if (res) {
+      return true;
+    }
+  } catch (error) {
+    if (error.response.data) {
+      if (error.response.data.message) {
+        alert(error.response.data.message);
+      }
+    }
+    return false;
+  }
+};
+
 export const GetTodayRecommendedCocktail = async (setTodayRecommendedCocktail) => {
   try {
     const res = await Recommendation.getTodayRecommendedCocktail();
