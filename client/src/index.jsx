@@ -5,6 +5,7 @@ import App from './App';
 import { ThemeProvider } from '@mui/material/styles';
 import { theme } from './styles/theme';
 import { CookiesProvider } from 'react-cookie';
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -12,7 +13,9 @@ root.render(
   <RecoilRoot>
     <ThemeProvider theme={theme}>
       <CookiesProvider>
-        <App />
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
       </CookiesProvider>
     </ThemeProvider>
   </RecoilRoot>

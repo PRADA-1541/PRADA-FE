@@ -36,10 +36,10 @@ export const TokenConfig = async (token) => {
   return userInfo;
 };
 
-export const refresh = async (refreshToken, setUserInfo) => {
+export const refresh = async (refreshToken, setUserInfo, navigate) => {
   try {
     const res = await Auth.refresh(refreshToken);
-    const token = res.data.result;
+    const token = res.data.result.accessToken;
     const userInfo = await TokenConfig(token);
     if (userInfo === false) {
       alert('다시 로그인해주세요.');
@@ -47,6 +47,7 @@ export const refresh = async (refreshToken, setUserInfo) => {
     }
     setUserInfo(userInfo);
     authInterceptor(refreshToken, setUserInfo);
+    if (res.data.result.didSurvey === 0) navigate('/survey');
     return token;
   } catch (error) {
     if (error.response.data && error.response.data.message) {

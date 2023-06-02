@@ -3,7 +3,7 @@ import './styles/globalStyle.scss';
 import {
   Routes,
   Route,
-  BrowserRouter,
+  useNavigate,
   useLocation,
   useNavigationType,
   createRoutesFromChildren,
@@ -54,11 +54,12 @@ const App = () => {
   const [cookies] = useCookies(['refresh-token']);
   const setUserInfo = useSetRecoilState(userInfoAtom);
   const setIsSignedIn = useSetRecoilState(isSignedInAtom);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function Refresh() {
       try {
-        if (await refresh(cookies['refresh-token'], setUserInfo)) {
+        if (await refresh(cookies['refresh-token'], setUserInfo, navigate)) {
           setIsSignedIn(true);
         } else {
           sessionStorage.removeItem('token_exp');
@@ -76,34 +77,32 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>
-        <Header />
-        <main className='AppContainer'>
-          <SentryRoutes>
-            <Route path='/' element={<Main />} />
-            <Route path='/signin' element={<SignIn />} />
-            <Route path='/signup/:email' element={<UserInfo />} />
-            <Route path='/survey' element={<Survey />} />
-            <Route path='/cocktails/:category' element={<CocktailList />} />
-            <Route path='/cocktail'>
-              <Route path='new' element={<RecipeForm />} />
-              <Route path='edit/:cocktailIdx' element={<RecipeForm />} />
-              <Route path=':cocktailIdx' element={<CocktailRecpie />} />
-            </Route>
-            <Route path='/refrigerator'>
-              <Route path='list' element={<Refrigerators />} />
-              <Route path=':refrigeratorIdx' element={<Refrigerator />} />
-            </Route>
-            <Route path='/search'>
-              <Route path=':searchWord/:searchIdx' element={<SearchList />} />
-              <Route path=':searchWord' element={<SearchList />} />
-            </Route>
-            <Route path='/myPosting' element={<MyPosting />} />
-            <Route path='/user-info' element={<UserInfo />} />
-          </SentryRoutes>
-        </main>
-        <Footer />
-      </BrowserRouter>
+      <Header />
+      <main className='AppContainer'>
+        <SentryRoutes>
+          <Route path='/' element={<Main />} />
+          <Route path='/signin' element={<SignIn />} />
+          <Route path='/signup/:email' element={<UserInfo />} />
+          <Route path='/survey' element={<Survey />} />
+          <Route path='/cocktails/:category' element={<CocktailList />} />
+          <Route path='/cocktail'>
+            <Route path='new' element={<RecipeForm />} />
+            <Route path='edit/:cocktailIdx' element={<RecipeForm />} />
+            <Route path=':cocktailIdx' element={<CocktailRecpie />} />
+          </Route>
+          <Route path='/refrigerator'>
+            <Route path='list' element={<Refrigerators />} />
+            <Route path=':refrigeratorIdx' element={<Refrigerator />} />
+          </Route>
+          <Route path='/search'>
+            <Route path=':searchWord/:searchIdx' element={<SearchList />} />
+            <Route path=':searchWord' element={<SearchList />} />
+          </Route>
+          <Route path='/myPosting' element={<MyPosting />} />
+          <Route path='/user-info' element={<UserInfo />} />
+        </SentryRoutes>
+      </main>
+      <Footer />
     </>
   );
 };
