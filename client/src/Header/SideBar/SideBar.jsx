@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import defaultProfile from '../../assets/images/defaultProfile.png';
 import useClickState from '../../hooks/useClickState';
 import { useRecoilValue, useRecoilState, useResetRecoilState } from 'recoil';
-import { userInfoAtom, isSignedInAtom } from '../../recoil/atom';
+import { userInfoAtom, isSignedInAtom, didSurveyAtom } from '../../recoil/atom';
 import { HiMenuAlt2 } from 'react-icons/hi';
 import { useCookies } from 'react-cookie';
 import { api } from '../../api/api';
@@ -21,6 +21,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
   const [isSignedIn, setIsSignedIn] = useRecoilState(isSignedInAtom);
   const userInfo = useRecoilValue(userInfoAtom);
   const resetUserInfo = useResetRecoilState(userInfoAtom);
+  const resetDidSurvey = useResetRecoilState(didSurveyAtom);
   const [, , removeCookie] = useCookies(['refresh-token']);
   const navigate = useNavigate();
 
@@ -34,6 +35,7 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
   const logout = () => {
     removeCookie('refresh-token', { path: '/' });
     resetUserInfo();
+    resetDidSurvey();
     setIsSignedIn(false);
     setIsMenuOpen(false);
     delete api.defaults.headers.common['x-access-token'];
