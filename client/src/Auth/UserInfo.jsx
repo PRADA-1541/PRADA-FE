@@ -4,8 +4,8 @@ import defaultProfile from '../assets/images/defaultProfile.png';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ModifyUserInfo, NicknameValid } from '../api/authService';
 import { signUp } from '../api/authService';
-import { useRecoilState } from 'recoil';
-import { userInfoAtom } from '../recoil/atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { isSignedInAtom, userInfoAtom } from '../recoil/atom';
 import { useCookies } from 'react-cookie';
 import { TiDelete } from 'react-icons/ti';
 import { UploadImg } from '../api/recipeService';
@@ -22,6 +22,7 @@ const UserInfo = () => {
   const profileImgRef = useRef();
   const [profileImg, setProfileImg] = useState(null);
   const [profileImgPreview, setProfileImgPreview] = useState(null);
+  const isSignedIn = useRecoilValue(isSignedInAtom);
 
   useEffect(() => {
     if (email) setInputState(true);
@@ -164,7 +165,7 @@ const UserInfo = () => {
             <button
               className='editBtn'
               onClick={() => {
-                setInputState(!inputState);
+                if (isSignedIn) setInputState(!inputState);
               }}
             >
               수정하기

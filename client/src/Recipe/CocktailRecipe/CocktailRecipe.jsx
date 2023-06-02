@@ -25,7 +25,7 @@ import {
   UploadRating,
 } from '../../api/recipeService';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { cocktailRecipeAtom, userInfoAtom } from '../../recoil/atom';
+import { cocktailRecipeAtom, isSignedInAtom, userInfoAtom } from '../../recoil/atom';
 import { useMediaQuery } from 'react-responsive';
 
 const CocktailRecipe = () => {
@@ -56,10 +56,11 @@ const CocktailRecipe = () => {
   const { userIdx } = useRecoilValue(userInfoAtom);
   const navigate = useNavigate();
   const setCocktailRecipeAtom = useSetRecoilState(cocktailRecipeAtom);
+  const isSignedIn = useRecoilValue(isSignedInAtom);
 
   useEffect(() => {
     GetRecipe(cocktailIdx, setCocktail, setRating, setEvalStars, setIsFavorite, setIngredients);
-  }, [cocktailIdx]);
+  }, [cocktailIdx, isSignedIn]);
 
   const editRecipe = () => {
     setCocktailRecipeAtom({
@@ -102,11 +103,13 @@ const CocktailRecipe = () => {
   };
 
   const updateFavorite = async (isFavorite) => {
+    if (!isSignedIn) return alert('로그인 후 이용해주세요.');
     const res = await UpdateIsFavorite(cocktailIdx, isFavorite);
     if (res) setIsFavorite(isFavorite);
   };
 
   const updateRating = async (evalStars) => {
+    if (!isSignedIn) return alert('로그인 후 이용해주세요.');
     if (rating === 0) {
       const res = await UploadRating(cocktailIdx, evalStars);
       if (res) setRating(evalStars);
@@ -125,6 +128,7 @@ const CocktailRecipe = () => {
   };
 
   const submitComment = async (comment) => {
+    if (!isSignedIn) return alert('로그인 후 이용해주세요.');
     const res = await UploadComment(cocktailIdx, comment);
     if (res) {
       setCocktail({ ...cocktail, commentCount: cocktail.commentCount + 1 });
@@ -133,6 +137,7 @@ const CocktailRecipe = () => {
   };
 
   const deleteComment = async (commentIdx) => {
+    if (!isSignedIn) return alert('로그인 후 이용해주세요.');
     if (window.confirm('댓글을 삭제하시겠습니까?')) {
       const res = await DeleteComment(commentIdx);
       if (res) {
@@ -240,7 +245,7 @@ const CocktailRecipe = () => {
             <Arrow />
           </span>
         </h2>
-        {commentVisible && <CommentForm submitComment={submitComment} />}
+        {isSignedIn && commentVisible && <CommentForm submitComment={submitComment} />}
         {commentVisible && <Comments />}
       </div>
     </div>

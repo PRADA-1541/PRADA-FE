@@ -83,14 +83,12 @@ export const CocktailInfo = ({
           </p>
         </div>
         <div>
-          {(location.pathname !== '/' || cocktailIdx) && (
-            <>
-              {isMobile && cocktailIdx && <h3>재료</h3>}
-              {(!cocktailIdx || isMobile || !location.pathname.startsWith('/cocktail/')) && (
-                <MaterialBox type='재료' ingredients={ingredients} />
-              )}
-            </>
-          )}
+          <>
+            {isMobile && cocktailIdx && <h3>재료</h3>}
+            {(!cocktailIdx || isMobile || !location.pathname.startsWith('/cocktail/')) && (
+              <MaterialBox type='재료' ingredients={ingredients} />
+            )}
+          </>
           {!isMobile && keywords && <MaterialBox type='키워드' keywords={keywords} />}
           {isMobile && keywords && (
             <>
@@ -98,7 +96,6 @@ export const CocktailInfo = ({
               <MaterialBox type='키워드' keywords={keywords} />
             </>
           )}
-          {/* {isMobile && !cocktailIdx && <hr />} */}
           <div className='evalBox'>
             <div className='eval'>
               <EvalStars />
@@ -107,7 +104,7 @@ export const CocktailInfo = ({
                   <AiFillStar />
                 </div>
               )}
-              <p>{evaluation}</p>
+              <p>{evaluation.toFixed(1)}</p>
             </div>
           </div>
         </div>

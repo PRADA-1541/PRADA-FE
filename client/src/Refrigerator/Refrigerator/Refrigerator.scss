@@ -119,3 +119,22 @@
     background-color: white;
   }
 }
+
+.emptyRefrigerator {
+  height: 15rem;
+  padding-left: 1rem;
+
+  @include mobile {
+    height: 10rem;
+    padding-left: 0;
+  }
+
+  &Text {
+    color: $text-deep-gray;
+    font-size: 1.1rem;
+
+    @include mobile {
+      font-size: 0.8rem;
+    }
+  }
+}

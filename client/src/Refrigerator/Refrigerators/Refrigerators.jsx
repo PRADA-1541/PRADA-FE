@@ -10,19 +10,21 @@ import refrigerator7 from '../../assets/images/refrigerator/refrigerator7.png';
 import refrigerator8 from '../../assets/images/refrigerator/refrigerator8.png';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import PropTypes from 'prop-types';
 import { refrigeratorsAtom } from '../../recoil/refrigeratorAtom';
 import { ChangeMainRefrigerator, CreateRefrigerator, GetRefrigeratorList } from '../../api/refrigeratorService';
+import { isSignedInAtom } from '../../recoil/atom';
 
 const Refrigerators = () => {
-  const [refrigerators, setRefrigerators] = useRecoilState(refrigeratorsAtom);
   const [refrigeratorNameInput, setRefrigeratorNameInput] = useState(false);
   const newRefrigeratorNameRef = useRef(null);
+  const [refrigerators, setRefrigerators] = useRecoilState(refrigeratorsAtom);
+  const isSignedIn = useRecoilValue(isSignedInAtom);
 
   useEffect(() => {
-    GetRefrigeratorList(setRefrigerators);
-  }, []);
+    if (isSignedIn) GetRefrigeratorList(setRefrigerators);
+  }, [isSignedIn]);
 
   const newRefrigerator = async (e) => {
     e.preventDefault();

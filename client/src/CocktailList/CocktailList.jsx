@@ -7,6 +7,8 @@ import CocktailPreview from '../Preview/CocktailPreveiw_bg/CocktailPreview';
 import { SlArrowDown } from 'react-icons/sl';
 import DropDown from '../Material/DropDown/DropDown';
 import { GetFavoriteRecipeList, GetRecipeList } from '../api/recipeService';
+import { useRecoilValue } from 'recoil';
+import { isSignedInAtom } from '../recoil/atom';
 
 export const RecipeList = ({ recipeList }) => {
   return recipeList.map((cocktail) => (
@@ -37,12 +39,19 @@ const CocktailList = () => {
     평점순: 'rating',
     조회순: 'readCount',
   };
+  const isSignedIn = useRecoilValue(isSignedInAtom);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     getCocktailList('', []);
   }, [category, sort]);
+
+  useEffect(() => {
+    if (category === 'favorite' && isSignedIn) {
+      getCocktailList('', []);
+    }
+  }, [isSignedIn]);
 
   const getCocktailList = (cursor, prevList) => {
     switch (category) {
@@ -56,7 +65,7 @@ const CocktailList = () => {
         break;
       case 'favorite':
         setCurCategory('즐겨찾기');
-        GetFavoriteRecipeList(cursor, 15, sortMap[sort], setCursor, prevList, setRecipeList);
+        if (isSignedIn) GetFavoriteRecipeList(cursor, 15, sortMap[sort], setCursor, prevList, setRecipeList);
         break;
       default:
         alert('잘못된 접근입니다.');

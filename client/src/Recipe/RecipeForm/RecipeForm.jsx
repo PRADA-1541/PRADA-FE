@@ -13,6 +13,7 @@ import NewIngredient from './NewIngredient/NewIngredient';
 import ImagePreview from '../../Material/ImagePreview/ImagePreview';
 import { GetRecipePriorInfo, UploadRecipe, UploadImg, EditRecipe } from '../../api/recipeService';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 const RecipeForm = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
@@ -49,12 +50,21 @@ const RecipeForm = () => {
   const cocktailRecipe = useRecoilValue(cocktailRecipeAtom);
   const resetRecipeAtom = useResetRecoilState(cocktailRecipeAtom);
 
+  const [cookies] = useCookies(['refresh-token']);
+
   const resetNewIngredientAtom = useResetRecoilState(newIngredientAtom);
   const scrollToTop = useScrollMove('top');
 
   useEffect(() => {
     GetRecipePriorInfo(setKeywordsList, setIngredientCategory, setIngredientList, setIngredientCategoryMapper);
   }, []);
+
+  useEffect(() => {
+    if (cookies['refresh-token'] === undefined) {
+      alert('로그인이 필요한 서비스입니다.');
+      navigate('/');
+    }
+  }, [cookies, navigate]);
 
   useEffect(() => {
     if (location.pathname.startsWith('/cocktail/edit')) {
@@ -332,9 +342,10 @@ const RecipeForm = () => {
                 <NewIngredient
                   categoryList={ingredientCategory}
                   setNewIngredientInfo={setNewIngredientInfo}
-                  setIngredienObject={setIngredientObject}
+                  setIngredientObject={setIngredientObject}
                   newIngredient={newIngredient}
                   setNewIngredient={setNewIngredient}
+                  ingredientCategoryMapper={ingredientCategoryMapper}
                 />
               </div>
             )}

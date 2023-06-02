@@ -20,7 +20,7 @@ const CocktailPreview = ({ cocktailIdx, imageURL, name, korName, evaluation }) =
         <p className='cocktailName'>{name}</p>
         <p className='cocktailEval'>
           <AiFillStar className='evalStar' />
-          {evaluation}
+          {evaluation.toFixed(1)}
         </p>
       </div>
     </Link>

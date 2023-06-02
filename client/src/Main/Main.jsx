@@ -20,6 +20,7 @@ const Main = () => {
     cocktailImage: '',
     cocktailKeyword: '',
     averageRating: 0,
+    ingredientInfo: [],
   });
   const [recommendedCocktailList, setRecommendedCocktailList] = useState([]);
   const [hotCocktailList, setHotCocktailList] = useState([]);
@@ -80,6 +81,7 @@ const Main = () => {
         }
         keywords={todayRecommendedCocktail.cocktailKeyword.split(', ')}
         evaluation={todayRecommendedCocktail.averageRating}
+        ingredients={todayRecommendedCocktail.ingredientInfo}
       />
       {isSignedIn ? (
         <Recommendation />
