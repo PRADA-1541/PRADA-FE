@@ -31,13 +31,13 @@ const Main = () => {
 
   useEffect(() => {
     if (!isSignedIn) {
-      GetTodayRecommendedCocktail(0, setTodayRecommendedCocktail);
+      GetTodayRecommendedCocktail(setTodayRecommendedCocktail);
       GetHotCocktail(setHotCocktailList, shuffle);
       GetMainSortedList(setOrderByRatingList, 'rating');
       GetMainSortedList(setOrderByViewList, 'readCount');
       GetMainSortedList(setOrderByDateList, 'createdAt');
     } else {
-      GetTodayRecommendedCocktail(1, setTodayRecommendedCocktail);
+      GetTodayRecommendedCocktail(setTodayRecommendedCocktail);
       RecommendedCocktail(setRecommendedCocktailList, shuffle);
     }
   }, [isSignedIn]);
