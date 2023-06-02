@@ -49,6 +49,7 @@ export const refresh = async (refreshToken, setUserInfo, navigate, setDidSurvey)
     authInterceptor(refreshToken, setUserInfo);
     if (res.data.result.didSurvey === 0) {
       setDidSurvey(false);
+      console.log(res.data.result.didSurvey);
       navigate('/survey');
     }
     return token;

@@ -10,7 +10,7 @@ import {
   matchRoutes,
 } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { useCookies } from 'react-cookie';
 import { refresh } from './api/authService';
 import Main from './Main/Main';
@@ -54,7 +54,7 @@ const App = () => {
   const [cookies] = useCookies(['refresh-token']);
   const setUserInfo = useSetRecoilState(userInfoAtom);
   const setIsSignedIn = useSetRecoilState(isSignedInAtom);
-  const setDidSurvey = useRecoilValue(didSurveyAtom);
+  const setDidSurvey = useSetRecoilState(didSurveyAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
