@@ -10,7 +10,7 @@ import {
   matchRoutes,
 } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { useCookies } from 'react-cookie';
 import { refresh } from './api/authService';
 import Main from './Main/Main';
@@ -19,7 +19,7 @@ import CocktailRecpie from './Recipe/CocktailRecipe/CocktailRecipe';
 import RecipeForm from './Recipe/RecipeForm/RecipeForm';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
-import { isSignedInAtom, userInfoAtom } from './recoil/atom';
+import { didSurveyAtom, isSignedInAtom, userInfoAtom } from './recoil/atom';
 import Refrigerators from './Refrigerator/Refrigerators/Refrigerators';
 import Refrigerator from './Refrigerator/Refrigerator/Refrigerator';
 import SearchList from './SearchList/SearchList';
@@ -54,12 +54,13 @@ const App = () => {
   const [cookies] = useCookies(['refresh-token']);
   const setUserInfo = useSetRecoilState(userInfoAtom);
   const setIsSignedIn = useSetRecoilState(isSignedInAtom);
+  const setDidSurvey = useRecoilValue(didSurveyAtom);
   const navigate = useNavigate();
 
   useEffect(() => {
     async function Refresh() {
       try {
-        if (await refresh(cookies['refresh-token'], setUserInfo, navigate)) {
+        if (await refresh(cookies['refresh-token'], setUserInfo, navigate, setDidSurvey)) {
           setIsSignedIn(true);
         } else {
           sessionStorage.removeItem('token_exp');

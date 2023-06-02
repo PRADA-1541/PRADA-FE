@@ -1,11 +1,11 @@
 import { api, Auth, UserApi } from './api';
 import jwt_decode from 'jwt-decode';
 
-export const GetKaKaoToken = async (token, setUserInfo, refreshToken, setCookie, navigate) => {
+export const GetKaKaoToken = async (token, setUserInfo, refreshToken, setCookie, navigate, setDidSurvey) => {
   try {
     const res = await Auth.getKaKaoToken(token);
     const accessToken = res.data.access_token;
-    SendKakaoToken(accessToken, setUserInfo, refreshToken, setCookie, navigate);
+    SendKakaoToken(accessToken, setUserInfo, refreshToken, setCookie, navigate, setDidSurvey);
   } catch (error) {
     console.log(error);
     return false;
@@ -36,7 +36,7 @@ export const TokenConfig = async (token) => {
   return userInfo;
 };
 
-export const refresh = async (refreshToken, setUserInfo, navigate) => {
+export const refresh = async (refreshToken, setUserInfo, navigate, setDidSurvey) => {
   try {
     const res = await Auth.refresh(refreshToken);
     const token = res.data.result.accessToken;
@@ -47,7 +47,10 @@ export const refresh = async (refreshToken, setUserInfo, navigate) => {
     }
     setUserInfo(userInfo);
     authInterceptor(refreshToken, setUserInfo);
-    if (res.data.result.didSurvey === 0) navigate('/survey');
+    if (res.data.result.didSurvey === 0) {
+      setDidSurvey(false);
+      navigate('/survey');
+    }
     return token;
   } catch (error) {
     if (error.response.data && error.response.data.message) {
@@ -99,7 +102,7 @@ export const authInterceptor = (refreshToken, setUserInfo) => {
   // return true;
 };
 
-export const SendKakaoToken = async (kakaoToken, setUserInfo, setCookie, setIsSignedIn, navigate) => {
+export const SendKakaoToken = async (kakaoToken, setUserInfo, setCookie, setIsSignedIn, navigate, setDidSurvey) => {
   try {
     const res = await Auth.sendKakaoToken(kakaoToken);
     const token = res.data.result.accessToken;
@@ -120,8 +123,10 @@ export const SendKakaoToken = async (kakaoToken, setUserInfo, setCookie, setIsSi
       expires: exp,
     });
     authInterceptor(refreshToken, setUserInfo);
-    if (res.data.result.didSurvey === 0) navigate('/survey');
-    else navigate('/');
+    if (res.data.result.didSurvey === 0) {
+      setDidSurvey(false);
+      navigate('/survey');
+    } else navigate('/');
     return true;
   } catch (error) {
     if (error.response.status === 302) {

@@ -5,6 +5,11 @@ export const isSignedInAtom = atom({
   default: false,
 });
 
+export const didSurveyAtom = atom({
+  key: 'didSurveyAtom',
+  default: true,
+});
+
 export const userInfoAtom = atom({
   key: 'userInfoAtom',
   default: {
