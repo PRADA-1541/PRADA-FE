@@ -118,8 +118,9 @@ export const SendKakaoToken = async (kakaoToken, setUserInfo, setCookie, setIsSi
       sameSite: 'none',
       expires: exp,
     });
-    navigate('/');
     authInterceptor(refreshToken, setUserInfo);
+    if (res.data.result.didSurvey === 0) navigate('/survey');
+    else navigate('/');
     return true;
   } catch (error) {
     if (error.response.status === 302) {

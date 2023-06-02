@@ -46,6 +46,7 @@ export const UserApi = {
 };
 
 export const Recommendation = {
+  userSurvey: (cocktails, bases) => api.post('recommend/survey', { cocktails, bases }),
   getTodayRecommendedCocktail: () => api.get(`/todaysRecoommendCocktail`),
   getRecommendedList: () => api.get('recommend/cocktail'),
   getHotList: () => api.get('hot-cocktails'),

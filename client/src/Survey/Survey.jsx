@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import './Survey.scss';
 import ailogo from '../assets/images/logo/chat_black.png';
 import strawberry from '../assets/images/ingredients/재료_딸기.png';
@@ -8,6 +7,8 @@ import gin from '../assets/images/ingredients/재료_진.png';
 import sugar from '../assets/images/ingredients/재료_설탕.png';
 import milk from '../assets/images/ingredients/재료_우유.png';
 import tomatojuice from '../assets/images/ingredients/재료_토마토주스.png';
+import { UserSurvey } from '../api/recommendation';
+import { useNavigate } from 'react-router-dom';
 
 const Survey = () => {
   const [firstAnswer, setFirstAnswer] = useState(0);
@@ -15,16 +16,34 @@ const Survey = () => {
   const [thirdAnswer, setThirdAnswer] = useState([]);
   const [fourthAnswer, setFourthAnswer] = useState([]);
   const [fifthAnswer, setFifthAnswer] = useState(0);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(firstAnswer);
-    console.log(secondAnswer);
-    console.log(thirdAnswer);
-    console.log(fourthAnswer);
-    console.log(fifthAnswer);
-  }, [firstAnswer, secondAnswer, thirdAnswer]);
+  const secondAnswerMapper = {
+    1: ['Bellini', 'Mimosa', 'Paradise', 'Amaretto Sour'],
+    2: ['Black Russian', 'Manhattan', 'Cosmopolitan', 'Old Fashioned', 'Whiskey Cola'],
+    3: ['Mojito', 'Cosmopolitan', 'Sidecar', 'Margarita'],
+    4: ['Negroni', 'Between the Sheets', 'Campari Fizz', 'Campari Orange'],
+    5: ['Martini', 'Vesper', 'Gimlet', 'Vodka Martini'],
+    6: ['A.M.F', 'Long Island Iced Tea', 'Zombie', "Dark 'N' Stormy"],
+  };
+  const thirdAnswerMapper = {
+    1: ['Alexander', 'Grasshopper', 'B-52', 'White Russian'],
+    2: ['Moscow Mule', 'Sea Breeze', 'Caipirinha', 'Cape Cod', 'Blue Lagoon'],
+    3: ['Black Russian', 'White Russian', 'Espresso Martini', 'Irish Coffee'],
+    4: ['Blue Hawaii', 'Hurricane', 'Mai Tai', 'Pina Colada', 'Zombie'],
+    5: ['Singapore Sling', 'Cosmopolitan', 'Strawberry Margarita', 'Kir Royal'],
+    6: ['Screw Driver', 'Campari Orange', 'Bacardi', 'Sidecar'],
+  };
+  const fourthAnswerMapper = {
+    1: '위스키',
+    2: '보드카',
+    3: '진',
+    4: '럼',
+    5: '테킬라',
+    6: '브랜디+와인+샴페인',
+  };
 
-  const submitSurvey = (e) => {
+  const submitSurvey = async (e) => {
     e.preventDefault();
     if (firstAnswer === 0) {
       alert('첫 번째 문항을 선택해주세요.');
@@ -46,6 +65,25 @@ const Survey = () => {
       alert('다섯 번째 문항을 선택해주세요.');
       return;
     }
+
+    const cocktails = [];
+    secondAnswer.forEach((item) => {
+      cocktails.push(...secondAnswerMapper[item]);
+    });
+    thirdAnswer.forEach((item) => {
+      cocktails.push(...thirdAnswerMapper[item]);
+    });
+    const bases = [];
+    if (fourthAnswer[0] !== 7) {
+      fourthAnswer.forEach((item) => {
+        bases.push(fourthAnswerMapper[item]);
+      });
+    }
+    const res = await UserSurvey(cocktails, bases);
+    if (res) {
+      alert('답변이 제출되었습니다.');
+      navigate('/');
+    }
   };
 
   const handleSecondAnswer = (e) => {
@@ -53,10 +91,6 @@ const Survey = () => {
     if (secondAnswer.includes(value)) {
       setSecondAnswer(secondAnswer.filter((item) => item !== value));
     } else {
-      if (secondAnswer.length >= 3) {
-        alert('최대 3개까지 선택 가능합니다.');
-        return;
-      }
       setSecondAnswer([...secondAnswer, value]);
     }
   };
@@ -66,23 +100,21 @@ const Survey = () => {
     if (thirdAnswer.includes(value)) {
       setThirdAnswer(thirdAnswer.filter((item) => item !== value));
     } else {
-      if (thirdAnswer.length >= 3) {
-        alert('최대 3개까지 선택 가능합니다.');
-        return;
-      }
       setThirdAnswer([...thirdAnswer, value]);
     }
   };
 
   const handleFourthAnswer = (e) => {
     const value = parseInt(e.target.value);
+    if (value === 7) {
+      setFourthAnswer([value]);
+      return;
+    }
     if (fourthAnswer.includes(value)) {
       setFourthAnswer(fourthAnswer.filter((item) => item !== value));
+    } else if (fourthAnswer[0] === 7) {
+      setFourthAnswer([value]);
     } else {
-      if (fourthAnswer.length >= 3) {
-        alert('최대 3개까지 선택 가능합니다.');
-        return;
-      }
       setFourthAnswer([...fourthAnswer, value]);
     }
   };
@@ -116,9 +148,7 @@ const Survey = () => {
         <input type='radio' id='1-5' name='1' value={5} onChange={(e) => setFirstAnswer(e.target.value)} />
         <span>환장해요.</span>
       </label>
-      <p className='question'>
-        당신이 선호하는 칵테일의 맛은 어떤 취향인가요?(1/2)<span>최대 3개</span>
-      </p>
+      <p className='question'>당신이 선호하는 칵테일의 맛은 어떤 취향인가요?(1/2)</p>
       <div className='cocktailsGrid'>
         <label className={secondAnswer.includes(1) ? 'checked' : null} htmlFor='2-1'>
           <input
@@ -131,7 +161,7 @@ const Survey = () => {
           />
           <span>새콤 달콤</span>
           <img src={tomatojuice} />
-          <p>벨리니, 미모사, 파라다이스, 아마레토 사워</p>
+          <p>ex) 벨리니, 미모사, 아마레또 사워, ...</p>
         </label>
         <label className={secondAnswer.includes(2) ? 'checked' : null} htmlFor='2-2'>
           <input
@@ -144,7 +174,7 @@ const Survey = () => {
           />
           <span>달콤 쌉싸름</span>
           <img src={strawberry} />
-          <p>블랙 러시안, 맨하탄, 코스모 폴리탄, 올드 패션드, 위스키 콜라</p>
+          <p>ex) 블랙 러시안, 맨하탄, 코스모 폴리탄, ...</p>
         </label>
         <label className={secondAnswer.includes(3) ? 'checked' : null} htmlFor='2-3'>
           <input
@@ -157,7 +187,7 @@ const Survey = () => {
           />
           <span>상큼 톡톡</span>
           <img src={vodka} />
-          <p>모히토, 코스모 폴리탄, 사이드카, 마가리타</p>
+          <p>ex) 모히토, 코스모 폴리탄, 사이드카, ...</p>
         </label>
         <label className={secondAnswer.includes(4) ? 'checked' : null} htmlFor='2-4'>
           <input
@@ -170,7 +200,7 @@ const Survey = () => {
           />
           <span>쌉싸름</span>
           <img src={gin} />
-          <p>네그로니, 비트윈 더 시트, 캄파리 피즈, 캄파리 오렌지</p>
+          <p>ex) 네그로니, 비트윈 더 시트, 캄파리 피즈, ...</p>
         </label>
         <label className={secondAnswer.includes(5) ? 'checked' : null} htmlFor='2-5'>
           <input
@@ -183,18 +213,16 @@ const Survey = () => {
           />
           <span>드라이</span>
           <img src={sugar} />
-          <p>마티니, 베스퍼, 김렛, 보드카 마티니</p>
+          <p>ex) 마티니, 베스퍼, 김렛, ...</p>
         </label>
         <label className={secondAnswer.includes(6) ? 'checked' : null} htmlFor='2-6'>
           <input type='checkbox' id='2-6' name='2' value={6} onChange={handleSecondAnswer} />
           <span>스트롱</span>
           <img src={milk} />
-          <p>A.M.F, 롱티, 좀비, 다크 앤 스토미</p>
+          <p>ex) 롱티, 좀비, 다크 앤 스토미, ...</p>
         </label>
       </div>
-      <p className='question'>
-        당신이 선호하는 칵테일의 맛은 어떤 취향인가요?(2/2)<span>최대 3개</span>
-      </p>
+      <p className='question'>당신이 선호하는 칵테일의 맛은 어떤 취향인가요?(2/2)</p>
       <div className='cocktailsGrid'>
         <label className={thirdAnswer.includes(1) ? 'checked' : null} htmlFor='3-1'>
           <input
@@ -207,7 +235,7 @@ const Survey = () => {
           />
           <span>초콜릿 앤 크리미</span>
           <img src={tomatojuice} />
-          <p>알렉산더, 그래스 호퍼, B-52, 화이트 러시안</p>
+          <p>알렉산더, 그래스 호퍼, 화이트 러시안, ...</p>
         </label>
         <label className={thirdAnswer.includes(2) ? 'checked' : null} htmlFor='3-2'>
           <input
@@ -220,7 +248,7 @@ const Survey = () => {
           />
           <span>청량감</span>
           <img src={strawberry} />
-          <p>모스코 뮬, 시브리즈, 카이피리냐, 케이프코드, 블루 라군</p>
+          <p>모스코 뮬, 시브리즈, 카이피리냐, ...</p>
         </label>
         <label className={thirdAnswer.includes(3) ? 'checked' : null} htmlFor='3-3'>
           <input
@@ -233,7 +261,7 @@ const Survey = () => {
           />
           <span>커피</span>
           <img src={vodka} />
-          <p>블랙 러시안, 화이트 러시안, 에스프레소 마티니, 아이리쉬 커피</p>
+          <p>블랙 러시안, 에스프레소 마티니, 아이리쉬 커피, ...</p>
         </label>
         <label className={thirdAnswer.includes(4) ? 'checked' : null} htmlFor='3-4'>
           <input
@@ -246,7 +274,7 @@ const Survey = () => {
           />
           <span>트로피칼</span>
           <img src={gin} />
-          <p>블루 하와이, 허리케인, 마이타이, 피나콜라다, 좀비</p>
+          <p>블루 하와이, 허리케인, 피나콜라다, ...</p>
         </label>
         <label className={thirdAnswer.includes(5) ? 'checked' : null} htmlFor='3-5'>
           <input
@@ -259,18 +287,16 @@ const Survey = () => {
           />
           <span>베리</span>
           <img src={sugar} />
-          <p>싱가폴 슬링, 코스모 폴리탄, 스트로베리 마가리타, 키르 로얄</p>
+          <p>싱가폴 슬링, 스트로베리 마가리타, 키르 로얄, ...</p>
         </label>
         <label className={thirdAnswer.includes(6) ? 'checked' : null} htmlFor='3-6'>
           <input type='checkbox' id='3-6' name='3' value={6} onChange={handleThirdAnswer} />
           <span>시트러스</span>
           <img src={milk} />
-          <p>스크류 드라이버, 캄파리 오렌지, 바카디, 사이드카</p>
+          <p>스크류 드라이버, 캄파리 오렌지, 바카디, ...</p>
         </label>
       </div>
-      <p className='question'>
-        당신이 선호하는 기주가 있나요?<span>최대 3개</span>
-      </p>
+      <p className='question'>당신이 선호하는 기주가 있나요?</p>
       <label htmlFor='4-1'>
         <input
           type='checkbox'
@@ -345,17 +371,6 @@ const Survey = () => {
           value={7}
           onChange={handleFourthAnswer}
           checked={fourthAnswer.includes(7)}
-        />
-        <span>리큐르 베이스</span>
-      </label>
-      <label htmlFor='4-8'>
-        <input
-          type='checkbox'
-          id='4-8'
-          name='4'
-          value={8}
-          onChange={handleFourthAnswer}
-          checked={fourthAnswer.includes(8)}
         />
         <span>그런거 몰라요</span>
       </label>
