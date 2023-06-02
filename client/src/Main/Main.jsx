@@ -9,7 +9,8 @@ import {
   RecommendedCocktail,
 } from '../api/recommendation';
 import { useRecoilValue } from 'recoil';
-import { isSignedInAtom } from '../recoil/atom';
+import { isSignedInAtom, didSurveyAtom } from '../recoil/atom';
+import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
   const [todayRecommendedCocktail, setTodayRecommendedCocktail] = useState({
@@ -28,6 +29,14 @@ const Main = () => {
   const [orderByReadCountList, setOrderByViewList] = useState([]);
   const [orderByCreatedAtList, setOrderByDateList] = useState([]);
   const isSignedIn = useRecoilValue(isSignedInAtom);
+  const navigate = useNavigate();
+  const didSurvey = useRecoilValue(didSurveyAtom);
+
+  useEffect(() => {
+    if (!didSurvey) {
+      navigate('/survey');
+    }
+  }, [didSurvey]);
 
   useEffect(() => {
     if (!isSignedIn) {
