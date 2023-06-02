@@ -96,7 +96,7 @@ const MyPosting = () => {
           <div className='myComment' key={comment.id}>
             <Comment comment={comment} />
             <div className='myCommentCocktailNameContainer'>
-              <span className='myCommentCocktailKorName'>{'좀비'}</span>
+              <span className='myCommentCocktailKorName'>{comment.cocktailKorName}</span>
               <span className='myCommentCocktailName'>{comment.cocktailName}</span>
             </div>
           </div>
@@ -109,6 +109,7 @@ const MyPosting = () => {
               cocktailIdx={cocktail.cocktailIdx}
               imageURL={cocktail.cocktailImage}
               name={cocktail.cocktailName}
+              korName={cocktail.cocktailKorName}
               evaluation={cocktail.rating}
             />
           ))}
