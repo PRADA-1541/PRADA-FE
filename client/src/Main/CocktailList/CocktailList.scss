@@ -23,12 +23,17 @@
 }
 
 .cocktailContainer {
-  @extend %flex-row;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2.3rem;
   height: 17rem;
 
   @include mobile {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 0;
     height: 11.5rem;
     overflow-y: hidden;
   }

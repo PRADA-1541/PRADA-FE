@@ -96,6 +96,8 @@
       weight: bolder;
     }
     margin: 1.5rem 0 0 0;
+    word-break: keep-all;
+    width: fit-content;
 
     span {
       margin: {
@@ -104,10 +106,11 @@
       }
       font: {
         style: italic;
-        size: 1.2rem;
+        size: 1.1rem;
         weight: bolder;
       }
       color: $text-deep-gray;
+      word-break: keep-all;
 
       @include mobile {
         margin-bottom: 0.1rem;
@@ -165,7 +168,11 @@
 .evalBox {
   @extend %flex-row;
   justify-content: right;
-  margin-right: 0.4rem;
+  margin-right: 0.3rem;
+
+  @include mobile {
+    margin-right: 0;
+  }
 }
 .eval {
   @extend %flex-row;
@@ -180,6 +187,7 @@
   }
 
   @include mobile {
+    padding: 0 0 0.5rem 0;
     border: none;
     svg {
       color: $primary;
