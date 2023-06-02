@@ -59,8 +59,6 @@ export const Recipe = {
   uploadRecipe: (recipe) => api.post('cocktails/custom-cocktail', recipe),
   getRecipeList: (isCustom, cursor, pageSize, orderBy) =>
     api.get(`cocktails/${isCustom}?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}`),
-  // getFavoriteRecipeList: (cursor, pageSize, orderBy) =>
-  //   api.get(`cocktails/favorite?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}&userIdx=5`),
   getFavoriteRecipeList: (cursor, pageSize, orderBy) =>
     api.get(`cocktails/favorite?cursor=${cursor}&pageSize=${pageSize}&orderBy=${orderBy}`),
   getRecipe: (cocktailIdx) => api.get(`cocktail/${cocktailIdx}`),

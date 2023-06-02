@@ -33,7 +33,6 @@ const Main = () => {
   const didSurvey = useRecoilValue(didSurveyAtom);
 
   useEffect(() => {
-    console.log(didSurvey);
     if (!didSurvey) {
       navigate('/survey');
     }
