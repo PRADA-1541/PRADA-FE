@@ -15,6 +15,8 @@ import SingaporeSlingAndKirRoyalAndStrawberryMargarita from '../assets/images/su
 import ScrewDriverAndCampariOrange from '../assets/images/survey/ScrewDriver&CampariOrange.png';
 import { UserSurvey } from '../api/recommendation';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { didSurveyAtom } from '../recoil/atom';
 
 const Survey = () => {
   const [firstAnswer, setFirstAnswer] = useState(0);
@@ -22,6 +24,7 @@ const Survey = () => {
   const [thirdAnswer, setThirdAnswer] = useState([]);
   const [fourthAnswer, setFourthAnswer] = useState([]);
   const [fifthAnswer, setFifthAnswer] = useState(0);
+  const setDidSurvey = useSetRecoilState(didSurveyAtom);
   const navigate = useNavigate();
 
   const secondAnswerMapper = {
@@ -87,6 +90,7 @@ const Survey = () => {
     }
     const res = await UserSurvey(cocktails, bases);
     if (res) {
+      setDidSurvey(true);
       alert('답변이 제출되었습니다.');
       navigate('/');
     }
