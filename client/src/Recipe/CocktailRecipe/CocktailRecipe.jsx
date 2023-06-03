@@ -105,10 +105,16 @@ const CocktailRecipe = () => {
     if (!isSignedIn) return alert('로그인 후 이용해주세요.');
     if (rating === 0) {
       const res = await UploadRating(cocktailIdx, evalStars);
-      if (res) setRating(evalStars);
+      if (res) {
+        setRating(evalStars);
+        setEvalStars(evalStars);
+      }
     } else {
       const res = await UpdateRating(cocktailIdx, evalStars);
-      if (res) setRating(evalStars);
+      if (res) {
+        setRating(evalStars);
+        setEvalStars(evalStars);
+      }
     }
   };
 
