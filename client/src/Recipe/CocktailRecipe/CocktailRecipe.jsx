@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './CocktailRecipe.scss';
 import { useNavigate, useParams } from 'react-router-dom';
-// import data from '../../assets/data/cocktails.json';
-// import gin from '../../assets/images/ingredients/재료_진.png';
-// import strawberry from '../../assets/images/ingredients/재료_딸기.png';
-// import vodka from '../../assets/images/ingredients/재료_보드카.png';
-// import milk from '../../assets/images/ingredients/재료_우유.png';
-// import tomatoJuice from '../../assets/images/ingredients/재료_토마토주스.png';
-// import sugar from '../../assets/images/ingredients/재료_설탕.png';
 import { CocktailInfo } from '../../Preview/CocktailPreveiw_bg/CocktailPreview';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { SlArrowDown, SlArrowUp } from 'react-icons/sl';
@@ -162,8 +155,8 @@ const CocktailRecipe = () => {
           <AiFillStar
             className='star'
             key={idx}
-            onMouseEnter={() => setEvalStars(idx + 1)}
-            onMouseLeave={() => setEvalStars(rating)}
+            onMouseEnter={isMobile ? null : () => setEvalStars(idx + 1)}
+            onMouseLeave={isMobile ? null : () => setEvalStars(rating)}
             onClick={() => updateRating(idx + 1)}
           />
         );
@@ -172,8 +165,8 @@ const CocktailRecipe = () => {
           <AiOutlineStar
             className='star'
             key={idx}
-            onMouseEnter={() => setEvalStars(idx + 1)}
-            onMouseLeave={() => setEvalStars(rating)}
+            onMouseEnter={isMobile ? null : () => setEvalStars(idx + 1)}
+            onMouseLeave={isMobile ? null : () => setEvalStars(rating)}
             onClick={() => updateRating(idx + 1)}
           />
         );

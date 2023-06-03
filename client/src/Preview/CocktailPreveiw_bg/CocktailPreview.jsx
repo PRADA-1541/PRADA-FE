@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import MaterialBox from '../../Material/MaterialBox/MaterialBox';
+import Ingredient from '../../Material/Ingredient/Ingredient_bg/Ingredient';
 
 export const CocktailInfo = ({
   ABV,
@@ -85,9 +86,12 @@ export const CocktailInfo = ({
         <div>
           <>
             {isMobile && cocktailIdx && <h3>재료</h3>}
-            {(!cocktailIdx || isMobile || !location.pathname.startsWith('/cocktail/')) && (
+            {(!cocktailIdx || !location.pathname.startsWith('/cocktail/')) && (
               <MaterialBox type='재료' ingredients={ingredients} />
             )}
+            {isMobile &&
+              cocktailIdx &&
+              ingredients.map((ingredient) => <Ingredient ingredient={ingredient} key={ingredient.ingredientIdx} />)}
           </>
           {!isMobile && keywords && <MaterialBox type='키워드' keywords={keywords} />}
           {isMobile && keywords && (
