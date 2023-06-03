@@ -65,9 +65,14 @@ const Main = () => {
 
   const Recommendation = () => {
     return recommendedCocktailList.map((cocktailList, idx) => {
-      const unShuffled = [...cocktailList.cocktails.slice(0, 5)];
-      const shuffled = shuffle([...cocktailList.cocktails.slice(5, 10)]).slice(0, 3);
-      cocktailList.cocktails = unShuffled.concat(shuffled);
+      const firstShuffled = shuffle([...cocktailList.cocktails.slice(0, 3)]);
+      const secondShuffled = shuffle([...cocktailList.cocktails.slice(3, 7)]);
+      const lastShuffled = shuffle([...cocktailList.cocktails.slice(7, 10)]);
+      // const unShuffled = [...cocktailList.cocktails.slice(0, 5)];
+      // const shuffled = shuffle([...cocktailList.cocktails.slice(5, 10)]).slice(0, 3);
+      // cocktailList.cocktails = unShuffled.concat(shuffled);
+      // cocktailList.cocktails = unShuffled.concat(shuffled);
+      cocktailList.cocktails = firstShuffled.concat(secondShuffled).concat(lastShuffled);
       return (
         <CocktailList
           key={idx}
@@ -97,12 +102,12 @@ const Main = () => {
       {isSignedIn ? (
         <>
           <Recommendation />
-          <CocktailList category='오늘의 HOT 칵테일' data={hotCocktailList.slice(0, 8)} />
+          <CocktailList category='오늘의 HOT 칵테일' data={hotCocktailList} />
           <CocktailList category='최근에 추가된 커스텀 칵테일' data={orderByCreatedAtList} />
         </>
       ) : (
         <>
-          <CocktailList category='오늘의 HOT 칵테일' data={hotCocktailList.slice(0, 8)} />
+          <CocktailList category='오늘의 HOT 칵테일' data={hotCocktailList} />
           <CocktailList category='높은 평점 칵테일' data={orderByRatingList} />
           <CocktailList category='많이 조회한 칵테일' data={orderByReadCountList} />
           <CocktailList category='최근에 추가된 커스텀 칵테일' data={orderByCreatedAtList} />
