@@ -23,7 +23,7 @@ const CocktailList = ({ category, data }) => {
 
   const CocktailPreviews = () => {
     return data
-      .filter((item, idx) => (isFirst === 1 ? idx < 5 : idx >= 5 && idx < 10))
+      .filter((item, idx) => ((isFirst === 1) | (isFirst === 0) ? idx < 5 : idx >= 5 && idx < 10))
       .map((cocktail) => (
         <CocktailPreview
           key={cocktail.cocktailIdx}
