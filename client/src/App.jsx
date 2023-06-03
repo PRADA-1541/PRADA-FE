@@ -27,6 +27,7 @@ import MyPosting from './MyPosting/MyPosting';
 import SignIn from './Auth/SignIn';
 import Survey from './Survey/Survey';
 import UserInfo from './Auth/UserInfo';
+import Loading from './Material/Loading/Loading';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -101,6 +102,7 @@ const App = () => {
           </Route>
           <Route path='/myPosting' element={<MyPosting />} />
           <Route path='/user-info' element={<UserInfo />} />
+          <Route path='/loading' element={<Loading />} />
         </SentryRoutes>
       </main>
       <Footer />

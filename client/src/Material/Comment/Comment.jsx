@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { AiOutlineLike, AiOutlineDislike, AiFillLike, AiFillDislike } from 'react-icons/ai';
 import defaultProfile from '../../assets/images/defaultProfile.png';
 import { useRecoilValue } from 'recoil';
-import { userInfoAtom } from '../../recoil/atom';
+import { userInfoAtom, isSignedInAtom } from '../../recoil/atom';
 import CommentForm from './CommentForm/CommentForm';
 import { SetCommentLikeState, UpdateComment } from '../../api/recipeService';
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -20,6 +20,7 @@ const Comment = ({ comment, deleteComment }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
+  const isSignedIn = useRecoilValue(isSignedInAtom);
 
   const date = new Date(comment.createdAt);
   const createdAt = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
@@ -29,6 +30,7 @@ const Comment = ({ comment, deleteComment }) => {
   };
 
   const likeComment = async () => {
+    if (!isSignedIn) return alert('로그인 후 이용해주세요.');
     if (hasLike === 1) {
       const res = await SetCommentLikeState(comment.id, null);
       if (res) {
@@ -48,6 +50,7 @@ const Comment = ({ comment, deleteComment }) => {
   };
 
   const dislikeComment = async () => {
+    if (!isSignedIn) return alert('로그인 후 이용해주세요.');
     if (hasLike === -1) {
       const res = await SetCommentLikeState(comment.id, null);
       if (res) {

@@ -1,0 +1,13 @@
+@use '../../styles/variables.scss';
+
+.loadingContainer {
+  @extend %flex-column;
+  @extend %center;
+  height: 50vh;
+
+  h1 {
+    @extend %flex-row;
+    @extend %center;
+    margin-bottom: 4rem;
+  }
+}

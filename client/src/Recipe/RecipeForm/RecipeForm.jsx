@@ -61,7 +61,7 @@ const RecipeForm = () => {
 
   useEffect(() => {
     if (cookies['refresh-token'] === undefined) {
-      alert('로그인이 필요한 서비스입니다.');
+      alert('로그인이 후 이용해주세요.');
       navigate('/');
     }
   }, [cookies, navigate]);
