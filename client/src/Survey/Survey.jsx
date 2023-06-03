@@ -127,7 +127,7 @@ const Survey = () => {
 
   return (
     <form className='surveyContainer' onSubmit={submitSurvey}>
-      <p style={{ alignItems: 'center' }}>
+      <p className='surveyDescription'>
         <img src={ailogo} style={{ width: '3rem' }} />
         AI가 당신에게 맞는 칵테일을 추천해주기 위한 간단한 질문들을 준비했어요. 차근차근 확인 후 답변을 등록해주세요!
       </p>
