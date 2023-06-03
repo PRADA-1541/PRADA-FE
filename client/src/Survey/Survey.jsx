@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import './Survey.scss';
 import ailogo from '../assets/images/logo/chat_black.png';
-import strawberry from '../assets/images/ingredients/재료_딸기.png';
-import vodka from '../assets/images/ingredients/재료_보드카.png';
-import gin from '../assets/images/ingredients/재료_진.png';
-import sugar from '../assets/images/ingredients/재료_설탕.png';
-import milk from '../assets/images/ingredients/재료_우유.png';
-import tomatojuice from '../assets/images/ingredients/재료_토마토주스.png';
+import AmarrettoSourAndBellini from '../assets/images/survey/AmarettoSour&Bellini.png';
+import ManhattanAndCosmopolitan from '../assets/images/survey/Manhattan&Cosmopolitan.png';
+import MojitoAndSideCar from '../assets/images/survey/Mojito&Sidecar.png';
+import BetweenTheSheetsAndNegroni from '../assets/images/survey/BetweenTheSheets&Negroni.png';
+import VodkaMartiniAndVesper from '../assets/images/survey/VodkaMartini&Vesper.png';
+import DarkNStormyAndLongIslandIcedTea from '../assets/images/survey/DarkNStormy&LongIslandIcedTea.png';
+import AlexanderAndWhiteRussian from '../assets/images/survey/Alexander&WhiteRussian.png';
+import MoscowMuleAndCaipirinha from '../assets/images/survey/MoscowMule&Caipirinha.png';
+import EspressoMartiniAndIrishCoffee from '../assets/images/survey/EspressoMartini&IrishCoffee.png';
+import BlueHawaiiAndPinaColada from '../assets/images/survey/BlueHawaii&PinaColada.png';
+import SingaporeSlingAndKirRoyalAndStrawberryMargarita from '../assets/images/survey/SingaporeSling&KirRoyal&StrawberryMargarita.png';
+import ScrewDriverAndCampariOrange from '../assets/images/survey/ScrewDriver&CampariOrange.png';
 import { UserSurvey } from '../api/recommendation';
 import { useNavigate } from 'react-router-dom';
 
@@ -160,7 +166,7 @@ const Survey = () => {
             checked={secondAnswer.includes(1)}
           />
           <span>새콤 달콤</span>
-          <img src={tomatojuice} />
+          <img src={AmarrettoSourAndBellini} />
           <p>ex) 벨리니, 미모사, 아마레또 사워, ...</p>
         </label>
         <label className={secondAnswer.includes(2) ? 'checked' : null} htmlFor='2-2'>
@@ -173,7 +179,7 @@ const Survey = () => {
             checked={secondAnswer.includes(2)}
           />
           <span>달콤 쌉싸름</span>
-          <img src={strawberry} />
+          <img src={ManhattanAndCosmopolitan} />
           <p>ex) 블랙 러시안, 맨하탄, 코스모 폴리탄, ...</p>
         </label>
         <label className={secondAnswer.includes(3) ? 'checked' : null} htmlFor='2-3'>
@@ -186,7 +192,7 @@ const Survey = () => {
             checked={secondAnswer.includes(3)}
           />
           <span>상큼 톡톡</span>
-          <img src={vodka} />
+          <img src={MojitoAndSideCar} />
           <p>ex) 모히토, 코스모 폴리탄, 사이드카, ...</p>
         </label>
         <label className={secondAnswer.includes(4) ? 'checked' : null} htmlFor='2-4'>
@@ -199,7 +205,7 @@ const Survey = () => {
             checked={secondAnswer.includes(4)}
           />
           <span>쌉싸름</span>
-          <img src={gin} />
+          <img src={BetweenTheSheetsAndNegroni} />
           <p>ex) 네그로니, 비트윈 더 시트, 캄파리 피즈, ...</p>
         </label>
         <label className={secondAnswer.includes(5) ? 'checked' : null} htmlFor='2-5'>
@@ -212,13 +218,13 @@ const Survey = () => {
             checked={secondAnswer.includes(5)}
           />
           <span>드라이</span>
-          <img src={sugar} />
+          <img src={VodkaMartiniAndVesper} />
           <p>ex) 마티니, 베스퍼, 김렛, ...</p>
         </label>
         <label className={secondAnswer.includes(6) ? 'checked' : null} htmlFor='2-6'>
           <input type='checkbox' id='2-6' name='2' value={6} onChange={handleSecondAnswer} />
           <span>스트롱</span>
-          <img src={milk} />
+          <img src={DarkNStormyAndLongIslandIcedTea} />
           <p>ex) 롱티, 좀비, 다크 앤 스토미, ...</p>
         </label>
       </div>
@@ -234,8 +240,8 @@ const Survey = () => {
             checked={thirdAnswer.includes(1)}
           />
           <span>초콜릿 앤 크리미</span>
-          <img src={tomatojuice} />
-          <p>알렉산더, 그래스 호퍼, 화이트 러시안, ...</p>
+          <img src={AlexanderAndWhiteRussian} />
+          <p>ex) 알렉산더, 그래스 호퍼, 화이트 러시안, ...</p>
         </label>
         <label className={thirdAnswer.includes(2) ? 'checked' : null} htmlFor='3-2'>
           <input
@@ -247,8 +253,8 @@ const Survey = () => {
             checked={thirdAnswer.includes(2)}
           />
           <span>청량감</span>
-          <img src={strawberry} />
-          <p>모스코 뮬, 시브리즈, 카이피리냐, ...</p>
+          <img src={MoscowMuleAndCaipirinha} />
+          <p>ex) 모스코 뮬, 시브리즈, 카이피리냐, ...</p>
         </label>
         <label className={thirdAnswer.includes(3) ? 'checked' : null} htmlFor='3-3'>
           <input
@@ -260,8 +266,8 @@ const Survey = () => {
             checked={thirdAnswer.includes(3)}
           />
           <span>커피</span>
-          <img src={vodka} />
-          <p>블랙 러시안, 에스프레소 마티니, 아이리쉬 커피, ...</p>
+          <img src={EspressoMartiniAndIrishCoffee} />
+          <p>ex) 블랙 러시안, 에스프레소 마티니, 아이리쉬 커피, ...</p>
         </label>
         <label className={thirdAnswer.includes(4) ? 'checked' : null} htmlFor='3-4'>
           <input
@@ -273,8 +279,8 @@ const Survey = () => {
             checked={thirdAnswer.includes(4)}
           />
           <span>트로피칼</span>
-          <img src={gin} />
-          <p>블루 하와이, 허리케인, 피나콜라다, ...</p>
+          <img src={BlueHawaiiAndPinaColada} />
+          <p>ex) 블루 하와이, 허리케인, 피나콜라다, ...</p>
         </label>
         <label className={thirdAnswer.includes(5) ? 'checked' : null} htmlFor='3-5'>
           <input
@@ -286,14 +292,14 @@ const Survey = () => {
             checked={thirdAnswer.includes(5)}
           />
           <span>베리</span>
-          <img src={sugar} />
-          <p>싱가폴 슬링, 스트로베리 마가리타, 키르 로얄, ...</p>
+          <img src={SingaporeSlingAndKirRoyalAndStrawberryMargarita} />
+          <p>ex) 싱가폴 슬링, 스트로베리 마가리타, 키르 로얄, ...</p>
         </label>
         <label className={thirdAnswer.includes(6) ? 'checked' : null} htmlFor='3-6'>
           <input type='checkbox' id='3-6' name='3' value={6} onChange={handleThirdAnswer} />
           <span>시트러스</span>
-          <img src={milk} />
-          <p>스크류 드라이버, 캄파리 오렌지, 바카디, ...</p>
+          <img src={ScrewDriverAndCampariOrange} />
+          <p>ex) 스크류 드라이버, 캄파리 오렌지, 바카디, ...</p>
         </label>
       </div>
       <p className='question'>당신이 선호하는 기주가 있나요?</p>
@@ -374,7 +380,7 @@ const Survey = () => {
         />
         <span>그런거 몰라요</span>
       </label>
-      <p className='question'>평소 칵테일 문화를 즐기시나요?</p>
+      <p className='question'>주량은 어느정도 되세요?</p>
       <label htmlFor='5-1'>
         <input type='radio' id='5-1' name='5' value={1} onChange={(e) => setFifthAnswer(e.target.value)} />
         <span>소주 반 병 이하</span>

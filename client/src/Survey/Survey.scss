@@ -22,7 +22,7 @@
     bottom: 1rem;
   }
   font: {
-    size: 1.5rem;
+    size: 1.6rem;
     weight: bold;
   }
 
@@ -48,7 +48,8 @@
     position: relative;
     @extend %flex-column;
     @extend %center;
-    width: 90%;
+    width: 100%;
+    padding: 0 1rem;
     border: $border;
     border-radius: $border-radius-bg;
     cursor: pointer;
@@ -77,9 +78,16 @@
     }
 
     p {
+      display: inline-block;
       margin: 0.5rem 0;
-      padding: 0 1rem;
+      width: 14rem;
       text-align: center;
+      font: {
+        size: 0.75rem;
+      }
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 }
