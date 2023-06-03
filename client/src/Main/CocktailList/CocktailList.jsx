@@ -3,18 +3,14 @@ import './CocktailList.scss';
 import { SlArrowLeft, SlArrowRight } from 'react-icons/sl';
 import CocktailPreview from '../../Preview/CocktailPreview_sm/CocktailPreview';
 import Proptypes from 'prop-types';
-// import data from '../../assets/data/cocktails.json';
 import { useMediaQuery } from 'react-responsive';
-// import testImage from '../../assets/images/pngwing.com-2 (1).png';
-// import testImage from '../../assets/images/pngwing.com-5.png';
-// import testImage from '../../assets/images/pngwing.com-6.png';
 
 const CocktailList = ({ category, data }) => {
   const [isFirst, setIsFirst] = useState(0);
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
 
   useEffect(() => {
-    if (data.length > 4) setIsFirst(1);
+    if (data.length > 5) setIsFirst(1);
     else setIsFirst(0);
   }, [data]);
 
@@ -27,7 +23,7 @@ const CocktailList = ({ category, data }) => {
 
   const CocktailPreviews = () => {
     return data
-      .filter((item, idx) => (isFirst === 1 ? idx < 4 : idx >= 4 && idx < 8))
+      .filter((item, idx) => (isFirst === 1 ? idx < 5 : idx >= 5 && idx < 10))
       .map((cocktail) => (
         <CocktailPreview
           key={cocktail.cocktailIdx}
@@ -56,10 +52,18 @@ const CocktailList = ({ category, data }) => {
   return (
     <div className='listContainer'>
       <h1>{category}</h1>
-      <div className='cocktailContainer'>
-        {isMobile ? <CocktailPreviewsMobile /> : <CocktailPreviews />}
-        {!isMobile && isFirst === 2 && <SlArrowLeft className='arrowLeft' onClick={prevList} />}
-        {!isMobile && isFirst === 1 && <SlArrowRight className='arrowRight' onClick={nextList} />}
+      <div className='cocktailListContainer'>
+        {isMobile ? (
+          <CocktailPreviewsMobile />
+        ) : (
+          <>
+            {!isMobile && isFirst === 2 && <SlArrowLeft className='arrowLeft' onClick={prevList} />}
+            <div className='cocktailContainer'>
+              <CocktailPreviews />
+            </div>
+            {!isMobile && isFirst === 1 && <SlArrowRight className='arrowRight' onClick={nextList} />}
+          </>
+        )}
       </div>
     </div>
   );

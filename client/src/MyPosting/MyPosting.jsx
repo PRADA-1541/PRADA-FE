@@ -56,7 +56,7 @@ const MyPosting = () => {
         GetMyCommentList(cursor, 10, sort, setCursor, prevList, setComments);
         break;
       case 2:
-        GetMyEvaluationList(cursor, 8, sort, setCursor, prevList, setCocktailList);
+        GetMyEvaluationList(cursor, 10, sort, setCursor, prevList, setCocktailList);
         break;
       default:
         break;

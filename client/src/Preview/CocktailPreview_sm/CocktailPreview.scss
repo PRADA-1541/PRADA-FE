@@ -5,8 +5,8 @@
   @extend %flex-column;
   justify-content: space-between;
   align-items: center;
-  height: 17rem;
-  width: 12rem;
+  height: 13rem;
+  width: 10rem;
   color: black;
   @extend %box-shadow;
   &:hover {
@@ -16,7 +16,7 @@
   @include mobile {
     margin: 0 0.5rem;
     height: 10rem;
-    width: 6.5rem;
+    width: 7rem;
   }
 }
 
@@ -24,8 +24,8 @@
   @extend %flex-column;
   @extend %center;
 
-  height: 12rem;
-  width: 12rem;
+  height: 10rem;
+  width: 10rem;
   overflow: hidden;
 
   @include mobile {
@@ -60,7 +60,7 @@
 .cocktailKorName {
   margin-bottom: 0;
   padding: 0 0.5rem;
-  width: 12rem;
+  width: 10rem;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -88,6 +88,7 @@
   @extend %flex-row;
   align-items: center;
   margin: 0;
+  font-size: 0.8rem;
 
   @include mobile {
     font-size: x-small;
@@ -95,4 +96,8 @@
       font-size: x-small;
     }
   }
+}
+
+.evalStar {
+  font-size: 0.8rem;
 }
