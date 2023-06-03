@@ -1,0 +1,26 @@
+{
+  "secondAnswerMapper": {
+    "1": ["Bellini", "Mimosa", "Paradise", "Amaretto Sour"],
+    "2": ["Black Russian", "Manhattan", "Cosmopolitan", "Old Fashioned", "Whiskey Cola"],
+    "3": ["Mojito", "Cosmopolitan", "Sidecar", "Margarita"],
+    "4": ["Negroni", "Between the Sheets", "Campari Fizz", "Campari Orange"],
+    "5": ["Martini", "Vesper", "Gimlet", "Vodka Martini"],
+    "6": ["A.M.F", "Long Island Iced Tea", "Zombie", "Dark 'N' Stormy"]
+  },
+  "thirdAnswerMapper": {
+    "1": ["Alexander", "Grasshopper", "B-52", "White Russian"],
+    "2": ["Moscow Mule", "Sea Breeze", "Caipirinha", "Cape Cod", "Blue Lagoon"],
+    "3": ["Black Russian", "White Russian", "Espresso Martini", "Irish Coffee"],
+    "4": ["Blue Hawaii", "Hurricane", "Mai Tai", "Pina Colada", "Zombie"],
+    "5": ["Singapore Sling", "Cosmopolitan", "Strawberry Margarita", "Kir Royal"],
+    "6": ["Screw Driver", "Campari Orange", "Bacardi", "Sidecar"]
+  },
+  "fourthAnswerMapper": {
+    "1": "위스키",
+    "2": "보드카",
+    "3": "진",
+    "4": "럼",
+    "5": "테킬라",
+    "6": "브랜디+와인+샴페인"
+  }
+}
