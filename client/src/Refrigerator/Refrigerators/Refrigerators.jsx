@@ -15,16 +15,36 @@ import PropTypes from 'prop-types';
 import { refrigeratorsAtom } from '../../recoil/refrigeratorAtom';
 import { ChangeMainRefrigerator, CreateRefrigerator, GetRefrigeratorList } from '../../api/refrigeratorService';
 import { isSignedInAtom } from '../../recoil/atom';
+import Snackbar from '@mui/material/Snackbar';
 
 const Refrigerators = () => {
   const [refrigeratorNameInput, setRefrigeratorNameInput] = useState(false);
   const newRefrigeratorNameRef = useRef(null);
   const [refrigerators, setRefrigerators] = useRecoilState(refrigeratorsAtom);
   const isSignedIn = useRecoilValue(isSignedInAtom);
+  const [snackBar, setSnackBar] = useState({
+    state: false,
+    message: '',
+  });
+  const [timeOutId, setTimeOutId] = useState(null);
 
   useEffect(() => {
     if (isSignedIn) GetRefrigeratorList(setRefrigerators);
   }, [isSignedIn]);
+
+  useEffect(() => {
+    if (snackBar.message !== '') {
+      setSnackBar({
+        ...snackBar,
+        state: true,
+      });
+    } else {
+      setSnackBar({
+        ...snackBar,
+        state: false,
+      });
+    }
+  }, [snackBar.message]);
 
   const newRefrigerator = async (e) => {
     e.preventDefault();
@@ -48,6 +68,19 @@ const Refrigerators = () => {
     e.preventDefault();
     const result = await ChangeMainRefrigerator(refrigeratorIdx);
     if (result) {
+      setSnackBar({
+        ...snackBar,
+        message: '메인 냉장고가 변경되었습니다.',
+      });
+      if (timeOutId) clearTimeout(timeOutId);
+      setTimeOutId(
+        setTimeout(() => {
+          setSnackBar({
+            ...snackBar,
+            message: '',
+          });
+        }, 2000)
+      );
       setRefrigerators((prev) =>
         prev.map((refrigerator) => {
           if (refrigerator.refrigeratorIdx === refrigeratorIdx) {
@@ -160,6 +193,7 @@ const Refrigerators = () => {
         </div>
       </div>
       <div className='refrigeratorGrid'>{refrigerators.length === 0 ? <Info /> : <RefrigeratorList />}</div>
+      <Snackbar open={snackBar.state} message={snackBar.message} />
     </div>
   );
 };
