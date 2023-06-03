@@ -92,7 +92,7 @@ const Survey = () => {
     if (res) {
       setDidSurvey(true);
       alert('답변이 제출되었습니다.');
-      navigate('/');
+      navigate('/loading');
     }
   };
 
