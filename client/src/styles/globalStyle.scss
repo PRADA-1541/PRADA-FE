@@ -20,17 +20,18 @@ div#root {
   left: 0px;
   width: 100%;
   background: $background-app;
+  min-height: 100vh;
 }
 
 .AppContainer {
   margin: auto;
   margin: {
     top: 7rem;
-    bottom: 3rem;
   }
   padding: 0 3rem;
   box-sizing: content-box;
   width: 55rem;
+  min-height: 100%;
 
   @include mobile {
     margin: 4rem auto;

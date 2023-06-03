@@ -30,6 +30,13 @@ const SearchList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (searchIdx) setValue(2);
+  }, [searchIdx]);
+
+  useEffect(() => {
+    if (value === 2) {
+      setRecipeList([]);
+    }
     setNewSearchWord(searchWord);
     getList('', []);
   }, [value, sort, searchWord]);

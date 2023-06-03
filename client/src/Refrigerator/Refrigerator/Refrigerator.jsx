@@ -18,6 +18,7 @@ import {
   GetRefrigeratorList,
 } from '../../api/refrigeratorService';
 import { isSignedInAtom } from '../../recoil/atom';
+import Snackbar from '@mui/material/Snackbar';
 
 const Refrigerator = () => {
   const { refrigeratorIdx } = useParams();
@@ -31,6 +32,11 @@ const Refrigerator = () => {
   const [ingredientList, setIngredientList] = useState([]);
   const [refrigeratorList, setRefrigeratorList] = useRecoilState(refrigeratorsAtom);
   const isSignedIn = useRecoilValue(isSignedInAtom);
+  const [snackBar, setSnackBar] = useState({
+    state: false,
+    message: '',
+  });
+  const [timeOutId, setTimeOutId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,9 +46,38 @@ const Refrigerator = () => {
     }
   }, [refrigeratorIdx, isSignedIn]);
 
+  useEffect(() => {
+    if (snackBar.message !== '') {
+      setSnackBar({
+        ...snackBar,
+        state: true,
+      });
+    } else {
+      setSnackBar({
+        ...snackBar,
+        state: false,
+      });
+    }
+  }, [snackBar.message]);
+
   const changeCurrentRefrigerator = async () => {
     const result = await ChangeMainRefrigerator(refrigeratorIdx);
-    if (result) GetRefrigerator(refrigeratorIdx, setRefrigerator);
+    if (result) {
+      setSnackBar({
+        ...snackBar,
+        message: '메인 냉장고가 변경되었습니다.',
+      });
+      if (timeOutId) clearTimeout(timeOutId);
+      setTimeOutId(
+        setTimeout(() => {
+          setSnackBar({
+            ...snackBar,
+            message: '',
+          });
+        }, 2000)
+      );
+      GetRefrigerator(refrigeratorIdx, setRefrigerator);
+    }
   };
 
   const startEditing = async () => {
@@ -145,6 +180,7 @@ const Refrigerator = () => {
           </>
         )}
       </div>
+      <Snackbar open={snackBar.state} message={snackBar.message} />
     </div>
   );
 };

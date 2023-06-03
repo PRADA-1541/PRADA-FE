@@ -20,6 +20,7 @@ import {
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { cocktailRecipeAtom, isSignedInAtom, userInfoAtom } from '../../recoil/atom';
 import { useMediaQuery } from 'react-responsive';
+import Snackbar from '@mui/material/Snackbar';
 
 const CocktailRecipe = () => {
   const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
@@ -50,10 +51,29 @@ const CocktailRecipe = () => {
   const navigate = useNavigate();
   const setCocktailRecipeAtom = useSetRecoilState(cocktailRecipeAtom);
   const isSignedIn = useRecoilValue(isSignedInAtom);
+  const [snackBar, setSnackBar] = useState({
+    state: false,
+    message: '',
+  });
+  const [timeOutId, setTimeOutId] = useState(null);
 
   useEffect(() => {
     GetRecipe(cocktailIdx, setCocktail, setRating, setEvalStars, setIsFavorite, setIngredients);
   }, [cocktailIdx, isSignedIn]);
+
+  useEffect(() => {
+    if (snackBar.message !== '') {
+      setSnackBar({
+        ...snackBar,
+        state: true,
+      });
+    } else {
+      setSnackBar({
+        ...snackBar,
+        state: false,
+      });
+    }
+  }, [snackBar.message]);
 
   const editRecipe = () => {
     setCocktailRecipeAtom({
@@ -98,7 +118,23 @@ const CocktailRecipe = () => {
   const updateFavorite = async (isFavorite) => {
     if (!isSignedIn) return alert('로그인 후 이용해주세요.');
     const res = await UpdateIsFavorite(cocktailIdx, isFavorite);
-    if (res) setIsFavorite(isFavorite);
+    if (res) {
+      setSnackBar({
+        ...snackBar,
+        message: isFavorite ? '즐겨찾기에 추가되었습니다.' : '즐겨찾기에서 삭제되었습니다.',
+      });
+      if (timeOutId) clearTimeout(timeOutId);
+      setTimeOutId(
+        setTimeout(() => {
+          setSnackBar({
+            ...snackBar,
+            state: false,
+            message: '',
+          });
+        }, 2000)
+      );
+      setIsFavorite(isFavorite);
+    }
   };
 
   const updateRating = async (evalStars) => {
@@ -106,12 +142,40 @@ const CocktailRecipe = () => {
     if (rating === 0) {
       const res = await UploadRating(cocktailIdx, evalStars);
       if (res) {
+        setSnackBar({
+          ...snackBar,
+          message: '평가가 등록되었습니다.',
+        });
+        if (timeOutId) clearTimeout(timeOutId);
+        setTimeOutId(
+          setTimeout(() => {
+            setSnackBar({
+              ...snackBar,
+              state: false,
+              message: '',
+            });
+          }, 2000)
+        );
         setRating(evalStars);
         setEvalStars(evalStars);
       }
     } else {
       const res = await UpdateRating(cocktailIdx, evalStars);
       if (res) {
+        setSnackBar({
+          ...snackBar,
+          message: '평가가 수정되었습니다.',
+        });
+        if (timeOutId) clearTimeout(timeOutId);
+        setTimeOutId(
+          setTimeout(() => {
+            setSnackBar({
+              ...snackBar,
+              state: false,
+              message: '',
+            });
+          }, 2000)
+        );
         setRating(evalStars);
         setEvalStars(evalStars);
       }
@@ -247,6 +311,7 @@ const CocktailRecipe = () => {
         {isSignedIn && commentVisible && <CommentForm submitComment={submitComment} />}
         {commentVisible && <Comments />}
       </div>
+      <Snackbar open={snackBar.state} message={snackBar.message} />
     </div>
   );
 };
