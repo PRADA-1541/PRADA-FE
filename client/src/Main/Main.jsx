@@ -48,6 +48,8 @@ const Main = () => {
     } else {
       GetTodayRecommendedCocktail(setTodayRecommendedCocktail);
       RecommendedCocktail(setRecommendedCocktailList, shuffle);
+      GetHotCocktail(setHotCocktailList, shuffle);
+      GetMainSortedList(setOrderByDateList, 'createdAt');
     }
   }, [isSignedIn]);
 
@@ -93,7 +95,11 @@ const Main = () => {
         ingredients={todayRecommendedCocktail.ingredientInfo}
       />
       {isSignedIn ? (
-        <Recommendation />
+        <>
+          <Recommendation />
+          <CocktailList category='오늘의 HOT 칵테일' data={hotCocktailList.slice(0, 8)} />
+          <CocktailList category='최근에 추가된 커스텀 칵테일' data={orderByCreatedAtList} />
+        </>
       ) : (
         <>
           <CocktailList category='오늘의 HOT 칵테일' data={hotCocktailList.slice(0, 8)} />
