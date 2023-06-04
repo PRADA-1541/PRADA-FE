@@ -158,7 +158,7 @@ const Survey = () => {
         <input type='radio' id='1-5' name='1' value={5} onChange={(e) => setFirstAnswer(e.target.value)} />
         <span>환장해요.</span>
       </label>
-      <p className='question'>당신이 선호하는 칵테일의 맛은 어떤 취향인가요?(복수선택) [1/2]</p>
+      <p className='question'>선호하는 칵테일의 맛을 골라주세요!(복수선택 가능) [1/2]</p>
       <div className='cocktailsGrid'>
         <label className={secondAnswer.includes(1) ? 'checked' : null} htmlFor='2-1'>
           <input
@@ -232,7 +232,7 @@ const Survey = () => {
           <p>ex) 롱티, 좀비, 다크 앤 스토미, ...</p>
         </label>
       </div>
-      <p className='question'>당신이 선호하는 칵테일의 맛은 어떤 취향인가요?(복수선택) [2/2]</p>
+      <p className='question'>선호하는 칵테일의 맛을 골라주세요!(복수선택 가능) [2/2]</p>
       <div className='cocktailsGrid'>
         <label className={thirdAnswer.includes(1) ? 'checked' : null} htmlFor='3-1'>
           <input
@@ -306,7 +306,7 @@ const Survey = () => {
           <p>ex) 스크류 드라이버, 캄파리 오렌지, 바카디, ...</p>
         </label>
       </div>
-      <p className='question'>당신이 선호하는 기주가 있나요?(복수선택)</p>
+      <p className='question'>당신이 선호하는 기주가 있나요?(복수선택 가능)</p>
       <label htmlFor='4-1'>
         <input
           type='checkbox'

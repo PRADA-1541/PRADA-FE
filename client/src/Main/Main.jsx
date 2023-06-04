@@ -9,7 +9,7 @@ import {
   RecommendedCocktail,
 } from '../api/recommendation';
 import { useRecoilValue } from 'recoil';
-import { isSignedInAtom, didSurveyAtom } from '../recoil/atom';
+import { isSignedInAtom, didSurveyAtom, userInfoAtom } from '../recoil/atom';
 import { useNavigate } from 'react-router-dom';
 
 const Main = () => {
@@ -29,12 +29,15 @@ const Main = () => {
   const [orderByReadCountList, setOrderByViewList] = useState([]);
   const [orderByCreatedAtList, setOrderByDateList] = useState([]);
   const isSignedIn = useRecoilValue(isSignedInAtom);
+  const { nickname } = useRecoilValue(userInfoAtom);
   const navigate = useNavigate();
   const didSurvey = useRecoilValue(didSurveyAtom);
   const rationaleMapper = {
     0: ['단맛', '신맛', '쌉싸름', '짠맛', '프루티', '스파이시', '허브', '너티', '스모키', '크리미', '초콜릿', '커피'],
     1: ['진', '보드카', '럼', '테킬라', '위스키', '브랜디+와인+샴페인'],
     2: ['시트러스', '청량', '트로피컬', '스윗&크리미'],
+    3: ['단맛', '신맛', '짠맛'],
+    4: ['general'],
   };
 
   useEffect(() => {
@@ -88,6 +91,12 @@ const Main = () => {
           break;
         case '2':
           rationale = cocktailList.rationale + '한 칵테일들을 좋아하신다면';
+          break;
+        case '3':
+          rationale = cocktailList.rationale + '의 칵테일들을 좋아하신다면';
+          break;
+        case '4':
+          rationale = nickname + '님을 위한 추천 칵테일들이에요!';
           break;
         default:
           rationale = cocktailList.rationale + '을(를) 좋아하신다면';
