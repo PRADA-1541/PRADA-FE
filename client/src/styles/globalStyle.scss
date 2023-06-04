@@ -3,7 +3,7 @@
 
 @font-face {
   font-family: 'spoqa';
-  src: url('../assets/SpoqaHanSansNeo_OTF_original/SpoqaHanSansNeo-Regular.otf') format('opentype');
+  src: url('../assets/fonts/SpoqaHanSansNeo-Regular.otf') format('opentype');
 }
 
 * {
@@ -73,8 +73,10 @@ a {
 }
 
 h1 {
-  font-size: 1.9rem;
-  font-weight: 600;
+  font: {
+    size: 1.9rem;
+    weight: 500;
+  }
 
   @include mobile {
     font-size: 1.4rem;
@@ -83,7 +85,7 @@ h1 {
 
 h2 {
   font-size: 1.7rem;
-  font-weight: 600;
+  font-weight: 500;
 
   @include mobile {
     font-size: 1.2rem;
