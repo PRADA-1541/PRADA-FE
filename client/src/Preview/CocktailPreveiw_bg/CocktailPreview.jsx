@@ -46,10 +46,10 @@ export const CocktailInfo = ({
     else
       return content
         .split(' ')
-        .filter((word, idx) => idx < 35)
+        .filter((word, idx) => idx < 55)
         .map((word, idx) => {
-          if (idx !== 34) return word + ' ';
-          if (idx >= 34) return word + ' ...';
+          if (idx !== 54) return word + ' ';
+          if (idx >= 54) return word + ' ...';
         });
   };
 
@@ -62,24 +62,28 @@ export const CocktailInfo = ({
 
   return (
     <div className='cocktailInfoContainer'>
-      <div className={location.pathname.startsWith('/cocktail/') ? 'cocktailImg' : 'cocktailImg-border'}>
+      <div className='cocktailImg'>
         <img src={imageURL ?? defaultImage} alt='cocktail image' />
       </div>
       <div className='cocktailInfo'>
         <div className='cocktailDetail'>
-          <h2>
-            {korName}
-            <span>{name}</span>
-            {cocktailIdx &&
-              (isFavorite ? (
-                <AiFillStar className='favoriteStar' onClick={() => updateFavorite(false)} />
-              ) : (
-                <AiOutlineStar className='favoriteStar' onClick={() => updateFavorite(true)} />
-              ))}
-            {ABV && <span className='ABV'>{ABV.toFixed(1)} 도</span>}
-          </h2>
+          <div className='cocktailInfoHeader'>
+            <h2>
+              {korName}
+              <span>{name}</span>
+            </h2>
+            <div>
+              {ABV && <span className='ABV'>{ABV.toFixed(1)} 도</span>}
+              {cocktailIdx &&
+                (isFavorite ? (
+                  <AiFillStar className='favoriteStar' onClick={() => updateFavorite(false)} />
+                ) : (
+                  <AiOutlineStar className='favoriteStar' onClick={() => updateFavorite(true)} />
+                ))}
+            </div>
+          </div>
           {!isMobile && <hr />}
-          <p className='cocktailContent'>
+          <p>
             <Content />
           </p>
         </div>

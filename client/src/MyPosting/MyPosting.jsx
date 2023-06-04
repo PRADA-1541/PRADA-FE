@@ -3,7 +3,6 @@ import './MyPosting.scss';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-// import data from '../assets/data/cocktails.json';
 import { RecipeList } from '../CocktailList/CocktailList';
 import Comment from '../Material/Comment/Comment';
 import CocktailPreview from '../Preview/CocktailPreview_sm/CocktailPreview';
@@ -12,8 +11,10 @@ import DropDown from '../Material/DropDown/DropDown';
 import { GetMyCommentList, GetMyCustomRecipeList, GetMyEvaluationList } from '../api/myPostingService';
 import { useRecoilValue } from 'recoil';
 import { isSignedInAtom } from '../recoil/atom';
+import { useMediaQuery } from 'react-responsive';
 
 const MyPosting = () => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const [value, setValue] = useState(0);
   const [cursor, setCursor] = useState('');
   const [recipeList, setRecipeList] = useState([]);
@@ -82,11 +83,11 @@ const MyPosting = () => {
         </div>
         {dropDown && <DropDown setDropDown={setDropDown} list={sortList[value]} onClick={setSort} />}
       </div>
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: '100%', margin: '2.5rem 0 1rem 0' }}>
         <Tabs value={value} textColor='inherit' variant='fullWidth' centered onChange={handleChange}>
-          <Tab label='커스텀 레시피' sx={{ fontSize: '0.8rem' }} />
-          <Tab label='댓글' sx={{ fontSize: '0.8rem' }} />
-          <Tab label='평점' sx={{ fontSize: '0.8rem' }} />
+          <Tab label='커스텀 레시피' sx={isMobile ? { fontSize: '0.8rem' } : { fontSize: '0.9rem' }} />
+          <Tab label='댓글' sx={isMobile ? { fontSize: '0.8rem' } : { fontSize: '0.9rem' }} />
+          <Tab label='평점' sx={isMobile ? { fontSize: '0.8rem' } : { fontSize: '0.9rem' }} />
         </Tabs>
       </Box>
       {value === 0 ? (

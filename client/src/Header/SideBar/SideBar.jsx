@@ -77,7 +77,6 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
               <Link to='/cocktails/favorite'>
                 <li>즐겨찾기</li>
               </Link>
-              <hr />
               <Link to='/refrigerator/list'>
                 <li>내 냉장고</li>
               </Link>

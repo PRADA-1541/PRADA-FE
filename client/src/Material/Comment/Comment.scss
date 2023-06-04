@@ -60,6 +60,7 @@
     height: 2rem;
     width: 2rem;
     border-radius: 100%;
+    object-fit: cover;
 
     @include mobile {
       max: {
@@ -70,7 +71,7 @@
   }
 
   &Name {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     margin: 0;
 
     @include mobile {
@@ -91,7 +92,7 @@
   &Content {
     margin: 0;
     width: 70%;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     line-height: 1.3rem;
     white-space: pre-wrap;
 
@@ -125,12 +126,10 @@
 
 .nameAndDate {
   margin-left: 0.7rem;
-  color: $text-light-gray;
 }
 
 .updateComment {
   margin: 0 0.1rem;
-  color: $text-light-gray;
   font-size: 0.7rem;
   cursor: pointer;
 
@@ -139,7 +138,7 @@
     text-align: right;
 
     @include mobile {
-      width: 95%;
+      width: 93%;
     }
   }
 }

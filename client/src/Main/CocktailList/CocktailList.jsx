@@ -51,7 +51,7 @@ const CocktailList = ({ category, data }) => {
 
   return (
     <div className='listContainer'>
-      <h1>{category}</h1>
+      <h2>{category}</h2>
       <div className='cocktailListContainer'>
         {isMobile ? (
           <CocktailPreviewsMobile />

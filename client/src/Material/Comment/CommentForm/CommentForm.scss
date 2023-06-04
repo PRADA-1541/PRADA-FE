@@ -6,6 +6,7 @@
   align-items: flex-end;
   width: 80%;
   margin: 0 auto;
+  margin-bottom: 1rem;
 
   @include mobile {
     width: 85%;
@@ -19,6 +20,7 @@
   text-align: start;
   padding: 0.5rem 0.7rem;
   background-color: $background-light-gray;
+  border-radius: 0;
 }
 
 .commentSubmitBtn {

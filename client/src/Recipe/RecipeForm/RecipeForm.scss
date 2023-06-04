@@ -15,6 +15,10 @@
   margin-bottom: 5rem;
   position: relative;
 
+  label {
+    font-size: 1.1rem;
+  }
+
   @include mobile {
     padding: 0 1rem 3rem 1rem;
 
@@ -25,20 +29,31 @@
   }
 }
 
+.cocktailNameGrid {
+  display: grid;
+  grid: {
+    template-columns: 1fr 4.5fr;
+    gap: 1rem;
+  }
+  align-items: center;
+  margin-bottom: 1rem;
+
+  input {
+    margin-bottom: 0;
+  }
+
+  @include mobile {
+    grid: {
+      template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+}
+
 .cocktailForm {
   &Info {
     width: 95%;
     margin: auto;
-  }
-
-  &Name {
-    margin-left: 0.5rem;
-    width: 60%;
-
-    @include mobile {
-      margin: 0.5rem 0;
-      width: 100%;
-    }
   }
 
   &ImageBtn {
@@ -58,30 +73,19 @@
 
 .keywordList {
   @extend %contents-box;
-  padding: 1rem 1.2rem;
+  padding: 1rem 1.5rem;
   display: inline-block;
   position: relative;
   width: 100%;
-  margin-top: 1rem;
+  margin: 0.5rem 0;
 
   @include mobile {
     padding: 0.5rem 0.8rem;
   }
 
   &Container {
-    display: grid;
-    grid: {
-      template-columns: repeat(2, 1fr);
-      gap: 1rem;
-    }
+    @extend %flex-column;
     width: 100%;
-
-    @include mobile {
-      grid: {
-        template-columns: repeat(1, 1fr);
-        gap: 0.5rem;
-      }
-    }
   }
 
   &Header {

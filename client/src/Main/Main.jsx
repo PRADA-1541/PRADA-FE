@@ -31,6 +31,11 @@ const Main = () => {
   const isSignedIn = useRecoilValue(isSignedInAtom);
   const navigate = useNavigate();
   const didSurvey = useRecoilValue(didSurveyAtom);
+  const rationaleMapper = {
+    0: ['단맛', '신맛', '쌉싸름', '짠맛', '프루티', '스파이시', '허브', '너티', '스모키', '크리미', '초콜릿', '커피'],
+    1: ['진', '보드카', '럼', '테킬라', '위스키', '브랜디+와인+샴페인'],
+    2: ['시트러스', '청량', '트로피컬', '스윗&크리미'],
+  };
 
   useEffect(() => {
     if (!didSurvey) {
@@ -68,23 +73,31 @@ const Main = () => {
       const firstShuffled = shuffle([...cocktailList.cocktails.slice(0, 3)]);
       const secondShuffled = shuffle([...cocktailList.cocktails.slice(3, 7)]);
       const lastShuffled = shuffle([...cocktailList.cocktails.slice(7, 10)]);
-      // const unShuffled = [...cocktailList.cocktails.slice(0, 5)];
-      // const shuffled = shuffle([...cocktailList.cocktails.slice(5, 10)]).slice(0, 3);
-      // cocktailList.cocktails = unShuffled.concat(shuffled);
-      // cocktailList.cocktails = unShuffled.concat(shuffled);
       cocktailList.cocktails = firstShuffled.concat(secondShuffled).concat(lastShuffled);
-      return (
-        <CocktailList
-          key={idx}
-          category={cocktailList.rationale + '을(를) 좋아하신다면'}
-          data={cocktailList.cocktails}
-        />
-      );
+
+      let rationale = '';
+      for (let key in rationaleMapper) {
+        if (rationaleMapper[key].includes(cocktailList.rationale)) rationale = key;
+      }
+      switch (rationale) {
+        case '0':
+          cocktailList.rationale = cocktailList.rationale + '한 맛의 칵테일들을 좋아하신다면';
+          break;
+        case '1':
+          cocktailList.rationale = cocktailList.rationale + ' 기반의 칵테일들을 좋아하신다면';
+          break;
+        case '2':
+          cocktailList.rationale = cocktailList.rationale + '한 칵테일들을 좋아하신다면';
+          break;
+        default:
+          cocktailList.rationale = cocktailList.rationale + '을(를) 좋아하신다면';
+      }
+      return <CocktailList key={idx} category={cocktailList.rationale} data={cocktailList.cocktails} />;
     });
   };
 
   return (
-    <div className='homeContainer'>
+    <div className='mainContainer'>
       <CocktailPreview
         cocktailIdx={todayRecommendedCocktail.cocktailIdx}
         korName={todayRecommendedCocktail.cocktailKorName}
@@ -101,8 +114,8 @@ const Main = () => {
       />
       {isSignedIn ? (
         <>
-          <Recommendation />
           <CocktailList category='오늘의 HOT 칵테일' data={hotCocktailList} />
+          <Recommendation />
           <CocktailList category='최근에 추가된 커스텀 칵테일' data={orderByCreatedAtList} />
         </>
       ) : (

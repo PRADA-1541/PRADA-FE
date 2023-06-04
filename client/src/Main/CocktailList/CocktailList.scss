@@ -3,7 +3,6 @@
 
 %arrow {
   position: absolute;
-  // top: 11.1rem;
   font-size: 1.7rem;
   color: $gray;
   cursor: pointer;
@@ -11,13 +10,11 @@
 
 .listContainer {
   position: relative;
-  // @extend %flex-row;
-  // align-items: center;
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
   width: 100%;
 
   @include mobile {
-    margin-bottom: 1rem;
+    margin-bottom: 3rem;
     h1 {
       margin: 0;
     }
@@ -29,7 +26,6 @@
   align-items: center;
 
   @include mobile {
-    justify-content: space-between;
     height: 11.5rem;
     overflow-y: hidden;
   }

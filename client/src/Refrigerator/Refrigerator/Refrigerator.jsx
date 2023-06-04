@@ -29,6 +29,7 @@ const Refrigerator = () => {
     refrigerator: {},
     ingredients: [],
   });
+  const [allIngredientList, setAllIngredientList] = useState([]);
   const [ingredientList, setIngredientList] = useState([]);
   const [refrigeratorList, setRefrigeratorList] = useRecoilState(refrigeratorsAtom);
   const isSignedIn = useRecoilValue(isSignedInAtom);
@@ -44,6 +45,7 @@ const Refrigerator = () => {
       GetRefrigeratorList(setRefrigeratorList);
       GetRefrigerator(refrigeratorIdx, setRefrigerator);
     }
+    setEditState(false);
   }, [refrigeratorIdx, isSignedIn]);
 
   useEffect(() => {
@@ -59,6 +61,12 @@ const Refrigerator = () => {
       });
     }
   }, [snackBar.message]);
+
+  useEffect(() => {
+    setIngredientList(
+      allIngredientList.filter((item) => !refrigerator.ingredients.find((i) => i.ingredientIdx === item.ingredientIdx))
+    );
+  }, [refrigerator.ingredients]);
 
   const changeCurrentRefrigerator = async () => {
     const result = await ChangeMainRefrigerator(refrigeratorIdx);
@@ -81,7 +89,7 @@ const Refrigerator = () => {
   };
 
   const startEditing = async () => {
-    const res = await GetIngredientList(setIngredientList);
+    const res = await GetIngredientList(setAllIngredientList, setIngredientList, refrigerator.ingredients);
     if (!res) return;
     else {
       setEditState(true);

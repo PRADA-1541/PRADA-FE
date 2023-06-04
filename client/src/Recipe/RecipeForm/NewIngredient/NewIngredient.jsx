@@ -97,28 +97,31 @@ const NewIngredient = ({
   return (
     <div className={newIngredient ? 'newIngredientContainer' : 'hidden'} ref={ref}>
       <h1>새로운 재료를 등록해주세요.</h1>
-      <label htmlFor='name'>재료 이름 :</label>
-      <input
-        type='text'
-        placeholder='ex) 라임'
-        id='name'
-        value={newIngredientTemp.name}
-        onChange={(e) => handleInput(e, 'name')}
-      />
-      <br />
-      <label htmlFor='description'>한 줄 소개 :</label>
-      <input
-        className='newIngredientDescription'
-        type='text'
-        placeholder='ex) 신 향이 나는 과일'
-        id='description'
-        value={newIngredientTemp.description}
-        onChange={(e) => handleInput(e, 'description')}
-      />
-      <br />
-      <label>종류 : </label>
-      <Categories />
-      <br />
+      <div className='ingredientNameGrid'>
+        <label htmlFor='name'>재료 이름 :</label>
+        <input
+          type='text'
+          placeholder='ex) 라임'
+          id='name'
+          value={newIngredientTemp.name}
+          onChange={(e) => handleInput(e, 'name')}
+        />
+      </div>
+      <div className='ingredientNameGrid'>
+        <label htmlFor='description'>한 줄 소개 :</label>
+        <input
+          className='newIngredientDescription'
+          type='text'
+          placeholder='ex) 신 향이 나는 과일'
+          id='description'
+          value={newIngredientTemp.description}
+          onChange={(e) => handleInput(e, 'description')}
+        />
+      </div>
+      <div className='ingredientNameGrid'>
+        <label>종류 : </label>
+        <Categories />
+      </div>
       <label htmlFor='ingredientImage'>
         재료 이미지
         <div className='cocktailFormImageBtn'>추가</div>

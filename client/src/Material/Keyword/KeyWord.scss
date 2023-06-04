@@ -63,17 +63,13 @@
 
   @include mobile {
     flex: 0 0 auto;
-    padding: 0 span {
+    padding: 0;
+    span {
       font-size: small;
     }
   }
 }
-// .keyword-italic {
-//   margin-left: 0.2rem;
-//   color: $primary;
-// }
 
 .hashtag-italic {
-  margin-right: 0.2rem;
   color: $text-keyword;
 }

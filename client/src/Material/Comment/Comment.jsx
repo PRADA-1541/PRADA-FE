@@ -105,11 +105,11 @@ const Comment = ({ comment, deleteComment }) => {
             )}
             <div className='nameAndDate'>
               <p className='commentName'>{comment.nickname ?? nickname}</p>
-              <p className='commentDate'>{createdAt.toString()}</p>
+              <p className='commentDate lightGrayText'>{createdAt.toString()}</p>
             </div>
           </div>
           <>
-            <p className='commentContent'>{comment.content}</p>
+            <p className='commentContent deepGrayText'>{comment.content}</p>
           </>
           <div className='commentEval'>
             <p className='commentLike' onClick={likeComment}>
@@ -125,10 +125,10 @@ const Comment = ({ comment, deleteComment }) => {
         {userIdx === comment.authorId && (
           <>
             <div className='updateCommentBox'>
-              <span className='updateComment' onClick={() => setIsEditting(true)}>
+              <span className='updateComment deepGrayText' onClick={() => setIsEditting(true)}>
                 수정
               </span>
-              <span className='updateComment' onClick={() => deleteComment(comment.id)}>
+              <span className='updateComment deleteText' onClick={() => deleteComment(comment.id)}>
                 삭제
               </span>
             </div>
@@ -139,9 +139,11 @@ const Comment = ({ comment, deleteComment }) => {
   };
 
   const CommentMobile = () => {
-    return (
+    return isEditting ? (
+      <CommentForm submitComment={updateComment} prevValue={comment.content} />
+    ) : (
       <>
-        <div className='commentContainer'>
+        <div className='commentContainer' onClick={pathname === '/myPosting' ? moveToRecipe : null}>
           <div>
             <div className='commentProfile'>
               <img
@@ -170,10 +172,10 @@ const Comment = ({ comment, deleteComment }) => {
         {userIdx === comment.authorId && (
           <>
             <div className='updateCommentBox'>
-              <span className='updateComment' onClick={() => setIsEditting(true)}>
+              <span className='updateComment deepGrayText' onClick={() => setIsEditting(true)}>
                 수정
               </span>
-              <span className='updateComment' onClick={() => deleteComment(comment.id)}>
+              <span className='updateComment deleteText' onClick={() => deleteComment(comment.id)}>
                 삭제
               </span>
             </div>
