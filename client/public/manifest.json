@@ -8,15 +8,10 @@
   "scope": "/",
   "short_name": "Bottender",
   "start_url": "/",
-  "theme_color": "#000000",
+  "theme_color": "#ffffff",
   "categories": [],
   "screenshots": [],
   "icons": [
-    {
-      "src": "img/favicon.png",
-      "type": "image/png",
-      "sizes": "1280x1280"
-    },
     {
       "src": "windows11/SmallTile.scale-100.png",
       "sizes": "71x71"
