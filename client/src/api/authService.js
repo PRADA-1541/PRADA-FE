@@ -44,7 +44,6 @@ export const TokenConfig = async (token) => {
   return userInfo;
 };
 
-//TODO: refresh token 만료되었으면 cookie에서 삭제
 export const refresh = async (refreshToken, setUserInfo, navigate, setDidSurvey, removeCookie) => {
   try {
     const res = await Auth.refresh(refreshToken);
