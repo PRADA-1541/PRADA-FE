@@ -21,7 +21,7 @@ const UserInfo = () => {
   const [inputState, setInputState] = useState(false);
   const navigate = useNavigate();
 
-  const [, setCookie] = useCookies(['refresh-token']);
+  const [, setCookie, removeCookie] = useCookies(['refresh-token']);
   const [userInfo, setUserInfo] = useRecoilState(userInfoAtom);
   const profileImgRef = useRef();
   const [profileImg, setProfileImg] = useState(null);
@@ -84,7 +84,7 @@ const UserInfo = () => {
     const nickname = nicknameRef.current.value;
 
     if (email) {
-      const res = await signUp(email, nickname, imgUrl === '' ? null : imgUrl, setUserInfo, setCookie);
+      const res = await signUp(email, nickname, imgUrl === '' ? null : imgUrl, setUserInfo, setCookie, removeCookie);
       if (res) {
         alert('회원가입이 완료되었습니다.');
         navigate('/survey');

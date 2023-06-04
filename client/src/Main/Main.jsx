@@ -74,26 +74,26 @@ const Main = () => {
       const secondShuffled = shuffle([...cocktailList.cocktails.slice(3, 7)]);
       const lastShuffled = shuffle([...cocktailList.cocktails.slice(7, 10)]);
       cocktailList.cocktails = firstShuffled.concat(secondShuffled).concat(lastShuffled);
-
       let rationale = '';
+
       for (let key in rationaleMapper) {
         if (rationaleMapper[key].includes(cocktailList.rationale)) rationale = key;
       }
       switch (rationale) {
         case '0':
-          cocktailList.rationale = cocktailList.rationale + '한 맛의 칵테일들을 좋아하신다면';
+          rationale = cocktailList.rationale + '한 맛의 칵테일들을 좋아하신다면';
           break;
         case '1':
-          cocktailList.rationale = cocktailList.rationale + ' 기반의 칵테일들을 좋아하신다면';
+          rationale = cocktailList.rationale + ' 기반의 칵테일들을 좋아하신다면';
           break;
         case '2':
-          cocktailList.rationale = cocktailList.rationale + '한 칵테일들을 좋아하신다면';
+          rationale = cocktailList.rationale + '한 칵테일들을 좋아하신다면';
           break;
         default:
-          cocktailList.rationale = cocktailList.rationale + '을(를) 좋아하신다면';
+          rationale = cocktailList.rationale + '을(를) 좋아하신다면';
           break;
       }
-      return <CocktailList key={idx} category={cocktailList.rationale} data={cocktailList.cocktails} />;
+      return <CocktailList key={idx} category={rationale} data={cocktailList.cocktails} />;
     });
   };
 

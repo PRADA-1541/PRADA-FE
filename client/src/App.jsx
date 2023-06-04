@@ -52,7 +52,7 @@ Sentry.init({
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 
 const App = () => {
-  const [cookies] = useCookies(['refresh-token']);
+  const [cookies, , removeCookie] = useCookies(['refresh-token']);
   const setUserInfo = useSetRecoilState(userInfoAtom);
   const setIsSignedIn = useSetRecoilState(isSignedInAtom);
   const setDidSurvey = useSetRecoilState(didSurveyAtom);
@@ -61,7 +61,7 @@ const App = () => {
   useEffect(() => {
     async function Refresh() {
       try {
-        if (await refresh(cookies['refresh-token'], setUserInfo, navigate, setDidSurvey)) {
+        if (await refresh(cookies['refresh-token'], setUserInfo, navigate, setDidSurvey, removeCookie)) {
           setIsSignedIn(true);
         } else {
           sessionStorage.removeItem('token_exp');

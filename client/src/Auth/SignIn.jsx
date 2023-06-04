@@ -6,7 +6,7 @@ import { userInfoAtom, isSignedInAtom, didSurveyAtom } from '../recoil/atom';
 import { useNavigate } from 'react-router-dom';
 
 const SignIn = () => {
-  const [, setCookie] = useCookies(['refresh-token']);
+  const [, setCookie, removeCookie] = useCookies(['refresh-token']);
   const setUserInfo = useSetRecoilState(userInfoAtom);
   const setIsSignedIn = useSetRecoilState(isSignedInAtom);
   const navigate = useNavigate();
@@ -15,7 +15,8 @@ const SignIn = () => {
   useEffect(() => {
     const urlParams = new URL(location.href).searchParams;
     const kakaoToken = urlParams.get('code');
-    if (kakaoToken) GetKaKaoToken(kakaoToken, setUserInfo, setCookie, setIsSignedIn, navigate, setDidSurvey);
+    if (kakaoToken)
+      GetKaKaoToken(kakaoToken, setUserInfo, setCookie, setIsSignedIn, navigate, setDidSurvey, removeCookie);
   }, []);
 
   return <></>;
