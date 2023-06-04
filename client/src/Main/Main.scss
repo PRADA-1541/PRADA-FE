@@ -1,7 +1,7 @@
 @use '../styles/variables.scss';
 @import '../styles/variables.scss';
 
-.homeContainer {
+.mainContainer {
   @extend %flex-column;
   align-items: center;
   width: 100%;

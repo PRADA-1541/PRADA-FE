@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './CocktailList.scss';
 import { useParams, useNavigate } from 'react-router-dom';
-// import data from '../assets/data/cocktails.json';
 import defaultImg from '../assets/images/defaultImage.png';
 import CocktailPreview from '../Preview/CocktailPreveiw_bg/CocktailPreview';
 import { SlArrowDown } from 'react-icons/sl';

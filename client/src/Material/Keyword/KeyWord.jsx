@@ -19,7 +19,8 @@ const KeyWord = ({ keyword, onClick, isChecked }) => {
       className={isChecked ? 'keywordContainer-checked' : isInForm ? 'keywordContainer' : 'keywordContainer-italic'}
       onClick={onClick}
     >
-      <span className={isInForm ? 'hashtag' : 'hashtag-italic'}>#</span>
+      {/* <span> */}
+      <span className={isInForm ? 'hashtag' : 'hashtag-italic'}># </span>
       <span
         className={isInForm ? 'keyword' : 'keyword-italic'}
         onClick={
@@ -28,6 +29,7 @@ const KeyWord = ({ keyword, onClick, isChecked }) => {
       >
         {keyword}
       </span>
+      {/* </span> */}
     </div>
   );
 };

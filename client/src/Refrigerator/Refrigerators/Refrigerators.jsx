@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './Refrigerators.scss';
-import refrigerator1 from '../../assets/images/refrigerator/refrigerator1.png';
-import refrigerator2 from '../../assets/images/refrigerator/refrigerator2.png';
-import refrigerator3 from '../../assets/images/refrigerator/refrigerator3.png';
-import refrigerator4 from '../../assets/images/refrigerator/refrigerator4.png';
-import refrigerator5 from '../../assets/images/refrigerator/refrigerator5.png';
-import refrigerator6 from '../../assets/images/refrigerator/refrigerator6.png';
-import refrigerator7 from '../../assets/images/refrigerator/refrigerator7.png';
+// import refrigerator1 from '../../assets/images/refrigerator/refrigerator1.png';
+// import refrigerator2 from '../../assets/images/refrigerator/refrigerator2.png';
+// import refrigerator3 from '../../assets/images/refrigerator/refrigerator3.png';
+// import refrigerator4 from '../../assets/images/refrigerator/refrigerator4.png';
+// import refrigerator5 from '../../assets/images/refrigerator/refrigerator5.png';
+// import refrigerator6 from '../../assets/images/refrigerator/refrigerator6.png';
+// import refrigerator7 from '../../assets/images/refrigerator/refrigerator7.png';
 import refrigerator8 from '../../assets/images/refrigerator/refrigerator8.png';
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
@@ -135,43 +135,39 @@ const Refrigerators = () => {
   });
 
   const RefrigeratorList = () => {
-    return refrigerators.map((refrigerator, idx) => {
-      let refrigeratorImg = '';
-      switch (idx) {
-        case 0:
-          refrigeratorImg = refrigerator1;
-          break;
-        case 1:
-          refrigeratorImg = refrigerator2;
-          break;
-        case 2:
-          refrigeratorImg = refrigerator3;
-          break;
-        case 3:
-          refrigeratorImg = refrigerator4;
-          break;
-        case 4:
-          refrigeratorImg = refrigerator5;
-          break;
-        case 5:
-          refrigeratorImg = refrigerator6;
-          break;
-        case 6:
-          refrigeratorImg = refrigerator7;
-          break;
-        case 7:
-          refrigeratorImg = refrigerator8;
-          break;
-        default:
-          break;
-      }
+    return refrigerators.map((refrigerator) => {
+      // let refrigeratorImg = '';
+      // switch (idx) {
+      //   case 0:
+      //     refrigeratorImg = refrigerator1;
+      //     break;
+      //   case 1:
+      //     refrigeratorImg = refrigerator2;
+      //     break;
+      //   case 2:
+      //     refrigeratorImg = refrigerator3;
+      //     break;
+      //   case 3:
+      //     refrigeratorImg = refrigerator4;
+      //     break;
+      //   case 4:
+      //     refrigeratorImg = refrigerator5;
+      //     break;
+      //   case 5:
+      //     refrigeratorImg = refrigerator6;
+      //     break;
+      //   case 6:
+      //     refrigeratorImg = refrigerator7;
+      //     break;
+      //   case 7:
+      //     refrigeratorImg = refrigerator8;
+      //     break;
+      //   default:
+      //     break;
+      // }
 
       return (
-        <Refrigerator
-          key={refrigerator.refrigeratorIdx}
-          refrigerator={refrigerator}
-          refrigeratorImg={refrigeratorImg}
-        />
+        <Refrigerator key={refrigerator.refrigeratorIdx} refrigerator={refrigerator} refrigeratorImg={refrigerator8} />
       );
     });
   };

@@ -38,7 +38,7 @@ const Ingredient = ({ ingredient }) => {
           </div>
         )}
       </div>
-      <p className='prevent-overflow'>{ingredient.ingredientDescription}</p>
+      <p className='ingredientDescription prevent-overflow'>{ingredient.ingredientDescription}</p>
     </div>
   );
 };

@@ -18,7 +18,6 @@
   position: absolute;
   top: 0.5rem;
   right: 1.5rem;
-  color: $text-light-gray;
 
   span {
     margin-left: 0.2rem;
@@ -51,7 +50,7 @@
   &Title {
     margin-left: 1.5rem;
     font: {
-      size: 1.1rem;
+      size: 1.4rem;
       weight: 400;
     }
   }
@@ -71,10 +70,13 @@
   }
 
   &Title {
-    margin-left: 1.5rem;
-    font: {
-      size: 1.1rem;
-      weight: 400;
+    @extend .recipeIngredientsTitle;
+
+    @include mobile {
+      font: {
+        size: 1rem;
+        weight: 500;
+      }
     }
   }
 
@@ -82,8 +84,7 @@
     @extend %contents-box;
     p {
       color: $text-gray;
-      font-size: 1rem;
-      line-height: 1.5rem;
+      font-size: 0.9rem;
       margin: 0.5rem 0;
     }
 
@@ -130,9 +131,13 @@
     @extend %flex-row;
     @extend %center;
     margin-left: 2rem;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
     text-align: center;
     cursor: pointer;
+
+    @include mobile {
+      font-size: 1rem;
+    }
   }
 
   .arrow {

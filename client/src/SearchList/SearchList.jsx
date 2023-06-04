@@ -9,8 +9,10 @@ import { SlArrowDown } from 'react-icons/sl';
 import DropDown from '../Material/DropDown/DropDown';
 import { GetSearchRecipeList, GetSearchIngredientList } from '../api/search';
 import Ingredient from '../Material/Ingredient/Ingredient_bg/Ingredient';
+import { useMediaQuery } from 'react-responsive';
 
 const SearchList = () => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
   const { searchWord, searchIdx } = useParams();
   const [newSearchWord, setNewSearchWord] = useState(searchWord);
   const [value, setValue] = useState(0);
@@ -101,11 +103,11 @@ const SearchList = () => {
   return (
     <div className='searchListContainer'>
       <h1>{newSearchWord}에 대한 검색결과</h1>
-      <Box sx={{ width: '100%' }}>
+      <Box sx={{ width: '100%', margin: '2.5rem 0 1rem 0' }}>
         <Tabs value={value} textColor='inherit' variant='fullWidth' centered onChange={changeTab}>
-          <Tab label='공식 레시피' sx={{ fontSize: '0.8rem' }} />
-          <Tab label='커스텀 레시피' sx={{ fontSize: '0.8rem' }} />
-          <Tab label='재료' sx={{ fontSize: '0.8rem' }} />
+          <Tab label='공식 레시피' sx={isMobile ? { fontSize: '0.8rem' } : { fontSize: '0.9rem' }} />
+          <Tab label='커스텀 레시피' sx={isMobile ? { fontSize: '0.8rem' } : { fontSize: '0.9rem' }} />
+          <Tab label='재료' sx={isMobile ? { fontSize: '0.8rem' } : { fontSize: '0.9rem' }} />
         </Tabs>
       </Box>
       {value !== 2 && (

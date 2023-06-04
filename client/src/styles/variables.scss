@@ -20,8 +20,8 @@ $text-light-gray: #0000006c;
 $text-lighter-gray: #4646466c;
 $text-keyword: #a50000;
 
-$shadow: #00000029;
-$shadow-hover: #0000004d;
+$shadow: #0000004d;
+$shadow-hover: #00000083;
 
 $background: #00000069;
 $background-app: #fcfcfc;
@@ -33,6 +33,7 @@ $background-lighter-gray: #fbfbfb;
 
 $border: solid 1px $border-gray;
 $border-radius-bg: 1.5rem;
+$border-radius-medium: 0.8rem;
 $border-radius-small: 0.25rem;
 
 %flex-column {

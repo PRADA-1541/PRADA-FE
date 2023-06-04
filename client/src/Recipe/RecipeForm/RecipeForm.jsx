@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
 import './RecipeForm.scss';
-// import ingredientList from '../../assets/data/ingredients.json';
 import PropTypes from 'prop-types';
 import { useMediaQuery } from 'react-responsive';
 import { cocktailRecipeAtom, newIngredientAtom } from '../../recoil/atom';
@@ -41,6 +40,7 @@ const RecipeForm = () => {
   const [newIngredient, setNewIngredient] = useState(false);
   const [newIngredientInfo, setNewIngredientInfo] = useState({});
   const [directions, setDirections] = useState('');
+  const [ingredientVolumeSum, setIngredientVolumeSum] = useState(0);
 
   const [keywordsList, setKeywordsList] = useState({});
   const [ingredientCategory, setIngredientCategory] = useState([]);
@@ -61,7 +61,7 @@ const RecipeForm = () => {
 
   useEffect(() => {
     if (cookies['refresh-token'] === undefined) {
-      alert('로그인이 후 이용해주세요.');
+      alert('로그인 후 이용해주세요.');
       navigate('/');
     }
   }, [cookies, navigate]);
@@ -174,6 +174,9 @@ const RecipeForm = () => {
     recipe.customIngredients = ingredients.filter((item) => !item.ingredientIdx);
     recipe.cocktailDirection = directions;
     recipe.userIdx = 5;
+    if (ingredientVolumeSum < 150) recipe.cocktailKeyword += ', 숏 드링크';
+    else recipe.cocktailKeyword += ', 롱 드링크';
+    console.log(recipe.cocktailKeyword);
 
     if (location.pathname.startsWith('/cocktail/edit')) {
       const response = await EditRecipe(cocktailRecipe.cocktailIdx, recipe);
@@ -208,6 +211,7 @@ const RecipeForm = () => {
       return;
     }
     setIngredientsNum(ingredientsNum + 1);
+    if (unit === 'ml') setIngredientVolumeSum(ingredientVolumeSum + parseInt(volume));
     if (newIngredientInfo.name)
       setIngredients([
         ...ingredients,
@@ -243,12 +247,16 @@ const RecipeForm = () => {
   const deleteIngredient = (idx) => {
     setIngredients(ingredients.filter((ingredient, index) => index !== idx));
     setIngredientsNum(ingredientsNum - 1);
+    if (ingredients[idx].volumeUnit === 'ml')
+      setIngredientVolumeSum(ingredientVolumeSum - parseInt(ingredients[idx].ingredientVolume));
   };
 
   const KeywordListContainer = () => {
-    return Object.keys(keywordsList).map((keywordType) => {
-      return <KeywordList key={keywordType} keywordType={keywordType} />;
-    });
+    return Object.keys(keywordsList)
+      .filter((keywordType) => keywordType !== '용량')
+      .map((keywordType) => {
+        return <KeywordList key={keywordType} keywordType={keywordType} />;
+      });
   };
 
   const KeywordList = ({ keywordType }) => {
@@ -384,35 +392,38 @@ const RecipeForm = () => {
           <>
             <h2>1. 칵테일 정보</h2>
             <div className='cocktailFormInfo'>
-              <label htmlFor='cocktailFormKorName'>
-                <Required /> 칵테일 이름
-              </label>
-              <input
-                value={cocktailKorName}
-                onChange={(e) => setCocktailKorName(e.target.value)}
-                type='text'
-                id='cocktailFormKorName'
-                className='cocktailFormName'
-                required
-              />
-              <br />
-              <label htmlFor='cocktailFormName'>
-                <Required /> 칵테일 영어 이름
-              </label>
-              <input
-                value={cocktailName}
-                onChange={(e) => setCocktailName(e.target.value)}
-                type='text'
-                id='cocktailFormName'
-                className='cocktailFormName'
-                required
-              />
-              <br />
+              <div className='cocktailNameGrid'>
+                <label htmlFor='cocktailFormKorName'>
+                  <Required /> 칵테일 이름
+                </label>
+                <input
+                  value={cocktailKorName}
+                  onChange={(e) => setCocktailKorName(e.target.value)}
+                  type='text'
+                  id='cocktailFormKorName'
+                  className='cocktailFormName'
+                  required
+                />
+              </div>
+              <div className='cocktailNameGrid'>
+                <label htmlFor='cocktailFormName'>
+                  <Required /> 칵테일 영어 이름
+                </label>
+                <input
+                  value={cocktailName}
+                  onChange={(e) => setCocktailName(e.target.value)}
+                  type='text'
+                  id='cocktailFormName'
+                  className='cocktailFormName'
+                  required
+                />
+              </div>
               <label htmlFor='cocktailFormDescription'>
                 <Required /> 칵테일 소개
               </label>
               <br />
               <textarea
+                style={{ marginTop: '0.5rem' }}
                 value={cocktailDescription}
                 onChange={(e) => setCocktailDescription(e.target.value)}
                 id='cocktailFormDescription'

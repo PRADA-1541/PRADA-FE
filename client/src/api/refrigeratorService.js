@@ -97,11 +97,14 @@ export const ChangeMainRefrigerator = async (refrigeratorIdx) => {
   }
 };
 
-export const GetIngredientList = async (setIngredientList) => {
+export const GetIngredientList = async (setAllIngredientList, setIngredientList, curIngredients) => {
   try {
     const res = await Refrigerator.getIngredientList();
     if (res) {
-      setIngredientList(res.data.result);
+      setAllIngredientList(res.data.result);
+      setIngredientList(
+        res.data.result.filter((item) => !curIngredients.find((i) => i.ingredientIdx === item.ingredientIdx))
+      );
       return true;
     }
   } catch (error) {

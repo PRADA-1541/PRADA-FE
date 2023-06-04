@@ -45,8 +45,8 @@ Sentry.init({
     new Sentry.Replay(),
   ],
   tracesSampleRate: 1.0,
-  replaysSessionSampleRate: 1.0, //배포시 0.5로 변경
-  replaysOnErrorSampleRate: 1.0,
+  replaysSessionSampleRate: 0.1, //배포시 0.5로 변경
+  replaysOnErrorSampleRate: 0.1,
 });
 
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);

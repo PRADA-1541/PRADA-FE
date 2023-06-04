@@ -253,8 +253,12 @@ const CocktailRecipe = () => {
         <>
           {userIdx === cocktail.userIdx && (
             <div className='cocktailRecipeUserBtnContainer'>
-              <span onClick={editRecipe}>수정</span>
-              <span onClick={deleteRecipe}>삭제</span>
+              <span className='deepGrayText' onClick={editRecipe}>
+                수정
+              </span>
+              <span className='deleteText' onClick={deleteRecipe}>
+                삭제
+              </span>
             </div>
           )}
           <div className='dateAndProfile'>

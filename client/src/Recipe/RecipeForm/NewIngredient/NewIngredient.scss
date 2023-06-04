@@ -16,10 +16,13 @@
   * {
     font-size: 0.8rem;
   }
+  label {
+    font-size: 0.8rem;
+  }
   input {
     padding: 0.2rem 0.5rem;
-    margin: 0.2rem;
-    margin-right: 1rem;
+    margin: 0;
+    width: 100%;
   }
 
   @include mobile {
@@ -27,10 +30,17 @@
     h1 {
       font-size: 0.9rem;
     }
-    input {
-      width: 100%;
-      margin: 0.2rem 0;
-    }
+  }
+}
+
+.ingredientNameGrid {
+  display: grid;
+  grid-template-columns: 1fr 9fr;
+  align-items: center;
+  margin-bottom: 0.5rem;
+
+  @include mobile {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -48,10 +58,14 @@
 
 @mixin category {
   padding: 0 0.5rem;
-  margin: 0.2rem;
+  margin-right: 0.4rem;
   border: $border;
   border-radius: $border-radius-small;
   cursor: pointer;
+
+  @include mobile {
+    margin-bottom: 0.5rem;
+  }
 }
 
 .ingredientCategory {
