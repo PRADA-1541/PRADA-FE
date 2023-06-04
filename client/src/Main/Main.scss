@@ -5,6 +5,7 @@
   @extend %flex-column;
   align-items: center;
   width: 100%;
+  margin-top: 1.3rem;
 
   @include mobile {
     margin-top: 2rem;

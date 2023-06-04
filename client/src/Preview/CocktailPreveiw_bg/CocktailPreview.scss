@@ -25,6 +25,7 @@
     box-shadow: 0 0 30px $shadow-hover;
     cursor: pointer;
   }
+  border-radius: $border-radius-medium;
 
   @include mobile {
     flex-direction: column;
@@ -59,7 +60,9 @@
   }
 
   @include mobile {
-    border-radius: $border-radius-bg $border-radius-bg 0 0;
+    padding: $border-radius-bg;
+    width: 100%;
+    border-radius: 0;
   }
 }
 

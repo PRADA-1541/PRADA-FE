@@ -91,6 +91,7 @@ const Main = () => {
           break;
         default:
           cocktailList.rationale = cocktailList.rationale + '을(를) 좋아하신다면';
+          break;
       }
       return <CocktailList key={idx} category={cocktailList.rationale} data={cocktailList.cocktails} />;
     });

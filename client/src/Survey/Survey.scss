@@ -36,7 +36,7 @@
   }
   font: {
     size: 1.6rem;
-    weight: bold;
+    weight: 500;
   }
 
   @include mobile {
@@ -86,7 +86,7 @@
       background-color: $background-app;
       font: {
         size: 1.1rem;
-        weight: bold;
+        weight: 500;
       }
 
       @include mobile {
