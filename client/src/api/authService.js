@@ -1,11 +1,19 @@
 import { api, Auth, UserApi } from './api';
 import jwt_decode from 'jwt-decode';
 
-export const GetKaKaoToken = async (token, setUserInfo, refreshToken, setCookie, navigate, setDidSurvey) => {
+export const GetKaKaoToken = async (
+  token,
+  setUserInfo,
+  refreshToken,
+  setCookie,
+  navigate,
+  setDidSurvey,
+  removeCookie
+) => {
   try {
     const res = await Auth.getKaKaoToken(token);
     const accessToken = res.data.access_token;
-    SendKakaoToken(accessToken, setUserInfo, refreshToken, setCookie, navigate, setDidSurvey);
+    SendKakaoToken(accessToken, setUserInfo, refreshToken, setCookie, navigate, setDidSurvey, removeCookie);
   } catch (error) {
     console.log(error);
     return false;
@@ -36,7 +44,8 @@ export const TokenConfig = async (token) => {
   return userInfo;
 };
 
-export const refresh = async (refreshToken, setUserInfo, navigate, setDidSurvey) => {
+//TODO: refresh token 만료되었으면 cookie에서 삭제
+export const refresh = async (refreshToken, setUserInfo, navigate, setDidSurvey, removeCookie) => {
   try {
     const res = await Auth.refresh(refreshToken);
     const token = res.data.result.accessToken;
@@ -46,7 +55,7 @@ export const refresh = async (refreshToken, setUserInfo, navigate, setDidSurvey)
       return false;
     }
     setUserInfo(userInfo);
-    authInterceptor(refreshToken, setUserInfo);
+    authInterceptor(refreshToken, setUserInfo, removeCookie);
     if (res.data.result.didSurvey === 0) {
       setDidSurvey(false);
       console.log(res.data.result.didSurvey);
@@ -54,6 +63,7 @@ export const refresh = async (refreshToken, setUserInfo, navigate, setDidSurvey)
     }
     return token;
   } catch (error) {
+    removeCookie('refresh-token', { path: '/' });
     if (error.response.data && error.response.data.message) {
       alert(error.response.data.message);
     } else {
@@ -63,14 +73,14 @@ export const refresh = async (refreshToken, setUserInfo, navigate, setDidSurvey)
   }
 };
 
-export const authInterceptor = (refreshToken, setUserInfo) => {
+export const authInterceptor = (refreshToken, setUserInfo, removeCookie) => {
   api.interceptors.request.use(
     async (config) => {
       const timestamp = new Date().getTime() / 1000;
       const exp = sessionStorage.getItem('token_exp');
       if (exp) {
         if (parseInt(exp) - timestamp < 10) {
-          const token = await refresh(refreshToken, setUserInfo);
+          const token = await refresh(refreshToken, setUserInfo, removeCookie);
           if (token) {
             config.headers = {
               'x-access-token': token,
@@ -103,7 +113,15 @@ export const authInterceptor = (refreshToken, setUserInfo) => {
   // return true;
 };
 
-export const SendKakaoToken = async (kakaoToken, setUserInfo, setCookie, setIsSignedIn, navigate, setDidSurvey) => {
+export const SendKakaoToken = async (
+  kakaoToken,
+  setUserInfo,
+  setCookie,
+  setIsSignedIn,
+  navigate,
+  setDidSurvey,
+  removeCookie
+) => {
   try {
     const res = await Auth.sendKakaoToken(kakaoToken);
     const token = res.data.result.accessToken;
@@ -123,7 +141,7 @@ export const SendKakaoToken = async (kakaoToken, setUserInfo, setCookie, setIsSi
       sameSite: 'none',
       expires: exp,
     });
-    authInterceptor(refreshToken, setUserInfo);
+    authInterceptor(refreshToken, setUserInfo, removeCookie);
     if (res.data.result.didSurvey === 0) {
       setDidSurvey(false);
       navigate('/survey');
@@ -153,7 +171,7 @@ export const NicknameValid = async (nickname) => {
   }
 };
 
-export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie) => {
+export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie, removeCookie) => {
   try {
     const res = await Auth.signup(email, nickname, profileImg);
     const token = res.data.result.accessToken;
@@ -172,7 +190,7 @@ export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie
       sameSite: 'none',
       expires: exp,
     });
-    authInterceptor(res.data.result.refreshToken, setUserInfo);
+    authInterceptor(res.data.result.refreshToken, setUserInfo, removeCookie);
     return true;
   } catch (error) {
     console.log(error);

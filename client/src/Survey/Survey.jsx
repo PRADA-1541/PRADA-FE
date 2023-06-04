@@ -158,6 +158,7 @@ const Survey = () => {
         <input type='radio' id='1-5' name='1' value={5} onChange={(e) => setFirstAnswer(e.target.value)} />
         <span>환장해요.</span>
       </label>
+      {/* TODO: 중복선택 가능하다는 문구 추가 */}
       <p className='question'>당신이 선호하는 칵테일의 맛은 어떤 취향인가요?(1/2)</p>
       <div className='cocktailsGrid'>
         <label className={secondAnswer.includes(1) ? 'checked' : null} htmlFor='2-1'>
