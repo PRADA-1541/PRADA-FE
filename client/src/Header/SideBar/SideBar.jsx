@@ -62,14 +62,15 @@ const SideBar = ({ isMenuOpen, setIsMenuOpen }) => {
           )}
         </div>
         <ul>
-          <Link to='/cocktail/new'>
-            <li>레시피 작성</li>
-          </Link>
           <Link to='/cocktails/official'>
-            <li>공식 레시피</li>
+            <li>칵테일 리스트</li>
           </Link>
+          <hr />
           <Link to='/cocktails/custom'>
-            <li>커스텀 레시피</li>
+            <li>커스텀 칵테일 리스트</li>
+          </Link>
+          <Link to='/cocktail/new'>
+            <li>커스텀 레시피 작성</li>
           </Link>
           {isSignedIn && (
             <>

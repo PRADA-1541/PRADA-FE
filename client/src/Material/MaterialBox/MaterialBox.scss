@@ -10,7 +10,7 @@
   cursor: default;
 
   @include mobile {
-    margin: 0 0 1rem 0;
+    margin: 0;
   }
 }
 
@@ -24,6 +24,11 @@
   @include materialBox;
   justify-content: space-between;
   width: 100%;
+  margin-bottom: 2.5rem;
+
+  @include mobile {
+    margin: 0;
+  }
 }
 
 .ingredientsArrow {
@@ -43,6 +48,7 @@
     align-items: baseline;
     flex-wrap: nowrap;
     margin: 0;
+    height: 7.5rem;
     width: 100%;
     overflow-x: scroll;
   }
