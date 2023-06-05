@@ -2,7 +2,7 @@
 @import '../../../styles/variables.scss';
 
 .ingredientBox {
-  @extend %flex-row;
+  @extend %flex-column;
   @extend %center;
   position: relative;
   height: 4.1rem;
@@ -23,12 +23,22 @@
 }
 
 .ingredientImg {
-  position: absolute;
   max: {
     height: 100%;
     width: 100%;
   }
   z-index: 1;
+}
+
+.ingredientName_sm {
+  position: absolute;
+  @extend %flex-column;
+  align-items: center;
+  margin: 0;
+  padding: 0 0.3rem;
+  width: 100%;
+  font-size: 0.7rem;
+  text-align: center;
 }
 
 .ingredientInfo {

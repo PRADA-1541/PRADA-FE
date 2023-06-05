@@ -13,14 +13,17 @@ const Ingredient = ({ ingredient }) => {
   };
 
   return (
-    <div className='ingredientBox' onClick={search}>
-      <img
-        className='ingredientImg'
-        src={
-          ingredient.ingredientImage ? process.env.REACT_APP_IMG_BASE_URL + ingredient.ingredientImage : defaultImage
-        }
-        alt='재료 이미지'
-      />
+    <div style={{ position: 'relative' }}>
+      <div className='ingredientBox' onClick={search}>
+        <img
+          className='ingredientImg'
+          src={
+            ingredient.ingredientImage ? process.env.REACT_APP_IMG_BASE_URL + ingredient.ingredientImage : defaultImage
+          }
+          alt='재료 이미지'
+        />
+      </div>
+      <p className='ingredientName_sm'>{ingredient.ingredientName}</p>
     </div>
   );
 };
