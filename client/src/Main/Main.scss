@@ -2,6 +2,7 @@
 @import '../styles/variables.scss';
 
 .mainContainer {
+  position: relative;
   @extend %flex-column;
   align-items: center;
   width: 100%;
@@ -9,5 +10,17 @@
 
   @include mobile {
     margin-top: 2rem;
+  }
+}
+
+.loginMessage {
+  margin: 0.7rem 0 1rem 0;
+  color: $text-deep-gray;
+  font-size: 1.1rem;
+  white-space: pre-wrap;
+
+  @include mobile {
+    font-size: 0.9rem;
+    margin: 1rem 0 0 0;
   }
 }
