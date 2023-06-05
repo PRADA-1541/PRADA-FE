@@ -146,24 +146,32 @@ const Comment = ({ comment, deleteComment }) => {
         <div className='commentContainer' onClick={pathname === '/myPosting' ? moveToRecipe : null}>
           <div>
             <div className='commentProfile'>
-              <img
-                className='commentProfileImg'
-                src={
-                  comment.authorProfile ? process.env.REACT_APP_IMG_BASE_URL + comment.authorProfile : defaultProfile
-                }
-                alt='프로필 이미지'
-              />
+              {pathname === '/myPosting' ? (
+                <img
+                  className='commentProfileImg'
+                  src={profileImage ? process.env.REACT_APP_IMG_BASE_URL + profileImage : defaultProfile}
+                  alt='프로필 이미지'
+                />
+              ) : (
+                <img
+                  className='commentProfileImg'
+                  src={
+                    comment.authorProfile ? process.env.REACT_APP_IMG_BASE_URL + comment.authorProfile : defaultProfile
+                  }
+                  alt='프로필 이미지'
+                />
+              )}
               <span>{comment.nickname ?? nickname}</span>
             </div>
             <p className='commentContent'>{comment.content}</p>
             <p className='commentDate'>{createdAt.toString()}</p>
           </div>
           <div className='commentEval'>
-            <p className='commentLike'>
+            <p className='commentLike' onClick={likeComment}>
               {likeCount}
               {hasLike === 1 ? <AiFillLike /> : <AiOutlineLike />}
             </p>
-            <p className='commentDislike'>
+            <p className='commentDislike' onClick={dislikeComment}>
               {dislikeCount}
               {hasLike === -1 ? <AiFillDislike /> : <AiOutlineDislike />}
             </p>
