@@ -11,8 +11,11 @@ import {
 import { useRecoilValue } from 'recoil';
 import { isSignedInAtom, didSurveyAtom, userInfoAtom } from '../recoil/atom';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 const Main = () => {
+  const isMobile = useMediaQuery({ query: '(max-width: 576px)' });
+
   const [todayRecommendedCocktail, setTodayRecommendedCocktail] = useState({
     cocktailIdx: 0,
     cocktailName: '',
@@ -33,11 +36,12 @@ const Main = () => {
   const navigate = useNavigate();
   const didSurvey = useRecoilValue(didSurveyAtom);
   const rationaleMapper = {
-    0: ['단맛', '신맛', '쌉싸름', '짠맛', '프루티', '스파이시', '허브', '너티', '스모키', '크리미', '초콜릿', '커피'],
+    0: ['쌉싸름', '프루티', '스파이시', '허브', '너티', '스모키', '크리미', '초콜릿'],
     1: ['진', '보드카', '럼', '테킬라', '위스키', '브랜디+와인+샴페인'],
     2: ['시트러스', '청량', '트로피컬', '스윗&크리미'],
     3: ['단맛', '신맛', '짠맛'],
     4: ['general'],
+    5: ['커피'],
   };
 
   useEffect(() => {
@@ -98,6 +102,9 @@ const Main = () => {
         case '4':
           rationale = nickname + '님을 위한 추천 칵테일들이에요!';
           break;
+        case '5':
+          rationale = cocktailList.rationale + ' 맛의 칵테일들을 좋아하신다면';
+          break;
         default:
           rationale = cocktailList.rationale + '을(를) 좋아하신다면';
           break;
@@ -108,6 +115,11 @@ const Main = () => {
 
   return (
     <div className='mainContainer'>
+      {!isSignedIn && (
+        <p className='loginMessage'>
+          우측 상단의 메뉴 버튼을 클릭해서 로그인하면 {isMobile && '\n'}추천 칵테일을 만나볼 수 있어요!
+        </p>
+      )}
       <CocktailPreview
         cocktailIdx={todayRecommendedCocktail.cocktailIdx}
         korName={todayRecommendedCocktail.cocktailKorName}
