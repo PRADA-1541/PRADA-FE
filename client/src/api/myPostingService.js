@@ -8,6 +8,13 @@ export const GetMyCustomRecipeList = async (cursor, pageSize, orderBy, setCursor
     return true;
   } catch (error) {
     console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
     return false;
   }
 };
@@ -20,6 +27,13 @@ export const GetMyCommentList = async (cursor, pageSize, orderBy, setCursor, pre
     return true;
   } catch (error) {
     console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
     return false;
   }
 };
@@ -32,6 +46,13 @@ export const GetMyEvaluationList = async (cursor, pageSize, orderBy, setCursor, 
     return true;
   } catch (error) {
     console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
     return false;
   }
 };

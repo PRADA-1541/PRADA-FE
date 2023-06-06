@@ -32,6 +32,13 @@ export const GetUserInfo = async () => {
     return userInfo;
   } catch (error) {
     console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
     return false;
   }
 };
@@ -63,10 +70,13 @@ export const refresh = async (refreshToken, setUserInfo, navigate, setDidSurvey,
     return token;
   } catch (error) {
     removeCookie('refresh-token', { path: '/' });
-    if (error.response.data && error.response.data.message) {
-      alert(error.response.data.message);
-    } else {
-      console.log(error);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
     return false;
   }
@@ -85,7 +95,7 @@ export const authInterceptor = (refreshToken, setUserInfo, removeCookie) => {
               'x-access-token': token,
             };
           } else {
-            throw new Error('No Token');
+            throw new Error('다시 로그인해주세요.');
           }
         }
         return config;
@@ -93,23 +103,16 @@ export const authInterceptor = (refreshToken, setUserInfo, removeCookie) => {
     },
     async (error) => {
       console.log(error);
-      // if (error.response.data.code === 2043) {
-      //   if (await refresh(cookies['refresh-token'], cookies, setUserInfo, setSignInState)) {
-      //     setSignInState(true);
-      //     return true;
-      //   } else {
-      //     return false;
-      //   }
-      // } else {
-      //   if (error.response.data && error.response.data.message) {
-      //     alert(error.response.data.message);
-      //   } else {
-      //     console.log(error);
-      //   }
-      // }
+      if (error.response) {
+        if (error.response.data) {
+          if (error.response.data.message) {
+            alert(error.response.data.message);
+          }
+        }
+      }
+      throw new Error('다시 로그인해주세요.');
     }
   );
-  // return true;
 };
 
 export const SendKakaoToken = async (
@@ -147,14 +150,17 @@ export const SendKakaoToken = async (
     } else navigate('/');
     return true;
   } catch (error) {
-    if (error.response.status === 302) {
-      navigate(`/signup/${error.response.data.result.email}`);
-      return false;
-    }
-    if (error.response.data && error.response.data.message) {
-      alert(error.response.data.message);
-    } else {
-      console.log(error);
+    console.log(error);
+    if (error.response) {
+      if (error.response.status === 302) {
+        navigate(`/signup/${error.response.data.result.email}`);
+        return false;
+      }
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
   }
 };
@@ -165,7 +171,14 @@ export const NicknameValid = async (nickname) => {
     alert(res.data.message);
     return true;
   } catch (error) {
-    alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
     return false;
   }
 };
@@ -194,8 +207,13 @@ export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie
   } catch (error) {
     console.log(error);
     if (error.response) {
-      if (error.response.data) alert(error.response.data.message);
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
+    return false;
   }
 };
 
@@ -213,10 +231,13 @@ export const ModifyUserInfo = async (nickname, profileImg, setUserInfo) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) alert(error.response.data.message);
-    } else {
-      console.log(error);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
   }
 };

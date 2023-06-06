@@ -18,7 +18,13 @@ export const GetSearchRecipeList = async (
     return true;
   } catch (error) {
     console.log(error);
-    return false;
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
   }
 };
 
@@ -30,6 +36,12 @@ export const GetSearchIngredientList = async (pageSize, cursor, value, setCursor
     return true;
   } catch (error) {
     console.log(error);
-    return false;
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
   }
 };
