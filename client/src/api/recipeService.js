@@ -21,6 +21,13 @@ export const GetRecipePriorInfo = async (
     return true;
   } catch (error) {
     console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
     return false;
   }
 };
@@ -31,6 +38,13 @@ export const UploadImg = async (directory, formData) => {
     return res.data.url;
   } catch (error) {
     console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
     return false;
   }
 };
@@ -43,6 +57,13 @@ export const UploadRecipe = async (recipe) => {
     }
   } catch (error) {
     console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
     return false;
   }
 };
@@ -55,6 +76,13 @@ export const GetRecipeList = async (isCustom, cursor, pageSize, orderBy, setCurs
     return true;
   } catch (error) {
     console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
     return false;
   }
 };
@@ -92,6 +120,13 @@ export const GetRecipe = async (cocktailIdx, setCocktail, setRating, setEvalStar
     return true;
   } catch (error) {
     console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
     return false;
   }
 };
@@ -101,8 +136,13 @@ export const EditRecipe = async (cocktailIdx, recipe) => {
     const res = await Recipe.editRecipe(cocktailIdx, recipe);
     if (res) return true;
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
     return false;
   }
@@ -113,8 +153,13 @@ export const DeleteRecipe = async (cocktailIdx) => {
     const res = await Recipe.deleteRecipe(cocktailIdx);
     if (res) return true;
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
     return false;
   }
@@ -128,6 +173,13 @@ export const GetFavoriteRecipeList = async (cursor, pageSize, orderBy, setCursor
     return true;
   } catch (error) {
     console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
+    }
     return false;
   }
 };
@@ -139,8 +191,13 @@ export const UpdateIsFavorite = async (cocktailIdx, isFavorite) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
     return false;
   }
@@ -153,8 +210,13 @@ export const UploadRating = async (cocktailIdx, rating) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
     return false;
   }
@@ -167,8 +229,13 @@ export const UpdateRating = async (cocktailIdx, rating) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
     return false;
   }
@@ -182,8 +249,13 @@ export const GetComments = async (cocktailIdx, setComments) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
     return false;
   }
@@ -196,8 +268,13 @@ export const UploadComment = async (cocktailIdx, comment) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
     return false;
   }
@@ -208,8 +285,13 @@ export const UpdateComment = async (commentIdx, comment) => {
     const res = await Recipe.updateComment(commentIdx, comment);
     if (res) return true;
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
     return false;
   }
@@ -220,8 +302,13 @@ export const DeleteComment = async (commentIdx) => {
     const res = await Recipe.deleteComment(commentIdx);
     if (res) return true;
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
     return false;
   }
@@ -233,8 +320,12 @@ export const SetCommentLikeState = async (commentIdx, state) => {
     if (res) return true;
   } catch (error) {
     console.log(error);
-    if (error.response.data) {
-      if (error.response.data.message) alert(error.response.data.message);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
+      }
     }
     return false;
   }

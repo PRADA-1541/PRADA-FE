@@ -8,9 +8,12 @@ export const GetRefrigeratorList = async (setRefriegrators) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -26,9 +29,12 @@ export const CreateRefrigerator = async (refrigeratorName, isMain, setRefriegrat
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -40,9 +46,12 @@ export const DeleteRefrigerator = async (refrigeratorIdx) => {
     const res = await Refrigerator.deleteRefrigerator(refrigeratorIdx);
     if (res) return true;
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -57,9 +66,12 @@ export const GetRefrigerator = async (refrigeratorIdx, setRefrigerator) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -74,9 +86,12 @@ export const ChangeRefrigeratorName = async (refrigeratorIdx, refrigeratorName, 
       if (refrigeratorRes) return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -88,9 +103,12 @@ export const ChangeMainRefrigerator = async (refrigeratorIdx) => {
     const res = await Refrigerator.changeMainRefrigerator(refrigeratorIdx);
     if (res) return true;
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -108,9 +126,12 @@ export const GetIngredientList = async (setAllIngredientList, setIngredientList,
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -128,9 +149,12 @@ export const AddIngredient = async (refrigeratorIdx, ingredientIdx, setRefrigera
       }
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -148,9 +172,12 @@ export const DeleteIngredient = async (refrigeratorIdx, ingredientIdx, setRefrig
       }
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;

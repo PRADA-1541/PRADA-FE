@@ -7,9 +7,12 @@ export const UserSurvey = async (cocktails, bases) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -24,9 +27,12 @@ export const GetTodayRecommendedCocktail = async (setTodayRecommendedCocktail) =
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -41,9 +47,12 @@ export const RecommendedCocktail = async (setRecommendedCocktailList) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -58,9 +67,12 @@ export const GetHotCocktail = async (setHotCocktailList, shuffle) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
@@ -75,9 +87,12 @@ export const GetMainSortedList = async (setCocktailList, orderBy) => {
       return true;
     }
   } catch (error) {
-    if (error.response.data) {
-      if (error.response.data.message) {
-        alert(error.response.data.message);
+    console.log(error);
+    if (error.response) {
+      if (error.response.data) {
+        if (error.response.data.message) {
+          alert(error.response.data.message);
+        }
       }
     }
     return false;
