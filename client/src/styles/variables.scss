@@ -1,0 +1,112 @@
+$mobile: 576px;
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+//color
+$primary: #c72323;
+$gray: gray;
+$light-gray: #f4f4f4;
+$light-gray-active: #e8e5e5;
+
+$primary-border: #d34949;
+$border-gray: #c9c9c9;
+
+$text-gray: #3b3b3b;
+$text-deep-gray: #000000a6;
+$text-light-gray: #0000006c;
+$text-lighter-gray: #4646466c;
+$text-keyword: #a50000;
+
+$shadow: #0000004d;
+$shadow-hover: #00000083;
+
+$background: #00000069;
+$background-app: #fcfcfc;
+$background-footer: #f4f4f4;
+$background-light-gray: #f7f7f7;
+$background-lighter-gray: #fbfbfb;
+
+//variable
+
+$border: solid 1px $border-gray;
+$border-radius-bg: 1.5rem;
+$border-radius-medium: 0.8rem;
+$border-radius-smallMedium: 0.5rem;
+$border-radius-small: 0.25rem;
+
+%flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+%flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+%center {
+  justify-content: center;
+  align-items: center;
+}
+
+%contents-box {
+  margin: auto;
+  width: 80%;
+  padding: 1rem 1.5rem;
+  border: $border;
+  background-color: white;
+
+  @include mobile {
+    padding: 0.5rem 1rem;
+  }
+}
+
+%transition-2 {
+  transition: all 0.2s ease-in-out;
+}
+%transition-4 {
+  transition: all 0.4s ease-in-out;
+}
+
+%box-shadow {
+  box-shadow: 0px 4px 10px $shadow;
+}
+%box-shadow-hover {
+  box-shadow: 0px 4px 10px $shadow-hover;
+}
+
+@mixin btn {
+  margin: 1rem 0;
+  padding: 0.2rem 0.8rem;
+  border-radius: $border-radius-small;
+  cursor: pointer;
+  border: 1px solid black;
+  @include mobile {
+    font-size: medium;
+    padding: 0.2rem 0.5rem;
+  }
+}
+
+%button {
+  @include btn;
+  color: black;
+  background: white;
+  &:hover {
+    @extend %transition-2;
+    color: white;
+    background: black;
+  }
+}
+%button-reverse {
+  @include btn;
+  background: black;
+  color: white;
+  &:hover {
+    @extend %transition-2;
+    color: black;
+    background: white;
+  }
+}

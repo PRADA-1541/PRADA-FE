@@ -1,0 +1,29 @@
+@import '../../styles/variables.scss';
+
+.imagePreview {
+  position: relative;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.cocktailPreview {
+  max: {
+    height: 20rem;
+    width: 20rem;
+  }
+
+  @include mobile {
+    width: 100%;
+    max-height: 13rem;
+    object-fit: cover;
+  }
+}
+
+.deleteBtn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
+}

@@ -1,0 +1,75 @@
+@use '../../styles/variables.scss';
+@import '../../styles/variables.scss';
+
+.keywordContainer {
+  display: inline-block;
+  padding: 0rem 0.3rem 0rem 0.3rem;
+  margin: 0.3rem 0.4rem;
+  border: {
+    style: solid;
+    width: 1px;
+  }
+  cursor: pointer;
+
+  &:hover {
+    background-color: $light-gray-active;
+  }
+
+  @include mobile {
+    flex: 0 0 auto;
+    padding: 0 0.4rem;
+    border: $border;
+    border-radius: $border-radius-small;
+    span {
+      font-size: small;
+    }
+  }
+
+  .hashtag {
+    @include mobile {
+      color: $primary;
+    }
+  }
+
+  .keyword {
+    margin: 0 0.2rem;
+    font-size: 16px;
+    color: $text-gray;
+
+    @include mobile {
+      font-size: small;
+    }
+  }
+
+  &-checked {
+    @extend .keywordContainer;
+    background-color: $light-gray-active;
+  }
+}
+
+.keywordContainer-italic {
+  margin: 0.3rem 0.4rem;
+  span {
+    font: {
+      style: italic;
+      size: 0.8rem;
+    }
+  }
+  cursor: pointer;
+
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @include mobile {
+    flex: 0 0 auto;
+    padding: 0;
+    span {
+      font-size: small;
+    }
+  }
+}
+
+.hashtag-italic {
+  color: $text-keyword;
+}

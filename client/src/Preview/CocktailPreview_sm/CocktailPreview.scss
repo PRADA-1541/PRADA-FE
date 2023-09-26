@@ -1,0 +1,106 @@
+@use '../../styles/variables.scss';
+@import '../../styles/variables.scss';
+
+.previewContainer {
+  @extend %flex-column;
+  justify-content: space-between;
+  align-items: center;
+  height: 15rem;
+  width: 10rem;
+  border-radius: $border-radius-medium;
+  color: black;
+  @extend %box-shadow;
+  &:hover {
+    @extend %box-shadow-hover;
+  }
+
+  @include mobile {
+    margin: 0 0.5rem;
+    height: 10rem;
+    width: 6.5rem;
+    border-radius: $border-radius-smallMedium;
+  }
+}
+
+.previewImgContainer {
+  @extend %flex-column;
+  @extend %center;
+
+  padding: $border-radius-medium;
+  height: 10rem;
+  width: 10rem;
+  overflow: hidden;
+
+  @include mobile {
+    padding: $border-radius-smallMedium;
+    max-height: 6.5rem;
+    width: 100%;
+  }
+}
+
+.previewImg {
+  height: 100%;
+  width: 100%;
+  object-fit: scale-down;
+  transition: transform 0.2s ease-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.altImg {
+  @extend .previewImg;
+  object-fit: cover;
+}
+
+.cocktailInfoContainer_sm {
+  @extend %flex-column;
+  @extend %center;
+  margin-bottom: 0.5rem;
+}
+
+.cocktailKorName {
+  margin-bottom: 0;
+  padding: 0 0.5rem;
+  width: 10rem;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @include mobile {
+    font-size: small;
+    width: 6.5rem;
+  }
+}
+.cocktailName {
+  @extend .cocktailKorName;
+  margin-top: 0;
+  font: {
+    size: 0.75rem;
+    style: italic;
+  }
+
+  @include mobile {
+    font-size: x-small;
+  }
+}
+
+.cocktailEval {
+  @extend %flex-row;
+  align-items: center;
+  margin: 0;
+  font-size: 0.8rem;
+
+  @include mobile {
+    font-size: x-small;
+    svg {
+      font-size: x-small;
+    }
+  }
+}
+
+.evalStar {
+  font-size: 0.8rem;
+}

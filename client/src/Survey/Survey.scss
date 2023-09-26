@@ -1,0 +1,136 @@
+@use '../styles/variables.scss';
+@import '../styles/variables.scss';
+
+.surveyContainer {
+  position: relative;
+  @extend %flex-column;
+
+  p {
+    @extend %flex-row;
+  }
+
+  span {
+    padding: 0.5rem;
+
+    @include mobile {
+      font-size: 0.9rem;
+      padding: 0;
+    }
+  }
+}
+
+.surveyDescription {
+  align-items: center;
+
+  @include mobile {
+    font-size: 0.65rem;
+  }
+}
+
+.question {
+  @extend %flex-row;
+  align-items: flex-end;
+  margin: {
+    top: 5rem;
+    bottom: 1rem;
+  }
+  font: {
+    size: 1.6rem;
+    weight: 500;
+  }
+
+  @include mobile {
+    font-size: 1.3rem;
+  }
+}
+
+.cocktailsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2rem;
+  justify-items: center;
+  margin-top: 1rem;
+
+  @include mobile {
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1.5rem;
+    width: 100%;
+  }
+
+  label {
+    position: relative;
+    @extend %flex-column;
+    @extend %center;
+    width: 100%;
+    padding: 0 1rem;
+    border: $border;
+    border-radius: $border-radius-bg;
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+
+    &:hover {
+      transform: scale(1.02);
+    }
+
+    @include mobile {
+      width: 100%;
+    }
+
+    input {
+      display: none;
+    }
+
+    span {
+      position: absolute;
+      top: -1rem;
+      background-color: $background-app;
+      font: {
+        size: 1.1rem;
+        weight: 500;
+      }
+
+      @include mobile {
+        font-size: 0.9rem;
+        margin: 0.5rem;
+      }
+    }
+
+    img {
+      width: 70%;
+
+      @include mobile {
+        width: 100%;
+        margin-top: 0.3rem;
+      }
+    }
+
+    p {
+      display: inline-block;
+      margin: 0.5rem 0;
+      width: 14rem;
+      text-align: center;
+      font: {
+        size: 0.75rem;
+      }
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include mobile {
+        width: 7rem;
+        font-size: 0.6rem;
+        white-space: normal;
+      }
+    }
+  }
+}
+
+.checked {
+  @extend %box-shadow-hover;
+}
+
+.submitSurvey {
+  position: absolute;
+  right: 0;
+  bottom: -2rem;
+}

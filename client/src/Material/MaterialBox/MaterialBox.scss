@@ -1,0 +1,91 @@
+@use '../../styles/variables.scss';
+@import '../../styles/variables.scss';
+
+.materialContainer {
+  margin: 0.7rem 0;
+  h1 {
+    font-size: 18px;
+    color: $text-deep-gray;
+  }
+  cursor: default;
+
+  @include mobile {
+    margin: 0;
+  }
+}
+
+@mixin materialBox {
+  @extend %flex-row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.ingredientsContainer_sm {
+  @include materialBox;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 2.5rem;
+
+  @include mobile {
+    margin: 0;
+  }
+}
+
+.ingredientsArrow {
+  color: black;
+  font-size: large;
+  cursor: pointer;
+}
+.disabled {
+  color: $text-lighter-gray;
+  cursor: default;
+}
+
+.ingredients {
+  @include materialBox;
+  width: 92%;
+  @include mobile {
+    align-items: baseline;
+    flex-wrap: nowrap;
+    margin: 0;
+    height: 7.5rem;
+    width: 100%;
+    overflow-x: scroll;
+  }
+}
+
+.ingredientBox_sm {
+  position: relative;
+  @extend %flex-column;
+  @extend %center;
+  margin-bottom: 0.2rem;
+
+  span {
+    font-size: 0.6rem;
+    padding: 0 0.5rem;
+    text-align: center;
+    color: $text-deep-gray;
+  }
+}
+
+.isInRefrigerator_sm {
+  position: absolute;
+  width: 1.5rem;
+  top: 0.1rem;
+  right: -0.1rem;
+  z-index: 10;
+}
+
+.keywords {
+  @include materialBox;
+  justify-content: right;
+  margin-top: 1rem;
+
+  @include mobile {
+    flex-wrap: nowrap;
+    justify-content: left;
+    margin: 0;
+    width: 100%;
+    overflow-x: scroll;
+  }
+}

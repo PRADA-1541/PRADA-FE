@@ -1,0 +1,22 @@
+@use '../../../styles/variables.scss';
+@import '../../../styles/variables.scss';
+
+.ingredientInRefrigerator {
+  position: relative;
+  @extend %flex-column;
+  align-items: center;
+  span {
+    padding-bottom: 1rem;
+  }
+  cursor: pointer;
+  // &Editting {
+  //   @extend .ingredientInRefrigerator;
+  // }
+}
+
+.ingredientNameInRefrigerator {
+  text-align: center;
+  @include mobile {
+    font-size: medium;
+  }
+}

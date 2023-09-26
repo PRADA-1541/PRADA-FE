@@ -1,0 +1,152 @@
+@use '../../styles/variables.scss';
+@import '../../styles/variables.scss';
+
+.cocktailRecipeContainer {
+  position: relative;
+  @extend %flex-column;
+  align-items: center;
+  box-shadow: 0 0 30px $shadow;
+  padding: 2rem 1.5rem;
+
+  @include mobile {
+    margin: 1rem 0;
+    padding: 1rem 0;
+    border-radius: $border-radius-bg;
+  }
+}
+
+.cocktailRecipeUserBtnContainer {
+  position: absolute;
+  top: 0.5rem;
+  right: 1.5rem;
+
+  span {
+    margin-left: 0.2rem;
+    font-size: small;
+    cursor: pointer;
+  }
+}
+
+.dateAndProfile {
+  @extend %flex-row;
+  justify-content: space-between;
+  width: 100%;
+  margin: {
+    top: 1rem;
+    bottom: 0.5rem;
+  }
+  span {
+    color: $text-deep-gray;
+    font-size: 0.8rem;
+  }
+
+  @include mobile {
+    margin: 0.5rem 0;
+    padding: 0 1rem;
+  }
+}
+
+.recipeIngredients {
+  @extend %flex-column;
+  margin-top: 3rem;
+  width: 100%;
+
+  &Title {
+    margin-left: 1.5rem;
+    font: {
+      size: 1.4rem;
+      weight: 400;
+    }
+  }
+
+  &Content {
+    padding: 0 10%;
+  }
+}
+
+.recipe {
+  @extend %flex-column;
+  margin-top: 3rem;
+  width: 100%;
+
+  @include mobile {
+    margin-top: 1rem;
+  }
+
+  &Title {
+    @extend .recipeIngredientsTitle;
+
+    @include mobile {
+      font: {
+        size: 1rem;
+        weight: 500;
+      }
+    }
+  }
+
+  &Content {
+    @extend %contents-box;
+    p {
+      color: $text-gray;
+      font-size: 0.9rem;
+      margin: 0.5rem 0;
+    }
+
+    @include mobile {
+      width: 17rem;
+      padding: 1rem;
+      p {
+        font-size: 0.8rem;
+        line-height: 1.2rem;
+      }
+    }
+  }
+}
+
+.evaluation {
+  @extend %flex-row;
+  align-items: center;
+  margin: {
+    top: 2.5rem;
+    bottom: 1.5rem;
+  }
+  width: 100%;
+
+  &Title {
+    @extend .recipeTitle;
+    margin-right: 1.9rem;
+  }
+}
+.star {
+  color: $primary;
+  cursor: pointer;
+}
+
+.comment {
+  @extend .recipe;
+  margin: 0;
+
+  &Title {
+    @extend .recipeTitle;
+  }
+
+  &Num {
+    display: inline;
+    @extend %flex-row;
+    @extend %center;
+    margin-left: 2rem;
+    font-size: 1.2rem;
+    text-align: center;
+    cursor: pointer;
+
+    @include mobile {
+      font-size: 1rem;
+    }
+  }
+
+  .arrow {
+    margin-left: 0.3rem;
+    font-size: 0.7rem;
+    color: $text-deep-gray;
+  }
+}

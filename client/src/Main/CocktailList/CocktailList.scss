@@ -1,0 +1,49 @@
+@use '../../styles/variables.scss';
+@import '../../styles/variables.scss';
+
+%arrow {
+  position: absolute;
+  font-size: 1.7rem;
+  color: $gray;
+  cursor: pointer;
+}
+
+.listContainer {
+  position: relative;
+  margin-bottom: 4rem;
+  width: 100%;
+
+  @include mobile {
+    margin-bottom: 3rem;
+    h1 {
+      margin: 0;
+    }
+  }
+}
+
+.cocktailListContainer {
+  @extend %flex-row;
+  align-items: center;
+
+  @include mobile {
+    height: 11.5rem;
+    overflow-y: hidden;
+  }
+}
+
+.cocktailContainer {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 1rem;
+  width: 100%;
+}
+
+.arrowLeft {
+  @extend %arrow;
+  left: -3rem;
+}
+
+.arrowRight {
+  @extend %arrow;
+  right: -3rem;
+}

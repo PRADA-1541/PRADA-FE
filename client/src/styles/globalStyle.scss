@@ -1,0 +1,139 @@
+@use './variables.scss';
+@import './variables.scss';
+
+@font-face {
+  font-family: 'spoqa';
+  src: url('../assets/fonts/SpoqaHanSansNeo-Regular.otf') format('opentype');
+}
+
+* {
+  font: normal normal normal 18px 'spoqa';
+  opacity: 1;
+  box-sizing: border-box;
+}
+
+div#root {
+  position: absolute;
+  @extend %flex-column;
+  flex-wrap: wrap;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  background: $background-app;
+  min-height: 100vh;
+}
+
+.AppContainer {
+  margin: auto;
+  margin-top: 7rem;
+  padding: 0 3rem;
+  box-sizing: content-box;
+  width: 55rem;
+  min-height: 100%;
+
+  @include mobile {
+    margin: 4rem auto;
+    padding: 0;
+    width: 20rem;
+    min-height: calc(100vh - 17rem);
+  }
+}
+
+form {
+  @extend %flex-column;
+}
+
+input,
+textarea {
+  margin-bottom: 1rem;
+  padding: 0.3rem 0.8rem;
+  font-size: medium;
+  border: $border;
+  border-radius: $border-radius-small;
+  &:focus {
+    outline: none;
+  }
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  height: 10rem;
+  line-height: 1.4rem;
+}
+
+button {
+  @extend %button;
+}
+
+a {
+  font-size: medium;
+  text-decoration: none;
+  color: #777777;
+}
+
+h1 {
+  font: {
+    size: 1.9rem;
+    weight: 500;
+  }
+
+  @include mobile {
+    font-size: 1.4rem;
+  }
+}
+
+h2 {
+  font-size: 1.7rem;
+  font-weight: 500;
+
+  @include mobile {
+    font-size: 1.2rem;
+  }
+}
+
+ol {
+  padding: {
+    left: 2rem;
+    right: 1rem;
+  }
+}
+
+.halfStar {
+  @extend %flex-column;
+  width: 0.5rem;
+  overflow-x: hidden;
+}
+
+.requiredMark {
+  display: inline-block;
+  font-size: small;
+  color: $primary;
+}
+
+.fileInput {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.prevent-overflow {
+  word-break: break-all;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lightGrayText {
+  color: $text-light-gray;
+}
+
+.deepGrayText {
+  color: $text-deep-gray;
+}
+
+.deleteText {
+  color: $primary;
+}

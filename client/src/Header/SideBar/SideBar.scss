@@ -1,0 +1,122 @@
+@use '../../styles/variables.scss';
+@import '../../styles/variables.scss';
+
+.background {
+  position: fixed;
+  visibility: visible;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  @extend %transition-4;
+  background-color: $background;
+
+  &Hidden {
+    @extend .background;
+    background-color: inherit;
+    visibility: hidden;
+  }
+}
+
+.closeSideBar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.4rem;
+}
+
+.sideBar {
+  position: fixed;
+  @extend %flex-column;
+  align-items: center;
+  justify-content: flex-start;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 20rem;
+  padding: 3rem 2rem 0 2rem;
+  background-color: white;
+  @extend %transition-4;
+  transform: translateX(0);
+  &SignedIn {
+    @extend .sideBar;
+    justify-content: space-around;
+  }
+
+  @include mobile {
+    width: 100%;
+    padding-top: 5rem;
+  }
+
+  &_hidden {
+    @extend .sideBar;
+    transform: translateX(20rem);
+
+    @include mobile {
+      transform: translateX(100%);
+    }
+  }
+}
+
+.profile {
+  @extend %flex-column;
+  @extend %center;
+
+  &Img {
+    height: 10rem;
+    width: 10rem;
+    object-fit: cover;
+    border-radius: 100%;
+  }
+
+  &Name {
+    padding: 0.8rem;
+    font: {
+      size: 1.3rem;
+      weight: 500;
+    }
+  }
+}
+
+.login {
+  margin: {
+    top: 2rem;
+    bottom: 4rem;
+  }
+  font: {
+    size: 1rem;
+    weight: 500;
+  }
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  width: 70%;
+  padding: 0;
+  color: $text-deep-gray;
+  li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    &:hover {
+      @extend %transition-2;
+      color: $text-light-gray;
+    }
+  }
+  hr {
+    width: 100%;
+    border: 0.5px solid $text-light-gray;
+    margin: 0.8rem 0;
+  }
+}
+
+.logout {
+  &Container {
+    @extend %flex-row;
+    justify-content: flex-end;
+    width: 100%;
+    margin-bottom: 4rem;
+  }
+  font-size: 0.8rem;
+  padding: 1px 0.2rem;
+}

@@ -1,0 +1,95 @@
+@use '../../../styles/variables.scss';
+@import '../../../styles/variables.scss';
+
+.ingredientContainer_bg {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr 5fr;
+  align-items: center;
+  margin: 0.5rem 0;
+  width: 100%;
+  min-height: 5rem;
+
+  @include mobile {
+    grid-template-columns: 1fr 1fr 4fr;
+    grid-gap: 0.5rem;
+    height: fit-content;
+    min-height: 0rem;
+  }
+
+  &_recipe {
+    @extend .ingredientContainer_bg;
+    transition: all 0.3s ease-in-out;
+    &:hover {
+      cursor: pointer;
+      box-shadow: 0px 3px 6px $shadow-hover;
+    }
+
+    @include mobile {
+      grid-template-columns: 1fr 2fr 4fr;
+    }
+  }
+}
+
+.ingredientImg_bg {
+  height: 5rem;
+  width: 5rem;
+  border-radius: 100%;
+
+  @include mobile {
+    width: 100%;
+    max-height: 5rem;
+    object-fit: scale-down;
+  }
+}
+
+.isInRefrigerator {
+  position: absolute;
+  top: -0.3rem;
+  width: 1.7rem;
+
+  @include mobile {
+    top: 0;
+    width: 1.2rem;
+  }
+}
+
+.ingredientNameAndVolume_bg {
+  p {
+    margin: 0;
+    font: {
+      size: 0.85rem;
+      weight: 500;
+    }
+
+    @include mobile {
+      font: {
+        size: 0.7rem;
+      }
+    }
+  }
+  span {
+    font-size: 0.8rem;
+    color: $text-deep-gray;
+
+    @include mobile {
+      font-size: 0.55rem;
+    }
+  }
+  .ingredientCategory_bg {
+    font-size: 0.65rem;
+    color: $primary;
+
+    @include mobile {
+      font-size: 0.5rem;
+    }
+  }
+}
+
+.ingredientDescription {
+  font-size: 0.8rem;
+
+  @include mobile {
+    font-size: 0.5rem;
+  }
+}

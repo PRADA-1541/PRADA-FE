@@ -1,0 +1,22 @@
+@import '../styles/variables.scss';
+
+.searchListContainer {
+  position: relative;
+
+  @include mobile {
+    margin-top: 3rem;
+
+    h1 {
+      width: 60%;
+    }
+  }
+}
+
+.searchedIngredients {
+  margin: auto;
+  width: 80%;
+
+  @include mobile {
+    width: 100%;
+  }
+}
