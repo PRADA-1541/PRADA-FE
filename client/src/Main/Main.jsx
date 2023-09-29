@@ -115,11 +115,11 @@ const Main = () => {
 
   return (
     <div className='mainContainer'>
-      {!isSignedIn && (
-        <p className='loginMessage'>
-          우측 상단의 메뉴 버튼을 클릭해서 로그인하면 {isMobile && '\n'}추천 칵테일을 만나볼 수 있어요!
-        </p>
-      )}
+      <p className='loginMessage'>
+        {isSignedIn
+          ? `사용자의 리뷰 / 즐겨찾기 / 댓글에 따라서 ${isMobile ? '\n' : ''}추천 칵테일이 달라져요!`
+          : `우측 상단의 메뉴 버튼을 클릭해서 로그인하면 ${isMobile ? '\n' : ''}추천 칵테일을 만나볼 수 있어요!`}
+      </p>
       <CocktailPreview
         cocktailIdx={todayRecommendedCocktail.cocktailIdx}
         korName={todayRecommendedCocktail.cocktailKorName}

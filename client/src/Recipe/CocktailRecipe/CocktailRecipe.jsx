@@ -81,7 +81,7 @@ const CocktailRecipe = () => {
       cocktailName: cocktail.cocktailName,
       cocktailKorName: cocktail.cocktailKorName,
       cocktailDescription: cocktail.cocktailDescription,
-      keywords: cocktail.keywords,
+      keywords: cocktail.keywords.filter((keyword) => keyword !== '숏 드링크' && keyword !== '롱 드링크'),
       cocktailImage: cocktail.cocktailImage,
       ingredients: ingredients.map((ingredient) =>
         ingredient.isNew === 1
