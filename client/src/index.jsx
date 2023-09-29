@@ -9,15 +9,15 @@ import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <React.StrictMode>
-  <RecoilRoot>
-    <ThemeProvider theme={theme}>
-      <CookiesProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </CookiesProvider>
-    </ThemeProvider>
-  </RecoilRoot>
-  // </React.StrictMode>
+  <React.StrictMode>
+    <RecoilRoot>
+      <ThemeProvider theme={theme}>
+        <CookiesProvider>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </CookiesProvider>
+      </ThemeProvider>
+    </RecoilRoot>
+  </React.StrictMode>
 );
