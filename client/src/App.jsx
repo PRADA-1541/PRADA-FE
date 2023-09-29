@@ -45,7 +45,7 @@ Sentry.init({
     new Sentry.Replay(),
   ],
   tracesSampleRate: 1.0,
-  replaysSessionSampleRate: 0.1,
+  replaysSessionSampleRate: 0.5,
   replaysOnErrorSampleRate: 0.1,
 });
 
