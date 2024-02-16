@@ -141,6 +141,7 @@ export const SendKakaoToken = async (
       path: '/',
       secure: true,
       sameSite: 'none',
+      httpOnly: true,
       expires: exp,
     });
     authInterceptor(refreshToken, setUserInfo, removeCookie);
@@ -200,6 +201,7 @@ export const signUp = async (email, nickname, profileImg, setUserInfo, setCookie
       path: '/',
       secure: true,
       sameSite: 'none',
+      httpOnly: true,
       expires: exp,
     });
     authInterceptor(res.data.result.refreshToken, setUserInfo, removeCookie);
